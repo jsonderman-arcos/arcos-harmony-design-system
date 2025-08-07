@@ -41,6 +41,9 @@ Thumbs.db
 *.war
 
 # Large media files
+ 
+# Environment variables
+.env
 *.mp4
 *.tiff
 *.avi
