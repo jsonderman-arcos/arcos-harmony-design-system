@@ -6,17 +6,17 @@
  * collections and modes detected in Figma data.
  */
 
-require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 // Configuration for the transformation process
 const CONFIG = {
-  // Input/Output paths
-  inputPath: path.join(__dirname, 'variables', 'figma-variables-raw.json'),
-  collectionsModesPath: path.join(__dirname, 'variables', 'figma-collections-modes.json'),
-  outputDir: path.join(__dirname, 'tokens'),
-  archiveDir: path.join(__dirname, 'archive'),
+  // Input/Output paths - updated for script directory
+  inputPath: path.join(__dirname, '..', 'variables', 'figma-variables-raw.json'),
+  collectionsModesPath: path.join(__dirname, '..', 'variables', 'figma-collections-modes.json'),
+  outputDir: path.join(__dirname, '..', 'tokens'),
+  archiveDir: path.join(__dirname, '..', 'archive'),
   
   // Core token filename
   coreTokensFilename: 'coreTokens.json',
@@ -31,19 +31,39 @@ const CONFIG = {
       filename: 'darkModeTokens.json', 
       description: 'Dark mode design tokens'
     },
-    // Other modes can be added dynamically as they're discovered
+    'Mobile': { 
+      filename: 'mobileModeTokens.json', 
+      description: 'Mobile mode design tokens'
+    },
+    'Default': { 
+      filename: 'defaultModeTokens.json', 
+      description: 'Default mode design tokens'
+    },
+    'Large Screen': { 
+      filename: 'large screenModeTokens.json', 
+      description: 'Large screen mode design tokens'
+    }
   },
   
-  // Collection to file mappings
+  // Token mapping - how Figma variable naming maps to token structure
+  tokenMapping: {
+    // Will be populated dynamically based on variable analysis
+  },
+  
+  // Date format for file metadata
+  dateFormat: { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  },
+  
+  // Collection mappings
   collectionMappings: {
-    'Core': 'coreTokens.json',
-    'Colors': null, // Will be distributed to mode-specific files
+    'Colors': null // Will be distributed to mode-specific files
   },
-  
+
   // Deletion strategy: 'archive', 'delete', 'mark-deprecated', or 'report'
-  deletionStrategy: 'archive',
-  
-  // Metadata defaults
+  deletionStrategy: 'archive',  // Metadata defaults
   metadataDefaults: {
     author: process.env.AUTHOR_NAME || 'Design System Team'
   },

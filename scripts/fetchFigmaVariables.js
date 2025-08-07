@@ -1,8 +1,8 @@
 // fetchFigmaVariables.js
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 const axios = require('axios');
 const fs = require('fs');
-const path = require('path');
 
 // Get environment variables
 const FIGMA_PERSONAL_ACCESS_TOKEN = process.env.FIGMA_PERSONAL_ACCESS_TOKEN;
@@ -28,8 +28,8 @@ async function fetchFigmaVariables() {
       }
     });
     
-    // Save the raw response
-    const outputPath = path.join(__dirname, 'variables', 'figma-variables-raw.json');
+    // Save the raw response - updated to use path from script directory
+    const outputPath = path.join(__dirname, '..', 'variables', 'figma-variables-raw.json');
     fs.writeFileSync(outputPath, JSON.stringify(response.data, null, 2));
     
     console.log(`Successfully saved Figma variables to ${outputPath}`);

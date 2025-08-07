@@ -11,9 +11,9 @@ const path = require('path');
 
 // Configuration
 const CONFIG = {
-  tokensDir: path.join(__dirname, 'tokens'),
-  themePath: path.join(__dirname, 'theme.ts'),
-  backupPath: path.join(__dirname, 'theme.ts.backup'),
+  tokensDir: path.join(__dirname, '..', 'tokens'),
+  themePath: path.join(__dirname, '..', 'theme.ts'),
+  backupPath: path.join(__dirname, '..', 'theme.ts.backup'),
   coreTokensFile: 'coreTokens.json',
   defaultMode: 'dark',
   modePattern: /^(\w+)ModeTokens\.json$/

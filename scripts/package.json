@@ -1,0 +1,13 @@
+{
+  "name": "ux-design-system-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for UX Design System",
+  "scripts": {
+    "fetch-variables": "node fetchFigmaVariables.js",
+    "analyze-variables": "node analyzeVariables.js",
+    "transform-variables": "node transformVariables.js",
+    "update-theme": "node updateTheme.js",
+    "build-tokens": "npm run fetch-variables && npm run analyze-variables && npm run transform-variables && npm run update-theme"
+  },
+  "dependencies": {}
+}

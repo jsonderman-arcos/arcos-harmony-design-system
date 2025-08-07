@@ -5,6 +5,15 @@
     "author": "Jason Sonderman"
   },
   "base": {
+    "secondary": {
+      "on-main": {
+        "$type": "color",
+        "$value": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:d802428144effe324e8e813b0673bcfefeb44a67/15858:1719"
+        }
+      }
+    },
     "border": {
       "size-default": {
         "$type": "dimension",
@@ -418,54 +427,6 @@
         "outlinedborder": {
           "$type": "color",
           "$value": "{Lighthouse.colors.blues.slate-blue-darkly.500-alpha-50}",
-          "$description": "Used for enabled states (e.g Button outlined variant). The token represents the value of outlinedBorderOpacity (0.5 by default) of the main token."
-        }
-      }
-    },
-    "secondary": {
-      "main": {
-        "$type": "color",
-        "$value": "{Lighthouse.colors.greens.soft-teal-darkly.600}"
-      },
-      "dark": {
-        "$type": "color",
-        "$value": "{Lighthouse.colors.greens.soft-teal-darkly.800}"
-      },
-      "light": {
-        "$type": "color",
-        "$value": "{Lighthouse.colors.greens.soft-teal-darkly.400}"
-      },
-      "contrast-text": {
-        "$type": "color",
-        "$value": "{Lighthouse.colors.greens.soft-teal-darkly.100}"
-      },
-      "on-main": {
-        "$type": "color",
-        "$value": "{Base.secondary.contrast-text}"
-      },
-      "states": {
-        "hover": {
-          "$type": "color",
-          "$value": "{Lighthouse.colors.greens.soft-teal-darkly.600-alpha-08}",
-          "$description": "Used for hover states. The token represents the value of action.hoverOpacity (0.04 by default) of the main token."
-        },
-        "selected": {
-          "$type": "color",
-          "$value": "{Lighthouse.colors.greens.soft-teal-darkly.600-alpha-16}",
-          "$description": "Used for selected states. The token represents the value of action.selectedOpacity (0.08 by default) of the main token."
-        },
-        "focus": {
-          "$type": "color",
-          "$value": "{Lighthouse.colors.greens.soft-teal-darkly.600-alpha-12}",
-          "$description": "Used for focus states. The token represents the value of action.focusOpacity (0.12 by default) of the main token."
-        },
-        "focusvisible": {
-          "$type": "color",
-          "$value": "{Lighthouse.colors.greens.soft-teal-darkly.600-alpha-30}"
-        },
-        "outlinedborder": {
-          "$type": "color",
-          "$value": "{Lighthouse.colors.greens.soft-teal-darkly.600-alpha-50}",
           "$description": "Used for enabled states (e.g Button outlined variant). The token represents the value of outlinedBorderOpacity (0.5 by default) of the main token."
         }
       }
