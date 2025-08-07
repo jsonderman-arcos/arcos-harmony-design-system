@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Load the raw Figma variables data
-const rawDataPath = path.join(__dirname, 'Variables', 'figma-variables-raw.json');
+const rawDataPath = path.join(__dirname, 'variables', 'figma-variables-raw.json');
 const rawData = JSON.parse(fs.readFileSync(rawDataPath, 'utf8'));
 
 // Function to analyze and extract modes from collections
@@ -72,6 +72,6 @@ analyzeVariableTypes();
 analyzeSampleVariableNames();
 
 // Save the collections info for future reference
-const collectionsPath = path.join(__dirname, 'Variables', 'figma-collections-modes.json');
+const collectionsPath = path.join(__dirname, 'variables', 'figma-collections-modes.json');
 fs.writeFileSync(collectionsPath, JSON.stringify(collections, null, 2));
 console.log(`\nSaved collections and modes info to ${collectionsPath}`);

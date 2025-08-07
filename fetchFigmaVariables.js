@@ -29,7 +29,7 @@ async function fetchFigmaVariables() {
     });
     
     // Save the raw response
-    const outputPath = path.join(__dirname, 'Variables', 'figma-variables-raw.json');
+    const outputPath = path.join(__dirname, 'variables', 'figma-variables-raw.json');
     fs.writeFileSync(outputPath, JSON.stringify(response.data, null, 2));
     
     console.log(`Successfully saved Figma variables to ${outputPath}`);

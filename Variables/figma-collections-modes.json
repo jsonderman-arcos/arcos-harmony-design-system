@@ -1,54 +1,54 @@
 {
   "collections": [
     {
-      "id": "VariableCollectionId:54c37122b92d6f7561bd49074246dfe51e74a374/93:36",
-      "name": "Colors"
-    },
-    {
-      "id": "VariableCollectionId:15948:75808",
-      "name": "Core"
-    },
-    {
       "id": "VariableCollectionId:a05f07d4805b49c4164802919039d41b4422b2f2/15858:865",
       "name": "Application"
     },
     {
+      "id": "VariableCollectionId:54c37122b92d6f7561bd49074246dfe51e74a374/93:36",
+      "name": "Colors"
+    },
+    {
       "id": "VariableCollectionId:15948:75783",
       "name": "Lighthouse Theme"
+    },
+    {
+      "id": "VariableCollectionId:15948:75808",
+      "name": "Core"
     }
   ],
   "modes": [
     "Light",
     "Dark",
+    "Mobile",
     "Default",
-    "Large Screen",
-    "Mobile"
+    "Large Screen"
   ],
   "modesByCollection": {
-    "VariableCollectionId:54c37122b92d6f7561bd49074246dfe51e74a374/93:36": [
-      "Light",
-      "Dark"
-    ],
-    "VariableCollectionId:15948:75808": [
-      "Default",
-      "Large Screen"
-    ],
     "VariableCollectionId:a05f07d4805b49c4164802919039d41b4422b2f2/15858:865": [
       "Light",
       "Dark",
       "Mobile"
     ],
+    "VariableCollectionId:54c37122b92d6f7561bd49074246dfe51e74a374/93:36": [
+      "Light",
+      "Dark"
+    ],
     "VariableCollectionId:15948:75783": [
       "Light",
       "Dark",
       "Mobile"
+    ],
+    "VariableCollectionId:15948:75808": [
+      "Default",
+      "Large Screen"
     ]
   },
   "modeIds": {
     "Light": "15948:2",
     "Dark": "15948:3",
+    "Mobile": "15948:4",
     "Default": "15948:5",
-    "Large Screen": "16284:0",
-    "Mobile": "15948:4"
+    "Large Screen": "16284:0"
   }
 }

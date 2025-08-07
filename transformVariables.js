@@ -1,5 +1,5 @@
 /**
- * Figma Variables to Design Tokens Transformation
+ * Figma variables to Design Tokens Transformation
  * 
  * This script transforms raw Figma variables into simplified token format
  * for use in design systems. It handles dynamic theme generation based on
@@ -13,8 +13,8 @@ const path = require('path');
 // Configuration for the transformation process
 const CONFIG = {
   // Input/Output paths
-  inputPath: path.join(__dirname, 'Variables', 'figma-variables-raw.json'),
-  collectionsModesPath: path.join(__dirname, 'Variables', 'figma-collections-modes.json'),
+  inputPath: path.join(__dirname, 'variables', 'figma-variables-raw.json'),
+  collectionsModesPath: path.join(__dirname, 'variables', 'figma-collections-modes.json'),
   outputDir: path.join(__dirname, 'tokens'),
   archiveDir: path.join(__dirname, 'archive'),
   
@@ -268,7 +268,7 @@ function createTokenMapping(collectionInfo) {
 
 /**
  * Analyze variable name patterns to identify structure
- * @param {Object} variables - Variables from Figma
+ * @param {Object} variables - variables from Figma
  * @param {Object} collectionInfo - Collection mapping information
  * @returns {Array} Discovered patterns
  */
@@ -282,9 +282,9 @@ function analyzeVariableNamePatterns(variables, collectionInfo) {
   const sampleSize = Math.min(Object.keys(variables).length, 50);
   // Convert object to array for sampling
   const variablesArray = Object.values(variables);
-  const sampleVariables = variablesArray.slice(0, sampleSize);
+  const samplevariables = variablesArray.slice(0, sampleSize);
   
-  sampleVariables.forEach(variable => {
+  samplevariables.forEach(variable => {
     const segments = variable.name.split('/');
     const collectionId = variable.variableCollectionId;
     const collection = collectionInfo.collectionMap[collectionId];
@@ -349,8 +349,8 @@ function analyzeVariableNamePatterns(variables, collectionInfo) {
  * @param {Object} collectionInfo - Collection mapping information
  * @returns {Object} Transformed tokens organized by output file
  */
-function transformVariablesByCollectionAndMode(tokenMap, collectionInfo) {
-  console.log('\n====== TRANSFORMING VARIABLES ======\n');
+function transformvariablesByCollectionAndMode(tokenMap, collectionInfo) {
+  console.log('\n====== TRANSFORMING variables ======\n');
   
   const transformedTokens = {
     core: { 
@@ -423,7 +423,7 @@ function transformVariablesByCollectionAndMode(tokenMap, collectionInfo) {
 
 /**
  * Create a map of variables by ID for reference resolution
- * @param {Object} variables - Variables from Figma
+ * @param {Object} variables - variables from Figma
  * @returns {Object} Map of variable IDs to variable data
  */
 function createVariableMap(variables) {
@@ -1195,7 +1195,7 @@ function handleDeletedModes(currentModes, existingFiles, generatedFiles) {
 /**
  * Main transformation function
  */
-function transformVariables() {
+function transformvariables() {
   try {
     console.log('🚀 Starting Figma variables transformation');
     
@@ -1213,7 +1213,7 @@ function transformVariables() {
     const tokenMap = createTokenMapping(collectionInfo);
     
     // Transform variables
-    const transformedTokens = transformVariablesByCollectionAndMode(tokenMap, collectionInfo);
+    const transformedTokens = transformvariablesByCollectionAndMode(tokenMap, collectionInfo);
     
     // Generate token files
     generateTokenFiles(transformedTokens, existingFiles, collectionInfo);
@@ -1227,10 +1227,10 @@ function transformVariables() {
 
 // Execute transformation if this is the main module
 if (require.main === module) {
-  transformVariables();
+  transformvariables();
 }
 
 module.exports = {
-  transformVariables,
+  transformvariables,
   CONFIG
 };
