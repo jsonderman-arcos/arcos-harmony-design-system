@@ -4,6 +4,10 @@
     "updated": "Aug 7, 2025",
     "author": "Jason Sonderman"
   },
+  "text": {
+    "$type": "color",
+    "$value": "rgba(0, 0, 0, 0.87)"
+  },
   "base": {
     "secondary": {
       "on-main": {
