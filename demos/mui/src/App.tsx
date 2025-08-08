@@ -1,8 +1,22 @@
 import React, { useState } from 'react';
-import { ThemeProvider, CssBaseline, Box, Container, Typography, Button, Stack, AppBar, Toolbar } from '@mui/material';
+import { 
+  ThemeProvider, 
+  CssBaseline, 
+  Box, 
+  Container, 
+  Typography, 
+  Button, 
+  Stack, 
+  AppBar, 
+  Toolbar 
+} from '@mui/material';
 import { theme, setThemeMode, getAvailableThemeModes } from './theme';
+import type { ThemeMode } from './theme';
+
+// Only import components after confirming basic rendering works
 import TypographySection from './components/TypographySection';
 import ButtonsSection from './components/ButtonsSection';
+// We'll add back other components once we confirm these work
 import InputsSection from './components/InputsSection';
 import DataDisplaySection from './components/DataDisplaySection';
 import FeedbackSection from './components/FeedbackSection';
@@ -13,7 +27,7 @@ const App: React.FC = () => {
   const availableModes = getAvailableThemeModes();
   
   // Handler for theme mode switching
-  const handleThemeChange = (mode: string) => {
+  const handleThemeChange = (mode: ThemeMode) => {
     const newTheme = setThemeMode(mode);
     setCurrentTheme(newTheme);
   };
@@ -52,7 +66,7 @@ const App: React.FC = () => {
           </Typography>
         </Box>
         
-        {/* Component Sections */}
+        {/* Component Sections - adding gradually */}
         <TypographySection />
         <ButtonsSection />
         <InputsSection />
