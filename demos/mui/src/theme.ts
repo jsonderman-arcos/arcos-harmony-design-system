@@ -34,6 +34,11 @@ function resolveTokenValue(path: string, visited = new Set<string>()): unknown {
   const modeTokens = themeTokensByMode[currentThemeMode] || darkModeTokens;
   let value = getValueByPath(modeTokens, path) ?? getValueByPath(coreTokens, path);
   
+  // Debug log for important token paths
+  if (path.includes('primary') || path.includes('slate-blue')) {
+    console.log(`Resolving token: ${path}, Mode: ${currentThemeMode}, Value:`, value);
+  }
+  
   if (typeof value === 'object' && value && '$value' in value)
     value = (value as { $value: unknown }).$value;
   
@@ -66,18 +71,27 @@ function getValueByPath(obj: Record<string, unknown>, path: string): unknown {
     );
 }
 
-// Helper function to parse px values to numbers
-function parsePxToNumber(px: string): number {
-  return Number(px.replace('px', ''));
-}
+// Helper function to parse px values to numbers (for future use)
+// function parsePxToNumber(px: string): number {
+//   return Number(px.replace('px', ''));
+// }
 
 // Get a resolved value by token path
 export function getValueByTokenName(tokenPath: string): string {
   return resolveTokenValue(tokenPath) as string;
 }
 
-// Get color values for theme
-const primary = getValueByTokenName('Base.primary.main') || '#1976d2';
+// Get color values for theme based on current mode
+function getPrimaryColor() {
+  // For light and mobile modes, use the appropriate blue color
+  if (currentThemeMode === 'light' || currentThemeMode === 'mobile') {
+    return getValueByTokenName('Lighthouse.colors.blues.slate-blue.500') || '#0288d1';
+  }
+  // For dark mode
+  return getValueByTokenName('Lighthouse.colors.blues.slate-blue-darkly.500') || '#1976d2';
+}
+
+const primary = getPrimaryColor();
 const secondary = getValueByTokenName('Base.secondary.main') || '#9c27b0';
 
 // Create theme with tokens
@@ -115,7 +129,8 @@ export function setThemeMode(mode: ThemeMode) {
   // Generate new theme with the updated mode
   const newTheme = getThemeByTokens();
   
-  console.log(`Theme switched to ${mode} mode`);
+  // Log the primary color for debugging
+  console.log(`Theme switched to ${mode} mode with primary color: ${newTheme.palette.primary.main}`);
   return newTheme;
 }
 

@@ -21,29 +21,9 @@ const CONFIG = {
   // Core token filename
   coreTokensFilename: 'coreTokens.json',
   
-  // Mode-specific configurations
-  modeConfigs: {
-    'Light': { 
-      filename: 'lightModeTokens.json', 
-      description: 'Light mode design tokens'
-    },
-    'Dark': { 
-      filename: 'darkModeTokens.json', 
-      description: 'Dark mode design tokens'
-    },
-    'Mobile': { 
-      filename: 'mobileModeTokens.json', 
-      description: 'Mobile mode design tokens'
-    },
-    'Default': { 
-      filename: 'defaultModeTokens.json', 
-      description: 'Default mode design tokens'
-    },
-    'Large Screen': { 
-      filename: 'large screenModeTokens.json', 
-      description: 'Large screen mode design tokens'
-    }
-  },
+  // Mode-specific configurations - will be populated from figma-collections-modes.json
+  // This is just a fallback if collections-modes.json doesn't exist or for manual overrides
+  modeConfigs: {},
   
   // Token mapping - how Figma variable naming maps to token structure
   tokenMapping: {
@@ -83,6 +63,58 @@ const options = {
 // Override configuration based on command line options
 if (options.deletion && ['archive', 'delete', 'mark-deprecated', 'report'].includes(options.deletion)) {
   CONFIG.deletionStrategy = options.deletion;
+}
+
+/**
+ * Utility function to normalize a mode name and generate a filename
+ * @param {string} modeName - Name of the mode from Figma
+ * @returns {Object} Object with normalized mode name and filename
+ */
+function normalizeMode(modeName) {
+  const normalized = modeName.trim();
+  const fileName = normalized.toLowerCase().replace(/\s+/g, '') + 'ModeTokens.json';
+  return { normalized, fileName };
+}
+
+// Load mode configurations from figma-collections-modes.json if it exists
+try {
+  console.log(`🔍 Loading mode configurations from ${CONFIG.collectionsModesPath}`);
+  if (fs.existsSync(CONFIG.collectionsModesPath)) {
+    const collectionsModesData = JSON.parse(fs.readFileSync(CONFIG.collectionsModesPath, 'utf8'));
+    
+    // Populate mode configs dynamically from the data
+    if (collectionsModesData.modes && Array.isArray(collectionsModesData.modes)) {
+      collectionsModesData.modes.forEach(mode => {
+        const { normalized, fileName } = normalizeMode(mode);
+        
+        // Only add if not already defined (allows manual overrides)
+        if (!CONFIG.modeConfigs[normalized]) {
+          CONFIG.modeConfigs[normalized] = {
+            filename: fileName,
+            description: `${normalized} mode design tokens`
+          };
+          console.log(`📝 Loaded mode configuration for: ${normalized}`);
+        }
+      });
+      console.log(`✅ Successfully loaded ${Object.keys(CONFIG.modeConfigs).length} mode configurations`);
+    }
+  } else {
+    console.warn(`⚠️ No collections-modes file found at ${CONFIG.collectionsModesPath}, using default configurations`);
+    // Set some reasonable defaults if the file doesn't exist
+    CONFIG.modeConfigs = {
+      'Light': { 
+        filename: 'lightModeTokens.json', 
+        description: 'Light mode design tokens'
+      },
+      'Dark': { 
+        filename: 'darkModeTokens.json', 
+        description: 'Dark mode design tokens'
+      }
+    };
+  }
+} catch (error) {
+  console.error(`❌ Error loading mode configurations: ${error.message}`);
+  console.warn('⚠️ Falling back to default configurations');
 }
 
 // Load the raw Figma variables data
@@ -382,12 +414,15 @@ function transformvariablesByCollectionAndMode(tokenMap, collectionInfo) {
   // Initialize token structures for each mode
   collectionInfo.modes.forEach(mode => {
     if (!CONFIG.modeConfigs[mode]) {
-      // Add newly discovered modes to the configuration
+      // Add newly discovered modes to the configuration - this shouldn't happen
+      // since we already loaded them from figma-collections-modes.json, but just in case
+      const { normalized, fileName } = normalizeMode(mode);
+      
       CONFIG.modeConfigs[mode] = {
-        filename: `${mode.toLowerCase()}ModeTokens.json`,
+        filename: fileName,
         description: `${mode} mode design tokens`
       };
-      console.log(`🆕 Discovered new mode: ${mode}`);
+      console.log(`🆕 Discovered unexpected new mode: ${mode}`);
     }
     
     transformedTokens.modes[mode] = {

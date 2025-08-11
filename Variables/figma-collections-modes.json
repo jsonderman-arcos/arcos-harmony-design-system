@@ -1,10 +1,6 @@
 {
   "collections": [
     {
-      "id": "VariableCollectionId:15948:75783",
-      "name": "Lighthouse Theme"
-    },
-    {
       "id": "VariableCollectionId:a05f07d4805b49c4164802919039d41b4422b2f2/15858:865",
       "name": "Application"
     },
@@ -15,6 +11,10 @@
     {
       "id": "VariableCollectionId:15948:75808",
       "name": "Core"
+    },
+    {
+      "id": "VariableCollectionId:15948:75783",
+      "name": "Lighthouse Theme"
     }
   ],
   "modes": [
@@ -25,11 +25,6 @@
     "Large Screen"
   ],
   "modesByCollection": {
-    "VariableCollectionId:15948:75783": [
-      "Light",
-      "Dark",
-      "Mobile"
-    ],
     "VariableCollectionId:a05f07d4805b49c4164802919039d41b4422b2f2/15858:865": [
       "Light",
       "Dark",
@@ -42,12 +37,17 @@
     "VariableCollectionId:15948:75808": [
       "Default",
       "Large Screen"
+    ],
+    "VariableCollectionId:15948:75783": [
+      "Light",
+      "Dark",
+      "Mobile"
     ]
   },
   "modeIds": {
-    "Light": "73:0",
-    "Dark": "93:0",
-    "Mobile": "15722:0",
+    "Light": "15948:2",
+    "Dark": "15948:3",
+    "Mobile": "15948:4",
     "Default": "15948:5",
     "Large Screen": "16284:0"
   }

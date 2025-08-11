@@ -1,6 +1,6 @@
 /** 
  * Tailwind CSS configuration
- * Auto-generated from design tokens on 8/7/2025
+ * Auto-generated from design tokens on 8/11/2025
  * DO NOT EDIT MANUALLY
  */
  
@@ -14,7 +14,6 @@ module.exports = {
     },
     "colors": {
       "light": {
-        "base-secondary-on-main": "var(--figma-alias-VariableID:d802428144effe324e8e813b0673bcfefeb44a67)",
         "base-border-focus-ring": "var(--base-text-_states-focus-visible)",
         "base-border-default": "var(--base-divider-default)",
         "base-label-always-dark": "var(--lighthouse-colors-neutrals-black-alpha-87)",
@@ -93,6 +92,16 @@ module.exports = {
         "base-primary-states-focus": "var(--lighthouse-colors-blues-slate-blue-500-alpha-12)",
         "base-primary-states-focusvisible": "var(--lighthouse-colors-blues-slate-blue-500-alpha-30)",
         "base-primary-states-outlinedborder": "var(--lighthouse-colors-blues-slate-blue-500-alpha-50)",
+        "base-secondary-main": "var(--lighthouse-colors-greens-soft-teal-800)",
+        "base-secondary-dark": "var(--lighthouse-colors-greens-soft-teal-600)",
+        "base-secondary-light": "var(--lighthouse-colors-greens-soft-teal-300)",
+        "base-secondary-contrast-text": "var(--lighthouse-colors-neutrals-white-100)",
+        "base-secondary-on-main": "var(--base-secondary-contrast-text)",
+        "base-secondary-states-hover": "var(--lighthouse-colors-greens-soft-teal-800-alpha-06)",
+        "base-secondary-states-selected": "var(--lighthouse-colors-greens-soft-teal-800-alpha-16)",
+        "base-secondary-states-focus": "var(--lighthouse-colors-greens-soft-teal-800-alpha-30)",
+        "base-secondary-states-focusvisible": "var(--lighthouse-colors-greens-soft-teal-800-alpha-50)",
+        "base-secondary-states-outlinedborder": "var(--lighthouse-colors-greens-soft-teal-800-alpha-50)",
         "base-action-active": "var(--lighthouse-colors-neutrals-black-alpha-56)",
         "base-action-hover": "var(--lighthouse-colors-neutrals-black-alpha-06)",
         "base-action-selected": "var(--lighthouse-colors-neutrals-black-alpha-12)",
@@ -269,6 +278,7 @@ module.exports = {
         "component-list-item-background-fill-default": "var(--base-background-elevations-level-4)",
         "component-list-item-background-fill-selected": "var(--lighthouse-colors-blues-vivid-blue-500-alpha-16)",
         "component-list-item-background-fill-highlighted": "var(--lighthouse-colors-blues-vivid-blue-500-alpha-16)",
+        "component-list-item-background-fill-warning": "var(--lighthouse-colors-yellows-pale-yellow-darkly-500-alpha-16)",
         "component-list-item-text-fill-main-text": "var(--base-text-primary)",
         "component-list-item-text-fill-support-text": "var(--base-text-caption)",
         "component-list-item-text-fill-timestamp": "var(--base-text-disabled)",
@@ -377,7 +387,6 @@ module.exports = {
         "component-filtercard-idle-states-active-stroke": "var(--base-status-status-idle-default)"
       },
       "dark": {
-        "base-secondary-on-main": "var(--figma-alias-VariableID:d802428144effe324e8e813b0673bcfefeb44a67)",
         "base-border-focus-ring": "var(--base-text-_states-focus-visible)",
         "base-border-default": "var(--base-divider-default)",
         "base-label-always-dark": "var(--lighthouse-colors-neutrals-black-alpha-87)",
@@ -456,6 +465,16 @@ module.exports = {
         "base-primary-states-focus": "var(--lighthouse-colors-blues-slate-blue-darkly-500-alpha-12)",
         "base-primary-states-focusvisible": "var(--lighthouse-colors-blues-slate-blue-darkly-500-alpha-30)",
         "base-primary-states-outlinedborder": "var(--lighthouse-colors-blues-slate-blue-darkly-500-alpha-50)",
+        "base-secondary-main": "var(--lighthouse-colors-greens-soft-teal-darkly-600)",
+        "base-secondary-dark": "var(--lighthouse-colors-greens-soft-teal-darkly-800)",
+        "base-secondary-light": "var(--lighthouse-colors-greens-soft-teal-darkly-400)",
+        "base-secondary-contrast-text": "var(--lighthouse-colors-greens-soft-teal-darkly-100)",
+        "base-secondary-on-main": "var(--base-secondary-contrast-text)",
+        "base-secondary-states-hover": "var(--lighthouse-colors-greens-soft-teal-darkly-600-alpha-08)",
+        "base-secondary-states-selected": "var(--lighthouse-colors-greens-soft-teal-darkly-600-alpha-16)",
+        "base-secondary-states-focus": "var(--lighthouse-colors-greens-soft-teal-darkly-600-alpha-12)",
+        "base-secondary-states-focusvisible": "var(--lighthouse-colors-greens-soft-teal-darkly-600-alpha-30)",
+        "base-secondary-states-outlinedborder": "var(--lighthouse-colors-greens-soft-teal-darkly-600-alpha-50)",
         "base-action-active": "var(--lighthouse-colors-neutrals-white-alpha-56)",
         "base-action-hover": "var(--lighthouse-colors-neutrals-white-alpha-12)",
         "base-action-selected": "var(--lighthouse-colors-neutrals-white-alpha-38)",
@@ -632,6 +651,7 @@ module.exports = {
         "component-list-item-background-fill-default": "var(--base-background-elevations-level-2)",
         "component-list-item-background-fill-selected": "var(--lighthouse-colors-neutrals-white-alpha-16)",
         "component-list-item-background-fill-highlighted": "var(--lighthouse-colors-blues-vivid-blue-darkly-500-alpha-16)",
+        "component-list-item-background-fill-warning": "var(--lighthouse-colors-yellows-yellow-darkly-500-alpha-16)",
         "component-list-item-text-fill-main-text": "var(--base-text-primary)",
         "component-list-item-text-fill-support-text": "var(--base-text-caption)",
         "component-list-item-text-fill-timestamp": "var(--base-text-disabled)",
@@ -740,7 +760,6 @@ module.exports = {
         "component-filtercard-idle-states-active-stroke": "var(--base-status-status-idle-default)"
       },
       "mobile": {
-        "base-secondary-on-main": "var(--figma-alias-VariableID:d802428144effe324e8e813b0673bcfefeb44a67)",
         "base-border-focus-ring": "var(--base-text-_states-focus-visible)",
         "base-border-default": "var(--base-divider-default)",
         "base-label-always-dark": "var(--lighthouse-colors-neutrals-black-alpha-87)",
@@ -819,6 +838,16 @@ module.exports = {
         "base-primary-states-focus": "var(--lighthouse-colors-blues-slate-blue-500-alpha-12)",
         "base-primary-states-focusvisible": "var(--lighthouse-colors-blues-slate-blue-500-alpha-30)",
         "base-primary-states-outlinedborder": "var(--lighthouse-colors-blues-slate-blue-500-alpha-50)",
+        "base-secondary-main": "var(--lighthouse-colors-greens-soft-teal-800)",
+        "base-secondary-dark": "var(--lighthouse-colors-greens-soft-teal-600)",
+        "base-secondary-light": "var(--lighthouse-colors-greens-soft-teal-300)",
+        "base-secondary-contrast-text": "var(--lighthouse-colors-neutrals-white-100)",
+        "base-secondary-on-main": "var(--base-secondary-contrast-text)",
+        "base-secondary-states-hover": "var(--lighthouse-colors-greens-soft-teal-800-alpha-06)",
+        "base-secondary-states-selected": "var(--lighthouse-colors-greens-soft-teal-800-alpha-16)",
+        "base-secondary-states-focus": "var(--lighthouse-colors-greens-soft-teal-800-alpha-30)",
+        "base-secondary-states-focusvisible": "var(--lighthouse-colors-greens-soft-teal-800-alpha-50)",
+        "base-secondary-states-outlinedborder": "var(--lighthouse-colors-greens-soft-teal-800-alpha-50)",
         "base-action-active": "var(--lighthouse-colors-neutrals-black-alpha-56)",
         "base-action-hover": "var(--lighthouse-colors-neutrals-black-alpha-06)",
         "base-action-selected": "var(--lighthouse-colors-neutrals-black-alpha-12)",
@@ -995,6 +1024,7 @@ module.exports = {
         "component-list-item-background-fill-default": "var(--base-background-elevations-highest)",
         "component-list-item-background-fill-selected": "var(--lighthouse-colors-blues-vivid-blue-500-alpha-16)",
         "component-list-item-background-fill-highlighted": "var(--lighthouse-colors-blues-vivid-blue-500-alpha-16)",
+        "component-list-item-background-fill-warning": "var(--lighthouse-colors-yellows-yellow-darkly-500-alpha-16)",
         "component-list-item-text-fill-main-text": "var(--base-text-primary)",
         "component-list-item-text-fill-support-text": "var(--base-text-caption)",
         "component-list-item-text-fill-timestamp": "var(--base-text-disabled)",
@@ -1123,40 +1153,10 @@ module.exports = {
       "DEFAULT": "8pxpx",
       "none": "0pxpx"
     },
-    "fontSize": {
-      "2xs": "10pxpx",
-      "xs": "12pxpx",
-      "sm": "14pxpx",
-      "base": "16pxpx",
-      "md": "18pxpx",
-      "lg": "20pxpx",
-      "xl": "24pxpx",
-      "2xl": "30pxpx",
-      "3xl": "36pxpx",
-      "4xl": "48pxpx",
-      "5xl": "60pxpx",
-      "huge": "96pxpx"
-    },
-    "fontWeight": {
-      "light": "300",
-      "regular": "400",
-      "medium": "500",
-      "semibold": "600",
-      "bold": "700"
-    },
-    "fontFamily": {
-      "base": [
-        "Arial"
-      ],
-      "narrow": [
-        "Arial Narrow"
-      ]
-    },
-    "boxShadow": {
-      "level-1": "{Lighthouse.colors.neutrals.black.alpha-12}",
-      "level-2": "{Lighthouse.colors.neutrals.black.alpha-14}",
-      "level-3": "{Lighthouse.colors.neutrals.black.alpha-20}"
-    },
+    "fontSize": {},
+    "fontWeight": {},
+    "fontFamily": {},
+    "boxShadow": {},
     "extend": {}
   },
   "darkMode": "class",

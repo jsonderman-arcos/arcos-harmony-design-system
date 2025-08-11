@@ -1,15 +1,17 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles'
 import coreTokens from './tokens/coreTokens.json'
 import darkModeTokens from './tokens/darkModeTokens.json'
+import largescreenModeTokens from './tokens/largescreenModeTokens.json'
 import lightModeTokens from './tokens/lightModeTokens.json'
 import mobileModeTokens from './tokens/mobileModeTokens.json'
 
 // Available theme modes
-type ThemeMode = 'dark' | 'light' | 'mobile' | string;
+type ThemeMode = 'dark' | 'largescreen' | 'light' | 'mobile' | string;
 
 // Theme tokens by mode
 const themeTokensByMode: Record<ThemeMode, Record<string, unknown>> = {
   'dark': darkModeTokens,
+  'largescreen': largescreenModeTokens,
   'light': lightModeTokens,
   'mobile': mobileModeTokens,
   // Add additional themes dynamically as they become available
