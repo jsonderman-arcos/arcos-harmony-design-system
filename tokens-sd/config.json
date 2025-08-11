@@ -1,0 +1,37 @@
+{
+  "source": [
+    "/Users/arcoskaroza/Documents/BitbucketProjects/ux-design-system/ux-design-system/tokens-sd/*.json"
+  ],
+  "platforms": {
+    "css": {
+      "transformGroup": "css",
+      "buildPath": "/Users/arcoskaroza/Documents/BitbucketProjects/ux-design-system/ux-design-system/build/css/",
+      "files": [
+        {
+          "destination": "variables.css",
+          "format": "css/variables"
+        }
+      ]
+    },
+    "scss": {
+      "transformGroup": "scss",
+      "buildPath": "/Users/arcoskaroza/Documents/BitbucketProjects/ux-design-system/ux-design-system/build/scss/",
+      "files": [
+        {
+          "destination": "_variables.scss",
+          "format": "scss/variables"
+        }
+      ]
+    },
+    "js": {
+      "transformGroup": "js",
+      "buildPath": "/Users/arcoskaroza/Documents/BitbucketProjects/ux-design-system/ux-design-system/build/js/",
+      "files": [
+        {
+          "destination": "variables.js",
+          "format": "javascript/es6"
+        }
+      ]
+    }
+  }
+}

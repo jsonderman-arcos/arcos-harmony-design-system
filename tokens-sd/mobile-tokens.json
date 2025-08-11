@@ -1,0 +1,618 @@
+{
+  "Base": {
+    "border": {
+      "size-default": {
+        "value": 1,
+        "type": "float",
+        "description": "Mobile size-default"
+      }
+    },
+    "label": {},
+    "text": {
+      "_states": {}
+    },
+    "background": {
+      "elevations": {}
+    },
+    "spacing": {
+      "hairline": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile hairline"
+      },
+      "spacing-minimum": {
+        "value": 3,
+        "type": "float",
+        "description": "Mobile spacing-minimum"
+      },
+      "width-compact": {
+        "value": 320,
+        "type": "float",
+        "description": "Mobile width-compact"
+      },
+      "width-wide": {
+        "value": 320,
+        "type": "float",
+        "description": "Mobile width-wide"
+      },
+      "width-regular": {
+        "value": 320,
+        "type": "float",
+        "description": "Mobile width-regular"
+      },
+      "spacing-compact": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile spacing-compact"
+      },
+      "spacing-airy": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile spacing-airy"
+      },
+      "spacing-default": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile spacing-default"
+      }
+    },
+    "surface-light": {},
+    "surface-dark": {},
+    "divider": {},
+    "primary": {
+      "_states": {}
+    },
+    "secondary": {
+      "_states": {}
+    },
+    "action": {},
+    "elevation": {},
+    "_native": {},
+    "layout": {
+      "spacing": {
+        "form-spacing": {
+          "value": null,
+          "type": "float",
+          "description": "Mobile form-spacing"
+        },
+        "stack-large": {
+          "value": null,
+          "type": "float",
+          "description": "Mobile stack-large"
+        },
+        "stack-small": {
+          "value": null,
+          "type": "float",
+          "description": "Mobile stack-small"
+        }
+      },
+      "grid": {
+        "columns": {
+          "value": 0,
+          "type": "float",
+          "description": "Mobile columns"
+        },
+        "gutter": {
+          "value": 0,
+          "type": "float",
+          "description": "Mobile gutter"
+        },
+        "margin": {
+          "value": 0,
+          "type": "float",
+          "description": "Mobile margin"
+        },
+        "container-max-width": {
+          "value": 0,
+          "type": "float",
+          "description": "Mobile container-max-width"
+        }
+      },
+      "gaps": {
+        "components": {
+          "value": 0,
+          "type": "float",
+          "description": "Mobile components"
+        },
+        "stack": {
+          "value": 0,
+          "type": "float",
+          "description": "Mobile stack"
+        },
+        "inline": {
+          "value": 0,
+          "type": "float",
+          "description": "Mobile inline"
+        }
+      }
+    },
+    "status": {
+      "status-no-signal": {
+        "_states": {}
+      },
+      "status-arrived": {
+        "_states": {}
+      },
+      "status-checkedin": {},
+      "status-idle": {
+        "_states": {}
+      },
+      "status-inbound": {
+        "_states": {}
+      },
+      "status-regroup": {},
+      "status-mobilize": {}
+    },
+    "feedback": {
+      "error": {
+        "_states": {}
+      },
+      "warning": {
+        "_states": {},
+        "states-hover": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile states-hover"
+        }
+      },
+      "info": {
+        "_states": {}
+      },
+      "success": {
+        "_states": {}
+      }
+    },
+    "common": {
+      "black_states": {},
+      "white_states": {},
+      "base_shape": {}
+    },
+    "_components": {
+      "avatar": {},
+      "switch": {},
+      "rating": {},
+      "snackbar": {},
+      "chip": {},
+      "tooltip": {},
+      "backdrop": {},
+      "appBar": {},
+      "breadcrumbs": {},
+      "stepper": {},
+      "comments": {
+        "value": "Carryover from MUI",
+        "type": "string",
+        "description": "Mobile comments"
+      },
+      "input": {
+        "standard": {},
+        "filled": {},
+        "outlined": {}
+      },
+      "alert": {
+        "error": {},
+        "warning": {},
+        "info": {},
+        "success": {}
+      }
+    },
+    "section": {},
+    "icon": {},
+    "comments": {
+      "value": "Lighthouse Theme base tokens",
+      "type": "string",
+      "description": "Mobile comments"
+    }
+  },
+  "Component": {
+    "modal": {},
+    "comments": {
+      "value": "Lighthouse Component-specific tokens",
+      "type": "string",
+      "description": "Mobile comments"
+    },
+    "panel": {
+      "panel-width-compact": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile panel-width-compact"
+      },
+      "panel-width-wide": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile panel-width-wide"
+      },
+      "panel-width-default": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile panel-width-default"
+      },
+      "heading-level-1": {
+        "value": 0,
+        "type": "float",
+        "description": "Mobile heading-level-1"
+      },
+      "heading-level-2": {
+        "value": 0,
+        "type": "float",
+        "description": "Mobile heading-level-2"
+      },
+      "heading-level-3": {
+        "value": 0,
+        "type": "float",
+        "description": "Mobile heading-level-3"
+      },
+      "panel-padding": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile panel-padding"
+      },
+      "background-fill": {}
+    },
+    "navigation": {
+      "sidebar": {
+        "icon-fill-default": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile icon-fill-default"
+        },
+        "label-fill-default": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile label-fill-default"
+        },
+        "background-fill": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile background-fill"
+        },
+        "icon-fill-selected": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile icon-fill-selected"
+        },
+        "label-fill-selected": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile label-fill-selected"
+        },
+        "background-fill-selected": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile background-fill-selected"
+        },
+        "stroke-selected": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile stroke-selected"
+        },
+        "bar-border-stroke": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile bar-border-stroke"
+        }
+      },
+      "topbar": {},
+      "footer": {
+        "background-fill": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile background-fill"
+        },
+        "text-fill-default": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile text-fill-default"
+        }
+      }
+    },
+    "list-item": {
+      "background-fill": {},
+      "spacing": {
+        "convoy-row-gap": {
+          "value": null,
+          "type": "float",
+          "description": "Mobile convoy-row-gap"
+        },
+        "convoy-inline-gap": {
+          "value": null,
+          "type": "float",
+          "description": "Mobile convoy-inline-gap"
+        },
+        "default": {
+          "value": null,
+          "type": "float",
+          "description": "Mobile default"
+        }
+      },
+      "text-fill": {}
+    },
+    "tab-badge": {
+      "count": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile count"
+      }
+    },
+    "button": {
+      "button-padding-vertical": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile button-padding-vertical"
+      },
+      "button-padding-horizontal": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile button-padding-horizontal"
+      },
+      "primary": {
+        "background": {
+          "disabled": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile disabled"
+          }
+        },
+        "text": {
+          "default": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile default"
+          }
+        }
+      },
+      "secondary": {
+        "background": {
+          "default": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile default"
+          },
+          "disabled": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile disabled"
+          }
+        }
+      },
+      "ghost": {
+        "background": {
+          "hover": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile hover"
+          }
+        },
+        "border": {},
+        "text": {
+          "default": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile default"
+          },
+          "hover": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile hover"
+          },
+          "disabled": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile disabled"
+          }
+        }
+      }
+    },
+    "map-marker": {
+      "destination": {},
+      "convoy": {
+        "stroke-weight": {
+          "value": 2,
+          "type": "float",
+          "description": "Mobile stroke-weight"
+        },
+        "inbound": {},
+        "arrived": {},
+        "idle": {},
+        "no-signal": {},
+        "checked-in": {}
+      },
+      "stack": {
+        "stroke-weight": {
+          "value": 3,
+          "type": "float",
+          "description": "Mobile stroke-weight"
+        }
+      }
+    },
+    "status-chip": {
+      "chip-pad-vertical": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile chip-pad-vertical"
+      },
+      "chip-pad-horiztonal": {
+        "value": null,
+        "type": "float",
+        "description": "Mobile chip-pad-horiztonal"
+      }
+    },
+    "filtercard": {
+      "inbound": {
+        "_states": {
+          "enabled-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile enabled-fill"
+          },
+          "enabled-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile enabled-stroke"
+          },
+          "hover-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile hover-fill"
+          },
+          "hover-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile hover-stroke"
+          },
+          "active-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile active-fill"
+          },
+          "active-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile active-stroke"
+          }
+        },
+        "text-fill": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile text-fill"
+        },
+        "text-fill-contrast": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile text-fill-contrast"
+        }
+      },
+      "no-signal": {
+        "text-fill 2": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile text-fill 2"
+        },
+        "text-fill-contrast 2": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile text-fill-contrast 2"
+        },
+        "_states": {
+          "enabled-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile enabled-fill"
+          },
+          "enabled-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile enabled-stroke"
+          },
+          "hover-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile hover-fill"
+          },
+          "hover-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile hover-stroke"
+          },
+          "active-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile active-fill"
+          },
+          "active-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile active-stroke"
+          }
+        }
+      },
+      "arrived": {
+        "text-fill": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile text-fill"
+        },
+        "text-fill-contrast": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile text-fill-contrast"
+        },
+        "_states": {
+          "enabled-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile enabled-fill"
+          },
+          "enabled-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile enabled-stroke"
+          },
+          "hover-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile hover-fill"
+          },
+          "hover-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile hover-stroke"
+          },
+          "active-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile active-fill"
+          },
+          "active-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile active-stroke"
+          }
+        }
+      },
+      "idle": {
+        "text-fill": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile text-fill"
+        },
+        "text-fill-contrast": {
+          "value": "rgba(1, 1, 1, 1)",
+          "type": "color",
+          "description": "Mobile text-fill-contrast"
+        },
+        "_states": {
+          "enabled-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile enabled-fill"
+          },
+          "enabled-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile enabled-stroke"
+          },
+          "hover-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile hover-fill"
+          },
+          "hover-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile hover-stroke"
+          },
+          "active-fill": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile active-fill"
+          },
+          "active-stroke": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Mobile active-stroke"
+          }
+        }
+      }
+    }
+  }
+}

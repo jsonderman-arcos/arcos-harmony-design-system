@@ -1,0 +1,375 @@
+{
+  "Base": {
+    "border": {
+      "size-default": {
+        "value": 1,
+        "type": "float",
+        "description": "Dark size-default"
+      }
+    },
+    "label": {},
+    "text": {
+      "_states": {}
+    },
+    "background": {
+      "elevations": {}
+    },
+    "spacing": {
+      "hairline": {
+        "value": null,
+        "type": "float",
+        "description": "Dark hairline"
+      },
+      "spacing-minimum": {
+        "value": 3,
+        "type": "float",
+        "description": "Dark spacing-minimum"
+      },
+      "width-compact": {
+        "value": 360,
+        "type": "float",
+        "description": "Dark width-compact"
+      },
+      "width-wide": {
+        "value": 640,
+        "type": "float",
+        "description": "Dark width-wide"
+      },
+      "width-regular": {
+        "value": 520,
+        "type": "float",
+        "description": "Dark width-regular"
+      },
+      "spacing-compact": {
+        "value": null,
+        "type": "float",
+        "description": "Dark spacing-compact"
+      },
+      "spacing-airy": {
+        "value": null,
+        "type": "float",
+        "description": "Dark spacing-airy"
+      },
+      "spacing-default": {
+        "value": null,
+        "type": "float",
+        "description": "Dark spacing-default"
+      }
+    },
+    "surface-light": {},
+    "surface-dark": {},
+    "divider": {},
+    "primary": {
+      "_states": {}
+    },
+    "secondary": {
+      "_states": {}
+    },
+    "action": {},
+    "elevation": {},
+    "_native": {},
+    "layout": {
+      "spacing": {
+        "form-spacing": {
+          "value": null,
+          "type": "float",
+          "description": "Dark form-spacing"
+        },
+        "stack-large": {
+          "value": null,
+          "type": "float",
+          "description": "Dark stack-large"
+        },
+        "stack-small": {
+          "value": null,
+          "type": "float",
+          "description": "Dark stack-small"
+        }
+      },
+      "grid": {
+        "columns": {
+          "value": 0,
+          "type": "float",
+          "description": "Dark columns"
+        },
+        "gutter": {
+          "value": 0,
+          "type": "float",
+          "description": "Dark gutter"
+        },
+        "margin": {
+          "value": 0,
+          "type": "float",
+          "description": "Dark margin"
+        },
+        "container-max-width": {
+          "value": 0,
+          "type": "float",
+          "description": "Dark container-max-width"
+        }
+      },
+      "gaps": {
+        "components": {
+          "value": 0,
+          "type": "float",
+          "description": "Dark components"
+        },
+        "stack": {
+          "value": 0,
+          "type": "float",
+          "description": "Dark stack"
+        },
+        "inline": {
+          "value": 0,
+          "type": "float",
+          "description": "Dark inline"
+        }
+      }
+    },
+    "status": {
+      "status-no-signal": {
+        "_states": {}
+      },
+      "status-arrived": {
+        "_states": {}
+      },
+      "status-checkedin": {},
+      "status-idle": {
+        "_states": {}
+      },
+      "status-inbound": {
+        "_states": {}
+      },
+      "status-regroup": {},
+      "status-mobilize": {}
+    },
+    "feedback": {
+      "error": {
+        "_states": {}
+      },
+      "warning": {
+        "_states": {}
+      },
+      "info": {
+        "_states": {}
+      },
+      "success": {
+        "_states": {}
+      }
+    },
+    "common": {
+      "black_states": {},
+      "white_states": {},
+      "base_shape": {}
+    },
+    "_components": {
+      "avatar": {},
+      "switch": {},
+      "rating": {},
+      "snackbar": {},
+      "chip": {},
+      "tooltip": {},
+      "backdrop": {},
+      "appBar": {},
+      "breadcrumbs": {},
+      "stepper": {},
+      "comments": {
+        "value": "Carryover from MUI",
+        "type": "string",
+        "description": "Dark comments"
+      },
+      "input": {
+        "standard": {},
+        "filled": {},
+        "outlined": {}
+      },
+      "alert": {
+        "error": {},
+        "warning": {},
+        "info": {},
+        "success": {}
+      }
+    },
+    "section": {},
+    "icon": {},
+    "comments": {
+      "value": "Lighthouse Theme base tokens",
+      "type": "string",
+      "description": "Dark comments"
+    }
+  },
+  "Component": {
+    "modal": {},
+    "comments": {
+      "value": "Lighthouse Component-specific tokens",
+      "type": "string",
+      "description": "Dark comments"
+    },
+    "panel": {
+      "panel-width-compact": {
+        "value": null,
+        "type": "float",
+        "description": "Dark panel-width-compact"
+      },
+      "panel-width-wide": {
+        "value": null,
+        "type": "float",
+        "description": "Dark panel-width-wide"
+      },
+      "panel-width-default": {
+        "value": null,
+        "type": "float",
+        "description": "Dark panel-width-default"
+      },
+      "heading-level-1": {
+        "value": 0,
+        "type": "float",
+        "description": "Dark heading-level-1"
+      },
+      "heading-level-2": {
+        "value": 0,
+        "type": "float",
+        "description": "Dark heading-level-2"
+      },
+      "heading-level-3": {
+        "value": 0,
+        "type": "float",
+        "description": "Dark heading-level-3"
+      },
+      "panel-padding": {
+        "value": null,
+        "type": "float",
+        "description": "Dark panel-padding"
+      },
+      "background-fill": {}
+    },
+    "navigation": {
+      "sidebar": {},
+      "topbar": {},
+      "footer": {}
+    },
+    "list-item": {
+      "background-fill": {},
+      "spacing": {
+        "convoy-row-gap": {
+          "value": null,
+          "type": "float",
+          "description": "Dark convoy-row-gap"
+        },
+        "convoy-inline-gap": {
+          "value": null,
+          "type": "float",
+          "description": "Dark convoy-inline-gap"
+        },
+        "default": {
+          "value": null,
+          "type": "float",
+          "description": "Dark default"
+        }
+      },
+      "text-fill": {}
+    },
+    "tab-badge": {
+      "count": {
+        "value": null,
+        "type": "float",
+        "description": "Dark count"
+      }
+    },
+    "button": {
+      "button-padding-vertical": {
+        "value": null,
+        "type": "float",
+        "description": "Dark button-padding-vertical"
+      },
+      "button-padding-horizontal": {
+        "value": null,
+        "type": "float",
+        "description": "Dark button-padding-horizontal"
+      },
+      "primary": {
+        "background": {
+          "disabled": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Dark disabled"
+          }
+        },
+        "text": {
+          "default": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Dark default"
+          }
+        }
+      },
+      "secondary": {
+        "background": {
+          "default": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Dark default"
+          },
+          "disabled": {
+            "value": "rgba(1, 1, 1, 1)",
+            "type": "color",
+            "description": "Dark disabled"
+          }
+        }
+      },
+      "ghost": {
+        "background": {},
+        "border": {},
+        "text": {}
+      }
+    },
+    "map-marker": {
+      "destination": {},
+      "convoy": {
+        "stroke-weight": {
+          "value": 2,
+          "type": "float",
+          "description": "Dark stroke-weight"
+        },
+        "inbound": {},
+        "arrived": {},
+        "idle": {},
+        "no-signal": {},
+        "checked-in": {}
+      },
+      "stack": {
+        "stroke-weight": {
+          "value": 3,
+          "type": "float",
+          "description": "Dark stroke-weight"
+        }
+      }
+    },
+    "status-chip": {
+      "chip-pad-vertical": {
+        "value": null,
+        "type": "float",
+        "description": "Dark chip-pad-vertical"
+      },
+      "chip-pad-horiztonal": {
+        "value": null,
+        "type": "float",
+        "description": "Dark chip-pad-horiztonal"
+      }
+    },
+    "filtercard": {
+      "inbound": {
+        "_states": {}
+      },
+      "no-signal": {
+        "_states": {}
+      },
+      "arrived": {
+        "_states": {}
+      },
+      "idle": {
+        "_states": {}
+      }
+    }
+  }
+}

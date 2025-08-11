@@ -1,265 +1,41 @@
+/**
+ * Auto-generated theme type definitions.
+ * Generated on: 8/11/2025
+ */
 
-// Add custom colors to the palette type
-declare module '@mui/material/styles' {
-  interface Palette {
-    border: PaletteColor;
-    label: PaletteColor;
-    surface-light: PaletteColor;
-    surface-dark: PaletteColor;
-    elevation: PaletteColor;
-    native: PaletteColor;
-    status-no-signal: PaletteColor;
-    states: PaletteColor;
-    status-arrived: PaletteColor;
-    status-checkedin: PaletteColor;
-    status-idle: PaletteColor;
-    status-inbound: PaletteColor;
-    status-regroup: PaletteColor;
-    status-mobilize: PaletteColor;
-    black-states: PaletteColor;
-    white-states: PaletteColor;
-    avatar: PaletteColor;
-    switch: PaletteColor;
-    rating: PaletteColor;
-    snackbar: PaletteColor;
-    chip: PaletteColor;
-    tooltip: PaletteColor;
-    backdrop: PaletteColor;
-    appbar: PaletteColor;
-    breadcrumbs: PaletteColor;
-    stepper: PaletteColor;
-    standard: PaletteColor;
-    filled: PaletteColor;
-    outlined: PaletteColor;
-    section: PaletteColor;
-    icon: PaletteColor;
-    modal: PaletteColor;
-    panel: PaletteColor;
-    background-fill: PaletteColor;
-    sidebar: PaletteColor;
-    topbar: PaletteColor;
-    footer: PaletteColor;
-    list-item: PaletteColor;
-    text-fill: PaletteColor;
-    map-marker: PaletteColor;
-    destination: PaletteColor;
-    inbound: PaletteColor;
-    arrived: PaletteColor;
-    idle: PaletteColor;
-    no-signal: PaletteColor;
-    checked-in: PaletteColor;
-    stack: PaletteColor;
-    status-chip: PaletteColor;
-  }
-  
-  interface PaletteOptions {
-    border?: PaletteColorOptions;
-    label?: PaletteColorOptions;
-    surface-light?: PaletteColorOptions;
-    surface-dark?: PaletteColorOptions;
-    elevation?: PaletteColorOptions;
-    native?: PaletteColorOptions;
-    status-no-signal?: PaletteColorOptions;
-    states?: PaletteColorOptions;
-    status-arrived?: PaletteColorOptions;
-    status-checkedin?: PaletteColorOptions;
-    status-idle?: PaletteColorOptions;
-    status-inbound?: PaletteColorOptions;
-    status-regroup?: PaletteColorOptions;
-    status-mobilize?: PaletteColorOptions;
-    black-states?: PaletteColorOptions;
-    white-states?: PaletteColorOptions;
-    avatar?: PaletteColorOptions;
-    switch?: PaletteColorOptions;
-    rating?: PaletteColorOptions;
-    snackbar?: PaletteColorOptions;
-    chip?: PaletteColorOptions;
-    tooltip?: PaletteColorOptions;
-    backdrop?: PaletteColorOptions;
-    appbar?: PaletteColorOptions;
-    breadcrumbs?: PaletteColorOptions;
-    stepper?: PaletteColorOptions;
-    standard?: PaletteColorOptions;
-    filled?: PaletteColorOptions;
-    outlined?: PaletteColorOptions;
-    section?: PaletteColorOptions;
-    icon?: PaletteColorOptions;
-    modal?: PaletteColorOptions;
-    panel?: PaletteColorOptions;
-    background-fill?: PaletteColorOptions;
-    sidebar?: PaletteColorOptions;
-    topbar?: PaletteColorOptions;
-    footer?: PaletteColorOptions;
-    list-item?: PaletteColorOptions;
-    text-fill?: PaletteColorOptions;
-    map-marker?: PaletteColorOptions;
-    destination?: PaletteColorOptions;
-    inbound?: PaletteColorOptions;
-    arrived?: PaletteColorOptions;
-    idle?: PaletteColorOptions;
-    no-signal?: PaletteColorOptions;
-    checked-in?: PaletteColorOptions;
-    stack?: PaletteColorOptions;
-    status-chip?: PaletteColorOptions;
-  }
+import { Theme as MUITheme, ThemeOptions as MUIThemeOptions } from '@mui/material/styles';
+
+export interface ExtendedPaletteOptions extends MUIThemeOptions['palette'] {
+  // Add any custom palette options here
 }
 
-// Allow custom colors to be used with component props
-declare module '@mui/material/Button' {
-  interface ButtonPropsColorOverrides {
-    border: true;
-    label: true;
-    surface-light: true;
-    surface-dark: true;
-    elevation: true;
-    native: true;
-    status-no-signal: true;
-    states: true;
-    status-arrived: true;
-    status-checkedin: true;
-    status-idle: true;
-    status-inbound: true;
-    status-regroup: true;
-    status-mobilize: true;
-    black-states: true;
-    white-states: true;
-    avatar: true;
-    switch: true;
-    rating: true;
-    snackbar: true;
-    chip: true;
-    tooltip: true;
-    backdrop: true;
-    appbar: true;
-    breadcrumbs: true;
-    stepper: true;
-    standard: true;
-    filled: true;
-    outlined: true;
-    section: true;
-    icon: true;
-    modal: true;
-    panel: true;
-    background-fill: true;
-    sidebar: true;
-    topbar: true;
-    footer: true;
-    list-item: true;
-    text-fill: true;
-    map-marker: true;
-    destination: true;
-    inbound: true;
-    arrived: true;
-    idle: true;
-    no-signal: true;
-    checked-in: true;
-    stack: true;
-    status-chip: true;
-  }
+export interface ExtendedTypographyOptions extends MUIThemeOptions['typography'] {
+  // Add any custom typography options here
 }
 
-declare module '@mui/material/IconButton' {
-  interface IconButtonPropsColorOverrides {
-    border: true;
-    label: true;
-    surface-light: true;
-    surface-dark: true;
-    elevation: true;
-    native: true;
-    status-no-signal: true;
-    states: true;
-    status-arrived: true;
-    status-checkedin: true;
-    status-idle: true;
-    status-inbound: true;
-    status-regroup: true;
-    status-mobilize: true;
-    black-states: true;
-    white-states: true;
-    avatar: true;
-    switch: true;
-    rating: true;
-    snackbar: true;
-    chip: true;
-    tooltip: true;
-    backdrop: true;
-    appbar: true;
-    breadcrumbs: true;
-    stepper: true;
-    standard: true;
-    filled: true;
-    outlined: true;
-    section: true;
-    icon: true;
-    modal: true;
-    panel: true;
-    background-fill: true;
-    sidebar: true;
-    topbar: true;
-    footer: true;
-    list-item: true;
-    text-fill: true;
-    map-marker: true;
-    destination: true;
-    inbound: true;
-    arrived: true;
-    idle: true;
-    no-signal: true;
-    checked-in: true;
-    stack: true;
-    status-chip: true;
-  }
+export interface ThemeOptions extends MUIThemeOptions {
+  palette?: ExtendedPaletteOptions;
+  typography?: ExtendedTypographyOptions;
 }
 
-declare module '@mui/material/Chip' {
-  interface ChipPropsColorOverrides {
-    border: true;
-    label: true;
-    surface-light: true;
-    surface-dark: true;
-    elevation: true;
-    native: true;
-    status-no-signal: true;
-    states: true;
-    status-arrived: true;
-    status-checkedin: true;
-    status-idle: true;
-    status-inbound: true;
-    status-regroup: true;
-    status-mobilize: true;
-    black-states: true;
-    white-states: true;
-    avatar: true;
-    switch: true;
-    rating: true;
-    snackbar: true;
-    chip: true;
-    tooltip: true;
-    backdrop: true;
-    appbar: true;
-    breadcrumbs: true;
-    stepper: true;
-    standard: true;
-    filled: true;
-    outlined: true;
-    section: true;
-    icon: true;
-    modal: true;
-    panel: true;
-    background-fill: true;
-    sidebar: true;
-    topbar: true;
-    footer: true;
-    list-item: true;
-    text-fill: true;
-    map-marker: true;
-    destination: true;
-    inbound: true;
-    arrived: true;
-    idle: true;
-    no-signal: true;
-    checked-in: true;
-    stack: true;
-    status-chip: true;
-  }
+export interface Theme extends MUITheme {
+  palette: ExtendedPaletteOptions;
+  typography: ExtendedTypographyOptions;
+}
+
+// Add type definitions for theme modes
+export type ThemeMode = 'light' | 'dark' | 'mobile' | 'largeScreen';
+
+// Define the theme by mode structure
+export interface ThemesByMode {
+  light: Theme;
+  dark: Theme;
+  mobile?: Theme;
+  largeScreen?: Theme;
+}
+
+// Define a ThemeProvider props interface
+export interface ThemeProviderProps {
+  mode?: ThemeMode;
+  children: React.ReactNode;
 }
