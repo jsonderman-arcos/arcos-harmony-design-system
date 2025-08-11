@@ -1,0 +1,869 @@
+/**
+ * generateMUITheme.js
+ * 
+ * This script generates a Material UI theme from design tokens.
+ * It reads the token files, transforms them into the MUI theme format,
+ * and outputs a theme.ts file that can be used in your React applications.
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+/**
+ * Configuration object - these are defaults that can be overridden via command line
+ */
+const config = {
+  // Default paths
+  modesConfigPath: '../variables/figma-collections-modes.json',
+  tokensDir: '../tokens',
+  outputPaths: {
+    directory: '../',
+    themeFile: 'theme.ts',
+    typesFile: 'theme.types.ts'
+  }
+};
+
+// Parse command line arguments to override defaults
+function parseArgs() {
+  const args = process.argv.slice(2);
+  for (let i = 0; i < args.length; i += 2) {
+    const key = args[i];
+    const value = args[i + 1];
+    
+    if (key === '--modesConfig') {
+      config.modesConfigPath = value;
+    } else if (key === '--tokensDir') {
+      config.tokensDir = value;
+    } else if (key === '--outputDir') {
+      config.outputPaths.directory = value;
+    } else if (key === '--themeFile') {
+      config.outputPaths.themeFile = value;
+    } else if (key === '--typesFile') {
+      config.outputPaths.typesFile = value;
+    }
+  }
+}
+
+// Parse command line arguments
+parseArgs();
+
+// Load modes configuration from the Figma collections file
+const MODES_CONFIG_PATH = path.resolve(__dirname, config.modesConfigPath);
+let availableModes = [];
+let tokenPaths = {};
+
+try {
+  console.log(`Loading modes configuration from: ${MODES_CONFIG_PATH}`);
+  const modesConfig = JSON.parse(fs.readFileSync(MODES_CONFIG_PATH, 'utf8'));
+  availableModes = modesConfig.modes || [];
+  
+  // Create token file paths based on available modes
+  availableModes.forEach(mode => {
+    // Convert mode name to filename-friendly format (lowercase, replace spaces with camel case)
+    const filenameFriendlyMode = mode
+      .toLowerCase()
+      .replace(/\s+(.)/g, (match, group) => group.toUpperCase());
+    
+    tokenPaths[mode] = path.resolve(
+      __dirname, 
+      config.tokensDir, 
+      `${filenameFriendlyMode}ModeTokens.json`
+    );
+  });
+  
+  console.log('Available modes detected:', availableModes);
+} catch (error) {
+  console.error(`Error loading modes configuration: ${error.message}`);
+  console.warn('Falling back to default modes...');
+  
+  // Fallback to default modes if config file not found or invalid
+  tokenPaths = {
+    'Core': path.resolve(__dirname, config.tokensDir, 'coreTokens.json'),
+    'Default': path.resolve(__dirname, config.tokensDir, 'defaultModeTokens.json'),
+    'Light': path.resolve(__dirname, config.tokensDir, 'lightModeTokens.json'),
+    'Dark': path.resolve(__dirname, config.tokensDir, 'darkModeTokens.json')
+  };
+  availableModes = ['Core', 'Default', 'Light', 'Dark'];
+}
+
+// Set output paths from config
+const OUTPUT_DIR = path.resolve(__dirname, config.outputPaths.directory);
+const THEME_OUTPUT_PATH = path.resolve(OUTPUT_DIR, config.outputPaths.themeFile);
+const THEME_TYPES_OUTPUT_PATH = path.resolve(OUTPUT_DIR, config.outputPaths.typesFile);
+
+/**
+ * Loads and parses JSON from a file path
+ */
+function loadTokens(filePath) {
+  try {
+    const data = fs.readFileSync(filePath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error(`Error loading tokens from ${filePath}:`, error);
+    return {};
+  }
+}
+
+/**
+ * Extracts color values from tokens
+ */
+function extractColors(tokens) {
+  const colors = {};
+  
+  // Color mappings - maps your token structure to MUI structure
+  // Adjust these based on how your colors are structured in your tokens
+  const colorMappings = {
+    primary: 'colors.primary',
+    secondary: 'colors.secondary',
+    error: 'colors.error',
+    warning: 'colors.warning',
+    info: 'colors.info',
+    success: 'colors.success',
+    text: 'colors.text',
+    background: 'colors.background',
+    action: 'colors.action'
+  };
+  
+  // Helper function to get nested value from tokens using dot notation path
+  function getTokenValue(obj, path) {
+    const parts = path.split('.');
+    let current = obj;
+    
+    for (const part of parts) {
+      if (current && typeof current === 'object' && part in current) {
+        current = current[part];
+      } else {
+        return undefined;
+      }
+    }
+    
+    return current;
+  }
+  
+  // Process each standard color
+  Object.entries(colorMappings).forEach(([muiKey, tokenPath]) => {
+    const tokenColor = getTokenValue(tokens, tokenPath);
+    
+    if (tokenColor) {
+      colors[muiKey] = {};
+      
+      // For palette colors that have main/light/dark/contrastText structure
+      if (['primary', 'secondary', 'error', 'warning', 'info', 'success'].includes(muiKey)) {
+        if (tokenColor.main && tokenColor.main.$value) {
+          colors[muiKey].main = tokenColor.main.$value;
+        }
+        if (tokenColor.light && tokenColor.light.$value) {
+          colors[muiKey].light = tokenColor.light.$value;
+        }
+        if (tokenColor.dark && tokenColor.dark.$value) {
+          colors[muiKey].dark = tokenColor.dark.$value;
+        }
+        if (tokenColor.contrastText && tokenColor.contrastText.$value) {
+          colors[muiKey].contrastText = tokenColor.contrastText.$value;
+        }
+      } 
+      // For text colors
+      else if (muiKey === 'text') {
+        if (tokenColor.primary && tokenColor.primary.$value) {
+          colors[muiKey].primary = tokenColor.primary.$value;
+        }
+        if (tokenColor.secondary && tokenColor.secondary.$value) {
+          colors[muiKey].secondary = tokenColor.secondary.$value;
+        }
+        if (tokenColor.disabled && tokenColor.disabled.$value) {
+          colors[muiKey].disabled = tokenColor.disabled.$value;
+        }
+      }
+      // For background colors
+      else if (muiKey === 'background') {
+        if (tokenColor.default && tokenColor.default.$value) {
+          colors[muiKey].default = tokenColor.default.$value;
+        }
+        if (tokenColor.paper && tokenColor.paper.$value) {
+          colors[muiKey].paper = tokenColor.paper.$value;
+        }
+      }
+      // For action colors
+      else if (muiKey === 'action') {
+        if (tokenColor.active && tokenColor.active.$value) {
+          colors[muiKey].active = tokenColor.active.$value;
+        }
+        if (tokenColor.hover && tokenColor.hover.$value) {
+          colors[muiKey].hover = tokenColor.hover.$value;
+        }
+        if (tokenColor.selected && tokenColor.selected.$value) {
+          colors[muiKey].selected = tokenColor.selected.$value;
+        }
+        if (tokenColor.disabled && tokenColor.disabled.$value) {
+          colors[muiKey].disabled = tokenColor.disabled.$value;
+        }
+        if (tokenColor.disabledBackground && tokenColor.disabledBackground.$value) {
+          colors[muiKey].disabledBackground = tokenColor.disabledBackground.$value;
+        }
+      }
+    }
+  });
+  
+  // Look for other color tokens that might be in a different location
+  // or have a different structure than the standard MUI colors
+  if (tokens.colors) {
+
+    // Custom colors - Add any additional custom color palettes
+    Object.keys(tokens.colors).forEach(colorKey => {
+      if (!['primary', 'secondary', 'error', 'warning', 'info', 'success', 'text', 'background', 'action'].includes(colorKey)) {
+        const colorObj = tokens.colors[colorKey];
+        if (typeof colorObj === 'object' && colorObj !== null) {
+          colors[colorKey] = {};
+          
+          // Extract color values if they follow the standard pattern
+          if (colorObj.main && colorObj.main.$value) {
+            colors[colorKey].main = colorObj.main.$value;
+          }
+          if (colorObj.light && colorObj.light.$value) {
+            colors[colorKey].light = colorObj.light.$value;
+          }
+          if (colorObj.dark && colorObj.dark.$value) {
+            colors[colorKey].dark = colorObj.dark.$value;
+          }
+          
+          // Handle flat color structures
+          Object.keys(colorObj).forEach(shade => {
+            if (colorObj[shade] && colorObj[shade].$value && 
+                !['main', 'light', 'dark'].includes(shade)) {
+              colors[colorKey][shade] = colorObj[shade].$value;
+            }
+          });
+        }
+      }
+    });
+  }
+  
+  return colors;
+}
+
+/**
+ * Extract typography values from tokens
+ */
+function extractTypography(tokens) {
+  const typography = {};
+  
+  if (tokens.typography) {
+    // Font family
+    if (tokens.typography.fontFamily && tokens.typography.fontFamily.$value) {
+      typography.fontFamily = tokens.typography.fontFamily.$value;
+    }
+    
+    // Font size
+    if (tokens.typography.fontSize && tokens.typography.fontSize.$value) {
+      typography.fontSize = parseInt(tokens.typography.fontSize.$value, 10);
+    }
+    
+    // Extract variants
+    const variants = [
+      'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+      'subtitle1', 'subtitle2',
+      'body1', 'body2',
+      'button', 'caption', 'overline'
+    ];
+    
+    variants.forEach(variant => {
+      if (tokens.typography[variant]) {
+        typography[variant] = {};
+        
+        // Font size
+        if (tokens.typography[variant].fontSize && tokens.typography[variant].fontSize.$value) {
+          typography[variant].fontSize = tokens.typography[variant].fontSize.$value;
+        }
+        
+        // Font weight
+        if (tokens.typography[variant].fontWeight && tokens.typography[variant].fontWeight.$value) {
+          typography[variant].fontWeight = tokens.typography[variant].fontWeight.$value;
+        }
+        
+        // Line height
+        if (tokens.typography[variant].lineHeight && tokens.typography[variant].lineHeight.$value) {
+          typography[variant].lineHeight = tokens.typography[variant].lineHeight.$value;
+        }
+        
+        // Letter spacing
+        if (tokens.typography[variant].letterSpacing && tokens.typography[variant].letterSpacing.$value) {
+          typography[variant].letterSpacing = tokens.typography[variant].letterSpacing.$value;
+        }
+        
+        // Text transform
+        if (tokens.typography[variant].textTransform && tokens.typography[variant].textTransform.$value) {
+          typography[variant].textTransform = tokens.typography[variant].textTransform.$value;
+        }
+      }
+    });
+  }
+  
+  return typography;
+}
+
+/**
+ * Extract spacing values from tokens
+ */
+function extractSpacing(tokens) {
+  // Try to find spacing in various possible locations in your tokens
+  if (tokens.spacing && tokens.spacing.base && tokens.spacing.base.$value) {
+    return parseInt(tokens.spacing.base.$value, 10);
+  }
+  
+  if (tokens.base && tokens.base.spacing && tokens.base.spacing.$value) {
+    return parseInt(tokens.base.spacing.$value, 10);
+  }
+  
+  // Check if spacing might be at the top level
+  if (tokens.spacing && tokens.spacing.$value) {
+    return parseInt(tokens.spacing.$value, 10);
+  }
+  
+  // If no spacing value found, return null so we can handle this case when generating the theme
+  return null;
+}
+
+/**
+ * Extract breakpoint values from tokens
+ */
+function extractBreakpoints(tokens) {
+  const breakpoints = {
+    values: {}
+  };
+  
+  // Always include xs as 0
+  breakpoints.values.xs = 0;
+  
+  if (tokens.breakpoints) {
+    // Map common breakpoint naming patterns to MUI breakpoint names
+    const breakpointMappings = {
+      sm: ['breakpoint-sm', 'sm', 'small', 'mobile'],
+      md: ['breakpoint-md', 'md', 'medium', 'tablet'],
+      lg: ['breakpoint-lg', 'lg', 'large', 'desktop'],
+      xl: ['breakpoint-xl', 'xl', 'xlarge', 'largeScreen']
+    };
+    
+    // Try to find each breakpoint using the mappings
+    Object.entries(breakpointMappings).forEach(([muiName, possibleNames]) => {
+      for (const name of possibleNames) {
+        if (tokens.breakpoints[name] && tokens.breakpoints[name].$value) {
+          breakpoints.values[muiName] = parseInt(tokens.breakpoints[name].$value, 10);
+          break;
+        }
+      }
+    });
+  }
+  
+  return breakpoints;
+}
+
+/**
+ * Extract shadow values from tokens
+ */
+function extractShadows(tokens) {
+  // MUI requires an array of 25 shadow values
+  const shadows = [];
+  
+  // Helper function to look for shadows in various places in the token structure
+  function findShadowsInObject(obj, prefix = '') {
+    const foundShadows = {};
+    
+    if (typeof obj !== 'object' || obj === null) {
+      return foundShadows;
+    }
+    
+    // Check for direct shadow definitions
+    Object.entries(obj).forEach(([key, value]) => {
+      const fullKey = prefix ? `${prefix}.${key}` : key;
+      
+      // Check if this is a shadow token
+      if (value && value.$value && 
+          (key.includes('shadow') || key.includes('elevation') || fullKey.includes('shadow') || fullKey.includes('elevation'))) {
+        
+        // Try to extract index from key (e.g., shadow-1, elevation-2, etc.)
+        const match = key.match(/(?:shadow|elevation)[_\-]?(\d+)/i) || fullKey.match(/(?:shadow|elevation)[_\-]?(\d+)/i);
+        if (match && match[1]) {
+          const index = parseInt(match[1], 10);
+          if (!isNaN(index) && index >= 0 && index < 25) {
+            foundShadows[index] = value.$value;
+          }
+        }
+      }
+      
+      // Recursively check nested objects
+      if (value && typeof value === 'object' && !value.$value) {
+        const nestedShadows = findShadowsInObject(value, fullKey);
+        Object.assign(foundShadows, nestedShadows);
+      }
+    });
+    
+    return foundShadows;
+  }
+  
+  // Look for shadows throughout the token structure
+  const foundShadows = findShadowsInObject(tokens);
+  
+  // Create the MUI shadows array with 25 elements
+  for (let i = 0; i < 25; i++) {
+    shadows[i] = foundShadows[i] || 'none';
+  }
+  
+  return shadows;
+}
+
+/**
+ * Extract component overrides from tokens
+ */
+function extractComponentOverrides(tokens) {
+  const components = {};
+  
+  // Component mapping - this maps your token structure to MUI component names
+  // Adjust based on your token structure
+  const componentMapping = {
+    button: 'MuiButton',
+    checkbox: 'MuiCheckbox',
+    chip: 'MuiChip',
+    dialog: 'MuiDialog',
+    divider: 'MuiDivider',
+    drawer: 'MuiDrawer',
+    icon: 'MuiIcon',
+    iconButton: 'MuiIconButton',
+    menu: 'MuiMenu',
+    paper: 'MuiPaper',
+    switch: 'MuiSwitch',
+    tab: 'MuiTab',
+    tabs: 'MuiTabs',
+    textField: 'MuiTextField',
+    tooltip: 'MuiTooltip',
+    typography: 'MuiTypography'
+  };
+  
+  // Function to recursively find component tokens
+  function findComponentTokens(obj, path = '') {
+    if (typeof obj !== 'object' || obj === null) {
+      return;
+    }
+    
+    // Check if current object is components container
+    if (path.endsWith('components') || path === 'components') {
+      processComponentContainer(obj);
+      return;
+    }
+    
+    // Recursively search for components
+    Object.entries(obj).forEach(([key, value]) => {
+      const newPath = path ? `${path}.${key}` : key;
+      if (typeof value === 'object' && value !== null) {
+        findComponentTokens(value, newPath);
+      }
+    });
+  }
+  
+  // Process a container of component definitions
+  function processComponentContainer(componentsObj) {
+    Object.entries(componentsObj).forEach(([componentKey, componentValue]) => {
+      // Check if this is a valid component
+      let muiComponentName;
+      
+      // Try exact match from mapping
+      if (componentMapping[componentKey]) {
+        muiComponentName = componentMapping[componentKey];
+      } else {
+        // Try to generate MUI component name from key
+        const capitalizedKey = componentKey.charAt(0).toUpperCase() + componentKey.slice(1);
+        muiComponentName = `Mui${capitalizedKey}`;
+      }
+      
+      // Set up component override object
+      components[muiComponentName] = {
+        styleOverrides: processComponentStyles(componentValue)
+      };
+    });
+  }
+  
+  // Process component styles
+  function processComponentStyles(stylesObj) {
+    const styleOverrides = {};
+    
+    // Check if there are explicit slot styles (root, label, etc.)
+    const hasExplicitSlots = Object.keys(stylesObj).some(key => 
+      ['root', 'label', 'input', 'thumb', 'track', 'paper'].includes(key));
+    
+    if (hasExplicitSlots) {
+      // Process each slot
+      Object.entries(stylesObj).forEach(([slotName, slotValue]) => {
+        if (typeof slotValue === 'object' && slotValue !== null) {
+          styleOverrides[slotName] = extractSlotStyles(slotValue);
+        }
+      });
+    } else {
+      // If no explicit slots, treat all styles as root styles
+      styleOverrides.root = extractSlotStyles(stylesObj);
+    }
+    
+    return styleOverrides;
+  }
+  
+  // Extract CSS properties from token values
+  function extractSlotStyles(styleObj) {
+    const result = {};
+    
+    Object.entries(styleObj).forEach(([propName, propValue]) => {
+      // If it's a design token with $value
+      if (propValue && typeof propValue === 'object' && propValue.$value !== undefined) {
+        result[propName] = propValue.$value;
+      } 
+      // If it's a nested object of styles
+      else if (propValue && typeof propValue === 'object' && !propValue.$value) {
+        result[propName] = extractSlotStyles(propValue);
+      }
+    });
+    
+    return result;
+  }
+  
+  // Start searching for component tokens in the entire token structure
+  findComponentTokens(tokens);
+  
+  return components;
+}
+
+/**
+ * Generate the MUI theme object from tokens
+ */
+function generateTheme() {
+  console.log('Loading tokens...');
+  
+  // Load all token files
+  const loadedTokens = {};
+  
+  // Track which modes are actually available based on successfully loaded files
+  const availableModesList = [];
+  
+  // Load each token file
+  Object.keys(tokenPaths).forEach(mode => {
+    const path = tokenPaths[mode];
+    console.log(`Loading ${mode} tokens from ${path}`);
+    try {
+      loadedTokens[mode] = loadTokens(path);
+      if (Object.keys(loadedTokens[mode]).length > 0) {
+        availableModesList.push(mode);
+      }
+    } catch (error) {
+      console.warn(`Error loading ${mode} tokens: ${error.message}`);
+      loadedTokens[mode] = {};
+    }
+  });
+  
+  // Ensure we have core tokens
+  if (!hasCoreTokens && loadedTokens['Core'] === undefined) {
+    const corePath = path.resolve(__dirname, config.tokensDir, 'coreTokens.json');
+    try {
+      loadedTokens['Core'] = loadTokens(corePath);
+      console.log(`Loaded Core tokens from ${corePath}`);
+    } catch (error) {
+      console.warn(`Could not load core tokens: ${error.message}`);
+      loadedTokens['Core'] = {};
+    }
+  }
+
+  // Create merged tokens for all themes
+  console.log('Creating theme configurations for all available modes...');
+  
+  // Initialize theme configurations object
+  const themeConfigs = {};
+  
+  // Core and Default tokens that should be included in all themes
+  const baseTokens = {
+    ...loadedTokens['Core'] || {},
+    ...loadedTokens['Default'] || {}
+  };
+  
+  // Process each available mode
+  availableModes.forEach(mode => {
+    if (mode !== 'Core' && mode !== 'Default') {
+      // Create merged tokens for this mode
+      themeConfigs[mode] = { 
+        tokens: {
+          ...baseTokens,
+          ...loadedTokens[mode] || {} 
+        }
+      };
+      
+      // Extract theme values for this mode
+      const config = themeConfigs[mode];
+      config.palette = extractColors(config.tokens);
+      config.typography = extractTypography(config.tokens);
+      config.spacing = extractSpacing(config.tokens);
+      config.breakpoints = extractBreakpoints(config.tokens);
+      config.shadows = extractShadows(config.tokens);
+      config.components = extractComponentOverrides(config.tokens);
+      
+      console.log(`Extracted theme values for ${mode} mode`);
+    }
+  });
+  
+  // For backward compatibility and direct access, keep light and dark themes
+  const lightPalette = themeConfigs['Light']?.palette || {};
+  const lightTypography = themeConfigs['Light']?.typography || {};
+  const lightSpacing = themeConfigs['Light']?.spacing || 8;
+  const lightBreakpoints = themeConfigs['Light']?.breakpoints || { values: { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 } };
+  const lightShadows = themeConfigs['Light']?.shadows || Array(25).fill('none');
+  const lightComponents = themeConfigs['Light']?.components || {};
+  
+  const darkPalette = themeConfigs['Dark']?.palette || {};
+  const darkTypography = themeConfigs['Dark']?.typography || {};
+  const darkSpacing = themeConfigs['Dark']?.spacing || 8;
+  const darkBreakpoints = themeConfigs['Dark']?.breakpoints || { values: { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 } };
+  const darkShadows = themeConfigs['Dark']?.shadows || Array(25).fill('none');
+  const darkComponents = themeConfigs['Dark']?.components || {};
+  
+  console.log('Generating theme file...');
+
+  // Create TypeScript type definitions for custom theme elements
+  const customTypeDefinitions = [];
+  
+  // Check for custom colors to add to type definitions
+  const allPaletteKeys = new Set([
+    ...Object.keys(lightPalette),
+    ...Object.keys(darkPalette)
+  ]);
+  
+  const standardPaletteKeys = new Set([
+    'primary', 'secondary', 'error', 'warning', 'info', 'success',
+    'text', 'background', 'action', 'common', 'grey', 'contrastThreshold',
+    'tonalOffset', 'mode'
+  ]);
+  
+  const customColorKeys = [...allPaletteKeys].filter(key => !standardPaletteKeys.has(key));
+  
+  if (customColorKeys.length > 0) {
+    customTypeDefinitions.push(`
+// Add custom colors to the palette type
+declare module '@mui/material/styles' {
+  interface Palette {
+    ${customColorKeys.map(color => `${color}: PaletteColor;`).join('\n    ')}
+  }
+  
+  interface PaletteOptions {
+    ${customColorKeys.map(color => `${color}?: PaletteColorOptions;`).join('\n    ')}
+  }
+}
+
+// Allow custom colors to be used with component props
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    ${customColorKeys.map(color => `${color}: true;`).join('\n    ')}
+  }
+}
+
+declare module '@mui/material/IconButton' {
+  interface IconButtonPropsColorOverrides {
+    ${customColorKeys.map(color => `${color}: true;`).join('\n    ')}
+  }
+}
+
+declare module '@mui/material/Chip' {
+  interface ChipPropsColorOverrides {
+    ${customColorKeys.map(color => `${color}: true;`).join('\n    ')}
+  }
+}`);
+  }
+
+  // Write the type definitions file
+  if (customTypeDefinitions.length > 0) {
+    fs.writeFileSync(
+      THEME_TYPES_OUTPUT_PATH,
+      customTypeDefinitions.join('\n\n')
+    );
+    console.log(`Type definitions written to ${THEME_TYPES_OUTPUT_PATH}`);
+  }
+
+  // Generate the theme file content
+  const themeFileContent = `
+import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { PaletteMode } from '@mui/material';
+import React, { createContext, useContext, useMemo, useState, useEffect } from 'react';
+
+// Import type definitions
+import './theme.types';
+
+// Light theme configuration
+const lightTheme = {
+  palette: ${JSON.stringify(lightPalette, null, 2)},
+  typography: ${JSON.stringify(lightTypography, null, 2)},
+  spacing: ${lightSpacing},
+  breakpoints: {
+    values: ${JSON.stringify(lightBreakpoints.values, null, 2)},
+  },
+  shadows: ${JSON.stringify(lightShadows, null, 2)},
+  components: ${JSON.stringify(lightComponents, null, 2)},
+};
+
+// Dark theme configuration
+const darkTheme = {
+  palette: {
+    ...${JSON.stringify(darkPalette, null, 2)},
+    mode: 'dark',
+  },
+  typography: ${JSON.stringify(darkTypography, null, 2)},
+  spacing: ${darkSpacing},
+  breakpoints: {
+    values: ${JSON.stringify(darkBreakpoints.values, null, 2)},
+  },
+  shadows: ${JSON.stringify(darkShadows, null, 2)},
+  components: ${JSON.stringify(darkComponents, null, 2)},
+};
+
+// All available theme configurations
+const themeConfigs = {
+${Object.keys(themeConfigs).filter(mode => mode !== 'Light' && mode !== 'Dark').map(mode => {
+  return `  // ${mode} theme configuration
+  ${mode.toLowerCase()}: {
+    palette: ${JSON.stringify(themeConfigs[mode].palette, null, 2)},
+    typography: ${JSON.stringify(themeConfigs[mode].typography, null, 2)},
+    spacing: ${themeConfigs[mode].spacing},
+    breakpoints: {
+      values: ${JSON.stringify(themeConfigs[mode].breakpoints.values, null, 2)},
+    },
+    shadows: ${JSON.stringify(themeConfigs[mode].shadows, null, 2)},
+    components: ${JSON.stringify(themeConfigs[mode].components, null, 2)},
+  }`;
+}).join(',\n\n')}
+};
+
+// Define available theme mode types
+type ColorMode = ${availableModes.filter(mode => mode !== 'Core' && mode !== 'Default').map(mode => `'${mode.toLowerCase()}'`).join(' | ')};
+
+// Type for the theme mode context
+type ColorModeContextType = {
+  mode: ColorMode;
+  setMode: (mode: ColorMode) => void;
+  toggleColorMode: () => void;
+  availableModes: string[];
+};
+
+const ColorModeContext = createContext<ColorModeContextType>({
+  mode: 'light',
+  setMode: () => {},
+  toggleColorMode: () => {},
+  availableModes: ['light', 'dark'],
+});
+
+export const useColorMode = () => useContext(ColorModeContext);
+
+// Theme provider component
+interface ThemeProviderProps {
+  children: React.ReactNode;
+  defaultMode?: ColorMode;
+}
+
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ 
+  children, 
+  defaultMode = 'light' 
+}) => {
+  const [mode, setMode] = useState<ColorMode>(defaultMode);
+
+  // Available modes (lowercase)
+  const availableModesLower = ${JSON.stringify(availableModes
+    .filter(mode => mode !== 'Core' && mode !== 'Default')
+    .map(mode => mode.toLowerCase()))};
+
+  // Try to get saved mode from local storage on mount
+  useEffect(() => {
+    const savedMode = localStorage.getItem('themeMode');
+    if (savedMode && availableModesLower.includes(savedMode)) {
+      setMode(savedMode as ColorMode);
+    }
+  }, []);
+
+  // Save mode to local storage when it changes
+  useEffect(() => {
+    localStorage.setItem('themeMode', mode);
+  }, [mode]);
+
+  const colorModeValue = useMemo(
+    () => ({
+      mode,
+      setMode: (newMode: ColorMode) => setMode(newMode),
+      toggleColorMode: () => setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light')),
+      availableModes: availableModesLower,
+    }),
+    [mode]
+  );
+
+  // Create the theme based on the mode
+  const theme = useMemo(() => {
+    switch(mode) {
+      case 'light':
+        return createTheme(lightTheme);
+      case 'dark':
+        return createTheme(darkTheme);
+      ${Object.keys(themeConfigs)
+        .filter(mode => mode !== 'Light' && mode !== 'Dark')
+        .map(mode => `case '${mode.toLowerCase()}':
+        return createTheme(themeConfigs.${mode.toLowerCase()});`).join('\n      ')}
+      default:
+        return createTheme(lightTheme);
+    }
+  }, [mode]);
+
+  return (
+    <ColorModeContext.Provider value={colorModeValue}>
+      <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
+    </ColorModeContext.Provider>
+  );
+};
+
+// Export the themes directly for use without the provider
+export const lightMuiTheme = createTheme(lightTheme);
+export const darkMuiTheme = createTheme(darkTheme);
+${Object.keys(themeConfigs)
+  .filter(mode => mode !== 'Light' && mode !== 'Dark')
+  .map(mode => `export const ${mode.toLowerCase()}MuiTheme = createTheme(themeConfigs.${mode.toLowerCase()});`).join('\n')}
+
+// Helper function to create a theme with specific options
+export function createCustomTheme(mode: string, customOptions = {}) {
+  let baseTheme;
+  switch(mode) {
+    case 'light':
+      baseTheme = lightTheme;
+      break;
+    case 'dark':
+      baseTheme = darkTheme;
+      break;
+    ${Object.keys(themeConfigs)
+      .filter(mode => mode !== 'Light' && mode !== 'Dark')
+      .map(mode => `case '${mode.toLowerCase()}':
+      baseTheme = themeConfigs.${mode.toLowerCase()};
+      break;`).join('\n    ')}
+    default:
+      baseTheme = lightTheme;
+  }
+  
+  return createTheme({
+    ...baseTheme,
+    ...customOptions,
+    palette: {
+      ...baseTheme.palette,
+      mode: mode === 'dark' ? 'dark' : 'light', // MUI only supports light/dark for mode
+      ...(customOptions.palette || {}),
+    },
+  });
+}
+
+export default lightMuiTheme;
+`;
+
+  // Write the theme file
+  fs.writeFileSync(THEME_OUTPUT_PATH, themeFileContent);
+  console.log(`MUI theme generated successfully at ${THEME_OUTPUT_PATH}`);
+}
+
+// Execute the script
+try {
+  generateTheme();
+} catch (error) {
+  console.error('Error generating MUI theme:', error);
+  process.exit(1);
+}

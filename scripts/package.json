@@ -8,8 +8,9 @@
     "transform-variables": "node transformVariables.js",
     "update-theme": "node updateTheme.js",
     "generate-tailwind": "node generateTailwindConfig.js",
+    "generate-mui-theme": "node generateMUITheme.js",
     "build-tokens": "npm run fetch-variables && npm run analyze-variables && npm run transform-variables && npm run update-theme",
-    "build-all": "npm run build-tokens && npm run generate-tailwind"
+    "build-all": "npm run build-tokens && npm run generate-tailwind && npm run generate-mui-theme"
   },
   "dependencies": {}
 }

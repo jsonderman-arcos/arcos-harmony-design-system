@@ -10,66 +10,6 @@ try {
   // Types file might not exist if there are no custom types
 }
 
-// Cache for resolved token values
-const resolvedTokenCache = {};
-
-/**
- * Reset the token cache - call this when theme mode changes
- */
-function resetTokenCache() {
-  Object.keys(resolvedTokenCache).forEach(key => {
-    delete resolvedTokenCache[key];
-  });
-}
-
-/**
- * Recursively resolve {token.references} in values
- * This is a simplified version - in a real implementation, you'd
- * include the token data from your token files
- */
-function resolveTokenValue(value, tokenData) {
-  // If it's not a string or not a token reference, return as is
-  if (typeof value !== 'string' || !value.startsWith('{') || !value.endsWith('}')) {
-    return value;
-  }
-  
-  // If we've already resolved this reference, return from cache
-  if (resolvedTokenCache[value] !== undefined) {
-    return resolvedTokenCache[value];
-  }
-  
-  // In a real implementation, you'd resolve the token reference here
-  // using the token data loaded from files
-  
-  // For now, we'll just return a placeholder for token references
-  // console.log(`Token reference found: ${value}`);
-  resolvedTokenCache[value] = value;
-  return value;
-}
-
-/**
- * Process a theme object to resolve all token references
- */
-function processThemeTokens(themeObj) {
-  if (!themeObj || typeof themeObj !== 'object') return themeObj;
-  
-  if (Array.isArray(themeObj)) {
-    return themeObj.map(item => processThemeTokens(item));
-  }
-  
-  const result = {};
-  for (const key in themeObj) {
-    if (typeof themeObj[key] === 'string' && themeObj[key].startsWith('{') && themeObj[key].endsWith('}')) {
-      result[key] = resolveTokenValue(themeObj[key]);
-    } else if (typeof themeObj[key] === 'object' && themeObj[key] !== null) {
-      result[key] = processThemeTokens(themeObj[key]);
-    } else {
-      result[key] = themeObj[key];
-    }
-  }
-  return result;
-}
-
 // Theme configurations for each mode
 // Light theme configuration
 const lightTheme = {
@@ -78,7 +18,7 @@ const lightTheme = {
     "main": "{Lighthouse.colors.neutrals.black.alpha-87}"
   },
   "secondary": {
-    "main": "{Lighthouse.colors.neutrals.black.alpha-70}"
+    "main": "{Base.text.secondary}"
   },
   "warning": {
     "main": "{Lighthouse.colors.yellows.pale-yellow-darkly.500-alpha-16}"
@@ -89,8 +29,8 @@ const lightTheme = {
   },
   "label": {
     "always-dark": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "default": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "active": "{Lighthouse.colors.blues.slate-blue.500}"
+    "default": "{Base.text.primary}",
+    "active": "{Base.primary.main}"
   },
   "surface-light": {
     "main": "{Lighthouse.colors.neutrals.white.100}",
@@ -132,11 +72,11 @@ const lightTheme = {
     "outlinedborder": "{Lighthouse.colors.blues.vivid-blue.500-alpha-50}",
     "outlineborder": "{Lighthouse.colors.greens.soft-teal.800-alpha-50}",
     "enabled-fill": "{Base.status.status-idle._states.selected}",
-    "enabled-stroke": "{Lighthouse.colors.greens.soft-teal.800}",
+    "enabled-stroke": "{Base.status.status-idle.darker}",
     "hover-fill": "{Base.status.status-idle._states.focusVisible}",
-    "hover-stroke": "{Lighthouse.colors.greens.soft-teal.900}",
-    "active-fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "active-stroke": "{Lighthouse.colors.greens.soft-teal.400}"
+    "hover-stroke": "{Base.status.status-idle.darkest}",
+    "active-fill": "{Base.status.status-idle.default}",
+    "active-stroke": "{Base.status.status-idle.default}"
   },
   "status-arrived": {
     "default": "{Lighthouse.colors.yellows.yellow.300}",
@@ -183,11 +123,11 @@ const lightTheme = {
     "screen": "{Lighthouse.colors.greens.forest-green.400-alpha-50}"
   },
   "status-mobilize": {
-    "default": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "lightest": "{Lighthouse.colors.blues.vivid-blue.50}",
-    "darker": "{Lighthouse.colors.blues.vivid-blue.800}",
-    "darkest": "{Lighthouse.colors.blues.vivid-blue.900}",
-    "screen": "{Lighthouse.colors.blues.vivid-blue.500-alpha-50}"
+    "default": "{Base.status.status-inbound.default}",
+    "lightest": "{Base.status.status-inbound.lightest}",
+    "darker": "{Base.status.status-inbound.darker}",
+    "darkest": "{Base.status.status-inbound.darkest}",
+    "screen": "{Base.status.status-inbound.screen}"
   },
   "black-states": {
     "main": "{Lighthouse.colors.neutrals.black.100}",
@@ -252,139 +192,139 @@ const lightTheme = {
   "outlined": {
     "enabledborder": "{Lighthouse.colors.neutrals.black.alpha-23}",
     "hoverborder": "{Lighthouse.colors.neutrals.black.100}",
-    "background-fill": "{Lighthouse.colors.neutrals.white.100}"
+    "background-fill": "{Base.background.elevations.highest}"
   },
   "section": {
-    "border": "{Lighthouse.colors.neutrals.black.alpha-12}"
+    "border": "{Base.divider.default}"
   },
   "icon": {
-    "icon-fill-primary": "{Lighthouse.colors.blues.slate-blue.500}",
-    "icon-fill-default": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "icon-fill-active": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "icon-fill-disabled": "{Lighthouse.colors.neutrals.black.alpha-38}"
+    "icon-fill-primary": "{Base.primary.main}",
+    "icon-fill-default": "{Base.text.default}",
+    "icon-fill-active": "{Base.text.default}",
+    "icon-fill-disabled": "{Base.text.disabled}"
   },
   "modal": {
-    "background-fill": "{Lighthouse.colors.neutrals.neutral.200}"
+    "background-fill": "{Base.background.elevations.level-4}"
   },
   "panel": {
-    "border": "{Lighthouse.colors.neutrals.black.alpha-12}"
+    "border": "{Base.divider.default}"
   },
   "background-fill": {
-    "base": "{Lighthouse.colors.neutrals.neutral.300}",
-    "level-1": "{Lighthouse.colors.neutrals.neutral.200}",
-    "level-2": "{Lighthouse.colors.neutrals.neutral.100}",
-    "content-highest": "{Lighthouse.colors.neutrals.white.100}",
-    "default": "{Lighthouse.colors.neutrals.neutral.200}",
+    "base": "{Base.background.elevations.level-3}",
+    "level-1": "{Base.background.elevations.level-4}",
+    "level-2": "{Base.background.elevations.level-5}",
+    "content-highest": "{Base.background.elevations.highest}",
+    "default": "{Base.background.elevations.level-4}",
     "selected": "{Lighthouse.colors.blues.vivid-blue.500-alpha-16}",
     "highlighted": "{Lighthouse.colors.blues.vivid-blue.500-alpha-16}"
   },
   "sidebar": {
     "icon-fill-default": "{Lighthouse.colors.neutrals.black.alpha-56}",
-    "label-fill-default": "#ffffff",
+    "label-fill-default": "{Component.navigation.sidebar.icon-fill-default}",
     "background-fill": "{Lighthouse.colors.blues.slate-blue.100}",
     "icon-fill-selected": "{Lighthouse.colors.neutrals.neutral.100}",
     "label-fill-selected": "{Lighthouse.colors.neutrals.neutral.100}",
     "background-fill-selected": "{Lighthouse.colors.blues.slate-blue.500-alpha-87}",
-    "stroke-selected": "#ffffff",
+    "stroke-selected": "{Component.navigation.sidebar.icon-fill-selected}",
     "bar-border-stroke": "{Lighthouse.colors.neutrals.white.alpha-12}"
   },
   "topbar": {
     "text-fill-default": "{Lighthouse.colors.neutrals.white.100}",
-    "background-fill": "{Lighthouse.colors.brand.darkly.100}",
+    "background-fill": "{Base.background.brand-dark-tone}",
     "action-element-fill": "{Lighthouse.colors.neutrals.white.alpha-56}",
     "icon-fill-default": "{Lighthouse.colors.neutrals.white.100}",
     "form-outline-default": "{Lighthouse.colors.neutrals.white.alpha-23}"
   },
   "footer": {
-    "background-fill": "{Lighthouse.colors.neutrals.white.100}",
+    "background-fill": "{Component.navigation.topbar.background-fill}",
     "text-fill-default": "{Lighthouse.colors.neutrals.white.100}"
   },
   "list-item": {
-    "convoy-label": "{Lighthouse.colors.neutrals.black.alpha-87}"
+    "convoy-label": "{Base.text.primary}"
   },
   "text-fill": {
-    "main-text": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "support-text": "{Lighthouse.colors.neutrals.black.alpha-56}",
-    "timestamp": "{Lighthouse.colors.neutrals.black.alpha-38}"
+    "main-text": "{Base.text.primary}",
+    "support-text": "{Base.text.caption}",
+    "timestamp": "{Base.text.disabled}"
   },
   "map-marker": {
     "tooltip-fill": "{Base.primary._states.hover}",
-    "tooltip-text": "{Lighthouse.colors.neutrals.black.alpha-87}"
+    "tooltip-text": "{Base.label.default}"
   },
   "destination": {
     "fill-default": "{Lighthouse.colors.yellows.yellow.500}",
     "stroke-default": "{Lighthouse.colors.neutrals.white.100}",
-    "text-default": "{Lighthouse.colors.neutrals.black.alpha-87}",
+    "text-default": "{Base.label.always-dark}",
     "stroke-selected": "{Lighthouse.colors.yellows.yellow.500}",
     "fill-selected": "{Lighthouse.colors.neutrals.white.100}",
     "label-fill-selected": "{Lighthouse.colors.yellows.yellow-darkly.100}",
     "label-text-selected": "{Lighthouse.colors.neutrals.white.100}"
   },
   "inbound": {
-    "fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "icon": "{Lighthouse.colors.blues.vivid-blue.800}",
+    "fill": "{Base.status.status-inbound.default}",
+    "icon": "{Base.status.status-inbound.darker}",
     "stroke": "{Lighthouse.colors.blues.vivid-blue.700-alpha-80}",
-    "label-fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "label-text": "{Lighthouse.colors.blues.vivid-blue.800}",
-    "label-selected-fill": "{Lighthouse.colors.blues.vivid-blue.900}",
-    "label-selected-text": "{Lighthouse.colors.blues.vivid-blue.50}",
-    "text-fill": "{Lighthouse.colors.blues.vivid-blue.800}",
-    "text-fill-contrast": "{Lighthouse.colors.blues.vivid-blue.800}"
+    "label-fill": "{Base.status.status-inbound.default}",
+    "label-text": "{Component.map-marker.convoy.inbound.icon}",
+    "label-selected-fill": "{Base.status.status-inbound.darkest}",
+    "label-selected-text": "{Base.status.status-inbound.lightest}",
+    "text-fill": "{Base.status.status-inbound.darker}",
+    "text-fill-contrast": "{Base.status.status-inbound.darker}"
   },
   "arrived": {
-    "fill": "{Lighthouse.colors.yellows.yellow.300}",
-    "icon": "{Lighthouse.colors.yellows.yellow.800}",
+    "fill": "{Base.status.status-arrived.default}",
+    "icon": "{Base.status.status-arrived.darker}",
     "stroke": "{Lighthouse.colors.yellows.yellow.800-alpha-60}",
-    "label-fill": "{Lighthouse.colors.yellows.yellow.300}",
-    "label-text": "{Lighthouse.colors.yellows.yellow.800}",
-    "label-selected-fill": "{Lighthouse.colors.yellows.yellow.800}",
-    "label-selecfed-text": "{Lighthouse.colors.yellows.yellow.50}",
-    "text-fill": "{Lighthouse.colors.yellows.yellow.800}",
-    "text-fill-contrast": "{Lighthouse.colors.yellows.yellow.800}"
+    "label-fill": "{Component.map-marker.convoy.arrived.fill}",
+    "label-text": "{Component.map-marker.convoy.arrived.icon}",
+    "label-selected-fill": "{Component.map-marker.convoy.arrived.icon}",
+    "label-selecfed-text": "{Base.status.status-arrived.lightest}",
+    "text-fill": "{Base.status.status-arrived.darker}",
+    "text-fill-contrast": "{Base.status.status-arrived.darker}"
   },
   "idle": {
-    "fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "icon": "{Lighthouse.colors.greens.soft-teal.800}",
+    "fill": "{Base.status.status-idle.default}",
+    "icon": "{Base.status.status-idle.darker}",
     "stroke": "{Lighthouse.colors.greens.soft-teal.800-alpha-87}",
-    "label-fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "label-text": "{Lighthouse.colors.greens.soft-teal.800}",
-    "label-selected-fill": "{Lighthouse.colors.greens.soft-teal.800}",
-    "label-selected-text": "{Lighthouse.colors.greens.soft-teal.50}",
-    "text-fill": "{Lighthouse.colors.greens.soft-teal.900}",
-    "text-fill-contrast": "{Lighthouse.colors.greens.soft-teal.900}"
+    "label-fill": "{Component.map-marker.convoy.idle.fill}",
+    "label-text": "{Component.map-marker.convoy.idle.icon}",
+    "label-selected-fill": "{Component.map-marker.convoy.idle.icon}",
+    "label-selected-text": "{Base.status.status-idle.lightest}",
+    "text-fill": "{Base.status.status-idle.darkest}",
+    "text-fill-contrast": "{Base.status.status-idle.darkest}"
   },
   "no-signal": {
-    "fill": "{Lighthouse.colors.brand.default.600}",
-    "icon": "{Lighthouse.colors.brand.default.50}",
+    "fill": "{Base.status.status-no-signal.default}",
+    "icon": "{Base.status.status-no-signal.lightest}",
     "stroke": "{Lighthouse.colors.reds.punchy-red.900-alpha-87}",
-    "label-fill": "{Lighthouse.colors.brand.default.600}",
-    "label-text": "{Lighthouse.colors.brand.default.50}",
-    "label-selected-fill": "{Lighthouse.colors.brand.default.900}",
-    "label-selected-text": "{Lighthouse.colors.brand.default.50}",
-    "text-fill-2": "{Lighthouse.colors.brand.default.600}",
-    "text-fill-contrast-2": "{Lighthouse.colors.brand.default.50}"
+    "label-fill": "{Component.map-marker.convoy.no-signal.fill}",
+    "label-text": "{Component.map-marker.convoy.no-signal.icon}",
+    "label-selected-fill": "{Base.status.status-no-signal.darkest}",
+    "label-selected-text": "{Component.map-marker.convoy.no-signal.icon}",
+    "text-fill-2": "{Base.status.status-no-signal.default}",
+    "text-fill-contrast-2": "{Base.status.status-no-signal.lightest}"
   },
   "checked-in": {
-    "fill": "{Lighthouse.colors.blues.slate-blue.400}",
-    "icon": "{Lighthouse.colors.blues.slate-blue.900}",
+    "fill": "{Base.status.status-checkedin.light}",
+    "icon": "{Base.status.status-checkedin.darkest}",
     "stroke": "{Lighthouse.colors.blues.slate-blue.500-alpha-87}",
-    "label-fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "label-text": "{Lighthouse.colors.blues.slate-blue.900}",
-    "label-selected-fill": "{Lighthouse.colors.blues.slate-blue.600}",
-    "label-selected-text": "{Lighthouse.colors.blues.slate-blue.400}"
+    "label-fill": "{Component.map-marker.convoy.checked-in.fill}",
+    "label-text": "{Base.status.status-checkedin.darkest}",
+    "label-selected-fill": "{Base.status.status-checkedin.darker}",
+    "label-selected-text": "{Base.status.status-checkedin.lightest}"
   },
   "stack": {
     "fill-default": "{Lighthouse.colors.blues.vivid-blue.300}",
-    "label-fill": "{Lighthouse.colors.neutrals.black.alpha-87}",
+    "label-fill": "{Base.label.always-dark}",
     "stroke-default": "{Lighthouse.colors.blues.vivid-blue.500-alpha-50}"
   },
   "status-chip": {
-    "inbound-surface-fill": "{Lighthouse.colors.blues.vivid-blue.600}",
-    "arriving-surface-fill": "{Lighthouse.colors.yellows.yellow.300}",
-    "idle-surface-fill": "{Lighthouse.colors.greens.soft-teal.600}",
-    "nosignal-surface-fill": "{Lighthouse.colors.brand.default.600}",
-    "checkedin-surface-fill": "{Lighthouse.colors.blues.slate-blue.400}",
-    "status-label": "{Lighthouse.colors.neutrals.black.alpha-87}",
+    "inbound-surface-fill": "{Base.status.status-inbound.dark}",
+    "arriving-surface-fill": "{Base.status.status-arrived.default}",
+    "idle-surface-fill": "{Base.status.status-idle.dark}",
+    "nosignal-surface-fill": "{Base.status.status-no-signal.default}",
+    "checkedin-surface-fill": "{Base.status.status-checkedin.lightest}",
+    "status-label": "{Base.text.primary}",
     "status-label-reverse": "{Lighthouse.colors.neutrals.white.100}"
   }
 },
@@ -499,15 +439,6 @@ const lightTheme = {
       }
     }
   },
-  "MuiComments": {
-    "styleOverrides": {
-      "root": {
-        "$type": "string",
-        "$value": "Carryover from MUI",
-        "$resolvedValue": "Carryover from MUI"
-      }
-    }
-  },
   "MuiInput": {
     "styleOverrides": {
       "root": {
@@ -522,7 +453,7 @@ const lightTheme = {
         "outlined": {
           "enabledborder": "{Lighthouse.colors.neutrals.black.alpha-23}",
           "hoverborder": "{Lighthouse.colors.neutrals.black.100}",
-          "background-fill": "{Lighthouse.colors.neutrals.white.100}"
+          "background-fill": "{Base.background.elevations.highest}"
         }
       }
     }
@@ -535,12 +466,12 @@ const lightTheme = {
           "background": "{Lighthouse.colors.reds.punchy-red.50}"
         },
         "warning": {
-          "color": "{Lighthouse.colors.yellows.yellow.400}",
+          "color": "{Base.feedback.warning.main}",
           "background": "{Lighthouse.colors.yellows.yellow.50}"
         },
         "info": {
-          "color": "{Lighthouse.colors.blues.vivid-blue.600}",
-          "background": "{Lighthouse.colors.blues.vivid-blue.50}"
+          "color": "{Base.feedback.info.dark}",
+          "background": "{Base.feedback.info.contrast-text}"
         },
         "success": {
           "color": "{Lighthouse.colors.greens.forest-green.900}",
@@ -559,7 +490,7 @@ const darkTheme = {
     "main": "{Lighthouse.colors.neutrals.white.100}"
   },
   "secondary": {
-    "main": "{Lighthouse.colors.neutrals.black.alpha-70}"
+    "main": "{Base.text.secondary}"
   },
   "warning": {
     "main": "{Lighthouse.colors.yellows.yellow-darkly.500-alpha-16}"
@@ -570,8 +501,8 @@ const darkTheme = {
   },
   "label": {
     "always-dark": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "default": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "active": "{Lighthouse.colors.blues.slate-blue.400}"
+    "default": "{Base.text.primary}",
+    "active": "{Base.primary.light}"
   },
   "surface-light": {
     "main": "{Lighthouse.colors.neutrals.white.100}",
@@ -593,7 +524,7 @@ const darkTheme = {
     "default": "{Lighthouse.colors.neutrals.white.alpha-12}"
   },
   "elevation": {
-    "outlined": "{Lighthouse.colors.neutrals.black.alpha-12}"
+    "outlined": "{Base.divider.default}"
   },
   "native": {
     "scrollbar-bg": "{Lighthouse.colors.neutrals.neutral.700}"
@@ -613,11 +544,11 @@ const darkTheme = {
     "outlinedborder": "{Lighthouse.colors.blues.vivid-blue-darkly.500-alpha-50}",
     "outlineborder": "{Lighthouse.colors.greens.soft-teal.500-alpha-50}",
     "enabled-fill": "{Lighthouse.colors.neutrals.transparent}",
-    "enabled-stroke": "{Lighthouse.colors.greens.soft-teal.400}",
+    "enabled-stroke": "{Base.status.status-idle.default}",
     "hover-fill": "{Lighthouse.colors.neutrals.transparent}",
-    "hover-stroke": "{Lighthouse.colors.greens.soft-teal.900}",
-    "active-fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "active-stroke": "{Lighthouse.colors.greens.soft-teal.400}"
+    "hover-stroke": "{Base.status.status-idle.darkest}",
+    "active-fill": "{Base.status.status-idle.default}",
+    "active-stroke": "{Base.status.status-idle.default}"
   },
   "status-arrived": {
     "default": "{Lighthouse.colors.yellows.yellow.300}",
@@ -664,11 +595,11 @@ const darkTheme = {
     "screen": "{Lighthouse.colors.greens.forest-green.400-alpha-50}"
   },
   "status-mobilize": {
-    "default": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "lightest": "{Lighthouse.colors.blues.vivid-blue.50}",
-    "darker": "{Lighthouse.colors.blues.vivid-blue.800}",
-    "darkest": "{Lighthouse.colors.blues.vivid-blue.900}",
-    "screen": "{Lighthouse.colors.blues.vivid-blue.500-alpha-50}"
+    "default": "{Base.status.status-inbound.default}",
+    "lightest": "{Base.status.status-inbound.lightest}",
+    "darker": "{Base.status.status-inbound.darker}",
+    "darkest": "{Base.status.status-inbound.darkest}",
+    "screen": "{Base.status.status-inbound.screen}"
   },
   "black-states": {
     "main": "{Lighthouse.colors.neutrals.black.100}",
@@ -699,7 +630,7 @@ const darkTheme = {
     "activefill": "{Lighthouse.colors.yellows.yellow.400}"
   },
   "snackbar": {
-    "fill": "{Lighthouse.colors.neutrals.white.100}"
+    "fill": "{Base.background.paper-elevation-6}"
   },
   "chip": {
     "defaultclosefill": "{Lighthouse.colors.neutrals.white.100}",
@@ -714,7 +645,7 @@ const darkTheme = {
     "fill": "{Lighthouse.colors.neutrals.black.alpha-50}"
   },
   "appbar": {
-    "defaultfill": "{Lighthouse.colors.neutrals.neutral.200}"
+    "defaultfill": "{Base.background.paper-elevation-4}"
   },
   "breadcrumbs": {
     "collapsefill": "{Lighthouse.colors.neutrals.neutral.100}"
@@ -733,139 +664,139 @@ const darkTheme = {
   "outlined": {
     "enabledborder": "{Lighthouse.colors.neutrals.white.alpha-23}",
     "hoverborder": "{Lighthouse.colors.neutrals.white.100}",
-    "background-fill": "{Lighthouse.colors.neutrals.neutral.350}"
+    "background-fill": "{Base.background.elevations.level-2}"
   },
   "section": {
-    "border": "{Lighthouse.colors.neutrals.black.alpha-12}"
+    "border": "{Base.divider.default}"
   },
   "icon": {
-    "icon-fill-primary": "{Lighthouse.colors.blues.slate-blue.500}",
-    "icon-fill-default": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "icon-fill-active": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "icon-fill-disabled": "{Lighthouse.colors.neutrals.black.alpha-38}"
+    "icon-fill-primary": "{Base.primary.main}",
+    "icon-fill-default": "{Base.text.default}",
+    "icon-fill-active": "{Base.text.default}",
+    "icon-fill-disabled": "{Base.text.disabled}"
   },
   "modal": {
-    "background-fill": "{Lighthouse.colors.neutrals.neutral.400}"
+    "background-fill": "{Base.background.elevations.level-1}"
   },
   "panel": {
-    "border": "{Lighthouse.colors.neutrals.black.alpha-12}"
+    "border": "{Base.divider.default}"
   },
   "background-fill": {
-    "base": "{Lighthouse.colors.neutrals.neutral.400}",
-    "level-1": "{Lighthouse.colors.neutrals.neutral.350}",
-    "level-2": "{Lighthouse.colors.neutrals.neutral.200}",
-    "content-highest": "{Lighthouse.colors.neutrals.neutral.100}",
-    "default": "{Lighthouse.colors.neutrals.neutral.350}",
+    "base": "{Base.background.elevations.level-1}",
+    "level-1": "{Base.background.elevations.level-2}",
+    "level-2": "{Base.background.elevations.level-4}",
+    "content-highest": "{Base.background.elevations.level-5}",
+    "default": "{Base.background.elevations.level-2}",
     "selected": "{Lighthouse.colors.neutrals.white.alpha-16}",
     "highlighted": "{Lighthouse.colors.blues.vivid-blue-darkly.500-alpha-16}"
   },
   "sidebar": {
     "icon-fill-default": "{Lighthouse.colors.neutrals.white.alpha-56}",
-    "label-fill-default": "#ffffff",
+    "label-fill-default": "{Component.navigation.sidebar.icon-fill-default}",
     "background-fill": "{Lighthouse.colors.neutrals.gray.100}",
     "icon-fill-selected": "{Lighthouse.colors.blues.slate-blue-darkly.500}",
-    "label-fill-selected": "#ffffff",
+    "label-fill-selected": "{Component.navigation.sidebar.icon-fill-selected}",
     "background-fill-selected": "{Lighthouse.colors.blues.slate-blue-darkly.500-alpha-16}",
-    "stroke-selected": "#ffffff",
+    "stroke-selected": "{Component.navigation.sidebar.icon-fill-selected}",
     "bar-border-stroke": "{Lighthouse.colors.neutrals.white.alpha-12}"
   },
   "topbar": {
     "text-fill-default": "{Lighthouse.colors.neutrals.white.100}",
-    "background-fill": "{Lighthouse.colors.brand.darkly.100}",
+    "background-fill": "{Base.background.brand-dark-tone}",
     "action-element-fill": "{Lighthouse.colors.neutrals.white.alpha-56}",
     "icon-fill-default": "{Lighthouse.colors.neutrals.white.100}",
     "form-outline-default": "{Lighthouse.colors.neutrals.white.alpha-23}"
   },
   "footer": {
-    "background-fill": "{Lighthouse.colors.neutrals.white.100}",
+    "background-fill": "{Component.navigation.topbar.background-fill}",
     "text-fill-default": "{Lighthouse.colors.neutrals.white.100}"
   },
   "list-item": {
-    "convoy-label": "{Lighthouse.colors.neutrals.black.alpha-87}"
+    "convoy-label": "{Base.text.primary}"
   },
   "text-fill": {
-    "main-text": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "support-text": "{Lighthouse.colors.neutrals.black.alpha-56}",
-    "timestamp": "{Lighthouse.colors.neutrals.black.alpha-38}"
+    "main-text": "{Base.text.primary}",
+    "support-text": "{Base.text.caption}",
+    "timestamp": "{Base.text.disabled}"
   },
   "map-marker": {
-    "tooltip-fill": "{Lighthouse.colors.blues.slate-blue.50}",
-    "tooltip-text": "{Lighthouse.colors.neutrals.black.alpha-70}"
+    "tooltip-fill": "{Base.primary.contrast-text}",
+    "tooltip-text": "{Base.label.secondary}"
   },
   "destination": {
     "fill-default": "{Lighthouse.colors.yellows.yellow.500}",
     "stroke-default": "{Lighthouse.colors.neutrals.white.100}",
-    "text-default": "{Lighthouse.colors.neutrals.black.alpha-87}",
+    "text-default": "{Base.label.always-dark}",
     "stroke-selected": "{Lighthouse.colors.yellows.yellow.500}",
     "fill-selected": "{Lighthouse.colors.neutrals.white.100}",
     "label-fill-selected": "{Lighthouse.colors.yellows.yellow-darkly.100}",
     "label-text-selected": "{Lighthouse.colors.neutrals.white.100}"
   },
   "inbound": {
-    "fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "icon": "{Lighthouse.colors.blues.vivid-blue.800}",
-    "stroke": "{Lighthouse.colors.blues.vivid-blue.500-alpha-50}",
-    "label-fill": "{Lighthouse.colors.blues.vivid-blue.900}",
-    "label-text": "{Lighthouse.colors.blues.vivid-blue.50}",
-    "label-selected-fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "label-selected-text": "{Lighthouse.colors.blues.vivid-blue.800}",
-    "text-fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "text-fill-contrast": "{Lighthouse.colors.blues.vivid-blue.900}"
+    "fill": "{Base.status.status-inbound.default}",
+    "icon": "{Base.status.status-inbound.darker}",
+    "stroke": "{Base.status.status-inbound.screen}",
+    "label-fill": "{Base.status.status-inbound.darkest}",
+    "label-text": "{Base.status.status-inbound.lightest}",
+    "label-selected-fill": "{Component.map-marker.convoy.inbound.fill}",
+    "label-selected-text": "{Component.map-marker.convoy.inbound.icon}",
+    "text-fill": "{Base.status.status-inbound.default}",
+    "text-fill-contrast": "{Base.status.status-inbound.darkest}"
   },
   "arrived": {
-    "fill": "{Lighthouse.colors.yellows.yellow.300}",
-    "icon": "{Lighthouse.colors.yellows.yellow.800}",
-    "stroke": "{Lighthouse.colors.yellows.yellow.200-alpha-50}",
-    "label-fill": "{Lighthouse.colors.yellows.yellow.900}",
-    "label-text": "{Lighthouse.colors.yellows.yellow.50}",
-    "label-selected-fill": "{Lighthouse.colors.yellows.yellow.300}",
-    "label-selecfed-text": "{Lighthouse.colors.yellows.yellow.900}",
-    "text-fill": "{Lighthouse.colors.yellows.yellow.300}",
-    "text-fill-contrast": "{Lighthouse.colors.yellows.yellow.900}"
+    "fill": "{Base.status.status-arrived.default}",
+    "icon": "{Base.status.status-arrived.darker}",
+    "stroke": "{Base.status.status-arrived.screen}",
+    "label-fill": "{Base.status.status-arrived.darkest}",
+    "label-text": "{Base.status.status-arrived.lightest}",
+    "label-selected-fill": "{Component.map-marker.convoy.arrived.fill}",
+    "label-selecfed-text": "{Component.map-marker.convoy.arrived.label-fill}",
+    "text-fill": "{Base.status.status-arrived.default}",
+    "text-fill-contrast": "{Base.status.status-arrived.darkest}"
   },
   "idle": {
-    "fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "icon": "{Lighthouse.colors.greens.soft-teal.800}",
-    "stroke": "{Lighthouse.colors.greens.soft-teal.400-alpha-50}",
-    "label-fill": "{Lighthouse.colors.greens.soft-teal.900}",
-    "label-text": "{Lighthouse.colors.greens.soft-teal.50}",
-    "label-selected-fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "label-selected-text": "{Lighthouse.colors.greens.soft-teal.900}",
-    "text-fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "text-fill-contrast": "{Lighthouse.colors.greens.soft-teal.900}"
+    "fill": "{Base.status.status-idle.default}",
+    "icon": "{Base.status.status-idle.darker}",
+    "stroke": "{Base.status.status-idle.screen}",
+    "label-fill": "{Base.status.status-idle.darkest}",
+    "label-text": "{Base.status.status-idle.lightest}",
+    "label-selected-fill": "{Component.map-marker.convoy.idle.fill}",
+    "label-selected-text": "{Base.status.status-idle.darkest}",
+    "text-fill": "{Base.status.status-idle.default}",
+    "text-fill-contrast": "{Base.status.status-idle.darkest}"
   },
   "no-signal": {
-    "fill": "{Lighthouse.colors.brand.default.600}",
-    "icon": "{Lighthouse.colors.brand.default.50}",
-    "stroke": "{Lighthouse.colors.brand.default.600-alpha-50}",
-    "label-fill": "{Lighthouse.colors.brand.default.900}",
-    "label-text": "{Lighthouse.colors.brand.default.50}",
-    "label-selected-fill": "{Lighthouse.colors.brand.default.600}",
-    "label-selected-text": "{Lighthouse.colors.brand.default.50}",
-    "text-fill-2": "{Lighthouse.colors.brand.default.600}",
-    "text-fill-contrast-2": "{Lighthouse.colors.brand.default.900}"
+    "fill": "{Base.status.status-no-signal.always-dark}",
+    "icon": "{Base.status.status-no-signal.lightest}",
+    "stroke": "{Base.status.status-no-signal.screen}",
+    "label-fill": "{Base.status.status-no-signal.darkest}",
+    "label-text": "{Base.status.status-no-signal.lightest}",
+    "label-selected-fill": "{Component.map-marker.convoy.no-signal.fill}",
+    "label-selected-text": "{Base.status.status-no-signal.lightest}",
+    "text-fill-2": "{Base.status.status-no-signal.default}",
+    "text-fill-contrast-2": "{Base.status.status-no-signal.darkest}"
   },
   "checked-in": {
-    "fill": "{Lighthouse.colors.blues.slate-blue.400}",
-    "icon": "{Lighthouse.colors.blues.slate-blue.900}",
-    "stroke": "{Lighthouse.colors.blues.slate-blue.500-alpha-50}",
-    "label-fill": "{Lighthouse.colors.blues.slate-blue.900}",
-    "label-text": "{Lighthouse.colors.blues.slate-blue.400}",
-    "label-selected-fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "label-selected-text": "{Lighthouse.colors.blues.slate-blue.900}"
+    "fill": "{Base.status.status-checkedin.light}",
+    "icon": "{Base.status.status-checkedin.darkest}",
+    "stroke": "{Base.status.status-checkedin.screen}",
+    "label-fill": "{Component.map-marker.convoy.checked-in.icon}",
+    "label-text": "{Base.status.status-checkedin.lightest}",
+    "label-selected-fill": "{Component.map-marker.convoy.checked-in.fill}",
+    "label-selected-text": "{Base.status.status-checkedin.darkest}"
   },
   "stack": {
     "fill-default": "{Lighthouse.colors.blues.vivid-blue.300}",
-    "label-fill": "{Lighthouse.colors.neutrals.black.alpha-87}",
+    "label-fill": "{Base.label.always-dark}",
     "stroke-default": "{Lighthouse.colors.blues.vivid-blue.500-alpha-50}"
   },
   "status-chip": {
-    "inbound-surface-fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "arriving-surface-fill": "{Lighthouse.colors.yellows.yellow.300}",
-    "idle-surface-fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "nosignal-surface-fill": "{Lighthouse.colors.brand.default.600}",
-    "checkedin-surface-fill": "{Lighthouse.colors.blues.slate-blue.500}",
-    "status-label": "{Lighthouse.colors.neutrals.black.alpha-87}",
+    "inbound-surface-fill": "{Base.status.status-inbound.default}",
+    "arriving-surface-fill": "{Base.status.status-arrived.default}",
+    "idle-surface-fill": "{Base.status.status-idle.default}",
+    "nosignal-surface-fill": "{Base.status.status-no-signal.default}",
+    "checkedin-surface-fill": "{Base.status.status-checkedin.default}",
+    "status-label": "{Base.text.primary}",
     "status-label-reverse": "{Lighthouse.colors.neutrals.black.alpha-87}"
   },
   "mode": "dark"
@@ -932,7 +863,7 @@ const darkTheme = {
   "MuiSnackbar": {
     "styleOverrides": {
       "root": {
-        "fill": "{Lighthouse.colors.neutrals.white.100}"
+        "fill": "{Base.background.paper-elevation-6}"
       }
     }
   },
@@ -963,7 +894,7 @@ const darkTheme = {
   "MuiAppbar": {
     "styleOverrides": {
       "root": {
-        "defaultfill": "{Lighthouse.colors.neutrals.neutral.200}"
+        "defaultfill": "{Base.background.paper-elevation-4}"
       }
     }
   },
@@ -981,15 +912,6 @@ const darkTheme = {
       }
     }
   },
-  "MuiComments": {
-    "styleOverrides": {
-      "root": {
-        "$type": "string",
-        "$value": "Carryover from MUI",
-        "$resolvedValue": "Carryover from MUI"
-      }
-    }
-  },
   "MuiInput": {
     "styleOverrides": {
       "root": {
@@ -1004,7 +926,7 @@ const darkTheme = {
         "outlined": {
           "enabledborder": "{Lighthouse.colors.neutrals.white.alpha-23}",
           "hoverborder": "{Lighthouse.colors.neutrals.white.100}",
-          "background-fill": "{Lighthouse.colors.neutrals.neutral.350}"
+          "background-fill": "{Base.background.elevations.level-2}"
         }
       }
     }
@@ -1017,12 +939,12 @@ const darkTheme = {
           "background": "{Lighthouse.colors.reds.punchy-red-darkly.50}"
         },
         "warning": {
-          "color": "{Lighthouse.colors.yellows.yellow.600}",
+          "color": "{Base.feedback.warning.dark}",
           "background": "{Lighthouse.colors.yellows.yellow-darkly.50}"
         },
         "info": {
-          "color": "{Lighthouse.colors.blues.vivid-blue.600}",
-          "background": "{Lighthouse.colors.blues.vivid-blue.50}"
+          "color": "{Base.feedback.info.dark}",
+          "background": "{Base.feedback.info.contrast-text}"
         },
         "success": {
           "color": "{Lighthouse.colors.greens.forest-green-darkly.800}",
@@ -1041,7 +963,7 @@ const mobileTheme = {
     "main": "{Lighthouse.colors.neutrals.black.alpha-87}"
   },
   "secondary": {
-    "main": "{Lighthouse.colors.neutrals.black.alpha-70}"
+    "main": "{Base.text.secondary}"
   },
   "warning": {
     "main": "{Lighthouse.colors.yellows.yellow-darkly.500-alpha-16}"
@@ -1052,8 +974,8 @@ const mobileTheme = {
   },
   "label": {
     "always-dark": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "default": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "active": "{Lighthouse.colors.blues.slate-blue.500}"
+    "default": "{Base.text.primary}",
+    "active": "{Base.primary.main}"
   },
   "surface-light": {
     "main": "{Lighthouse.colors.neutrals.white.100}",
@@ -1146,11 +1068,11 @@ const mobileTheme = {
     "screen": "{Lighthouse.colors.greens.forest-green.400-alpha-50}"
   },
   "status-mobilize": {
-    "default": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "lightest": "{Lighthouse.colors.blues.vivid-blue.50}",
-    "darker": "{Lighthouse.colors.blues.vivid-blue.800}",
-    "darkest": "{Lighthouse.colors.blues.vivid-blue.900}",
-    "screen": "{Lighthouse.colors.blues.vivid-blue.500-alpha-50}"
+    "default": "{Base.status.status-inbound.default}",
+    "lightest": "{Base.status.status-inbound.lightest}",
+    "darker": "{Base.status.status-inbound.darker}",
+    "darkest": "{Base.status.status-inbound.darkest}",
+    "screen": "{Base.status.status-inbound.screen}"
   },
   "black-states": {
     "main": "{Lighthouse.colors.neutrals.black.100}",
@@ -1215,29 +1137,29 @@ const mobileTheme = {
   "outlined": {
     "enabledborder": "{Lighthouse.colors.neutrals.black.alpha-23}",
     "hoverborder": "{Lighthouse.colors.neutrals.black.100}",
-    "background-fill": "{Lighthouse.colors.neutrals.white.100}"
+    "background-fill": "{Base.background.elevations.highest}"
   },
   "section": {
-    "border": "{Lighthouse.colors.neutrals.black.alpha-12}"
+    "border": "{Base.divider.default}"
   },
   "icon": {
-    "icon-fill-primary": "{Lighthouse.colors.blues.slate-blue.500}",
-    "icon-fill-default": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "icon-fill-active": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "icon-fill-disabled": "{Lighthouse.colors.neutrals.black.alpha-38}"
+    "icon-fill-primary": "{Base.primary.main}",
+    "icon-fill-default": "{Base.text.default}",
+    "icon-fill-active": "{Base.text.default}",
+    "icon-fill-disabled": "{Base.text.disabled}"
   },
   "modal": {
-    "background-fill": "{Lighthouse.colors.neutrals.neutral.200}"
+    "background-fill": "{Base.background.elevations.level-4}"
   },
   "panel": {
-    "border": "{Lighthouse.colors.neutrals.black.alpha-12}"
+    "border": "{Base.divider.default}"
   },
   "background-fill": {
-    "base": "{Lighthouse.colors.neutrals.white.100}",
-    "level-1": "{Lighthouse.colors.neutrals.white.100}",
-    "level-2": "{Lighthouse.colors.neutrals.white.100}",
-    "content-highest": "{Lighthouse.colors.neutrals.white.100}",
-    "default": "{Lighthouse.colors.neutrals.white.100}",
+    "base": "{Base.background.elevations.highest}",
+    "level-1": "{Base.background.elevations.highest}",
+    "level-2": "{Base.background.elevations.highest}",
+    "content-highest": "{Base.background.elevations.highest}",
+    "default": "{Base.background.elevations.highest}",
     "selected": "{Lighthouse.colors.blues.vivid-blue.500-alpha-16}",
     "highlighted": "{Lighthouse.colors.blues.vivid-blue.500-alpha-16}"
   },
@@ -1252,10 +1174,10 @@ const mobileTheme = {
     "bar-border-stroke": "#ffffff"
   },
   "topbar": {
-    "text-fill-default": "{Lighthouse.colors.neutrals.black.alpha-87}",
+    "text-fill-default": "{Base.text.primary}",
     "background-fill": "{Lighthouse.colors.neutrals.white.100}",
-    "action-element-fill": "{Lighthouse.colors.neutrals.black.alpha-56}",
-    "icon-fill-default": "{Lighthouse.colors.neutrals.black.alpha-56}",
+    "action-element-fill": "{Base.action.active}",
+    "icon-fill-default": "{Base.action.active}",
     "form-outline-default": "{Base._components.input.standard.enabledBorder}"
   },
   "footer": {
@@ -1263,91 +1185,91 @@ const mobileTheme = {
     "text-fill-default": "#ffffff"
   },
   "list-item": {
-    "convoy-label": "{Lighthouse.colors.neutrals.black.alpha-87}"
+    "convoy-label": "{Base.text.primary}"
   },
   "text-fill": {
-    "main-text": "{Lighthouse.colors.neutrals.black.alpha-87}",
-    "support-text": "{Lighthouse.colors.neutrals.black.alpha-56}",
-    "timestamp": "{Lighthouse.colors.neutrals.black.alpha-38}"
+    "main-text": "{Base.text.primary}",
+    "support-text": "{Base.text.caption}",
+    "timestamp": "{Base.text.disabled}"
   },
   "map-marker": {
-    "tooltip-fill": "{Lighthouse.colors.blues.slate-blue.50}",
-    "tooltip-text": "{Lighthouse.colors.neutrals.black.alpha-70}"
+    "tooltip-fill": "{Base.primary.contrast-text}",
+    "tooltip-text": "{Base.label.secondary}"
   },
   "destination": {
     "fill-default": "{Lighthouse.colors.yellows.yellow.500}",
     "stroke-default": "{Lighthouse.colors.neutrals.white.100}",
-    "text-default": "{Lighthouse.colors.neutrals.black.alpha-87}",
+    "text-default": "{Base.label.always-dark}",
     "stroke-selected": "{Lighthouse.colors.yellows.yellow.500}",
     "fill-selected": "{Lighthouse.colors.neutrals.white.100}",
     "label-fill-selected": "{Lighthouse.colors.yellows.yellow-darkly.100}",
     "label-text-selected": "{Lighthouse.colors.neutrals.white.100}"
   },
   "inbound": {
-    "fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "icon": "{Lighthouse.colors.blues.vivid-blue.800}",
-    "stroke": "{Lighthouse.colors.blues.vivid-blue.500-alpha-50}",
-    "label-fill": "{Lighthouse.colors.blues.vivid-blue.900}",
-    "label-text": "{Lighthouse.colors.blues.vivid-blue.50}",
-    "label-selected-fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "label-selected-text": "{Lighthouse.colors.blues.vivid-blue.800}",
+    "fill": "{Base.status.status-inbound.default}",
+    "icon": "{Base.status.status-inbound.darker}",
+    "stroke": "{Base.status.status-inbound.screen}",
+    "label-fill": "{Base.status.status-inbound.darkest}",
+    "label-text": "{Base.status.status-inbound.lightest}",
+    "label-selected-fill": "{Component.map-marker.convoy.inbound.fill}",
+    "label-selected-text": "{Base.status.status-inbound.darker}",
     "text-fill": "#ffffff",
     "text-fill-contrast": "#ffffff"
   },
   "arrived": {
-    "fill": "{Lighthouse.colors.yellows.yellow.300}",
-    "icon": "{Lighthouse.colors.yellows.yellow.800}",
-    "stroke": "{Lighthouse.colors.yellows.yellow.200-alpha-50}",
-    "label-fill": "{Lighthouse.colors.yellows.yellow.900}",
-    "label-text": "{Lighthouse.colors.yellows.yellow.50}",
-    "label-selected-fill": "{Lighthouse.colors.yellows.yellow.300}",
-    "label-selecfed-text": "{Lighthouse.colors.yellows.yellow.900}",
+    "fill": "{Base.status.status-arrived.default}",
+    "icon": "{Base.status.status-arrived.darker}",
+    "stroke": "{Base.status.status-arrived.screen}",
+    "label-fill": "{Base.status.status-arrived.darkest}",
+    "label-text": "{Base.status.status-arrived.lightest}",
+    "label-selected-fill": "{Component.map-marker.convoy.arrived.fill}",
+    "label-selecfed-text": "{Component.map-marker.convoy.arrived.label-fill}",
     "text-fill": "#ffffff",
     "text-fill-contrast": "#ffffff"
   },
   "idle": {
-    "fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "icon": "{Lighthouse.colors.greens.soft-teal.800}",
-    "stroke": "{Lighthouse.colors.greens.soft-teal.400-alpha-50}",
-    "label-fill": "{Lighthouse.colors.greens.soft-teal.900}",
-    "label-text": "{Lighthouse.colors.greens.soft-teal.50}",
-    "label-selected-fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "label-selected-text": "{Lighthouse.colors.greens.soft-teal.900}",
+    "fill": "{Base.status.status-idle.default}",
+    "icon": "{Base.status.status-idle.darker}",
+    "stroke": "{Base.status.status-idle.screen}",
+    "label-fill": "{Base.status.status-idle.darkest}",
+    "label-text": "{Base.status.status-idle.lightest}",
+    "label-selected-fill": "{Component.map-marker.convoy.idle.fill}",
+    "label-selected-text": "{Base.status.status-idle.darkest}",
     "text-fill": "#ffffff",
     "text-fill-contrast": "#ffffff"
   },
   "no-signal": {
-    "fill": "{Lighthouse.colors.brand.default.600}",
-    "icon": "{Lighthouse.colors.brand.default.50}",
-    "stroke": "{Lighthouse.colors.brand.default.600-alpha-50}",
-    "label-fill": "{Lighthouse.colors.brand.default.900}",
-    "label-text": "{Lighthouse.colors.brand.default.50}",
-    "label-selected-fill": "{Lighthouse.colors.brand.default.600}",
-    "label-selected-text": "{Lighthouse.colors.brand.default.50}",
+    "fill": "{Base.status.status-no-signal.always-dark}",
+    "icon": "{Base.status.status-no-signal.lightest}",
+    "stroke": "{Base.status.status-no-signal.screen}",
+    "label-fill": "{Base.status.status-no-signal.darkest}",
+    "label-text": "{Base.status.status-no-signal.lightest}",
+    "label-selected-fill": "{Component.map-marker.convoy.no-signal.fill}",
+    "label-selected-text": "{Base.status.status-no-signal.lightest}",
     "text-fill-2": "#ffffff",
     "text-fill-contrast-2": "#ffffff"
   },
   "checked-in": {
-    "fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "icon": "{Lighthouse.colors.blues.slate-blue.900}",
-    "stroke": "{Lighthouse.colors.blues.vivid-blue.500-alpha-50}",
-    "label-fill": "{Lighthouse.colors.blues.vivid-blue.900}",
-    "label-text": "{Lighthouse.colors.blues.vivid-blue.50}",
-    "label-selected-fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "label-selected-text": "{Lighthouse.colors.blues.vivid-blue.800}"
+    "fill": "{Base.status.status-inbound.default}",
+    "icon": "{Base.status.status-checkedin.darkest}",
+    "stroke": "{Base.status.status-inbound.screen}",
+    "label-fill": "{Base.status.status-inbound.darkest}",
+    "label-text": "{Base.status.status-inbound.lightest}",
+    "label-selected-fill": "{Component.map-marker.convoy.inbound.fill}",
+    "label-selected-text": "{Base.status.status-inbound.darker}"
   },
   "stack": {
     "fill-default": "{Lighthouse.colors.blues.vivid-blue.300}",
-    "label-fill": "{Lighthouse.colors.neutrals.black.alpha-87}",
+    "label-fill": "{Base.label.always-dark}",
     "stroke-default": "{Lighthouse.colors.blues.vivid-blue.500-alpha-50}"
   },
   "status-chip": {
-    "inbound-surface-fill": "{Lighthouse.colors.blues.vivid-blue.200}",
-    "arriving-surface-fill": "{Lighthouse.colors.yellows.yellow.300}",
-    "idle-surface-fill": "{Lighthouse.colors.greens.soft-teal.400}",
-    "nosignal-surface-fill": "{Lighthouse.colors.brand.default.600}",
-    "checkedin-surface-fill": "{Lighthouse.colors.blues.slate-blue.400}",
-    "status-label": "{Lighthouse.colors.neutrals.black.alpha-87}",
+    "inbound-surface-fill": "{Base.status.status-inbound.default}",
+    "arriving-surface-fill": "{Base.status.status-arrived.default}",
+    "idle-surface-fill": "{Base.status.status-idle.default}",
+    "nosignal-surface-fill": "{Base.status.status-no-signal.default}",
+    "checkedin-surface-fill": "{Base.status.status-checkedin.lightest}",
+    "status-label": "{Base.text.primary}",
     "status-label-reverse": "{Lighthouse.colors.neutrals.white.100}"
   }
 },
@@ -1462,15 +1384,6 @@ const mobileTheme = {
       }
     }
   },
-  "MuiComments": {
-    "styleOverrides": {
-      "root": {
-        "$type": "string",
-        "$value": "Carryover from MUI",
-        "$resolvedValue": "Carryover from MUI"
-      }
-    }
-  },
   "MuiInput": {
     "styleOverrides": {
       "root": {
@@ -1485,7 +1398,7 @@ const mobileTheme = {
         "outlined": {
           "enabledborder": "{Lighthouse.colors.neutrals.black.alpha-23}",
           "hoverborder": "{Lighthouse.colors.neutrals.black.100}",
-          "background-fill": "{Lighthouse.colors.neutrals.white.100}"
+          "background-fill": "{Base.background.elevations.highest}"
         }
       }
     }
@@ -1498,12 +1411,12 @@ const mobileTheme = {
           "background": "{Lighthouse.colors.reds.punchy-red.50}"
         },
         "warning": {
-          "color": "{Lighthouse.colors.yellows.yellow.400}",
+          "color": "{Base.feedback.warning.main}",
           "background": "{Lighthouse.colors.yellows.yellow.50}"
         },
         "info": {
-          "color": "{Lighthouse.colors.blues.vivid-blue.600}",
-          "background": "{Lighthouse.colors.blues.vivid-blue.50}"
+          "color": "{Base.feedback.info.dark}",
+          "background": "{Base.feedback.info.contrast-text}"
         },
         "success": {
           "color": "{Lighthouse.colors.greens.forest-green.900}",
@@ -1636,18 +1549,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 
   // Create the MUI theme based on the current mode
   const theme = useMemo(
-    () => {
-      // Reset token cache when mode changes
-      resetTokenCache();
-      
-      // Deep clone the theme config to avoid mutating it
-      const themeConfig = JSON.parse(JSON.stringify(themeConfigs[mode]));
-      
-      // Process theme to resolve token references
-      const processedTheme = processThemeTokens(themeConfig);
-      
-      return createTheme(processedTheme);
-    },
+    () => createTheme(themeConfigs[mode]),
     [mode]
   );
 
@@ -1659,25 +1561,20 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 };
 
 // Export pre-created themes for direct use
-export const lightMuiTheme = createTheme(processThemeTokens(lightTheme));
-export const darkMuiTheme = createTheme(processThemeTokens(darkTheme));
-export const mobileMuiTheme = createTheme(processThemeTokens(mobileTheme));
-export const large screenMuiTheme = createTheme(processThemeTokens(large screenTheme));
+export const lightMuiTheme = createTheme(lightTheme);
+export const darkMuiTheme = createTheme(darkTheme);
+export const mobileMuiTheme = createTheme(mobileTheme);
+export const large screenMuiTheme = createTheme(large screenTheme);
 
 // Helper function to create a custom theme based on a mode
 export function createCustomTheme(mode: ColorMode, customOptions = {}) {
-  // First reset the token cache
-  resetTokenCache();
-  
-  // Get the base theme and process it to resolve tokens
   const baseTheme = themeConfigs[mode];
-  const processedBaseTheme = processThemeTokens(baseTheme);
   
   return createTheme({
-    ...processedBaseTheme,
+    ...baseTheme,
     ...customOptions,
     palette: {
-      ...processedBaseTheme.palette,
+      ...baseTheme.palette,
       ...(customOptions.palette || {}),
     },
   });
