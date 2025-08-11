@@ -1,41 +1,41 @@
 /**
- * Auto-generated theme type definitions.
- * Generated on: 8/11/2025
+ * MUI Theme Types
+ * Generated on 8/11/2025, 6:52:20 PM
  */
+import { Theme, ThemeOptions } from '@mui/material/styles';
 
-import { Theme as MUITheme, ThemeOptions as MUIThemeOptions } from '@mui/material/styles';
-
-export interface ExtendedPaletteOptions extends MUIThemeOptions['palette'] {
-  // Add any custom palette options here
+declare module '@mui/material/styles' {
+  interface CustomTheme extends Theme {
+    status?: {
+      danger?: string;
+    };
+  }
+  
+  interface CustomThemeOptions extends ThemeOptions {
+    status?: {
+      danger?: string;
+    };
+  }
+  
+  export function createTheme(options?: CustomThemeOptions): CustomTheme;
 }
 
-export interface ExtendedTypographyOptions extends MUIThemeOptions['typography'] {
-  // Add any custom typography options here
+// Extend the palette to include custom colors
+declare module '@mui/material/styles/createPalette' {
+  interface Palette {
+    neutral?: Palette['primary'];
+  }
+  
+  interface PaletteOptions {
+    neutral?: PaletteOptions['primary'];
+  }
 }
 
-export interface ThemeOptions extends MUIThemeOptions {
-  palette?: ExtendedPaletteOptions;
-  typography?: ExtendedTypographyOptions;
-}
-
-export interface Theme extends MUITheme {
-  palette: ExtendedPaletteOptions;
-  typography: ExtendedTypographyOptions;
-}
-
-// Add type definitions for theme modes
-export type ThemeMode = 'light' | 'dark' | 'mobile' | 'largeScreen';
-
-// Define the theme by mode structure
-export interface ThemesByMode {
-  light: Theme;
-  dark: Theme;
-  mobile?: Theme;
-  largeScreen?: Theme;
-}
-
-// Define a ThemeProvider props interface
-export interface ThemeProviderProps {
-  mode?: ThemeMode;
-  children: React.ReactNode;
+// Theme configuration
+export interface ThemeConfig {
+  lightPalette: Record<string, any>;
+  darkPalette: Record<string, any>;
+  typography: Record<string, any>;
+  spacing: string;
+  shape: Record<string, any>;
 }

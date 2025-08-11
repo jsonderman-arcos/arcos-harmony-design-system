@@ -10,6 +10,7 @@
     "generate-tailwind": "node generateTailwindConfig.js",
     "generate-mui-theme": "node generateMUITheme.js",
     "figma-to-sd": "node figmaToStyleDictionary.js",
+    "generate-mui-theme-from-sd": "node generateMUIThemeFromSD.js",
     "build-tokens": "npm run fetch-variables && npm run analyze-variables && npm run transform-variables && npm run update-theme",
     "build-all": "npm run build-tokens && npm run generate-tailwind && npm run generate-mui-theme"
   },
