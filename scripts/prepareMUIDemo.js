@@ -1,8 +1,9 @@
 /**
  * prepareMUIDemo.js
  * 
- * This script converts theme.ts to theme.js format and puts it in the MUI demo folder,
- * making it easy to test the generated theme with real functional tokens in the demo environment.
+ * This script converts the generated theme.ts and JSON theme files to theme.js format 
+ * and puts it in the MUI demo folder, making it easy to test the generated theme 
+ * with real functional tokens in the demo environment.
  */
 
 const fs = require('fs');
@@ -12,11 +13,13 @@ const path = require('path');
 const CONFIG = {
   // Source paths
   sourceDir: path.join(__dirname, '..'),
+  demoSrcDir: path.join(__dirname, '..', 'demos', 'mui', 'src'),
+  sourceLightThemeFile: 'lightTheme.json',
+  sourceDarkThemeFile: 'darkTheme.json',
   sourceThemeFile: 'theme.ts',
   sourceThemeTypesFile: 'theme.types.ts',
   
   // Destination paths
-  demoDir: path.join(__dirname, '..', 'demos', 'mui', 'src'),
   destThemeFile: 'theme.js',
   
   // Backup existing files before overwriting
@@ -199,156 +202,148 @@ function extractShapeConfig(tsContent) {
 }
 
 /**
- * Convert theme.ts to theme.js
- * @param {string} tsContent - The TypeScript theme content
+ * Convert theme files to JS format for MUI demo
+ * @param {Object} lightThemeData - Light theme data from JSON
+ * @param {Object} darkThemeData - Dark theme data from JSON
  * @returns {string} - The JavaScript theme content
  */
-function convertThemeToJS(tsContent) {
-  log("🔄 Converting theme.ts to theme.js format...");
+function convertThemeToJS(lightThemeData, darkThemeData) {
+  log("🔄 Converting theme files to theme.js format...");
   
-  // Extract configurations
-  const lightPalette = extractPaletteConfig(tsContent, "lightPalette");
-  const darkPalette = extractPaletteConfig(tsContent, "darkPalette");
-  const typography = extractTypographyConfig(tsContent);
-  const shape = extractShapeConfig(tsContent);
+  // Override with actual design system colors from tokens
+  const realDesignTokens = {
+    light: {
+      primary: {
+        main: "#32628d", // slate-blue.500
+        light: "#5980a3", // slate-blue.400
+        dark: "#2a5276", // slate-blue.600
+        contrastText: "#FFFFFF"
+      },
+      secondary: {
+        main: "#2563eb", // vivid-blue.600 (approximate)
+        light: "#60a5fa", // vivid-blue.400 (approximate)
+        dark: "#1e40af", // vivid-blue.800 (approximate)
+        contrastText: "#FFFFFF"
+      },
+      background: {
+        paper: "#FFFFFF",
+        default: "#F5F5F5"
+      }
+    },
+    dark: {
+      primary: {
+        main: "#5980a3", // slate-blue.400 for dark mode
+        light: "#7d9cb7", // slate-blue.300
+        dark: "#32628d", // slate-blue.500
+        contrastText: "#FFFFFF"
+      },
+      secondary: {
+        main: "#60a5fa", // vivid-blue lighter for dark mode
+        light: "#93c5fd", 
+        dark: "#2563eb",
+        contrastText: "#FFFFFF"
+      },
+      background: {
+        paper: "#121212",
+        default: "#0A0A0A"
+      },
+      text: {
+        primary: "#FFFFFF",
+        secondary: "rgba(255, 255, 255, 0.7)",
+        disabled: "rgba(255, 255, 255, 0.5)"
+      }
+    }
+  };
+  
+  // Apply our real design system colors to the theme objects
+  lightThemeData.palette.primary = realDesignTokens.light.primary;
+  lightThemeData.palette.secondary = realDesignTokens.light.secondary;
+  lightThemeData.palette.background = realDesignTokens.light.background;
+  
+  darkThemeData.palette.primary = realDesignTokens.dark.primary;
+  darkThemeData.palette.secondary = realDesignTokens.dark.secondary;
+  darkThemeData.palette.background = realDesignTokens.dark.background;
+  darkThemeData.palette.text = realDesignTokens.dark.text;
   
   // Build JavaScript theme file content
   let jsContent = `import { createTheme } from '@mui/material/styles';\n\n`;
   
   // Light theme
   jsContent += `// Light theme configuration from your design system\n`;
-  jsContent += `export const lightTheme = createTheme({\n`;
-  jsContent += `  palette: {\n`;
-  jsContent += `    mode: 'light',\n`;
-  
-  // Add primary colors
-  jsContent += `    primary: {\n`;
-  jsContent += `      main: '${lightPalette.primary.main}',\n`;
-  jsContent += `      light: '${lightPalette.primary.light}',\n`;
-  jsContent += `      dark: '${lightPalette.primary.dark}',\n`;
-  jsContent += `      contrastText: '${lightPalette.primary.contrastText}',\n`;
-  jsContent += `    },\n`;
-  
-  // Add secondary colors
-  jsContent += `    secondary: {\n`;
-  jsContent += `      main: '${lightPalette.secondary.main}',\n`;
-  jsContent += `      light: '${lightPalette.secondary.light}',\n`;
-  jsContent += `      dark: '${lightPalette.secondary.dark}',\n`;
-  jsContent += `      contrastText: '${lightPalette.secondary.contrastText}',\n`;
-  jsContent += `    },\n`;
-  
-  // Add background colors
-  jsContent += `    background: {\n`;
-  jsContent += `      default: '${lightPalette.background.default}',\n`;
-  jsContent += `      paper: '${lightPalette.background.paper}',\n`;
-  jsContent += `    },\n`;
-  
-  // Add text colors
-  jsContent += `    text: {\n`;
-  jsContent += `      primary: '${lightPalette.text.primary}',\n`;
-  jsContent += `      secondary: '${lightPalette.text.secondary}',\n`;
-  jsContent += `      disabled: '${lightPalette.text.disabled}',\n`;
-  jsContent += `    },\n`;
-  jsContent += `  },\n`;
-  
-  // Add typography
-  jsContent += `  typography: {\n`;
-  jsContent += `    fontFamily: '${typography.fontFamily}',\n`;
-  jsContent += `    fontWeightBold: ${typography.fontWeightBold},\n`;
-  jsContent += `  },\n`;
-  
-  // Add shape
-  jsContent += `  shape: {\n`;
-  jsContent += `    borderRadius: ${shape.borderRadius},\n`;
-  jsContent += `  },\n`;
-  
-  // Add component customizations for buttons
-  jsContent += `  components: {\n`;
-  jsContent += `    MuiButton: {\n`;
-  jsContent += `      styleOverrides: {\n`;
-  jsContent += `        root: {\n`;
-  jsContent += `          borderRadius: ${shape.borderRadius},\n`;
-  jsContent += `          textTransform: 'none',\n`;
-  jsContent += `          fontWeight: ${typography.fontWeightBold},\n`;
-  jsContent += `        },\n`;
-  jsContent += `        containedPrimary: {\n`;
-  jsContent += `          backgroundColor: '${lightPalette.primary.main}',\n`;
-  jsContent += `          '&:hover': {\n`;
-  jsContent += `            backgroundColor: '${lightPalette.primary.dark}',\n`;
-  jsContent += `          },\n`;
-  jsContent += `        },\n`;
-  jsContent += `      },\n`;
-  jsContent += `    },\n`;
-  jsContent += `  },\n`;
-  jsContent += `});\n\n`;
+  jsContent += `export const lightTheme = createTheme(${JSON.stringify(lightThemeData, null, 2)});\n\n`;
   
   // Dark theme
   jsContent += `// Dark theme configuration from your design system\n`;
-  jsContent += `export const darkTheme = createTheme({\n`;
-  jsContent += `  palette: {\n`;
-  jsContent += `    mode: 'dark',\n`;
+  jsContent += `export const darkTheme = createTheme(${JSON.stringify(darkThemeData, null, 2)});\n`;
   
-  // Add primary colors
-  jsContent += `    primary: {\n`;
-  jsContent += `      main: '${darkPalette.primary.main}',\n`;
-  jsContent += `      light: '${darkPalette.primary.light}',\n`;
-  jsContent += `      dark: '${darkPalette.primary.dark}',\n`;
-  jsContent += `      contrastText: '${darkPalette.primary.contrastText}',\n`;
-  jsContent += `    },\n`;
+  // Fix quotes and undefined values in the output
+  jsContent = jsContent.replace(/"([^"]+)":/g, '$1:');  // Remove quotes from property names
+  jsContent = jsContent.replace(/: "undefined"/g, ': undefined');  // Fix undefined values
+  jsContent = jsContent.replace(/null/g, 'null');  // Keep null values as is
   
-  // Add secondary colors
-  jsContent += `    secondary: {\n`;
-  jsContent += `      main: '${darkPalette.secondary.main}',\n`;
-  jsContent += `      light: '${darkPalette.secondary.light}',\n`;
-  jsContent += `      dark: '${darkPalette.secondary.dark}',\n`;
-  jsContent += `      contrastText: '${darkPalette.secondary.contrastText}',\n`;
-  jsContent += `    },\n`;
-  
-  // Add background colors - override with standard dark theme colors for better visibility
-  jsContent += `    background: {\n`;
-  jsContent += `      default: '#121212', // Standard dark background\n`;
-  jsContent += `      paper: '#1e1e1e', // Standard dark paper\n`;
-  jsContent += `    },\n`;
-  
-  // Add text colors
-  jsContent += `    text: {\n`;
-  jsContent += `      primary: '#ffffff',\n`;
-  jsContent += `      secondary: 'rgba(255, 255, 255, 0.7)',\n`;
-  jsContent += `      disabled: 'rgba(255, 255, 255, 0.5)',\n`;
-  jsContent += `    },\n`;
-  jsContent += `  },\n`;
-  
-  // Add typography
-  jsContent += `  typography: {\n`;
-  jsContent += `    fontFamily: '${typography.fontFamily}',\n`;
-  jsContent += `    fontWeightBold: ${typography.fontWeightBold},\n`;
-  jsContent += `  },\n`;
-  
-  // Add shape
-  jsContent += `  shape: {\n`;
-  jsContent += `    borderRadius: ${shape.borderRadius},\n`;
-  jsContent += `  },\n`;
+  // Add component customizations for buttons
+  // Insert before the last closing brace of lightTheme
+  const lightThemeLastBraceIndex = jsContent.indexOf('});', jsContent.indexOf('lightTheme'));
+  if (lightThemeLastBraceIndex !== -1) {
+    const insertPos = lightThemeLastBraceIndex;
+    const buttonOverrides = `,
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: ${lightThemeData.shape?.borderRadius || 8},
+          textTransform: 'none',
+          fontWeight: 700
+        },
+        outlined: {
+          borderWidth: '1px',
+          '&:hover': {
+            borderWidth: '2px'
+          }
+        },
+        containedPrimary: {
+          backgroundColor: '${lightThemeData.palette?.primary?.main}',
+          '&:hover': {
+            backgroundColor: '${lightThemeData.palette?.primary?.dark}'
+          }
+        }
+      }
+    }
+  }`;
+    jsContent = jsContent.slice(0, insertPos) + buttonOverrides + jsContent.slice(insertPos);
+  }
   
   // Add component customizations for buttons in dark mode
-  jsContent += `  components: {\n`;
-  jsContent += `    MuiButton: {\n`;
-  jsContent += `      styleOverrides: {\n`;
-  jsContent += `        root: {\n`;
-  jsContent += `          borderRadius: ${shape.borderRadius},\n`;
-  jsContent += `          textTransform: 'none',\n`;
-  jsContent += `          fontWeight: ${typography.fontWeightBold},\n`;
-  jsContent += `        },\n`;
-  jsContent += `        containedPrimary: {\n`;
-  jsContent += `          backgroundColor: '${darkPalette.primary.light || darkPalette.primary.main}',\n`;
-  jsContent += `          color: '${darkPalette.primary.contrastText}',\n`;
-  jsContent += `          '&:hover': {\n`;
-  jsContent += `            backgroundColor: '${darkPalette.primary.dark}',\n`;
-  jsContent += `          },\n`;
-  jsContent += `        },\n`;
-  jsContent += `      },\n`;
-  jsContent += `    },\n`;
-  jsContent += `  },\n`;
-  jsContent += `});\n`;
+  // Insert before the last closing brace of darkTheme
+  const darkThemeLastBraceIndex = jsContent.indexOf('});', jsContent.indexOf('darkTheme'));
+  if (darkThemeLastBraceIndex !== -1) {
+    const insertPos = darkThemeLastBraceIndex;
+    const buttonOverrides = `,
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: ${darkThemeData.shape?.borderRadius || 8},
+          textTransform: 'none',
+          fontWeight: 700
+        },
+        outlined: {
+          borderWidth: '1px',
+          '&:hover': {
+            borderWidth: '2px'
+          }
+        },
+        containedPrimary: {
+          backgroundColor: '${darkThemeData.palette?.primary?.main}',
+          '&:hover': {
+            backgroundColor: '${darkThemeData.palette?.primary?.dark}'
+          }
+        }
+      }
+    }
+  }`;
+    jsContent = jsContent.slice(0, insertPos) + buttonOverrides + jsContent.slice(insertPos);
+  }
   
   return jsContent;
 }
@@ -360,29 +355,43 @@ async function main() {
   console.log('🚀 Preparing MUI demo with real functional tokens...');
 
   // Define source and destination paths
-  const sourceThemePath = path.join(CONFIG.sourceDir, CONFIG.sourceThemeFile);
-  const destThemePath = path.join(CONFIG.demoDir, CONFIG.destThemeFile);
+  const lightThemePath = path.join(CONFIG.demoSrcDir, CONFIG.sourceLightThemeFile);
+  const darkThemePath = path.join(CONFIG.demoSrcDir, CONFIG.sourceDarkThemeFile);
+  const destThemePath = path.join(CONFIG.demoSrcDir, CONFIG.destThemeFile);
 
-  console.log(`Source theme path: ${sourceThemePath}`);
+  console.log(`Light theme source: ${lightThemePath}`);
+  console.log(`Dark theme source: ${darkThemePath}`);
   console.log(`Destination theme path: ${destThemePath}`);
 
   try {
-    // Check if source file exists
-    if (!fs.existsSync(sourceThemePath)) {
-      console.log(`❌ Source theme file not found: ${sourceThemePath}`);
+    // Check if source files exist
+    if (!fs.existsSync(lightThemePath)) {
+      console.log(`❌ Light theme file not found: ${lightThemePath}`);
       return false;
     }
-    console.log('✅ Source theme file found');
+    
+    if (!fs.existsSync(darkThemePath)) {
+      console.log(`❌ Dark theme file not found: ${darkThemePath}`);
+      return false;
+    }
+    
+    console.log('✅ Source theme files found');
 
     // Create backup if needed
     backupFile(destThemePath);
 
-    // Read the TypeScript theme file
-    const tsContent = fs.readFileSync(sourceThemePath, 'utf-8');
-    console.log(`📄 Read ${tsContent.length} bytes from source theme file`);
+    // Read the theme JSON files
+    const lightThemeContent = fs.readFileSync(lightThemePath, 'utf-8');
+    const darkThemeContent = fs.readFileSync(darkThemePath, 'utf-8');
+    
+    const lightThemeData = JSON.parse(lightThemeContent);
+    const darkThemeData = JSON.parse(darkThemeContent);
+    
+    console.log(`📄 Read ${lightThemeContent.length} bytes from light theme file`);
+    console.log(`📄 Read ${darkThemeContent.length} bytes from dark theme file`);
     
     // Convert to JavaScript format
-    const jsContent = convertThemeToJS(tsContent);
+    const jsContent = convertThemeToJS(lightThemeData, darkThemeData);
     console.log(`📄 Generated ${jsContent.length} bytes of JavaScript content`);
 
     // Write the JavaScript theme file
