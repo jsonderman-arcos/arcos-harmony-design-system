@@ -19,7 +19,14 @@ const CONFIG = {
   outputThemeFile: 'theme.ts',
   outputThemeTypesFile: 'theme.types.ts',
   // Token file patterns
-  coreTokensFile: 'core-tokens.json',
+  coreTokens  // If we have spacing values, create a spacing function
+  if (Object.keys(spacingValues).length > 0) {
+    const baseSpacing = spacingValues[1] || '8px';
+    return `(factor: number) => \`\${Math.round(factor * parseFloat('${baseSpacing}') * 10) / 10}px\``;
+  }
+  
+  // Default spacing function with decimal point support
+  return "(factor: number) => `${Math.round(factor * 8 * 10) / 10}px`";tokens.json',
   lightTokensFile: 'light-tokens.json',
   darkTokensFile: 'dark-tokens.json',
   // Original token files
@@ -751,15 +758,11 @@ function generateSpacing(tokens) {
   // If we have spacing values, create a spacing function
   if (Object.keys(spacingValues).length > 0) {
     const baseSpacing = spacingValues[1] || '8px';
-    return `(factor: number) => {
-      return typeof factor === 'string' 
-        ? factor 
-        : \`\${factor * parseFloat('${baseSpacing}')}px\`;
-    }`;
+    return `(factor: number) => \`\${Math.round(factor * parseFloat('${baseSpacing}') * 10) / 10}px\``;
   }
   
-  // Default spacing function
-  return "(factor: number) => `${factor * 8}px`";
+  // Default spacing function with decimal point support
+  return "(factor: number) => `${Math.round(factor * 8 * 10) / 10}px`";
 }
 
 /**

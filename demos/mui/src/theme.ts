@@ -5,6 +5,9 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 import { ThemeConfig } from './theme.types';
 
+// Export ThemeMode type for use in App.tsx
+export type ThemeMode = 'light' | 'dark';
+
 // Theme configuration
 export const themeConfig: ThemeConfig = {
   "lightPalette": {
@@ -217,3 +220,20 @@ export const darkTheme = createTheme({
 const theme = lightTheme;
 
 export default theme;
+
+/**
+ * Get all available theme modes
+ * @returns Array of available theme modes
+ */
+export function getAvailableThemeModes(): ThemeMode[] {
+  return ['light', 'dark'];
+}
+
+/**
+ * Set the theme mode
+ * @param mode - The theme mode to set
+ * @returns The theme with the specified mode
+ */
+export function setThemeMode(mode: ThemeMode) {
+  return mode === 'dark' ? darkTheme : lightTheme;
+}
