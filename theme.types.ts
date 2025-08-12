@@ -1,6 +1,6 @@
 /**
  * MUI Theme Types
- * Generated on 8/11/2025, 6:52:20 PM
+ * Generated on 8/12/2025, 2:27:06 PM
  */
 import { Theme, ThemeOptions } from '@mui/material/styles';
 

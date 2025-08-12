@@ -2458,5 +2458,355 @@
     "colors": {
       "white": {}
     }
+  },
+  "Base": {
+    "border": {
+      "size-default": {
+        "value": 1,
+        "type": "float",
+        "description": "Default size-default (fallback from Light)"
+      }
+    },
+    "label": {},
+    "text": {
+      "_states": {}
+    },
+    "background": {
+      "elevations": {}
+    },
+    "spacing": {
+      "hairline": {
+        "value": null,
+        "type": "float",
+        "description": "Default hairline (fallback from Light)"
+      },
+      "spacing-minimum": {
+        "value": 3,
+        "type": "float",
+        "description": "Default spacing-minimum (fallback from Light)"
+      },
+      "width-compact": {
+        "value": 360,
+        "type": "float",
+        "description": "Default width-compact (fallback from Light)"
+      },
+      "width-wide": {
+        "value": 640,
+        "type": "float",
+        "description": "Default width-wide (fallback from Light)"
+      },
+      "width-regular": {
+        "value": 520,
+        "type": "float",
+        "description": "Default width-regular (fallback from Light)"
+      },
+      "spacing-compact": {
+        "value": null,
+        "type": "float",
+        "description": "Default spacing-compact (fallback from Light)"
+      },
+      "spacing-airy": {
+        "value": null,
+        "type": "float",
+        "description": "Default spacing-airy (fallback from Light)"
+      },
+      "spacing-default": {
+        "value": null,
+        "type": "float",
+        "description": "Default spacing-default (fallback from Light)"
+      }
+    },
+    "surface-light": {},
+    "surface-dark": {},
+    "divider": {},
+    "primary": {
+      "_states": {}
+    },
+    "secondary": {
+      "_states": {}
+    },
+    "action": {},
+    "elevation": {},
+    "_native": {},
+    "layout": {
+      "spacing": {
+        "form-spacing": {
+          "value": null,
+          "type": "float",
+          "description": "Default form-spacing (fallback from Light)"
+        },
+        "stack-large": {
+          "value": null,
+          "type": "float",
+          "description": "Default stack-large (fallback from Light)"
+        },
+        "stack-small": {
+          "value": null,
+          "type": "float",
+          "description": "Default stack-small (fallback from Light)"
+        }
+      },
+      "grid": {
+        "columns": {
+          "value": 0,
+          "type": "float",
+          "description": "Default columns (fallback from Light)"
+        },
+        "gutter": {
+          "value": 0,
+          "type": "float",
+          "description": "Default gutter (fallback from Light)"
+        },
+        "margin": {
+          "value": 0,
+          "type": "float",
+          "description": "Default margin (fallback from Light)"
+        },
+        "container-max-width": {
+          "value": 0,
+          "type": "float",
+          "description": "Default container-max-width (fallback from Light)"
+        }
+      },
+      "gaps": {
+        "components": {
+          "value": 0,
+          "type": "float",
+          "description": "Default components (fallback from Light)"
+        },
+        "stack": {
+          "value": 0,
+          "type": "float",
+          "description": "Default stack (fallback from Light)"
+        },
+        "inline": {
+          "value": 0,
+          "type": "float",
+          "description": "Default inline (fallback from Light)"
+        }
+      }
+    },
+    "status": {
+      "status-no-signal": {
+        "_states": {}
+      },
+      "status-arrived": {
+        "_states": {}
+      },
+      "status-checkedin": {},
+      "status-idle": {
+        "_states": {}
+      },
+      "status-inbound": {
+        "_states": {}
+      },
+      "status-regroup": {},
+      "status-mobilize": {}
+    },
+    "feedback": {
+      "error": {
+        "_states": {}
+      },
+      "warning": {
+        "_states": {}
+      },
+      "info": {
+        "_states": {}
+      },
+      "success": {
+        "_states": {}
+      }
+    },
+    "common": {
+      "black_states": {},
+      "white_states": {},
+      "base_shape": {}
+    },
+    "_components": {
+      "avatar": {},
+      "switch": {},
+      "rating": {},
+      "snackbar": {},
+      "chip": {},
+      "tooltip": {},
+      "backdrop": {},
+      "appBar": {},
+      "breadcrumbs": {},
+      "stepper": {},
+      "comments": {
+        "value": "Carryover from MUI",
+        "type": "string",
+        "description": "Default comments (fallback from Light)"
+      },
+      "input": {
+        "standard": {},
+        "filled": {},
+        "outlined": {}
+      },
+      "alert": {
+        "error": {},
+        "warning": {},
+        "info": {},
+        "success": {}
+      }
+    },
+    "section": {},
+    "icon": {},
+    "comments": {
+      "value": "Lighthouse Theme base tokens",
+      "type": "string",
+      "description": "Default comments (fallback from Light)"
+    }
+  },
+  "Component": {
+    "modal": {},
+    "comments": {
+      "value": "Lighthouse Component-specific tokens",
+      "type": "string",
+      "description": "Default comments (fallback from Light)"
+    },
+    "panel": {
+      "panel-width-compact": {
+        "value": null,
+        "type": "float",
+        "description": "Default panel-width-compact (fallback from Light)"
+      },
+      "panel-width-wide": {
+        "value": null,
+        "type": "float",
+        "description": "Default panel-width-wide (fallback from Light)"
+      },
+      "panel-width-default": {
+        "value": null,
+        "type": "float",
+        "description": "Default panel-width-default (fallback from Light)"
+      },
+      "heading-level-1": {
+        "value": 0,
+        "type": "float",
+        "description": "Default heading-level-1 (fallback from Light)"
+      },
+      "heading-level-2": {
+        "value": 0,
+        "type": "float",
+        "description": "Default heading-level-2 (fallback from Light)"
+      },
+      "heading-level-3": {
+        "value": 0,
+        "type": "float",
+        "description": "Default heading-level-3 (fallback from Light)"
+      },
+      "panel-padding": {
+        "value": null,
+        "type": "float",
+        "description": "Default panel-padding (fallback from Light)"
+      },
+      "background-fill": {}
+    },
+    "navigation": {
+      "sidebar": {},
+      "topbar": {},
+      "footer": {}
+    },
+    "list-item": {
+      "background-fill": {},
+      "spacing": {
+        "convoy-row-gap": {
+          "value": null,
+          "type": "float",
+          "description": "Default convoy-row-gap (fallback from Light)"
+        },
+        "convoy-inline-gap": {
+          "value": null,
+          "type": "float",
+          "description": "Default convoy-inline-gap (fallback from Light)"
+        },
+        "default": {
+          "value": 0,
+          "type": "float",
+          "description": "Default default (fallback from Light)"
+        }
+      },
+      "text-fill": {}
+    },
+    "tab-badge": {
+      "count": {
+        "value": 0,
+        "type": "float",
+        "description": "Default count (fallback from Light)"
+      }
+    },
+    "button": {
+      "button-padding-vertical": {
+        "value": null,
+        "type": "float",
+        "description": "Default button-padding-vertical (fallback from Light)"
+      },
+      "button-padding-horizontal": {
+        "value": null,
+        "type": "float",
+        "description": "Default button-padding-horizontal (fallback from Light)"
+      },
+      "primary": {
+        "background": {},
+        "text": {}
+      },
+      "secondary": {
+        "background": {}
+      },
+      "ghost": {
+        "background": {},
+        "border": {},
+        "text": {}
+      }
+    },
+    "map-marker": {
+      "destination": {},
+      "convoy": {
+        "stroke-weight": {
+          "value": 2,
+          "type": "float",
+          "description": "Default stroke-weight (fallback from Light)"
+        },
+        "inbound": {},
+        "arrived": {},
+        "idle": {},
+        "no-signal": {},
+        "checked-in": {}
+      },
+      "stack": {
+        "stroke-weight": {
+          "value": 3,
+          "type": "float",
+          "description": "Default stroke-weight (fallback from Light)"
+        }
+      }
+    },
+    "status-chip": {
+      "chip-pad-vertical": {
+        "value": null,
+        "type": "float",
+        "description": "Default chip-pad-vertical (fallback from Light)"
+      },
+      "chip-pad-horiztonal": {
+        "value": null,
+        "type": "float",
+        "description": "Default chip-pad-horiztonal (fallback from Light)"
+      }
+    },
+    "filtercard": {
+      "inbound": {
+        "_states": {}
+      },
+      "no-signal": {
+        "_states": {}
+      },
+      "arrived": {
+        "_states": {}
+      },
+      "idle": {
+        "_states": {}
+      }
+    }
   }
 }

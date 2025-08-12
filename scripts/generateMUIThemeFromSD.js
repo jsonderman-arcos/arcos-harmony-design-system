@@ -27,7 +27,8 @@ const CONFIG = {
   originalLightTokensFile: 'lightModeTokens.json', 
   originalDarkTokensFile: 'darkModeTokens.json',
   // Logs
-  verbose: true
+  verbose: true,
+  debug: true
 };
 
 /**
@@ -37,6 +38,20 @@ const CONFIG = {
 function log(message) {
   if (CONFIG.verbose) {
     console.log(message);
+  }
+}
+
+/**
+ * Log debug information if debug mode is enabled
+ * @param {string} message - Debug message to log
+ * @param {any} data - Optional data to print
+ */
+function debug(message, data = null) {
+  if (CONFIG.debug) {
+    console.log(`🔍 DEBUG: ${message}`);
+    if (data !== null) {
+      console.log(JSON.stringify(data, null, 2));
+    }
   }
 }
 
@@ -129,11 +144,48 @@ function getFallbackColor(category, variant) {
  * @param {object} tokens - All tokens object for lookup
  * @returns {string} Resolved value or original reference if not found
  */
+/**
+ * Format RGBA values properly for web usage
+ * Converts decimal values (0.0-1.0) to integers (0-255) when needed
+ * @param {string|object} color - Color value to format
+ * @returns {string} Properly formatted color
+ */
+function formatRgbaColor(color) {
+  if (typeof color !== 'string') return color;
+  
+  // Handle rgba format with decimal values
+  // This regex will match rgba with both decimal and integer values
+  const rgbaMatch = color.match(/rgba\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*\)/);
+  if (rgbaMatch) {
+    const [_, r, g, b, a] = rgbaMatch;
+    const rVal = parseFloat(r);
+    const gVal = parseFloat(g);
+    const bVal = parseFloat(b);
+    const aVal = parseFloat(a);
+    
+    // Check if values are in 0-1 range and need conversion to 0-255
+    if (rVal <= 1.0 && gVal <= 1.0 && bVal <= 1.0) {
+      const rInt = Math.round(rVal * 255);
+      const gInt = Math.round(gVal * 255);
+      const bInt = Math.round(bVal * 255);
+      
+      return `rgba(${rInt}, ${gInt}, ${bInt}, ${aVal})`;
+    }
+    
+    // Make sure the returned format is clean
+    return `rgba(${Math.round(rVal)}, ${Math.round(gVal)}, ${Math.round(bVal)}, ${aVal})`;
+  }
+  
+  return color;
+}
+
 function resolveReference(reference, tokens) {
   // Check if it's a reference
   if (typeof reference !== 'string' || !reference.startsWith('{') || !reference.endsWith('}')) {
     return reference;
   }
+  
+  debug(`Resolving reference: ${reference}`);
   
   // Lighthouse color mapping - direct mappings for common color references
   const lighthouseColors = {
@@ -232,6 +284,7 @@ function resolveReference(reference, tokens) {
   
   // If the value is itself a reference, resolve it recursively
   if (typeof current === 'string' && current.startsWith('{') && current.endsWith('}')) {
+    debug(`Found nested reference: ${current}`);
     return resolveReference(current, tokens);
   }
   
@@ -239,19 +292,25 @@ function resolveReference(reference, tokens) {
   if (current && typeof current === 'object') {
     if (current.hasOwnProperty('$value')) {
       const value = current.$value;
+      debug(`Found token with $value:`, current);
       return typeof value === 'string' && value.startsWith('{') && value.endsWith('}') 
         ? resolveReference(value, tokens) 
         : value;
     }
     if (current.hasOwnProperty('value')) {
       const value = current.value;
+      debug(`Found token with value:`, current);
       return typeof value === 'string' && value.startsWith('{') && value.endsWith('}') 
         ? resolveReference(value, tokens) 
         : value;
     }
   }
   
-  return current !== undefined ? current : '#757575'; // Return gray as fallback
+  debug(`Resolved to:`, current);
+  const result = current !== undefined ? current : '#757575'; // Return gray as fallback
+  
+  // Format any RGBA values properly
+  return formatRgbaColor(result);
 }
 
 /**
@@ -498,15 +557,19 @@ function generatePalette(tokens) {
   Object.entries(colorTokens).forEach(([path, value]) => {
     const pathParts = path.split('.');
     const name = pathParts[pathParts.length - 1].toLowerCase();
+    
+    // Format the color value
+    const formattedValue = formatRgbaColor(value);
+    debug(`Formatting color ${path}: ${value} -> ${formattedValue}`);
 
     // Primary colors
     if (path.includes('primary')) {
-      if (name.includes('main')) palette.primary.main = value;
-      else if (name.includes('light')) palette.primary.light = value;
-      else if (name.includes('dark')) palette.primary.dark = value;
-      else if (name.includes('contrasttext') || name.includes('contrast-text')) palette.primary.contrastText = value;
+      if (name.includes('main')) palette.primary.main = formattedValue;
+      else if (name.includes('light')) palette.primary.light = formattedValue;
+      else if (name.includes('dark')) palette.primary.dark = formattedValue;
+      else if (name.includes('contrasttext') || name.includes('contrast-text')) palette.primary.contrastText = formattedValue;
       // Special case for primary color without variant
-      else if (name === 'primary' || name === 'brand') palette.primary.main = value;
+      else if (name === 'primary' || name === 'brand') palette.primary.main = formattedValue;
     }
     // Secondary colors
     else if (path.includes('secondary')) {

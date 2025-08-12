@@ -10,8 +10,8 @@ import {
   AppBar, 
   Toolbar 
 } from '@mui/material';
-import { theme, setThemeMode, getAvailableThemeModes } from './theme';
-import type { ThemeMode } from './theme';
+import { theme, setThemeMode, getAvailableThemeModes } from './theme.ts';
+import type { ThemeMode } from './theme.ts';
 
 // Only import components after confirming basic rendering works
 import TypographySection from './components/TypographySection';
