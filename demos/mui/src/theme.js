@@ -1,29 +1,37 @@
 import { createTheme } from '@mui/material/styles';
 
-// Light theme configuration
+// Light theme configuration from your design system
 export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#3f51b5',
-      light: '#757de8',
-      dark: '#002984',
-      contrastText: '#ffffff',
+      main: '#000000',
+      light: '#4285F4',
+      dark: '#1A73E8',
+      contrastText: '#E8F0FE',
     },
     secondary: {
-      main: '#f50057',
-      light: '#ff5983',
-      dark: '#bb002f',
-      contrastText: '#ffffff',
+      main: '#9c27b0',
+      light: '#4DD0E1',
+      dark: '#00ACC1',
+      contrastText: '#FFFFFF',
     },
     background: {
-      default: '#f5f5f5',
-      paper: '#ffffff',
+      default: '#FFFFFF',
+      paper: '#FFFFFF',
     },
     text: {
       primary: 'rgba(0, 0, 0, 0.87)',
-      secondary: 'rgba(0, 0, 0, 0.54)',
+      secondary: 'rgba(0, 0, 0, 0.6)',
+      disabled: 'rgba(0, 0, 0, 0.38)',
     },
+  },
+  typography: {
+    fontFamily: 'Arial',
+    fontWeightBold: 700,
+  },
+  shape: {
+    borderRadius: 8,
   },
   components: {
     MuiButton: {
@@ -31,12 +39,12 @@ export const lightTheme = createTheme({
         root: {
           borderRadius: 8,
           textTransform: 'none',
-          fontWeight: 600,
+          fontWeight: 700,
         },
         containedPrimary: {
-          backgroundColor: '#3f51b5',
+          backgroundColor: '#000000',
           '&:hover': {
-            backgroundColor: '#002984',
+            backgroundColor: '#1A73E8',
           },
         },
       },
@@ -44,30 +52,38 @@ export const lightTheme = createTheme({
   },
 });
 
-// Dark theme configuration
+// Dark theme configuration from your design system
 export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#90caf9',
-      light: '#e3f2fd',
-      dark: '#42a5f5',
-      contrastText: 'rgba(0, 0, 0, 0.87)',
+      main: '#000000',
+      light: '#1976d2',
+      dark: '#1976d2',
+      contrastText: '#1976d2',
     },
     secondary: {
-      main: '#f48fb1',
-      light: '#f8bbd0',
-      dark: '#c2185b',
-      contrastText: 'rgba(0, 0, 0, 0.87)',
+      main: '#9c27b0',
+      light: '#4DD0E1',
+      dark: '#00ACC1',
+      contrastText: '#FFFFFF',
     },
     background: {
-      default: '#121212',
-      paper: '#1e1e1e',
+      default: '#121212', // Standard dark background
+      paper: '#1e1e1e', // Standard dark paper
     },
     text: {
       primary: '#ffffff',
       secondary: 'rgba(255, 255, 255, 0.7)',
+      disabled: 'rgba(255, 255, 255, 0.5)',
     },
+  },
+  typography: {
+    fontFamily: 'Arial',
+    fontWeightBold: 700,
+  },
+  shape: {
+    borderRadius: 8,
   },
   components: {
     MuiButton: {
@@ -75,13 +91,13 @@ export const darkTheme = createTheme({
         root: {
           borderRadius: 8,
           textTransform: 'none',
-          fontWeight: 600,
+          fontWeight: 700,
         },
         containedPrimary: {
-          backgroundColor: '#90caf9',
-          color: 'rgba(0, 0, 0, 0.87)',
+          backgroundColor: '#1976d2',
+          color: '#1976d2',
           '&:hover': {
-            backgroundColor: '#42a5f5',
+            backgroundColor: '#1976d2',
           },
         },
       },

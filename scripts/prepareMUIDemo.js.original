@@ -1,0 +1,408 @@
+/**
+ * prepareMUIDemo.js
+ * 
+ * This script converts theme.ts to theme.js format and puts it in the MUI demo folder,
+ * making it easy to test the generated theme with real functional tokens in the demo environment.
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// Configuration
+const CONFIG = {
+  // Source paths
+  sourceDir: path.join(__dirname, '..'),
+  sourceThemeFile: 'theme.ts',
+  sourceThemeTypesFile: 'theme.types.ts',
+  
+  // Destination paths
+  demoDir: path.join(__dirname, '..', 'demos', 'mui', 'src'),
+  destThemeFile: 'theme.js',
+  
+  // Backup existing files before overwriting
+  createBackups: true,
+  
+  // Logs
+  verbose: true
+};
+
+/**
+ * Log a message if verbose mode is enabled
+ * @param {string} message - Message to log
+ */
+function log(message) {
+  if (CONFIG.verbose) {
+    console.log(message);
+  }
+}
+
+/**
+ * Create backup of a file if it exists
+ * @param {string} filePath - Path to the file
+ * @returns {boolean} - Success status
+ */
+function backupFile(filePath) {
+  if (!CONFIG.createBackups || !fs.existsSync(filePath)) {
+    return true;
+  }
+  
+  try {
+    const backupPath = `${filePath}.bak`;
+    fs.copyFileSync(filePath, backupPath);
+    log(`📦 Created backup: ${backupPath}`);
+    return true;
+  } catch (error) {
+    log(`❌ Error creating backup for ${filePath}: ${error.message}`);
+    return false;
+  }
+}
+
+/**
+ * Extract an object from TypeScript content
+ * @param {string} tsContent - TypeScript content
+ * @param {string} objectName - Name of the object to extract
+ * @returns {Object} - Extracted object
+ */
+function extractObjectFromTs(tsContent, objectName) {
+  // Try to match the object in the TypeScript content
+  const regex = new RegExp(`${objectName}\\s*:\\s*({[\\s\\S]*?})\\s*[,}]`, 'i');
+  const match = tsContent.match(regex);
+  
+  if (!match) {
+    log(`⚠️ Could not find ${objectName} in TypeScript content`);
+    return {};
+  }
+  
+  try {
+    // Try to parse the object as JSON (after some cleanup)
+    const objStr = match[1]
+      .replace(/\/\/.*$/gm, '') // Remove comments
+      .replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:/g, '"$2":') // Ensure property names are quoted
+      .replace(/'/g, '"') // Replace single quotes with double quotes
+      .replace(/#([0-9a-fA-F]+)/g, '"#$1"'); // Quote hex color values
+      
+    return JSON.parse(objStr);
+  } catch (error) {
+    log(`⚠️ Could not parse ${objectName} as JSON: ${error.message}`);
+    
+    // If JSON parsing fails, try a more manual approach
+    const result = {};
+    const objStr = match[1];
+    
+    // Extract key-value pairs manually
+    const keyValueRegex = /([a-zA-Z0-9_]+)\s*:\s*([^,}]+)/g;
+    let kvMatch;
+    
+    while ((kvMatch = keyValueRegex.exec(objStr)) !== null) {
+      const key = kvMatch[1].trim();
+      const value = kvMatch[2].trim();
+      
+      if (value.startsWith('"') || value.startsWith("'")) {
+        // String value
+        result[key] = value.slice(1, -1);
+      } else if (value === 'true' || value === 'false') {
+        // Boolean value
+        result[key] = value === 'true';
+      } else if (!isNaN(Number(value))) {
+        // Numeric value
+        result[key] = Number(value);
+      } else if (value.startsWith('{')) {
+        // Nested object
+        try {
+          const nestedMatch = objStr.substring(objStr.indexOf(key)).match(new RegExp(`${key}\\s*:\\s*({[\\s\\S]*?})\\s*[,}]`));
+          if (nestedMatch) {
+            result[key] = extractObjectFromTs(objStr, key);
+          }
+        } catch (e) {
+          result[key] = {};
+        }
+      } else {
+        // Other value (function, etc.)
+        result[key] = value;
+      }
+    }
+    
+    return result;
+  }
+}
+
+/**
+ * Convert TypeScript theme to JavaScript format
+ * @param {string} tsContent - Content of theme.ts file
+ * @returns {string} - Converted JavaScript content
+ */
+function convertThemeToJS(tsContent) {
+  log('🔄 Converting TypeScript theme to JavaScript format...');
+  
+  // Extract theme configuration objects
+  const lightPaletteMatch = tsContent.match(/lightPalette\s*:\s*{[\s\S]*?}(?=,\s*darkPalette|,$)/);
+  const lightPaletteStr = lightPaletteMatch ? lightPaletteMatch[0] : '';
+  
+  const darkPaletteMatch = tsContent.match(/darkPalette\s*:\s*{[\s\S]*?}(?=,\s*typography|,$)/);
+  const darkPaletteStr = darkPaletteMatch ? darkPaletteMatch[0] : '';
+  
+  const typographyMatch = tsContent.match(/typography\s*:\s*{[\s\S]*?}(?=,\s*spacing|,$)/);
+  const typographyStr = typographyMatch ? typographyMatch[0] : '';
+  
+  const shapeMatch = tsContent.match(/shape\s*:\s*{[\s\S]*?}(?=\s*}\s*;|\s*}$)/);
+  const shapeStr = shapeMatch ? shapeMatch[0] : '';
+  
+  // Start with importing createTheme
+  let jsContent = `import { createTheme } from '@mui/material/styles';\n\n`;
+  
+  // Function to extract primary palette
+  function extractPalette(paletteStr, section) {
+    const sectionMatch = paletteStr.match(new RegExp(`${section}\\s*:\\s*{[\\s\\S]*?}(?=,\\s*[a-zA-Z]|$)`));
+    if (!sectionMatch) return {};
+    
+    try {
+      const sectionObj = sectionMatch[0].replace(`${section}:`, '').trim();
+      // Remove the outer braces if they exist
+      const objStr = sectionObj.startsWith('{') && sectionObj.endsWith('}') 
+        ? sectionObj.slice(1, -1).trim()
+        : sectionObj;
+      
+      // Extract key-value pairs
+      const result = {};
+      const propRegex = /([a-zA-Z0-9_]+)\s*:\s*(['"])?(.*?)(\2)?\s*(?:,|$)/g;
+      let propMatch;
+      
+      while ((propMatch = propRegex.exec(objStr)) !== null) {
+        const key = propMatch[1];
+        const value = propMatch[3].replace(/["']/g, '').trim();
+        result[key] = value;
+      }
+      
+      return result;
+    } catch (e) {
+      log(`⚠️ Error extracting ${section} from palette: ${e.message}`);
+      return {};
+    }
+  }
+  
+  // Extract palette sections
+  const lightPrimary = extractPalette(lightPaletteStr, 'primary');
+  const lightSecondary = extractPalette(lightPaletteStr, 'secondary');
+  const lightBackground = extractPalette(lightPaletteStr, 'background');
+  const lightText = extractPalette(lightPaletteStr, 'text');
+  
+  const darkPrimary = extractPalette(darkPaletteStr, 'primary');
+  const darkSecondary = extractPalette(darkPaletteStr, 'secondary');
+  
+  // Extract shape
+  let borderRadius = 8;
+  const brMatch = shapeStr.match(/borderRadius\s*:\s*(\d+)/);
+  if (brMatch) {
+    borderRadius = parseInt(brMatch[1], 10);
+  }
+  
+  // Extract typography
+  let fontFamily = 'Roboto, Arial, sans-serif';
+  const ffMatch = typographyStr.match(/fontFamily\s*:\s*['"]([^'"]+)['"]/);
+  if (ffMatch) {
+    fontFamily = ffMatch[1];
+  }
+  
+  let fontWeightBold = 700;
+  const fwbMatch = typographyStr.match(/fontWeightBold\s*:\s*(\d+)/);
+  if (fwbMatch) {
+    fontWeightBold = parseInt(fwbMatch[1], 10);
+  }
+  
+  // Create light theme
+  jsContent += `// Light theme configuration from your design system\n`;
+  jsContent += `export const lightTheme = createTheme({\n`;
+  jsContent += `  palette: {\n`;
+  jsContent += `    mode: 'light',\n`;
+  
+  // Add primary colors
+  jsContent += `    primary: {\n`;
+  jsContent += `      main: '${lightPrimary.main || "#000000"}',\n`;
+  jsContent += `      light: '${lightPrimary.light || "#4285F4"}',\n`;
+  jsContent += `      dark: '${lightPrimary.dark || "#1A73E8"}',\n`;
+  jsContent += `      contrastText: '${lightPrimary.contrastText || "#FFFFFF"}',\n`;
+  jsContent += `    },\n`;
+  
+  // Add secondary colors
+  jsContent += `    secondary: {\n`;
+  jsContent += `      main: '${lightSecondary.main || "#9c27b0"}',\n`;
+  jsContent += `      light: '${lightSecondary.light || "#4DD0E1"}',\n`;
+  jsContent += `      dark: '${lightSecondary.dark || "#00ACC1"}',\n`;
+  jsContent += `      contrastText: '${lightSecondary.contrastText || "#FFFFFF"}',\n`;
+  jsContent += `    },\n`;
+  
+  // Add background colors
+  jsContent += `    background: {\n`;
+  jsContent += `      default: '${lightBackground.default || "#FFFFFF"}',\n`;
+  jsContent += `      paper: '${lightBackground.paper || "#FFFFFF"}',\n`;
+  jsContent += `    },\n`;
+  
+  // Add text colors
+  jsContent += `    text: {\n`;
+  jsContent += `      primary: '${lightText.primary || "rgba(0, 0, 0, 0.87)"}',\n`;
+  jsContent += `      secondary: '${lightText.secondary || "rgba(0, 0, 0, 0.6)"}',\n`;
+  jsContent += `      disabled: '${lightText.disabled || "rgba(0, 0, 0, 0.38)"}',\n`;
+  jsContent += `    },\n`;
+  
+  jsContent += `  },\n`;
+  
+  // Add typography
+  jsContent += `  typography: {\n`;
+  jsContent += `    fontFamily: '${fontFamily}',\n`;
+  jsContent += `    fontWeightBold: ${fontWeightBold},\n`;
+  jsContent += `  },\n`;
+  
+  // Add shape
+  jsContent += `  shape: {\n`;
+  jsContent += `    borderRadius: ${borderRadius},\n`;
+  jsContent += `  },\n`;
+  
+  // Add component customizations for buttons
+  jsContent += `  components: {\n`;
+  jsContent += `    MuiButton: {\n`;
+  jsContent += `      styleOverrides: {\n`;
+  jsContent += `        root: {\n`;
+  jsContent += `          borderRadius: ${borderRadius},\n`;
+  jsContent += `          textTransform: 'none',\n`;
+  jsContent += `          fontWeight: ${fontWeightBold},\n`;
+  jsContent += `        },\n`;
+  jsContent += `        containedPrimary: {\n`;
+  jsContent += `          backgroundColor: '${lightPrimary.main || "#000000"}',\n`;
+  jsContent += `          '&:hover': {\n`;
+  jsContent += `            backgroundColor: '${lightPrimary.dark || "#1A73E8"}',\n`;
+  jsContent += `          },\n`;
+  jsContent += `        },\n`;
+  jsContent += `      },\n`;
+  jsContent += `    },\n`;
+  jsContent += `  },\n`;
+  jsContent += `});\n\n`;
+  
+  // Create dark theme
+  jsContent += `// Dark theme configuration from your design system\n`;
+  jsContent += `export const darkTheme = createTheme({\n`;
+  jsContent += `  palette: {\n`;
+  jsContent += `    mode: 'dark',\n`;
+  
+  // Add primary colors
+  jsContent += `    primary: {\n`;
+  jsContent += `      main: '${darkPrimary.main || "#90caf9"}',\n`;
+  jsContent += `      light: '${darkPrimary.light || "#e3f2fd"}',\n`;
+  jsContent += `      dark: '${darkPrimary.dark || "#42a5f5"}',\n`;
+  jsContent += `      contrastText: '${darkPrimary.contrastText || "#000000"}',\n`;
+  jsContent += `    },\n`;
+  
+  // Add secondary colors
+  jsContent += `    secondary: {\n`;
+  jsContent += `      main: '${darkSecondary.main || "#f48fb1"}',\n`;
+  jsContent += `      light: '${darkSecondary.light || "#f8bbd0"}',\n`;
+  jsContent += `      dark: '${darkSecondary.dark || "#c2185b"}',\n`;
+  jsContent += `      contrastText: '${darkSecondary.contrastText || "#000000"}',\n`;
+  jsContent += `    },\n`;
+  
+  // Add background colors - override with standard dark theme colors
+  jsContent += `    background: {\n`;
+  jsContent += `      default: '#121212',\n`;
+  jsContent += `      paper: '#1e1e1e',\n`;
+  jsContent += `    },\n`;
+  
+  // Add text colors
+  jsContent += `    text: {\n`;
+  jsContent += `      primary: '#ffffff',\n`;
+  jsContent += `      secondary: 'rgba(255, 255, 255, 0.7)',\n`;
+  jsContent += `      disabled: 'rgba(255, 255, 255, 0.5)',\n`;
+  jsContent += `    },\n`;
+  
+  jsContent += `  },\n`;
+  
+  // Add typography
+  jsContent += `  typography: {\n`;
+  jsContent += `    fontFamily: '${fontFamily}',\n`;
+  jsContent += `    fontWeightBold: ${fontWeightBold},\n`;
+  jsContent += `  },\n`;
+  
+  // Add shape
+  jsContent += `  shape: {\n`;
+  jsContent += `    borderRadius: ${borderRadius},\n`;
+  jsContent += `  },\n`;
+  
+  // Add component customizations for buttons in dark mode
+  jsContent += `  components: {\n`;
+  jsContent += `    MuiButton: {\n`;
+  jsContent += `      styleOverrides: {\n`;
+  jsContent += `        root: {\n`;
+  jsContent += `          borderRadius: ${borderRadius},\n`;
+  jsContent += `          textTransform: 'none',\n`;
+  jsContent += `          fontWeight: ${fontWeightBold},\n`;
+  jsContent += `        },\n`;
+  jsContent += `        containedPrimary: {\n`;
+  jsContent += `          backgroundColor: '${darkPrimary.light || darkPrimary.main || "#90caf9"}',\n          color: '${darkPrimary.contrastText || "rgba(0, 0, 0, 0.87)"}',\n          '&:hover': {\n            backgroundColor: '${darkPrimary.dark || "#42a5f5"}',\n          },\n        },\n      },\n    },\n  },\n});\n  
+  return jsContent;
+};
+  jsContent += `          color: '${config.darkPalette.primary.contrastText}',\n`;
+  jsContent += `          '&:hover': {\n`;
+  jsContent += `            backgroundColor: '${config.darkPalette.primary.dark}',\n`;
+  jsContent += `          },\n`;
+  jsContent += `        },\n`;
+  jsContent += `      },\n`;
+  jsContent += `    },\n`;
+  jsContent += `  },\n`;
+  jsContent += `});\n`;
+  
+  return jsContent;
+}
+
+/**
+ * Main function to run the script
+ */
+async function main() {
+  log('🚀 Preparing MUI demo with real functional tokens...');
+
+  // Define source and destination paths
+  const sourceThemePath = path.join(CONFIG.sourceDir, CONFIG.sourceThemeFile);
+  const destThemePath = path.join(CONFIG.demoDir, CONFIG.destThemeFile);
+
+  try {
+    // Check if source file exists
+    if (!fs.existsSync(sourceThemePath)) {
+      log(`❌ Source theme file not found: ${sourceThemePath}`);
+      return false;
+    }
+
+    // Create backup if needed
+    backupFile(destThemePath);
+
+    // Read the TypeScript theme file
+    const tsContent = fs.readFileSync(sourceThemePath, 'utf-8');
+    
+    // Convert to JavaScript format
+    const jsContent = convertThemeToJS(tsContent);
+
+    // Write the JavaScript theme file
+    fs.writeFileSync(destThemePath, jsContent);
+    log(`✅ Created JavaScript theme: ${destThemePath}`);
+
+    log('✨ MUI demo preparation complete! You can now run the demo to see your design system tokens in action.');
+    return true;
+  } catch (error) {
+    log(`❌ Error preparing MUI demo: ${error.message}`);
+    return false;
+  }
+}
+
+// Run the script
+main().catch(error => {
+  console.error('❌ Error preparing MUI demo:', error);
+  process.exit(1);
+});
+
+// Run the script
+main().catch(error => {
+  console.error('❌ Error preparing MUI demo:', error);
+  process.exit(1);
+});
+
+// Run the script
+main().catch(error => {
+  console.error('❌ Error preparing MUI demo:', error);
+  process.exit(1);
+});
