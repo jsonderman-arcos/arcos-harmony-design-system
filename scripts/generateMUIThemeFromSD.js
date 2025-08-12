@@ -19,14 +19,7 @@ const CONFIG = {
   outputThemeFile: 'theme.ts',
   outputThemeTypesFile: 'theme.types.ts',
   // Token file patterns
-  coreTokens  // If we have spacing values, create a spacing function
-  if (Object.keys(spacingValues).length > 0) {
-    const baseSpacing = spacingValues[1] || '8px';
-    return `(factor: number) => \`\${Math.round(factor * parseFloat('${baseSpacing}') * 10) / 10}px\``;
-  }
-  
-  // Default spacing function with decimal point support
-  return "(factor: number) => `${Math.round(factor * 8 * 10) / 10}px`";tokens.json',
+  coreTokensFile: 'core-tokens.json',
   lightTokensFile: 'light-tokens.json',
   darkTokensFile: 'dark-tokens.json',
   // Original token files
@@ -170,17 +163,28 @@ function formatRgbaColor(color) {
     const bVal = parseFloat(b);
     const aVal = parseFloat(a);
     
-    // Check if values are in 0-1 range and need conversion to 0-255
-    if (rVal <= 1.0 && gVal <= 1.0 && bVal <= 1.0) {
-      const rInt = Math.round(rVal * 255);
-      const gInt = Math.round(gVal * 255);
-      const bInt = Math.round(bVal * 255);
-      
-      return `rgba(${rInt}, ${gInt}, ${bInt}, ${aVal})`;
+    // Always ensure RGB values are integers in 0-255 range
+    let rInt, gInt, bInt;
+    
+    // Always convert decimal values (0.0-1.0) to integers (0-255)
+    // If any component is <= 1.0, assume all are in 0-1 range
+    if (rVal <= 1.0 || gVal <= 1.0 || bVal <= 1.0) {
+      rInt = Math.round(rVal * 255);
+      gInt = Math.round(gVal * 255);
+      bInt = Math.round(bVal * 255);
+    } else {
+      rInt = Math.round(rVal);
+      gInt = Math.round(gVal);
+      bInt = Math.round(bVal);
     }
     
-    // Make sure the returned format is clean
-    return `rgba(${Math.round(rVal)}, ${Math.round(gVal)}, ${Math.round(bVal)}, ${aVal})`;
+    // Format alpha value: use integers for whole numbers, limit decimal places to 2
+    const formattedAlpha = aVal === Math.round(aVal) ? 
+      Math.round(aVal) : 
+      Number(aVal.toFixed(2));
+    
+    // Return standardized RGBA format
+    return `rgba(${rInt}, ${gInt}, ${bInt}, ${formattedAlpha})`;
   }
   
   return color;
@@ -793,6 +797,37 @@ function generateShape(tokens) {
 }
 
 /**
+ * Process theme object to standardize all RGBA colors
+ * @param {object} obj - Theme object to process
+ * @returns {object} Processed theme object with standardized RGBA colors
+ */
+function processThemeColors(obj) {
+  // If it's not an object or it's null, return it as is
+  if (typeof obj !== 'object' || obj === null) {
+    // If it's a string that might be a color, format it
+    if (typeof obj === 'string') {
+      return formatRgbaColor(obj);
+    }
+    return obj;
+  }
+  
+  // Handle arrays
+  if (Array.isArray(obj)) {
+    return obj.map(item => processThemeColors(item));
+  }
+  
+  // Process object properties recursively
+  const result = {};
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      result[key] = processThemeColors(obj[key]);
+    }
+  }
+  
+  return result;
+}
+
+/**
  * Generate MUI theme from tokens
  * @param {object} coreTokens - Core tokens
  * @param {object} lightTokens - Light mode tokens
@@ -825,7 +860,10 @@ function generateMuiTheme(coreTokens, lightTokens, darkTokens, allTokens) {
     shape
   };
   
-  return themeConfig;
+  // Process all colors in the theme to ensure consistent formatting
+  const processedConfig = processThemeColors(themeConfig);
+  
+  return processedConfig;
 }
 
 /**
