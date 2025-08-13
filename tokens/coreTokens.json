@@ -7,115 +7,116 @@
   "breakpoints": {
     "breakpoint-xl": {
       "$type": "dimension",
-      "$value": 1280,
-      "$rawValue": 1280
+      "$value": "1280px",
+      "$rawValue": "1280px"
     },
     "breakpoint-lg": {
       "$type": "dimension",
-      "$value": 1024,
-      "$rawValue": 1024
+      "$value": "1024px",
+      "$rawValue": "1024px"
     },
     "breakpoint-md": {
       "$type": "dimension",
-      "$value": 768,
-      "$rawValue": 768
+      "$value": "768px",
+      "$rawValue": "768px"
     },
     "breakpoint-sm": {
       "$type": "dimension",
-      "$value": 640,
-      "$rawValue": 640
+      "$value": "640px",
+      "$rawValue": "640px"
     }
   },
   "radii": {
     "border-radius": {
       "$type": "dimension",
       "$value": "8px",
-      "$rawValue": 8
+      "$rawValue": "8px"
     },
     "border-radius-none": {
       "$type": "dimension",
       "$value": "0px",
-      "$rawValue": 0
+      "$rawValue": "0px"
     }
   },
   "spacing": {
     "spacing-none": {
       "$type": "dimension",
       "$value": "0px",
-      "$rawValue": 0
+      "$rawValue": "0px"
     },
     "spacing-3xs": {
       "$type": "dimension",
       "$value": "4px",
-      "$rawValue": 4
+      "$rawValue": "4px"
     },
     "spacing-2xs": {
       "$type": "dimension",
       "$value": "8px",
-      "$rawValue": 8
+      "$rawValue": "8px"
     },
     "spacing-xs": {
       "$type": "dimension",
       "$value": "12px",
-      "$rawValue": 12
+      "$rawValue": "12px"
     },
     "spacing-sm": {
       "$type": "dimension",
       "$value": "16px",
-      "$rawValue": 16
+      "$rawValue": "16px"
     },
     "spacing-sm-md": {
       "$type": "dimension",
       "$value": "20px",
-      "$rawValue": 20
+      "$rawValue": "20px"
     },
     "spacing-md": {
       "$type": "dimension",
       "$value": "24px",
-      "$rawValue": 24
+      "$rawValue": "24px"
     },
     "spacing-lg": {
       "$type": "dimension",
       "$value": "32px",
-      "$rawValue": 32
+      "$rawValue": "32px"
     },
     "spacing-xl": {
       "$type": "dimension",
       "$value": "40px",
-      "$rawValue": 40
+      "$rawValue": "40px"
     },
     "spacing-2xl": {
       "$type": "dimension",
       "$value": "48px",
-      "$rawValue": 48
+      "$rawValue": "48px"
     },
     "panel-padding-mobile": {
       "$type": "dimension",
       "$value": "8.569999694824219px",
       "$description": "dp version of panel-padding (for React Native)",
-      "$rawValue": 8.569999694824219
+      "$rawValue": "8.569999694824219px"
     },
     "form-element-spacing-mobile": {
       "$type": "dimension",
       "$value": "5.710000038146973px",
       "$description": "dp version of form-element-spacing",
-      "$rawValue": 5.710000038146973
+      "$rawValue": "5.710000038146973px"
     },
     "vertical-stack-gap-mobile": {
       "$type": "dimension",
       "$value": "8.569999694824219px",
       "$description": "dp version of vertical-stack-gap",
-      "$rawValue": 8.569999694824219
+      "$rawValue": "8.569999694824219px"
     },
     "label-icon-spacing-mobile": {
       "$type": "dimension",
       "$value": "2.859999895095825px",
       "$description": "dp version of label-icon-spacing",
-      "$rawValue": 2.859999895095825
+      "$rawValue": "2.859999895095825px"
     },
     "spacing-base": {
       "$type": "dimension",
-      "$value": "{spacing.spacing-sm}"
+      "$value": "{spacing.spacing-sm}",
+      "$rawValue": "16px"
     }
   },
   "opacity": {
@@ -207,63 +208,63 @@
       },
       "fontsize-2xs": {
         "$type": "dimension",
-        "$value": 10,
-        "$rawValue": 10
+        "$value": "10px",
+        "$rawValue": "10px"
       },
       "fontsize-xs": {
         "$type": "dimension",
-        "$value": 12,
-        "$rawValue": 12
+        "$value": "12px",
+        "$rawValue": "12px"
       },
       "fontsize-sm": {
         "$type": "dimension",
-        "$value": 14,
-        "$rawValue": 14
+        "$value": "14px",
+        "$rawValue": "14px"
       },
       "fontsize-base": {
         "$type": "dimension",
-        "$value": 16,
-        "$rawValue": 16
+        "$value": "16px",
+        "$rawValue": "16px"
       },
       "fontsize-md": {
         "$type": "dimension",
-        "$value": 18,
-        "$rawValue": 18
+        "$value": "18px",
+        "$rawValue": "18px"
       },
       "fontsize-lg": {
         "$type": "dimension",
-        "$value": 20,
-        "$rawValue": 20
+        "$value": "20px",
+        "$rawValue": "20px"
       },
       "fontsize-xl": {
         "$type": "dimension",
-        "$value": 24,
-        "$rawValue": 24
+        "$value": "24px",
+        "$rawValue": "24px"
       },
       "fontsize-2xl": {
         "$type": "dimension",
-        "$value": 30,
-        "$rawValue": 30
+        "$value": "30px",
+        "$rawValue": "30px"
       },
       "fontsize-3xl": {
         "$type": "dimension",
-        "$value": 36,
-        "$rawValue": 36
+        "$value": "36px",
+        "$rawValue": "36px"
       },
       "fontsize-4xl": {
         "$type": "dimension",
-        "$value": 48,
-        "$rawValue": 48
+        "$value": "48px",
+        "$rawValue": "48px"
       },
       "fontsize-5xl": {
         "$type": "dimension",
-        "$value": 60,
-        "$rawValue": 60
+        "$value": "60px",
+        "$rawValue": "60px"
       },
       "fontsize-huge": {
         "$type": "dimension",
-        "$value": 96,
-        "$rawValue": 96
+        "$value": "96px",
+        "$rawValue": "96px"
       }
     },
     "effects": {
@@ -2467,8 +2468,8 @@
     "typography": {
       "fontsize-xs": {
         "$type": "dimension",
-        "$value": 12,
-        "$rawValue": 12
+        "$value": "12px",
+        "$rawValue": "12px"
       }
     }
   },

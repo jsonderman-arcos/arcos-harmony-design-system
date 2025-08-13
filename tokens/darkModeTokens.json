@@ -8,8 +8,8 @@
     "border": {
       "size-default": {
         "$type": "dimension",
-        "$value": 1,
-        "$rawValue": 1
+        "$value": "1px",
+        "$rawValue": "1px"
       },
       "focus-ring": {
         "$type": "color",
@@ -341,39 +341,43 @@
     "spacing": {
       "hairline": {
         "$type": "dimension",
-        "$value": "{spacing.spacing-3xs}"
+        "$value": "{spacing.spacing-3xs}",
+        "$rawValue": "4px"
       },
       "spacing-minimum": {
         "$type": "dimension",
         "$value": "3px",
-        "$rawValue": 3
+        "$rawValue": "3px"
       },
       "width-compact": {
         "$type": "dimension",
         "$value": "360px",
-        "$rawValue": 360
+        "$rawValue": "360px"
       },
       "width-wide": {
         "$type": "dimension",
         "$value": "640px",
-        "$rawValue": 640
+        "$rawValue": "640px"
       },
       "width-regular": {
         "$type": "dimension",
         "$value": "520px",
-        "$rawValue": 520
+        "$rawValue": "520px"
       },
       "spacing-compact": {
         "$type": "dimension",
-        "$value": "{spacing.spacing-3xs}"
+        "$value": "{spacing.spacing-3xs}",
+        "$rawValue": "4px"
       },
       "spacing-airy": {
         "$type": "dimension",
-        "$value": "{spacing.spacing-sm}"
+        "$value": "{spacing.spacing-sm}",
+        "$rawValue": "16px"
       },
       "spacing-default": {
         "$type": "dimension",
-        "$value": "{spacing.spacing-2xs}"
+        "$value": "{spacing.spacing-2xs}",
+        "$rawValue": "8px"
       }
     },
     "surface-light": {
@@ -621,54 +625,57 @@
       "spacing": {
         "form-spacing": {
           "$type": "dimension",
-          "$value": "{spacing.spacing-xs}"
+          "$value": "{spacing.spacing-xs}",
+          "$rawValue": "12px"
         },
         "stack-large": {
           "$type": "dimension",
-          "$value": "{Base.spacing.spacing-airy}"
+          "$value": "{Base.spacing.spacing-airy}",
+          "$rawValue": "16px"
         },
         "stack-small": {
           "$type": "dimension",
-          "$value": "{Base.spacing.spacing-compact}"
+          "$value": "{Base.spacing.spacing-compact}",
+          "$rawValue": "4px"
         }
       },
       "grid": {
         "columns": {
           "$type": "dimension",
-          "$value": 0,
-          "$rawValue": 0
+          "$value": "0px",
+          "$rawValue": "0px"
         },
         "gutter": {
           "$type": "dimension",
-          "$value": 0,
-          "$rawValue": 0
+          "$value": "0px",
+          "$rawValue": "0px"
         },
         "margin": {
           "$type": "dimension",
           "$value": "0px",
-          "$rawValue": 0
+          "$rawValue": "0px"
         },
         "container-max-width": {
           "$type": "dimension",
-          "$value": 0,
-          "$rawValue": 0
+          "$value": "0px",
+          "$rawValue": "0px"
         }
       },
       "gaps": {
         "components": {
           "$type": "dimension",
           "$value": "0px",
-          "$rawValue": 0
+          "$rawValue": "0px"
         },
         "stack": {
           "$type": "dimension",
           "$value": "0px",
-          "$rawValue": 0
+          "$rawValue": "0px"
         },
         "inline": {
           "$type": "dimension",
           "$value": "0px",
-          "$rawValue": 0
+          "$rawValue": "0px"
         }
       }
     },
@@ -1522,34 +1529,38 @@
       },
       "panel-width-compact": {
         "$type": "dimension",
-        "$value": "{Base.spacing.width-compact}"
+        "$value": "{Base.spacing.width-compact}",
+        "$rawValue": "360px"
       },
       "panel-width-wide": {
         "$type": "dimension",
-        "$value": "{Base.spacing.width-wide}"
+        "$value": "{Base.spacing.width-wide}",
+        "$rawValue": "640px"
       },
       "panel-width-default": {
         "$type": "dimension",
-        "$value": "{Base.spacing.width-regular}"
+        "$value": "{Base.spacing.width-regular}",
+        "$rawValue": "520px"
       },
       "heading-level-1": {
         "$type": "dimension",
-        "$value": 0,
-        "$rawValue": 0
+        "$value": "0px",
+        "$rawValue": "0px"
       },
       "heading-level-2": {
         "$type": "dimension",
-        "$value": 0,
-        "$rawValue": 0
+        "$value": "0px",
+        "$rawValue": "0px"
       },
       "heading-level-3": {
         "$type": "dimension",
-        "$value": 0,
-        "$rawValue": 0
+        "$value": "0px",
+        "$rawValue": "0px"
       },
       "panel-padding": {
         "$type": "dimension",
-        "$value": "{Base.spacing.spacing-default}"
+        "$value": "{Base.spacing.spacing-default}",
+        "$rawValue": "8px"
       },
       "background-fill": {
         "base": {
@@ -1688,15 +1699,18 @@
       "spacing": {
         "convoy-row-gap": {
           "$type": "dimension",
-          "$value": "{spacing.spacing-sm}"
+          "$value": "{spacing.spacing-sm}",
+          "$rawValue": "16px"
         },
         "convoy-inline-gap": {
           "$type": "dimension",
-          "$value": "{spacing.spacing-2xs}"
+          "$value": "{spacing.spacing-2xs}",
+          "$rawValue": "8px"
         },
         "default": {
           "$type": "dimension",
-          "$value": "{Base.spacing.spacing-default}"
+          "$value": "{Base.spacing.spacing-default}",
+          "$rawValue": "8px"
         }
       },
       "text-fill": {
@@ -1720,17 +1734,20 @@
     "tab-badge": {
       "count": {
         "$type": "dimension",
-        "$value": "{Lighthouse.typography.fontSize-lg}"
+        "$value": "{Lighthouse.typography.fontSize-lg}",
+        "$rawValue": "20px"
       }
     },
     "button": {
       "button-padding-vertical": {
         "$type": "dimension",
-        "$value": "{spacing.spacing-2xs}"
+        "$value": "{spacing.spacing-2xs}",
+        "$rawValue": "8px"
       },
       "button-padding-horizontal": {
         "$type": "dimension",
-        "$value": "{spacing.spacing-sm-md}"
+        "$value": "{spacing.spacing-sm-md}",
+        "$rawValue": "20px"
       },
       "primary": {
         "background": {
@@ -2129,11 +2146,13 @@
       },
       "chip-pad-vertical": {
         "$type": "dimension",
-        "$value": "{Base.spacing.spacing-minimum}"
+        "$value": "{Base.spacing.spacing-minimum}",
+        "$rawValue": "3px"
       },
       "chip-pad-horiztonal": {
         "$type": "dimension",
-        "$value": "{Base.spacing.spacing-compact}"
+        "$value": "{Base.spacing.spacing-compact}",
+        "$rawValue": "4px"
       },
       "status-label": {
         "$type": "color",

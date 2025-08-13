@@ -248,6 +248,17 @@ function createTokenMapping(collectionInfo) {
   const variables = rawData.meta?.variables || {};
   const patterns = analyzeVariableNamePatterns(variables, collectionInfo);
   
+  // Helper function to determine if a value should have px units
+  function isNonDimensionalValue(variableName) {
+    variableName = variableName.toLowerCase();
+    return variableName.includes('opacity') || 
+           variableName.includes('z-index') ||
+           variableName.includes('scale') || 
+           variableName.includes('alpha') ||
+           variableName.includes('weight') ||
+           variableName.includes('fontweight');
+  }
+  
   // Define mapping rules based on detected patterns
   const tokenMap = {
     // Default patterns
@@ -294,17 +305,30 @@ function createTokenMapping(collectionInfo) {
         }
       },
       
+
+      
       // Dimensions
       { 
         type: 'FLOAT',
         transform: (value, variable) => {
-          // Add units based on variable name pattern
+          // Add units based on variable name pattern and context
           if (typeof value === 'number') {
-            if (variable.name.includes('spacing') || variable.name.includes('padding') || 
-                variable.name.includes('margin') || variable.name.includes('gap') || 
-                variable.name.includes('radius')) {
-              return `${value}px`;
-            }
+            // Use the helper function to determine if value should have px
+            const isNonDimensional = isNonDimensionalValue(variable.name);
+            return isNonDimensional ? value : `${value}px`;
+          }
+          return value;
+        }
+      },
+      // Integer dimensions
+      { 
+        type: 'INTEGER',
+        transform: (value, variable) => {
+          // Add units based on variable name pattern and context - reuse the same logic
+          if (typeof value === 'number') {
+            // Use the helper function to determine if value should have px
+            const isNonDimensional = isNonDimensionalValue(variable.name);
+            return isNonDimensional ? value : `${value}px`;
           }
           return value;
         }
@@ -624,6 +648,12 @@ function resolveReference(value, variableMap, visitedRefs = new Set()) {
     return { rawValue, formattedValue: null };  // formattedValue will be set by the color transform
   }
   
+  // Base case 2: Direct number value (for dimensions)
+  if (typeof value === 'number') {
+    // Just return the direct value for dimensions
+    return { rawValue: value, formattedValue: null }; // formattedValue will be set by dimension transform
+  }
+  
   // Recursive case: Variable alias
   if (typeof value === 'object' && value !== null && value.type === 'VARIABLE_ALIAS') {
     const refId = value.id;
@@ -689,11 +719,28 @@ function transformValue(value, variable, variableMap, tokenMap) {
         // Convert Figma reference to our token reference format
         token.$value = refRule.transform(value, variable);
         
-        // If this is a color reference, try to resolve it to get the raw value
-        if (variable.resolvedType === 'COLOR') {
+        // If this is a color or dimension reference, try to resolve it to get the raw value
+        if (variable.resolvedType === 'COLOR' || variable.resolvedType === 'FLOAT' || variable.resolvedType === 'INTEGER') {
           const resolved = resolveReference(value, variableMap);
-          if (resolved.rawValue) {
+          if (resolved.rawValue !== null && resolved.rawValue !== undefined) {
             token.$rawValue = resolved.rawValue;
+            
+            // For dimension values, check if we need to add 'px'
+            if ((variable.resolvedType === 'FLOAT' || variable.resolvedType === 'INTEGER') && typeof resolved.rawValue === 'number') {
+              // Check if we're dealing with a non-dimensional value (no px needed)
+              const tokenName = variable.name.toLowerCase();
+              const isNonDimensional = tokenName.includes('opacity') || 
+                                       tokenName.includes('z-index') ||
+                                       tokenName.includes('scale') || 
+                                       tokenName.includes('alpha') ||
+                                       tokenName.includes('weight') ||
+                                       tokenName.includes('fontweight');
+              
+              // Add 'px' for dimensional values, leave others as is
+              if (!isNonDimensional) {
+                token.$rawValue = `${resolved.rawValue}px`;
+              }
+            }
           } else {
             // If we couldn't resolve it, keep the reference
             token.$rawValue = token.$value;
@@ -716,11 +763,16 @@ function transformValue(value, variable, variableMap, tokenMap) {
     }
   } else if (typeof value === 'number') {
     // Handle dimensions
-    const dimensionRule = tokenMap.patterns.find(p => p.type === 'FLOAT');
+    // Find the appropriate rule based on the variable type (FLOAT or INTEGER)
+    const dimensionRule = tokenMap.patterns.find(p => p.type === variable.resolvedType) || 
+                         tokenMap.patterns.find(p => p.type === 'FLOAT');
     if (dimensionRule) {
-      // Store the original number in rawValue
-      token.$rawValue = value;
+      // Transform the value with the appropriate rule
       token.$value = dimensionRule.transform(value, variable);
+      
+      // For direct values (not references to other tokens), $rawValue should be the same as $value
+      // This simplifies the logic and maintains consistency
+      token.$rawValue = token.$value;
     }
   } else if (typeof value === 'string' && variable.resolvedType === 'COLOR') {
     // Handle direct hex or rgba values in strings
@@ -811,7 +863,18 @@ function resolveRawValueReferences(tokenSet) {
   
   // First flatten the token structure to make lookups easier
   const flatTokens = {};
-  const directColorValues = {};
+  const directValues = {};
+  
+  // Helper function to determine if a value should have px units
+  function isNonDimensionalValue(tokenPath) {
+    tokenPath = tokenPath.toLowerCase();
+    return tokenPath.includes('opacity') || 
+           tokenPath.includes('z-index') ||
+           tokenPath.includes('scale') || 
+           tokenPath.includes('alpha') ||
+           tokenPath.includes('weight') ||
+           tokenPath.includes('fontweight');
+  }
   
   // Function to flatten the nested structure
   function flattenTokens(obj, path = []) {
@@ -826,7 +889,7 @@ function resolveRawValueReferences(tokenSet) {
         if (value.$type && value.$value !== undefined) {
           flatTokens[dotPath] = value;
           
-          // Cache direct color values for quick lookup
+          // Cache direct values for quick lookup
           if (value.$type === 'color') {
             if (typeof value.$value === 'string') {
               if (value.$value.startsWith('#')) {
@@ -835,10 +898,15 @@ function resolveRawValueReferences(tokenSet) {
                 const r = parseInt(hex.substring(0, 2), 16);
                 const g = parseInt(hex.substring(2, 4), 16);
                 const b = parseInt(hex.substring(4, 6), 16);
-                directColorValues[dotPath] = `rgba(${r}, ${g}, ${b}, 1)`;
+                directValues[dotPath] = `rgba(${r}, ${g}, ${b}, 1)`;
               } else if (value.$value.startsWith('rgba')) {
-                directColorValues[dotPath] = value.$value;
+                directValues[dotPath] = value.$value;
               }
+            }
+          } else if (value.$type === 'dimension') {
+            // Store dimension values too - check for direct values with $rawValue already set
+            if (value.$rawValue) {
+              directValues[dotPath] = value.$rawValue;
             }
           }
         } else {
@@ -852,23 +920,20 @@ function resolveRawValueReferences(tokenSet) {
   // Flatten the token structure
   flattenTokens(tokenSet);
   
-  // First collect all direct color values
-  // Then do multiple passes to resolve references
-  
   // Function to resolve reference to its raw value
   function resolveRawValue(refPath) {
     // Remove curly braces if present
     const cleanPath = refPath.replace(/^\{|\}$/g, '');
     
     // Direct lookup in our cache of raw values
-    return directColorValues[cleanPath] || null;
+    return directValues[cleanPath] || null;
   }
   
-  // Process all color tokens with direct values first
+  // Process all tokens with direct values first
   Object.keys(flatTokens).forEach(tokenPath => {
     const token = flatTokens[tokenPath];
     
-    // Only process color tokens
+    // Process color tokens
     if (token.$type === 'color') {
       if (typeof token.$value === 'string') {
         // Direct color values
@@ -878,11 +943,28 @@ function resolveRawValueReferences(tokenSet) {
           const g = parseInt(hex.substring(2, 4), 16);
           const b = parseInt(hex.substring(4, 6), 16);
           token.$rawValue = `rgba(${r}, ${g}, ${b}, 1)`;
-          directColorValues[tokenPath] = token.$rawValue;
+          directValues[tokenPath] = token.$rawValue;
         } else if (token.$value.startsWith('rgba')) {
           token.$rawValue = token.$value;
-          directColorValues[tokenPath] = token.$rawValue;
+          directValues[tokenPath] = token.$rawValue;
         }
+      }
+    }
+    // Process dimension tokens with direct values or numeric values
+    else if (token.$type === 'dimension') {
+      if (token.$rawValue) {
+        // Direct raw value already set
+        directValues[tokenPath] = token.$rawValue;
+      } else if (typeof token.$value === 'string' && !token.$value.startsWith('{')) {
+        // Direct string value like "16px" or "1.5"
+        token.$rawValue = token.$value;
+        directValues[tokenPath] = token.$rawValue;
+      } else if (typeof token.$value === 'number') {
+        // Direct numeric value needs to be converted to string with potential units
+        // Use the same logic as in the transform function
+        const isNonDimensional = isNonDimensionalValue(tokenPath);
+        token.$rawValue = isNonDimensional ? token.$value : `${token.$value}px`;
+        directValues[tokenPath] = token.$rawValue;
       }
     }
   });
@@ -899,18 +981,20 @@ function resolveRawValueReferences(tokenSet) {
     Object.keys(flatTokens).forEach(tokenPath => {
       const token = flatTokens[tokenPath];
       
-      // Only process color tokens with references
-      if (token.$type === 'color' && typeof token.$value === 'string' && 
+      // Process any token type with a reference in $value
+      if (typeof token.$value === 'string' && 
           token.$value.startsWith('{') && token.$value.endsWith('}') &&
-          (!token.$rawValue || token.$rawValue.startsWith('{'))) {
+          (!token.$rawValue || token.$rawValue === token.$value)) {
         
         // Get the referenced path
         const referencedPath = token.$value.replace(/^\{|\}$/g, '');
         
         // Check if we have a resolved value for this reference
-        if (directColorValues[referencedPath]) {
-          token.$rawValue = directColorValues[referencedPath];
-          directColorValues[tokenPath] = token.$rawValue; // Add to our cache
+        if (directValues[referencedPath]) {
+          // All token types with references (color, dimension, etc.) should have $rawValue
+          // Use the direct value from our cache
+          token.$rawValue = directValues[referencedPath];
+          directValues[tokenPath] = token.$rawValue; // Add to our cache
           resolutionCount++;
           changed = true;
         }
