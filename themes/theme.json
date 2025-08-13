@@ -1,5 +1,123 @@
 {
-  "colorSchemes": {},
+  "colorSchemes": {
+    "light": {
+      "palette": {
+        "primary": {
+          "main": "rgba(50, 98, 141, 1)",
+          "contrastText": "rgba(235, 239, 244, 1)",
+          "dark": "rgba(50, 98, 141, 0.06)",
+          "disabled": "rgba(0, 0, 0, 0.12)"
+        },
+        "secondary": {
+          "main": "rgba(65, 94, 91, 1)",
+          "contrastText": "rgba(255, 255, 255, 1)",
+          "dark": "rgba(65, 94, 91, 0.06)"
+        },
+        "error": {},
+        "warning": {},
+        "info": {},
+        "success": {},
+        "background": {},
+        "text": {}
+      },
+      "components": {
+        "MuiButton": {
+          "styleOverrides": {
+            "outlined": {
+              "backgroundColor": "rgba(255, 255, 255, 0)",
+              "borderColor": "rgba(50, 98, 141, 0.5)",
+              "color": "rgba(50, 98, 141, 1)",
+              "&:hover": {
+                "backgroundColor": "rgba(0, 0, 0, 0.06)",
+                "color": "rgba(42, 82, 118, 1)"
+              }
+            },
+            "sizeMedium": {
+              "padding": "8 20"
+            }
+          }
+        }
+      }
+    },
+    "dark": {
+      "palette": {
+        "primary": {
+          "main": "rgba(50, 98, 141, 1)",
+          "contrastText": "rgba(255, 255, 255, 1)",
+          "dark": "rgba(50, 98, 141, 0.06)",
+          "disabled": "rgba(255, 255, 255, 1)"
+        },
+        "secondary": {
+          "main": "rgba(255, 255, 255, 1)",
+          "contrastText": "rgba(255, 255, 255, 1)",
+          "dark": "rgba(65, 94, 91, 0.06)"
+        },
+        "error": {},
+        "warning": {},
+        "info": {},
+        "success": {},
+        "background": {},
+        "text": {}
+      },
+      "components": {
+        "MuiButton": {
+          "styleOverrides": {
+            "outlined": {
+              "backgroundColor": "rgba(255, 255, 255, 0)",
+              "borderColor": "rgba(50, 98, 141, 0.5)",
+              "color": "rgba(50, 98, 141, 1)",
+              "&:hover": {
+                "backgroundColor": "rgba(0, 0, 0, 0.06)",
+                "color": "rgba(42, 82, 118, 1)"
+              }
+            },
+            "sizeMedium": {
+              "padding": "8 20"
+            }
+          }
+        }
+      }
+    },
+    "mobile": {
+      "palette": {
+        "primary": {
+          "main": "rgba(50, 98, 141, 1)",
+          "contrastText": "rgba(255, 255, 255, 1)",
+          "dark": "rgba(50, 98, 141, 0.06)",
+          "disabled": "rgba(255, 255, 255, 1)"
+        },
+        "secondary": {
+          "main": "rgba(255, 255, 255, 1)",
+          "contrastText": "rgba(255, 255, 255, 1)",
+          "dark": "rgba(65, 94, 91, 0.06)"
+        },
+        "error": {},
+        "warning": {},
+        "info": {},
+        "success": {},
+        "background": {},
+        "text": {}
+      },
+      "components": {
+        "MuiButton": {
+          "styleOverrides": {
+            "outlined": {
+              "backgroundColor": "rgba(255, 255, 255, 0)",
+              "borderColor": "rgba(50, 98, 141, 0.5)",
+              "color": "rgba(255, 255, 255, 1)",
+              "&:hover": {
+                "backgroundColor": "rgba(255, 255, 255, 1)",
+                "color": "rgba(255, 255, 255, 1)"
+              }
+            },
+            "sizeMedium": {
+              "padding": "12 20"
+            }
+          }
+        }
+      }
+    }
+  },
   "shadows": [
     "none"
   ],

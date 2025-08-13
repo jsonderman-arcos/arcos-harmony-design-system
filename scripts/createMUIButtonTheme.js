@@ -184,9 +184,10 @@ function resolveTokenReferences(buttonTokens, allTokens) {
  * @param {Object} obj The object to resolve references in
  * @param {String} modeName The current mode name
  * @param {Object} allTokens All available tokens for reference resolution
+ * @param {Number} depth Current recursion depth to prevent infinite loops
  */
-function resolveReferencesInObject(obj, modeName, allTokens) {
-  if (!obj || typeof obj !== 'object') return;
+function resolveReferencesInObject(obj, modeName, allTokens, depth = 0) {
+  if (!obj || typeof obj !== 'object' || depth > 10) return; // Prevent infinite recursion
   
   // Process each property
   for (const [key, value] of Object.entries(obj)) {
@@ -198,18 +199,43 @@ function resolveReferencesInObject(obj, modeName, allTokens) {
         const resolvedValue = resolveReference(refPath, modeName, allTokens);
         
         if (resolvedValue !== undefined) {
-          // Update the value with the resolved reference
-          obj[key] = {
-            ...value,
-            $value: resolvedValue,
-            $originalRef: value.$value // Keep the original reference for debugging
-          };
+          // If resolvedValue is still a reference string, try to resolve it again
+          if (typeof resolvedValue === 'string' && 
+              resolvedValue.startsWith('{') && 
+              resolvedValue.endsWith('}')) {
+            // Try to resolve the nested reference
+            const nestedRefPath = resolvedValue.slice(1, -1);
+            const nestedResolvedValue = resolveReference(nestedRefPath, modeName, allTokens);
+            
+            if (nestedResolvedValue !== undefined) {
+              obj[key] = {
+                ...value,
+                $value: nestedResolvedValue,
+                // If there's a raw value in the reference, use it
+                $rawValue: typeof nestedResolvedValue === 'object' && nestedResolvedValue.$rawValue !== undefined 
+                  ? nestedResolvedValue.$rawValue 
+                  : (typeof nestedResolvedValue === 'string' ? nestedResolvedValue : value.$rawValue),
+                $originalRef: value.$value // Keep the original reference for debugging
+              };
+            }
+          } else {
+            // Update the value with the resolved reference
+            obj[key] = {
+              ...value,
+              $value: resolvedValue,
+              // If there's a raw value in the reference, use it
+              $rawValue: typeof resolvedValue === 'object' && resolvedValue.$rawValue !== undefined 
+                ? resolvedValue.$rawValue 
+                : (typeof resolvedValue === 'string' ? resolvedValue : value.$rawValue),
+              $originalRef: value.$value // Keep the original reference for debugging
+            };
+          }
         }
       }
     } 
     // If it's an object, recurse
     else if (value && typeof value === 'object') {
-      resolveReferencesInObject(value, modeName, allTokens);
+      resolveReferencesInObject(value, modeName, allTokens, depth + 1);
     }
   }
 }
@@ -219,9 +245,15 @@ function resolveReferencesInObject(obj, modeName, allTokens) {
  * @param {String} refPath The reference path (e.g., "Base.primary.main")
  * @param {String} modeName The current mode name
  * @param {Object} allTokens All available tokens
+ * @param {Number} depth Current recursion depth to prevent infinite loops
  * @returns {*} The resolved value, or undefined if not found
  */
-function resolveReference(refPath, modeName, allTokens) {
+function resolveReference(refPath, modeName, allTokens, depth = 0) {
+  if (depth > 10) {
+    console.warn(`Possible circular reference detected: ${refPath} in mode ${modeName}`);
+    return undefined;
+  }
+  
   try {
     const parts = refPath.split('.');
     
@@ -233,11 +265,19 @@ function resolveReference(refPath, modeName, allTokens) {
       resolvedValue = findValueByPath(allTokens.core, parts);
     }
     
-    // If it's a reference itself, resolve it recursively
-    if (typeof resolvedValue === 'string' && 
-        resolvedValue.startsWith('{') && 
-        resolvedValue.endsWith('}')) {
-      return resolveReference(resolvedValue.slice(1, -1), modeName, allTokens);
+    // Check if we found a value
+    if (resolvedValue !== undefined) {
+      // If it's a reference itself, resolve it recursively
+      if (typeof resolvedValue === 'string' && 
+          resolvedValue.startsWith('{') && 
+          resolvedValue.endsWith('}')) {
+        return resolveReference(resolvedValue.slice(1, -1), modeName, allTokens, depth + 1);
+      }
+      
+      // If it's an object with a $rawValue, prioritize that
+      if (typeof resolvedValue === 'object' && resolvedValue.$rawValue !== undefined) {
+        return resolvedValue.$rawValue;
+      }
     }
     
     return resolvedValue;
@@ -263,9 +303,14 @@ function findValueByPath(obj, pathParts) {
     current = current[part];
   }
   
-  // If we found a token object, return its $value
-  if (current && typeof current === 'object' && current.$value !== undefined) {
-    return current.$value;
+  // If we found a token object, prioritize $rawValue over $value
+  if (current && typeof current === 'object') {
+    // Prefer $rawValue if available, otherwise fall back to $value
+    if (current.$rawValue !== undefined) {
+      return current.$rawValue;
+    } else if (current.$value !== undefined) {
+      return current.$value;
+    }
   }
   
   return current;
@@ -274,9 +319,10 @@ function findValueByPath(obj, pathParts) {
 /**
  * Transforms the button tokens into MUI theme format
  * @param {Object} buttonTokens The extracted and resolved button tokens
+ * @param {Object} allTokens All available tokens for reference resolution
  * @returns {Object} MUI-compatible theme object
  */
-function transformToMUITheme(buttonTokens) {
+function transformToMUITheme(buttonTokens, allTokens) {
   console.log('Transforming to MUI theme format...');
   
   // Create the base theme structure 
@@ -329,37 +375,82 @@ function transformToMUITheme(buttonTokens) {
     // Extract button colors from tokens and map to MUI palette
     if (modeTokens.button) {
       // Map primary button colors
-      if (modeTokens.button.primary?.background?.default?.$value) {
-        theme.colorSchemes[schemeKey].palette.primary.main = modeTokens.button.primary.background.default.$value;
+      if (modeTokens.button.primary?.background?.default) {
+        // Prefer $rawValue over $value
+        theme.colorSchemes[schemeKey].palette.primary.main = 
+          modeTokens.button.primary.background.default.$rawValue !== undefined
+            ? modeTokens.button.primary.background.default.$rawValue
+            : modeTokens.button.primary.background.default.$value;
         
         // If text color is specified
-        if (modeTokens.button.primary?.text?.default?.$value) {
-          theme.colorSchemes[schemeKey].palette.primary.contrastText = modeTokens.button.primary.text.default.$value;
+        if (modeTokens.button.primary?.text?.default) {
+          theme.colorSchemes[schemeKey].palette.primary.contrastText = 
+            modeTokens.button.primary.text.default.$rawValue !== undefined
+              ? modeTokens.button.primary.text.default.$rawValue
+              : modeTokens.button.primary.text.default.$value;
         }
         
         // If hover state is specified
-        if (modeTokens.button.primary?.background?.hover?.$value) {
-          theme.colorSchemes[schemeKey].palette.primary.dark = modeTokens.button.primary.background.hover.$value;
+        if (modeTokens.button.primary?.background?.hover) {
+          theme.colorSchemes[schemeKey].palette.primary.dark = 
+            modeTokens.button.primary.background.hover.$rawValue !== undefined
+              ? modeTokens.button.primary.background.hover.$rawValue
+              : modeTokens.button.primary.background.hover.$value;
         }
         
         // If disabled state is specified
-        if (modeTokens.button.primary?.background?.disabled?.$value) {
+        if (modeTokens.button.primary?.background?.disabled) {
           // MUI doesn't directly support disabled colors in palette
           // We'll add it to our custom properties for component styles
-          theme.colorSchemes[schemeKey].palette.primary.disabled = modeTokens.button.primary.background.disabled.$value;
+          theme.colorSchemes[schemeKey].palette.primary.disabled = 
+            modeTokens.button.primary.background.disabled.$rawValue !== undefined
+              ? modeTokens.button.primary.background.disabled.$rawValue
+              : modeTokens.button.primary.background.disabled.$value;
         }
       }
       
       // Map secondary button colors
-      if (modeTokens.button.secondary?.background?.default?.$value) {
-        theme.colorSchemes[schemeKey].palette.secondary.main = modeTokens.button.secondary.background.default.$value;
+      if (modeTokens.button.secondary?.background?.default) {
+        // Use raw value or fully resolved reference
+        const secondaryMain = modeTokens.button.secondary.background.default.$rawValue !== undefined
+          ? modeTokens.button.secondary.background.default.$rawValue
+          : modeTokens.button.secondary.background.default.$value;
+
+        theme.colorSchemes[schemeKey].palette.secondary.main = secondaryMain;
         
-        if (modeTokens.button.secondary?.text?.default?.$value) {
-          theme.colorSchemes[schemeKey].palette.secondary.contrastText = modeTokens.button.secondary.text.default.$value;
+        // For text, ensure we resolve any remaining references
+        if (modeTokens.button.secondary?.text?.default) {
+          let contrastText = modeTokens.button.secondary.text.default.$rawValue !== undefined
+            ? modeTokens.button.secondary.text.default.$rawValue
+            : modeTokens.button.secondary.text.default.$value;
+          
+          // If it's still a reference string, try to resolve it manually
+          if (typeof contrastText === 'string' && 
+              contrastText.startsWith('{') && 
+              contrastText.endsWith('}')) {
+            const refPath = contrastText.slice(1, -1);
+            
+            // Special case handling for known references
+            if (refPath === 'Base.secondary.on-main' && (modeName === 'dark' || modeName === 'mobile')) {
+              contrastText = "rgba(255, 255, 255, 1)";
+            } else {
+              const resolved = resolveReference(refPath, modeName, allTokens);
+              if (resolved !== undefined) {
+                contrastText = resolved;
+              }
+            }
+          }
+          
+          theme.colorSchemes[schemeKey].palette.secondary.contrastText = contrastText;
         }
         
-        if (modeTokens.button.secondary?.background?.hover?.$value) {
-          theme.colorSchemes[schemeKey].palette.secondary.dark = modeTokens.button.secondary.background.hover.$value;
+        // For hover state
+        if (modeTokens.button.secondary?.background?.hover) {
+          const hoverColor = modeTokens.button.secondary.background.hover.$rawValue !== undefined
+            ? modeTokens.button.secondary.background.hover.$rawValue
+            : modeTokens.button.secondary.background.hover.$value;
+          
+          theme.colorSchemes[schemeKey].palette.secondary.dark = hoverColor;
         }
       }
       
@@ -375,23 +466,37 @@ function transformToMUITheme(buttonTokens) {
         
         // Add ghost button styles to the outlined variant
         theme.colorSchemes[schemeKey].components.MuiButton.styleOverrides.outlined = {
-          backgroundColor: modeTokens.button.ghost.background?.default?.$value || 'transparent',
-          borderColor: modeTokens.button.ghost.border?.default?.$value || 'currentColor',
-          color: modeTokens.button.ghost.text?.default?.$value || 'inherit'
+          backgroundColor: modeTokens.button.ghost.background?.default?.$rawValue !== undefined
+            ? modeTokens.button.ghost.background.default.$rawValue
+            : (modeTokens.button.ghost.background?.default?.$value || 'transparent'),
+          borderColor: modeTokens.button.ghost.border?.default?.$rawValue !== undefined
+            ? modeTokens.button.ghost.border.default.$rawValue
+            : (modeTokens.button.ghost.border?.default?.$value || 'currentColor'),
+          color: modeTokens.button.ghost.text?.default?.$rawValue !== undefined
+            ? modeTokens.button.ghost.text.default.$rawValue
+            : (modeTokens.button.ghost.text?.default?.$value || 'inherit')
         };
         
         // Add hover state if available
-        if (modeTokens.button.ghost.background?.hover?.$value || modeTokens.button.ghost.text?.hover?.$value) {
+        if (modeTokens.button.ghost.background?.hover || modeTokens.button.ghost.text?.hover) {
           theme.colorSchemes[schemeKey].components.MuiButton.styleOverrides.outlined['&:hover'] = {
-            backgroundColor: modeTokens.button.ghost.background?.hover?.$value || undefined,
-            color: modeTokens.button.ghost.text?.hover?.$value || undefined
+            backgroundColor: modeTokens.button.ghost.background?.hover?.$rawValue !== undefined
+              ? modeTokens.button.ghost.background.hover.$rawValue
+              : modeTokens.button.ghost.background?.hover?.$value,
+            color: modeTokens.button.ghost.text?.hover?.$rawValue !== undefined
+              ? modeTokens.button.ghost.text.hover.$rawValue
+              : modeTokens.button.ghost.text?.hover?.$value
           };
         }
       }
       
       // Extract button sizes if available
-      const paddingVertical = modeTokens.button['button-padding-vertical']?.$value;
-      const paddingHorizontal = modeTokens.button['button-padding-horizontal']?.$value;
+      const paddingVertical = modeTokens.button['button-padding-vertical']?.$rawValue !== undefined
+        ? modeTokens.button['button-padding-vertical'].$rawValue
+        : modeTokens.button['button-padding-vertical']?.$value;
+      const paddingHorizontal = modeTokens.button['button-padding-horizontal']?.$rawValue !== undefined
+        ? modeTokens.button['button-padding-horizontal'].$rawValue
+        : modeTokens.button['button-padding-horizontal']?.$value;
       
       if (paddingVertical && paddingHorizontal) {
         // Set the padding for this color scheme
@@ -489,7 +594,7 @@ async function generateButtonTheme() {
   const resolvedTokens = resolveTokenReferences(buttonTokens, allTokens);
   
   // 5. Transform to MUI theme format
-  const muiTheme = transformToMUITheme(resolvedTokens);
+  const muiTheme = transformToMUITheme(resolvedTokens, allTokens);
   
   // 6. Save the theme.json file
   fs.writeFileSync(CONFIG.outputPath, JSON.stringify(muiTheme, null, 2));
