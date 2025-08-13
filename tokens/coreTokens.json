@@ -7,91 +7,111 @@
   "breakpoints": {
     "breakpoint-xl": {
       "$type": "dimension",
-      "$value": 1280
+      "$value": 1280,
+      "$rawValue": 1280
     },
     "breakpoint-lg": {
       "$type": "dimension",
-      "$value": 1024
+      "$value": 1024,
+      "$rawValue": 1024
     },
     "breakpoint-md": {
       "$type": "dimension",
-      "$value": 768
+      "$value": 768,
+      "$rawValue": 768
     },
     "breakpoint-sm": {
       "$type": "dimension",
-      "$value": 640
+      "$value": 640,
+      "$rawValue": 640
     }
   },
   "radii": {
     "border-radius": {
       "$type": "dimension",
-      "$value": "8px"
+      "$value": "8px",
+      "$rawValue": 8
     },
     "border-radius-none": {
       "$type": "dimension",
-      "$value": "0px"
+      "$value": "0px",
+      "$rawValue": 0
     }
   },
   "spacing": {
     "spacing-none": {
       "$type": "dimension",
-      "$value": "0px"
+      "$value": "0px",
+      "$rawValue": 0
     },
     "spacing-3xs": {
       "$type": "dimension",
-      "$value": "4px"
+      "$value": "4px",
+      "$rawValue": 4
     },
     "spacing-2xs": {
       "$type": "dimension",
-      "$value": "8px"
+      "$value": "8px",
+      "$rawValue": 8
     },
     "spacing-xs": {
       "$type": "dimension",
-      "$value": "12px"
+      "$value": "12px",
+      "$rawValue": 12
     },
     "spacing-sm": {
       "$type": "dimension",
-      "$value": "16px"
+      "$value": "16px",
+      "$rawValue": 16
     },
     "spacing-sm-md": {
       "$type": "dimension",
-      "$value": "20px"
+      "$value": "20px",
+      "$rawValue": 20
     },
     "spacing-md": {
       "$type": "dimension",
-      "$value": "24px"
+      "$value": "24px",
+      "$rawValue": 24
     },
     "spacing-lg": {
       "$type": "dimension",
-      "$value": "32px"
+      "$value": "32px",
+      "$rawValue": 32
     },
     "spacing-xl": {
       "$type": "dimension",
-      "$value": "40px"
+      "$value": "40px",
+      "$rawValue": 40
     },
     "spacing-2xl": {
       "$type": "dimension",
-      "$value": "48px"
+      "$value": "48px",
+      "$rawValue": 48
     },
     "panel-padding-mobile": {
       "$type": "dimension",
       "$value": "8.569999694824219px",
-      "$description": "dp version of panel-padding (for React Native)"
+      "$description": "dp version of panel-padding (for React Native)",
+      "$rawValue": 8.569999694824219
     },
     "form-element-spacing-mobile": {
       "$type": "dimension",
       "$value": "5.710000038146973px",
-      "$description": "dp version of form-element-spacing"
+      "$description": "dp version of form-element-spacing",
+      "$rawValue": 5.710000038146973
     },
     "vertical-stack-gap-mobile": {
       "$type": "dimension",
       "$value": "8.569999694824219px",
-      "$description": "dp version of vertical-stack-gap"
+      "$description": "dp version of vertical-stack-gap",
+      "$rawValue": 8.569999694824219
     },
     "label-icon-spacing-mobile": {
       "$type": "dimension",
       "$value": "2.859999895095825px",
-      "$description": "dp version of label-icon-spacing"
+      "$description": "dp version of label-icon-spacing",
+      "$rawValue": 2.859999895095825
     },
     "spacing-base": {
       "$type": "dimension",
@@ -101,29 +121,35 @@
   "opacity": {
     "hover": {
       "$type": "dimension",
-      "$value": 0.03999999910593033
+      "$value": 0.03999999910593033,
+      "$rawValue": 0.03999999910593033
     },
     "disabled": {
       "$type": "dimension",
-      "$value": 0.3799999952316284
+      "$value": 0.3799999952316284,
+      "$rawValue": 0.3799999952316284
     },
     "overlay": {
       "$type": "dimension",
-      "$value": 0.5
+      "$value": 0.5,
+      "$rawValue": 0.5
     }
   },
   "z-index": {
     "tooltip": {
       "$type": "dimension",
-      "$value": 1500
+      "$value": 1500,
+      "$rawValue": 1500
     },
     "modal": {
       "$type": "dimension",
-      "$value": 1300
+      "$value": 1300,
+      "$rawValue": 1300
     },
     "dropdown": {
       "$type": "dimension",
-      "$value": 1200
+      "$value": 1200,
+      "$rawValue": 1200
     }
   },
   "animation": {
@@ -156,355 +182,440 @@
       },
       "fontweight-light": {
         "$type": "dimension",
-        "$value": 300
+        "$value": 300,
+        "$rawValue": 300
       },
       "fontweight-regular": {
         "$type": "dimension",
-        "$value": 400
+        "$value": 400,
+        "$rawValue": 400
       },
       "fontweight-medium": {
         "$type": "dimension",
-        "$value": 500
+        "$value": 500,
+        "$rawValue": 500
       },
       "fontweight-semibold": {
         "$type": "dimension",
-        "$value": 600
+        "$value": 600,
+        "$rawValue": 600
       },
       "fontweight-bold": {
         "$type": "dimension",
-        "$value": 700
+        "$value": 700,
+        "$rawValue": 700
       },
       "fontsize-2xs": {
         "$type": "dimension",
-        "$value": 10
+        "$value": 10,
+        "$rawValue": 10
       },
       "fontsize-xs": {
         "$type": "dimension",
-        "$value": 12
+        "$value": 12,
+        "$rawValue": 12
       },
       "fontsize-sm": {
         "$type": "dimension",
-        "$value": 14
+        "$value": 14,
+        "$rawValue": 14
       },
       "fontsize-base": {
         "$type": "dimension",
-        "$value": 16
+        "$value": 16,
+        "$rawValue": 16
       },
       "fontsize-md": {
         "$type": "dimension",
-        "$value": 18
+        "$value": 18,
+        "$rawValue": 18
       },
       "fontsize-lg": {
         "$type": "dimension",
-        "$value": 20
+        "$value": 20,
+        "$rawValue": 20
       },
       "fontsize-xl": {
         "$type": "dimension",
-        "$value": 24
+        "$value": 24,
+        "$rawValue": 24
       },
       "fontsize-2xl": {
         "$type": "dimension",
-        "$value": 30
+        "$value": 30,
+        "$rawValue": 30
       },
       "fontsize-3xl": {
         "$type": "dimension",
-        "$value": 36
+        "$value": 36,
+        "$rawValue": 36
       },
       "fontsize-4xl": {
         "$type": "dimension",
-        "$value": 48
+        "$value": 48,
+        "$rawValue": 48
       },
       "fontsize-5xl": {
         "$type": "dimension",
-        "$value": 60
+        "$value": 60,
+        "$rawValue": 60
       },
       "fontsize-huge": {
         "$type": "dimension",
-        "$value": 96
+        "$value": 96,
+        "$rawValue": 96
       }
     },
     "effects": {
       "shadow-level-1": {
         "$type": "color",
-        "$value": "{Lighthouse.colors.neutrals.black.alpha-12}"
+        "$value": "{Lighthouse.colors.neutrals.black.alpha-12}",
+        "$rawValue": "rgba(0, 0, 0, 0.12)"
       },
       "shadow-level-2": {
         "$type": "color",
-        "$value": "{Lighthouse.colors.neutrals.black.alpha-14}"
+        "$value": "{Lighthouse.colors.neutrals.black.alpha-14}",
+        "$rawValue": "rgba(0, 0, 0, 0.14)"
       },
       "shadow-level-3": {
         "$type": "color",
-        "$value": "{Lighthouse.colors.neutrals.black.alpha-20}"
+        "$value": "{Lighthouse.colors.neutrals.black.alpha-20}",
+        "$rawValue": "rgba(0, 0, 0, 0.2)"
       }
     },
     "colors": {
       "neutrals": {
         "transparent": {
           "$type": "color",
-          "$value": "rgba(255, 255, 255, 0.00)"
+          "$value": "rgba(255, 255, 255, 0)",
+          "$rawValue": "rgba(255, 255, 255, 0)"
         },
         "neutral": {
           "50": {
             "$type": "color",
-            "$value": "#fafafa"
+            "$value": "#fafafa",
+            "$rawValue": "rgba(250, 250, 250, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#f5f5f5"
+            "$value": "#f5f5f5",
+            "$rawValue": "rgba(245, 245, 245, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#eeeeee"
+            "$value": "#eeeeee",
+            "$rawValue": "rgba(238, 238, 238, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#e0e0e0"
+            "$value": "#e0e0e0",
+            "$rawValue": "rgba(224, 224, 224, 1)"
           },
           "350": {
             "$type": "color",
-            "$value": "#d2d2d2"
+            "$value": "#d2d2d2",
+            "$rawValue": "rgba(210, 210, 210, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#bdbdbd"
+            "$value": "#bdbdbd",
+            "$rawValue": "rgba(189, 189, 189, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#9e9e9e"
+            "$value": "#9e9e9e",
+            "$rawValue": "rgba(158, 158, 158, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#757575"
+            "$value": "#757575",
+            "$rawValue": "rgba(117, 117, 117, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#616161"
+            "$value": "#616161",
+            "$rawValue": "rgba(97, 97, 97, 1)"
           },
           "750": {
             "$type": "color",
-            "$value": "#545454"
+            "$value": "#545454",
+            "$rawValue": "rgba(84, 84, 84, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#424242"
+            "$value": "#424242",
+            "$rawValue": "rgba(66, 66, 66, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#222020"
+            "$value": "#222020",
+            "$rawValue": "rgba(34, 32, 32, 1)"
           },
           "700-alpha-90": {
             "$type": "color",
-            "$value": "rgba(97, 97, 97, 0.90)"
+            "$value": "rgba(97, 97, 97, 0.9)",
+            "$rawValue": "rgba(97, 97, 97, 0.9)"
           },
           "700-alpha-06": {
             "$type": "color",
-            "$value": "rgba(97, 97, 97, 0.06)"
+            "$value": "rgba(97, 97, 97, 0.06)",
+            "$rawValue": "rgba(97, 97, 97, 0.06)"
           },
           "700-alpha-16": {
             "$type": "color",
-            "$value": "rgba(97, 97, 97, 0.16)"
+            "$value": "rgba(97, 97, 97, 0.16)",
+            "$rawValue": "rgba(97, 97, 97, 0.16)"
           },
           "700-alpha-30": {
             "$type": "color",
-            "$value": "rgba(97, 97, 97, 0.30)"
+            "$value": "rgba(97, 97, 97, 0.3)",
+            "$rawValue": "rgba(97, 97, 97, 0.3)"
           },
           "700-alpha-50": {
             "$type": "color",
-            "$value": "rgba(97, 97, 97, 0.50)"
+            "$value": "rgba(97, 97, 97, 0.5)",
+            "$rawValue": "rgba(97, 97, 97, 0.5)"
           }
         },
         "black": {
           "100": {
             "$type": "color",
-            "$value": "#000000"
+            "$value": "#000000",
+            "$rawValue": "rgba(0, 0, 0, 1)"
           },
           "alpha-04": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.04)"
+            "$value": "rgba(0, 0, 0, 0.04)",
+            "$rawValue": "rgba(0, 0, 0, 0.04)"
           },
           "alpha-06": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.06)"
+            "$value": "rgba(0, 0, 0, 0.06)",
+            "$rawValue": "rgba(0, 0, 0, 0.06)"
           },
           "alpha-08": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.08)"
+            "$value": "rgba(0, 0, 0, 0.08)",
+            "$rawValue": "rgba(0, 0, 0, 0.08)"
           },
           "alpha-12": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.12)"
+            "$value": "rgba(0, 0, 0, 0.12)",
+            "$rawValue": "rgba(0, 0, 0, 0.12)"
           },
           "alpha-14": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.14)"
+            "$value": "rgba(0, 0, 0, 0.14)",
+            "$rawValue": "rgba(0, 0, 0, 0.14)"
           },
           "alpha-16": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.16)"
+            "$value": "rgba(0, 0, 0, 0.16)",
+            "$rawValue": "rgba(0, 0, 0, 0.16)"
           },
           "alpha-20": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.20)"
+            "$value": "rgba(0, 0, 0, 0.2)",
+            "$rawValue": "rgba(0, 0, 0, 0.2)"
           },
           "alpha-23": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.23)"
+            "$value": "rgba(0, 0, 0, 0.23)",
+            "$rawValue": "rgba(0, 0, 0, 0.23)"
           },
           "alpha-30": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.30)"
+            "$value": "rgba(0, 0, 0, 0.3)",
+            "$rawValue": "rgba(0, 0, 0, 0.3)"
           },
           "alpha-38": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.38)"
+            "$value": "rgba(0, 0, 0, 0.38)",
+            "$rawValue": "rgba(0, 0, 0, 0.38)"
           },
           "alpha-42": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.42)"
+            "$value": "rgba(0, 0, 0, 0.42)",
+            "$rawValue": "rgba(0, 0, 0, 0.42)"
           },
           "alpha-50": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.50)"
+            "$value": "rgba(0, 0, 0, 0.5)",
+            "$rawValue": "rgba(0, 0, 0, 0.5)"
           },
           "alpha-56": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.56)"
+            "$value": "rgba(0, 0, 0, 0.56)",
+            "$rawValue": "rgba(0, 0, 0, 0.56)"
           },
           "alpha-70": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.70)"
+            "$value": "rgba(0, 0, 0, 0.7)",
+            "$rawValue": "rgba(0, 0, 0, 0.7)"
           },
           "alpha-87": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.87)"
+            "$value": "rgba(0, 0, 0, 0.87)",
+            "$rawValue": "rgba(0, 0, 0, 0.87)"
           },
           "alpha-90": {
             "$type": "color",
-            "$value": "rgba(0, 0, 0, 0.90)"
+            "$value": "rgba(0, 0, 0, 0.9)",
+            "$rawValue": "rgba(0, 0, 0, 0.9)"
           }
         },
         "white": {
           "100": {
             "$type": "color",
-            "$value": "#ffffff"
+            "$value": "#ffffff",
+            "$rawValue": "rgba(255, 255, 255, 1)"
           },
           "alpha-04": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.04)"
+            "$value": "rgba(255, 255, 255, 0.04)",
+            "$rawValue": "rgba(255, 255, 255, 0.04)"
           },
           "alpha-08": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.08)"
+            "$value": "rgba(255, 255, 255, 0.08)",
+            "$rawValue": "rgba(255, 255, 255, 0.08)"
           },
           "alpha-12": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.12)"
+            "$value": "rgba(255, 255, 255, 0.12)",
+            "$rawValue": "rgba(255, 255, 255, 0.12)"
           },
           "alpha-16": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.16)"
+            "$value": "rgba(255, 255, 255, 0.16)",
+            "$rawValue": "rgba(255, 255, 255, 0.16)"
           },
           "alpha-20": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.20)"
+            "$value": "rgba(255, 255, 255, 0.2)",
+            "$rawValue": "rgba(255, 255, 255, 0.2)"
           },
           "alpha-23": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.23)"
+            "$value": "rgba(255, 255, 255, 0.23)",
+            "$rawValue": "rgba(255, 255, 255, 0.23)"
           },
           "alpha-30": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.30)"
+            "$value": "rgba(255, 255, 255, 0.3)",
+            "$rawValue": "rgba(255, 255, 255, 0.3)"
           },
           "alpha-38": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.38)"
+            "$value": "rgba(255, 255, 255, 0.38)",
+            "$rawValue": "rgba(255, 255, 255, 0.38)"
           },
           "alpha-42": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.42)"
+            "$value": "rgba(255, 255, 255, 0.42)",
+            "$rawValue": "rgba(255, 255, 255, 0.42)"
           },
           "alpha-50": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.50)"
+            "$value": "rgba(255, 255, 255, 0.5)",
+            "$rawValue": "rgba(255, 255, 255, 0.5)"
           },
           "alpha-56": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.56)"
+            "$value": "rgba(255, 255, 255, 0.56)",
+            "$rawValue": "rgba(255, 255, 255, 0.56)"
           },
           "alpha-70": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.70)"
+            "$value": "rgba(255, 255, 255, 0.7)",
+            "$rawValue": "rgba(255, 255, 255, 0.7)"
           },
           "alpha-90": {
             "$type": "color",
-            "$value": "rgba(255, 255, 255, 0.90)"
+            "$value": "rgba(255, 255, 255, 0.9)",
+            "$rawValue": "rgba(255, 255, 255, 0.9)"
           }
         },
         "gray": {
           "100": {
             "$type": "color",
-            "$value": "#121212"
+            "$value": "#121212",
+            "$rawValue": "rgba(18, 18, 18, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#1e1e1e"
+            "$value": "#1e1e1e",
+            "$rawValue": "rgba(30, 30, 30, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#232323"
+            "$value": "#232323",
+            "$rawValue": "rgba(35, 35, 35, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#252525"
+            "$value": "#252525",
+            "$rawValue": "rgba(37, 37, 37, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#272727"
+            "$value": "#272727",
+            "$rawValue": "rgba(39, 39, 39, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#2a2a2a"
+            "$value": "#2a2a2a",
+            "$rawValue": "rgba(42, 42, 42, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#2c2c2c"
+            "$value": "#2c2c2c",
+            "$rawValue": "rgba(44, 44, 44, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#2e2e2e"
+            "$value": "#2e2e2e",
+            "$rawValue": "rgba(46, 46, 46, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#313131"
+            "$value": "#313131",
+            "$rawValue": "rgba(49, 49, 49, 1)"
           },
           "910": {
             "$type": "color",
-            "$value": "#333333"
+            "$value": "#333333",
+            "$rawValue": "rgba(51, 51, 51, 1)"
           },
           "920": {
             "$type": "color",
-            "$value": "#363636"
+            "$value": "#363636",
+            "$rawValue": "rgba(54, 54, 54, 1)"
           },
           "930": {
             "$type": "color",
-            "$value": "#383838"
+            "$value": "#383838",
+            "$rawValue": "rgba(56, 56, 56, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(39, 39, 39, 0.06)"
+            "$value": "rgba(39, 39, 39, 0.06)",
+            "$rawValue": "rgba(39, 39, 39, 0.06)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(39, 39, 39, 0.16)"
+            "$value": "rgba(39, 39, 39, 0.16)",
+            "$rawValue": "rgba(39, 39, 39, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(39, 39, 39, 0.30)"
+            "$value": "rgba(39, 39, 39, 0.3)",
+            "$rawValue": "rgba(39, 39, 39, 0.3)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(39, 39, 39, 0.50)"
+            "$value": "rgba(39, 39, 39, 0.5)",
+            "$rawValue": "rgba(39, 39, 39, 0.5)"
           }
         }
       },
@@ -512,161 +623,199 @@
         "default": {
           "50": {
             "$type": "color",
-            "$value": "#fbe6e9"
+            "$value": "#fbe6e9",
+            "$rawValue": "rgba(251, 230, 233, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#f5bac1"
+            "$value": "#f5bac1",
+            "$rawValue": "rgba(245, 186, 193, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#ed8290"
+            "$value": "#ed8290",
+            "$rawValue": "rgba(237, 130, 144, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#e96176"
+            "$value": "#e96176",
+            "$rawValue": "rgba(233, 97, 118, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#e43554"
+            "$value": "#e43554",
+            "$rawValue": "rgba(228, 53, 84, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#ea1c2b"
+            "$value": "#ea1c2b",
+            "$rawValue": "rgba(234, 28, 43, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#c8052b"
+            "$value": "#c8052b",
+            "$rawValue": "rgba(200, 5, 43, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#b10526"
+            "$value": "#b10526",
+            "$rawValue": "rgba(177, 5, 38, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#9d0422"
+            "$value": "#9d0422",
+            "$rawValue": "rgba(157, 4, 34, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#5e0214"
+            "$value": "#5e0214",
+            "$rawValue": "rgba(94, 2, 20, 1)"
           },
           "600-alpha-50": {
             "$type": "color",
-            "$value": "rgba(200, 5, 43, 0.50)"
+            "$value": "rgba(200, 5, 43, 0.5)",
+            "$rawValue": "rgba(200, 5, 43, 0.5)"
           }
         },
         "darkly": {
           "50": {
             "$type": "color",
-            "$value": "#1f0107"
+            "$value": "#1f0107",
+            "$rawValue": "rgba(31, 1, 7, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#570213"
+            "$value": "#570213",
+            "$rawValue": "rgba(87, 2, 19, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#9d0422"
+            "$value": "#9d0422",
+            "$rawValue": "rgba(157, 4, 34, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#ae0525"
+            "$value": "#ae0525",
+            "$rawValue": "rgba(174, 5, 37, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#c5052a"
+            "$value": "#c5052a",
+            "$rawValue": "rgba(197, 5, 42, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#ea1c2b"
+            "$value": "#ea1c2b",
+            "$rawValue": "rgba(234, 28, 43, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#e32f4f"
+            "$value": "#e32f4f",
+            "$rawValue": "rgba(227, 47, 79, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#e85b72"
+            "$value": "#e85b72",
+            "$rawValue": "rgba(232, 91, 114, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#ed8290"
+            "$value": "#ed8290",
+            "$rawValue": "rgba(237, 130, 144, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#f4b4bc"
+            "$value": "#f4b4bc",
+            "$rawValue": "rgba(244, 180, 188, 1)"
           }
         },
         "teal": {
           "50": {
             "$type": "color",
-            "$value": "#f8fcfc"
+            "$value": "#f8fcfc",
+            "$rawValue": "rgba(248, 252, 252, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#f0f9f9"
+            "$value": "#f0f9f9",
+            "$rawValue": "rgba(240, 249, 249, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#e7f5f5"
+            "$value": "#e7f5f5",
+            "$rawValue": "rgba(231, 245, 245, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#d8eeef"
+            "$value": "#d8eeef",
+            "$rawValue": "rgba(216, 238, 239, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#c8e8e8"
+            "$value": "#c8e8e8",
+            "$rawValue": "rgba(200, 232, 232, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#67c7c7"
+            "$value": "#67c7c7",
+            "$rawValue": "rgba(103, 199, 199, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#84d0cf"
+            "$value": "#84d0cf",
+            "$rawValue": "rgba(132, 208, 207, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#9fd9d9"
+            "$value": "#9fd9d9",
+            "$rawValue": "rgba(159, 217, 217, 1)"
           }
         },
         "teal-darkly": {
           "100": {
             "$type": "color",
-            "$value": "#f9fafa"
+            "$value": "#f9fafa",
+            "$rawValue": "rgba(249, 250, 250, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#e9ebec"
+            "$value": "#e9ebec",
+            "$rawValue": "rgba(233, 235, 236, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#d1d5d8"
+            "$value": "#d1d5d8",
+            "$rawValue": "rgba(209, 213, 216, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#b8bfc3"
+            "$value": "#b8bfc3",
+            "$rawValue": "rgba(184, 191, 195, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#7b858c"
+            "$value": "#7b858c",
+            "$rawValue": "rgba(123, 133, 140, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#6b757c"
+            "$value": "#6b757c",
+            "$rawValue": "rgba(107, 117, 124, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#5a6369"
+            "$value": "#5a6369",
+            "$rawValue": "rgba(90, 99, 105, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#495156"
+            "$value": "#495156",
+            "$rawValue": "rgba(73, 81, 86, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#383f43"
+            "$value": "#383f43",
+            "$rawValue": "rgba(56, 63, 67, 1)"
           }
         }
       },
@@ -674,161 +823,200 @@
         "punchy-red": {
           "50": {
             "$type": "color",
-            "$value": "#fbeceb"
+            "$value": "#fbeceb",
+            "$rawValue": "rgba(251, 236, 235, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#f5c9c6"
+            "$value": "#f5c9c6",
+            "$rawValue": "rgba(245, 201, 198, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#efa7a2"
+            "$value": "#efa7a2",
+            "$rawValue": "rgba(239, 167, 162, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#e8847d"
+            "$value": "#e8847d",
+            "$rawValue": "rgba(232, 132, 125, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#e26259"
+            "$value": "#e26259",
+            "$rawValue": "rgba(226, 98, 89, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#db3d32"
+            "$value": "#db3d32",
+            "$rawValue": "rgba(219, 61, 50, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#b7332a"
+            "$value": "#b7332a",
+            "$rawValue": "rgba(183, 51, 42, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#902821"
+            "$value": "#902821",
+            "$rawValue": "rgba(144, 40, 33, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#691d18"
+            "$value": "#691d18",
+            "$rawValue": "rgba(105, 29, 24, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#42120f"
+            "$value": "#42120f",
+            "$rawValue": "rgba(66, 18, 15, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(219, 61, 50, 0.06)"
+            "$value": "rgba(219, 61, 50, 0.06)",
+            "$rawValue": "rgba(219, 61, 50, 0.06)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(219, 61, 50, 0.08)"
+            "$value": "rgba(219, 61, 50, 0.08)",
+            "$rawValue": "rgba(219, 61, 50, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(219, 61, 50, 0.12)"
+            "$value": "rgba(219, 61, 50, 0.12)",
+            "$rawValue": "rgba(219, 61, 50, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(219, 61, 50, 0.16)"
+            "$value": "rgba(219, 61, 50, 0.16)",
+            "$rawValue": "rgba(219, 61, 50, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(219, 61, 50, 0.30)"
+            "$value": "rgba(219, 61, 50, 0.3)",
+            "$rawValue": "rgba(219, 61, 50, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(219, 61, 50, 0.38)"
+            "$value": "rgba(219, 61, 50, 0.38)",
+            "$rawValue": "rgba(219, 61, 50, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(219, 61, 50, 0.50)"
+            "$value": "rgba(219, 61, 50, 0.5)",
+            "$rawValue": "rgba(219, 61, 50, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(219, 61, 50, 0.56)"
+            "$value": "rgba(219, 61, 50, 0.56)",
+            "$rawValue": "rgba(219, 61, 50, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(219, 61, 50, 0.87)"
+            "$value": "rgba(219, 61, 50, 0.87)",
+            "$rawValue": "rgba(219, 61, 50, 0.87)"
           },
           "900-alpha-87": {
             "$type": "color",
-            "$value": "rgba(66, 18, 15, 0.87)"
+            "$value": "rgba(66, 18, 15, 0.87)",
+            "$rawValue": "rgba(66, 18, 15, 0.87)"
           }
         },
         "punchy-red-darkly": {
           "50": {
             "$type": "color",
-            "$value": "#1a1211"
+            "$value": "#1a1211",
+            "$rawValue": "rgba(26, 18, 17, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#47322f"
+            "$value": "#47322f",
+            "$rawValue": "rgba(71, 50, 47, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#74524d"
+            "$value": "#74524d",
+            "$rawValue": "rgba(116, 82, 77, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#a2726c"
+            "$value": "#a2726c",
+            "$rawValue": "rgba(162, 114, 108, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#cf928a"
+            "$value": "#cf928a",
+            "$rawValue": "rgba(207, 146, 138, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#ffb4aa"
+            "$value": "#ffb4aa",
+            "$rawValue": "rgba(255, 180, 170, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#ffc0b8"
+            "$value": "#ffc0b8",
+            "$rawValue": "rgba(255, 192, 184, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#ffcec7"
+            "$value": "#ffcec7",
+            "$rawValue": "rgba(255, 206, 199, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#ffdbd6"
+            "$value": "#ffdbd6",
+            "$rawValue": "rgba(255, 219, 214, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#ffe9e6"
+            "$value": "#ffe9e6",
+            "$rawValue": "rgba(255, 233, 230, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(255, 180, 170, 0.06)"
+            "$value": "rgba(255, 180, 170, 0.06)",
+            "$rawValue": "rgba(255, 180, 170, 0.06)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(255, 180, 170, 0.08)"
+            "$value": "rgba(255, 180, 170, 0.08)",
+            "$rawValue": "rgba(255, 180, 170, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(255, 180, 170, 0.12)"
+            "$value": "rgba(255, 180, 170, 0.12)",
+            "$rawValue": "rgba(255, 180, 170, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(255, 180, 170, 0.16)"
+            "$value": "rgba(255, 180, 170, 0.16)",
+            "$rawValue": "rgba(255, 180, 170, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(255, 180, 170, 0.30)"
+            "$value": "rgba(255, 180, 170, 0.3)",
+            "$rawValue": "rgba(255, 180, 170, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(255, 180, 170, 0.38)"
+            "$value": "rgba(255, 180, 170, 0.38)",
+            "$rawValue": "rgba(255, 180, 170, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(255, 180, 170, 0.50)"
+            "$value": "rgba(255, 180, 170, 0.5)",
+            "$rawValue": "rgba(255, 180, 170, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(255, 180, 170, 0.56)"
+            "$value": "rgba(255, 180, 170, 0.56)",
+            "$rawValue": "rgba(255, 180, 170, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(255, 180, 170, 0.87)"
+            "$value": "rgba(255, 180, 170, 0.87)",
+            "$rawValue": "rgba(255, 180, 170, 0.87)"
           }
         }
       },
@@ -836,157 +1024,195 @@
         "pure-orange": {
           "50": {
             "$type": "color",
-            "$value": "#fdece4"
+            "$value": "#fdece4",
+            "$rawValue": "rgba(253, 236, 228, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#f9cbb1"
+            "$value": "#f9cbb1",
+            "$rawValue": "rgba(249, 203, 177, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#f5a87c"
+            "$value": "#f5a87c",
+            "$rawValue": "rgba(245, 168, 124, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#f18555"
+            "$value": "#f18555",
+            "$rawValue": "rgba(241, 133, 85, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#ee6f39"
+            "$value": "#ee6f39",
+            "$rawValue": "rgba(238, 111, 57, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#fb4f14"
+            "$value": "#fb4f14",
+            "$rawValue": "rgba(251, 79, 20, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#d55b1f"
+            "$value": "#d55b1f",
+            "$rawValue": "rgba(213, 91, 31, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#b84f1b"
+            "$value": "#b84f1b",
+            "$rawValue": "rgba(184, 79, 27, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#9a4216"
+            "$value": "#9a4216",
+            "$rawValue": "rgba(154, 66, 22, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#7c3512"
+            "$value": "#7c3512",
+            "$rawValue": "rgba(124, 53, 18, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(242, 103, 36, 0.06)"
+            "$value": "rgba(242, 103, 36, 0.06)",
+            "$rawValue": "rgba(242, 103, 36, 0.06)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(242, 103, 36, 0.08)"
+            "$value": "rgba(242, 103, 36, 0.08)",
+            "$rawValue": "rgba(242, 103, 36, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(242, 103, 36, 0.12)"
+            "$value": "rgba(242, 103, 36, 0.12)",
+            "$rawValue": "rgba(242, 103, 36, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(242, 103, 36, 0.16)"
+            "$value": "rgba(242, 103, 36, 0.16)",
+            "$rawValue": "rgba(242, 103, 36, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(242, 103, 36, 0.30)"
+            "$value": "rgba(242, 103, 36, 0.3)",
+            "$rawValue": "rgba(242, 103, 36, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(242, 103, 36, 0.38)"
+            "$value": "rgba(242, 103, 36, 0.38)",
+            "$rawValue": "rgba(242, 103, 36, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(242, 103, 36, 0.50)"
+            "$value": "rgba(242, 103, 36, 0.5)",
+            "$rawValue": "rgba(242, 103, 36, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(242, 103, 36, 0.56)"
+            "$value": "rgba(242, 103, 36, 0.56)",
+            "$rawValue": "rgba(242, 103, 36, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(242, 103, 36, 0.87)"
+            "$value": "rgba(242, 103, 36, 0.87)",
+            "$rawValue": "rgba(242, 103, 36, 0.87)"
           }
         },
         "pure-orange-darkly": {
           "50": {
             "$type": "color",
-            "$value": "#1a100b"
+            "$value": "#1a100b",
+            "$rawValue": "rgba(26, 16, 11, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#472d1c"
+            "$value": "#472d1c",
+            "$rawValue": "rgba(71, 45, 28, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#744b2e"
+            "$value": "#744b2e",
+            "$rawValue": "rgba(116, 75, 46, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#a2693f"
+            "$value": "#a2693f",
+            "$rawValue": "rgba(162, 105, 63, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#cf8751"
+            "$value": "#cf8751",
+            "$rawValue": "rgba(207, 135, 81, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#fb4f14"
+            "$value": "#fb4f14",
+            "$rawValue": "rgba(251, 79, 20, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#fc693d"
+            "$value": "#fc693d",
+            "$rawValue": "rgba(252, 105, 61, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#fd8667"
+            "$value": "#fd8667",
+            "$rawValue": "rgba(253, 134, 103, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#fea386"
+            "$value": "#fea386",
+            "$rawValue": "rgba(254, 163, 134, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#ffbfad"
+            "$value": "#ffbfad",
+            "$rawValue": "rgba(255, 191, 173, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(251, 79, 20, 0.06)"
+            "$value": "rgba(251, 79, 20, 0.06)",
+            "$rawValue": "rgba(251, 79, 20, 0.06)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(251, 79, 20, 0.08)"
+            "$value": "rgba(251, 79, 20, 0.08)",
+            "$rawValue": "rgba(251, 79, 20, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(251, 79, 20, 0.12)"
+            "$value": "rgba(251, 79, 20, 0.12)",
+            "$rawValue": "rgba(251, 79, 20, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(251, 79, 20, 0.16)"
+            "$value": "rgba(251, 79, 20, 0.16)",
+            "$rawValue": "rgba(251, 79, 20, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(251, 79, 20, 0.30)"
+            "$value": "rgba(251, 79, 20, 0.3)",
+            "$rawValue": "rgba(251, 79, 20, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(251, 79, 20, 0.38)"
+            "$value": "rgba(251, 79, 20, 0.38)",
+            "$rawValue": "rgba(251, 79, 20, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(251, 79, 20, 0.50)"
+            "$value": "rgba(251, 79, 20, 0.5)",
+            "$rawValue": "rgba(251, 79, 20, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(251, 79, 20, 0.56)"
+            "$value": "rgba(251, 79, 20, 0.56)",
+            "$rawValue": "rgba(251, 79, 20, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(251, 79, 20, 0.87)"
+            "$value": "rgba(251, 79, 20, 0.87)",
+            "$rawValue": "rgba(251, 79, 20, 0.87)"
           }
         }
       },
@@ -994,313 +1220,389 @@
         "pale-yellow": {
           "50": {
             "$type": "color",
-            "$value": "#fff9f3"
+            "$value": "#fff9f3",
+            "$rawValue": "rgba(255, 249, 243, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#ffeedd"
+            "$value": "#ffeedd",
+            "$rawValue": "rgba(255, 238, 221, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#ffe3c8"
+            "$value": "#ffe3c8",
+            "$rawValue": "rgba(255, 227, 200, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#ffd8b2"
+            "$value": "#ffd8b2",
+            "$rawValue": "rgba(255, 216, 178, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#ffce9d"
+            "$value": "#ffce9d",
+            "$rawValue": "rgba(255, 206, 157, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#ffc286"
+            "$value": "#ffc286",
+            "$rawValue": "rgba(255, 194, 134, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#d5a270"
+            "$value": "#d5a270",
+            "$rawValue": "rgba(213, 162, 112, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#a77f58"
+            "$value": "#a77f58",
+            "$rawValue": "rgba(167, 127, 88, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#7a5d40"
+            "$value": "#7a5d40",
+            "$rawValue": "rgba(122, 93, 64, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#4d3a28"
+            "$value": "#4d3a28",
+            "$rawValue": "rgba(77, 58, 40, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(255, 194, 134, 0.06)"
+            "$value": "rgba(255, 194, 134, 0.06)",
+            "$rawValue": "rgba(255, 194, 134, 0.06)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(255, 194, 134, 0.16)"
+            "$value": "rgba(255, 194, 134, 0.16)",
+            "$rawValue": "rgba(255, 194, 134, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(255, 194, 134, 0.30)"
+            "$value": "rgba(255, 194, 134, 0.3)",
+            "$rawValue": "rgba(255, 194, 134, 0.3)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(255, 194, 134, 0.50)"
+            "$value": "rgba(255, 194, 134, 0.5)",
+            "$rawValue": "rgba(255, 194, 134, 0.5)"
           }
         },
         "pale-yellow-darkly": {
           "50": {
             "$type": "color",
-            "$value": "#19120b"
+            "$value": "#19120b",
+            "$rawValue": "rgba(25, 18, 11, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#45321e"
+            "$value": "#45321e",
+            "$rawValue": "rgba(69, 50, 30, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#725231"
+            "$value": "#725231",
+            "$rawValue": "rgba(114, 82, 49, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#9e7244"
+            "$value": "#9e7244",
+            "$rawValue": "rgba(158, 114, 68, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#cb9257"
+            "$value": "#cb9257",
+            "$rawValue": "rgba(203, 146, 87, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#fab46b"
+            "$value": "#fab46b",
+            "$rawValue": "rgba(250, 180, 107, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#fbc084"
+            "$value": "#fbc084",
+            "$rawValue": "rgba(251, 192, 132, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#fcce9e"
+            "$value": "#fcce9e",
+            "$rawValue": "rgba(252, 206, 158, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#fddbb8"
+            "$value": "#fddbb8",
+            "$rawValue": "rgba(253, 219, 184, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#fee9d3"
+            "$value": "#fee9d3",
+            "$rawValue": "rgba(254, 233, 211, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(250, 180, 107, 0.06)"
+            "$value": "rgba(250, 180, 107, 0.06)",
+            "$rawValue": "rgba(250, 180, 107, 0.06)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(250, 180, 107, 0.16)"
+            "$value": "rgba(250, 180, 107, 0.16)",
+            "$rawValue": "rgba(250, 180, 107, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(250, 180, 107, 0.30)"
+            "$value": "rgba(250, 180, 107, 0.3)",
+            "$rawValue": "rgba(250, 180, 107, 0.3)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(250, 180, 107, 0.50)"
+            "$value": "rgba(250, 180, 107, 0.5)",
+            "$rawValue": "rgba(250, 180, 107, 0.5)"
           }
         },
         "yellow": {
           "50": {
             "$type": "color",
-            "$value": "#fff7e6"
+            "$value": "#fff7e6",
+            "$rawValue": "rgba(255, 247, 230, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#ffe8b8"
+            "$value": "#ffe8b8",
+            "$rawValue": "rgba(255, 232, 184, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#ffda8b"
+            "$value": "#ffda8b",
+            "$rawValue": "rgba(255, 218, 139, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#ffcc5d"
+            "$value": "#ffcc5d",
+            "$rawValue": "rgba(255, 204, 93, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#ffbd30"
+            "$value": "#ffbd30",
+            "$rawValue": "rgba(255, 189, 48, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#ffae00"
+            "$value": "#ffae00",
+            "$rawValue": "rgba(255, 174, 0, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#d59100"
+            "$value": "#d59100",
+            "$rawValue": "rgba(213, 145, 0, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#a77200"
+            "$value": "#a77200",
+            "$rawValue": "rgba(167, 114, 0, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#7a5300"
+            "$value": "#7a5300",
+            "$rawValue": "rgba(122, 83, 0, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#4d3400"
+            "$value": "#4d3400",
+            "$rawValue": "rgba(77, 52, 0, 1)"
           },
           "200-alpha-06": {
             "$type": "color",
-            "$value": "rgba(255, 218, 139, 0.06)"
+            "$value": "rgba(255, 218, 139, 0.06)",
+            "$rawValue": "rgba(255, 218, 139, 0.06)"
           },
           "200-alpha-16": {
             "$type": "color",
-            "$value": "rgba(255, 218, 139, 0.16)"
+            "$value": "rgba(255, 218, 139, 0.16)",
+            "$rawValue": "rgba(255, 218, 139, 0.16)"
           },
           "200-alpha-30": {
             "$type": "color",
-            "$value": "rgba(255, 218, 139, 0.30)"
+            "$value": "rgba(255, 218, 139, 0.3)",
+            "$rawValue": "rgba(255, 218, 139, 0.3)"
           },
           "200-alpha-50": {
             "$type": "color",
-            "$value": "rgba(255, 218, 139, 0.50)"
+            "$value": "rgba(255, 218, 139, 0.5)",
+            "$rawValue": "rgba(255, 218, 139, 0.5)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(255, 174, 0, 0.06)"
+            "$value": "rgba(255, 174, 0, 0.06)",
+            "$rawValue": "rgba(255, 174, 0, 0.06)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(255, 174, 0, 0.08)"
+            "$value": "rgba(255, 174, 0, 0.08)",
+            "$rawValue": "rgba(255, 174, 0, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(255, 174, 0, 0.12)"
+            "$value": "rgba(255, 174, 0, 0.12)",
+            "$rawValue": "rgba(255, 174, 0, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(255, 174, 0, 0.16)"
+            "$value": "rgba(255, 174, 0, 0.16)",
+            "$rawValue": "rgba(255, 174, 0, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(255, 174, 0, 0.30)"
+            "$value": "rgba(255, 174, 0, 0.3)",
+            "$rawValue": "rgba(255, 174, 0, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(255, 174, 0, 0.38)"
+            "$value": "rgba(255, 174, 0, 0.38)",
+            "$rawValue": "rgba(255, 174, 0, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(255, 174, 0, 0.50)"
+            "$value": "rgba(255, 174, 0, 0.5)",
+            "$rawValue": "rgba(255, 174, 0, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(255, 174, 0, 0.56)"
+            "$value": "rgba(255, 174, 0, 0.56)",
+            "$rawValue": "rgba(255, 174, 0, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(255, 174, 0, 0.87)"
+            "$value": "rgba(255, 174, 0, 0.87)",
+            "$rawValue": "rgba(255, 174, 0, 0.87)"
           },
           "400-alpha-06": {
             "$type": "color",
-            "$value": "rgba(255, 189, 48, 0.06)"
+            "$value": "rgba(255, 189, 48, 0.06)",
+            "$rawValue": "rgba(255, 189, 48, 0.06)"
           },
           "400-alpha-16": {
             "$type": "color",
-            "$value": "rgba(255, 189, 48, 0.16)"
+            "$value": "rgba(255, 189, 48, 0.16)",
+            "$rawValue": "rgba(255, 189, 48, 0.16)"
           },
           "400-alpha-30": {
             "$type": "color",
-            "$value": "rgba(255, 189, 48, 0.30)"
+            "$value": "rgba(255, 189, 48, 0.3)",
+            "$rawValue": "rgba(255, 189, 48, 0.3)"
           },
           "400-alpha-50": {
             "$type": "color",
-            "$value": "rgba(255, 189, 48, 0.50)"
+            "$value": "rgba(255, 189, 48, 0.5)",
+            "$rawValue": "rgba(255, 189, 48, 0.5)"
           },
           "400-alpha-08": {
             "$type": "color",
-            "$value": "rgba(255, 189, 48, 0.08)"
+            "$value": "rgba(255, 189, 48, 0.08)",
+            "$rawValue": "rgba(255, 189, 48, 0.08)"
           },
           "800-alpha-60": {
             "$type": "color",
-            "$value": "rgba(122, 83, 0, 0.60)"
+            "$value": "rgba(122, 83, 0, 0.6)",
+            "$rawValue": "rgba(122, 83, 0, 0.6)"
           }
         },
         "yellow-darkly": {
           "50": {
             "$type": "color",
-            "$value": "#1a1612"
+            "$value": "#1a1612",
+            "$rawValue": "rgba(26, 22, 18, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#473d31"
+            "$value": "#473d31",
+            "$rawValue": "rgba(71, 61, 49, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#746550"
+            "$value": "#746550",
+            "$rawValue": "rgba(116, 101, 80, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#a28c6f"
+            "$value": "#a28c6f",
+            "$rawValue": "rgba(162, 140, 111, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#cfb38f"
+            "$value": "#cfb38f",
+            "$rawValue": "rgba(207, 179, 143, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#ffddb0"
+            "$value": "#ffddb0",
+            "$rawValue": "rgba(255, 221, 176, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#ffe3bd"
+            "$value": "#ffe3bd",
+            "$rawValue": "rgba(255, 227, 189, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#ffe9cb"
+            "$value": "#ffe9cb",
+            "$rawValue": "rgba(255, 233, 203, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#ffefd9"
+            "$value": "#ffefd9",
+            "$rawValue": "rgba(255, 239, 217, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#fff5e7"
+            "$value": "#fff5e7",
+            "$rawValue": "rgba(255, 245, 231, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(255, 221, 176, 0.06)"
+            "$value": "rgba(255, 221, 176, 0.06)",
+            "$rawValue": "rgba(255, 221, 176, 0.06)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(255, 221, 176, 0.08)"
+            "$value": "rgba(255, 221, 176, 0.08)",
+            "$rawValue": "rgba(255, 221, 176, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(255, 221, 176, 0.12)"
+            "$value": "rgba(255, 221, 176, 0.12)",
+            "$rawValue": "rgba(255, 221, 176, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(255, 221, 176, 0.16)"
+            "$value": "rgba(255, 221, 176, 0.16)",
+            "$rawValue": "rgba(255, 221, 176, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(255, 221, 176, 0.30)"
+            "$value": "rgba(255, 221, 176, 0.3)",
+            "$rawValue": "rgba(255, 221, 176, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(255, 221, 176, 0.38)"
+            "$value": "rgba(255, 221, 176, 0.38)",
+            "$rawValue": "rgba(255, 221, 176, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(255, 221, 176, 0.50)"
+            "$value": "rgba(255, 221, 176, 0.5)",
+            "$rawValue": "rgba(255, 221, 176, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(255, 221, 176, 0.56)"
+            "$value": "rgba(255, 221, 176, 0.56)",
+            "$rawValue": "rgba(255, 221, 176, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(255, 221, 176, 0.87)"
+            "$value": "rgba(255, 221, 176, 0.87)",
+            "$rawValue": "rgba(255, 221, 176, 0.87)"
           }
         }
       },
@@ -1308,325 +1610,404 @@
         "vivid-blue": {
           "50": {
             "$type": "color",
-            "$value": "#e6f4fc"
+            "$value": "#e6f4fc",
+            "$rawValue": "rgba(230, 244, 252, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#b9e1f6"
+            "$value": "#b9e1f6",
+            "$rawValue": "rgba(185, 225, 246, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#8ccef0"
+            "$value": "#8ccef0",
+            "$rawValue": "rgba(140, 206, 240, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#5fbbe9"
+            "$value": "#5fbbe9",
+            "$rawValue": "rgba(95, 187, 233, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#32a8e3"
+            "$value": "#32a8e3",
+            "$rawValue": "rgba(50, 168, 227, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#0294dd"
+            "$value": "#0294dd",
+            "$rawValue": "rgba(2, 148, 221, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#027bb8"
+            "$value": "#027bb8",
+            "$rawValue": "rgba(2, 123, 184, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#016191"
+            "$value": "#016191",
+            "$rawValue": "rgba(1, 97, 145, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#01476a"
+            "$value": "#01476a",
+            "$rawValue": "rgba(1, 71, 106, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#012c42"
+            "$value": "#012c42",
+            "$rawValue": "rgba(1, 44, 66, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(2, 148, 221, 0.06)"
+            "$value": "rgba(2, 148, 221, 0.06)",
+            "$rawValue": "rgba(2, 148, 221, 0.06)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(2, 148, 221, 0.08)"
+            "$value": "rgba(2, 148, 221, 0.08)",
+            "$rawValue": "rgba(2, 148, 221, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(2, 148, 221, 0.12)"
+            "$value": "rgba(2, 148, 221, 0.12)",
+            "$rawValue": "rgba(2, 148, 221, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(2, 148, 221, 0.16)"
+            "$value": "rgba(2, 148, 221, 0.16)",
+            "$rawValue": "rgba(2, 148, 221, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(2, 148, 221, 0.30)"
+            "$value": "rgba(2, 148, 221, 0.3)",
+            "$rawValue": "rgba(2, 148, 221, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(2, 148, 221, 0.38)"
+            "$value": "rgba(2, 148, 221, 0.38)",
+            "$rawValue": "rgba(2, 148, 221, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(2, 148, 221, 0.50)"
+            "$value": "rgba(2, 148, 221, 0.5)",
+            "$rawValue": "rgba(2, 148, 221, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(2, 148, 221, 0.56)"
+            "$value": "rgba(2, 148, 221, 0.56)",
+            "$rawValue": "rgba(2, 148, 221, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(2, 148, 221, 0.87)"
+            "$value": "rgba(2, 148, 221, 0.87)",
+            "$rawValue": "rgba(2, 148, 221, 0.87)"
           },
           "700-alpha-80": {
             "$type": "color",
-            "$value": "rgba(1, 97, 145, 0.80)"
+            "$value": "rgba(1, 97, 145, 0.8)",
+            "$rawValue": "rgba(1, 97, 145, 0.8)"
           }
         },
         "vivid-blue-darkly": {
           "50": {
             "$type": "color",
-            "$value": "#0f141a"
+            "$value": "#0f141a",
+            "$rawValue": "rgba(15, 20, 26, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#293947"
+            "$value": "#293947",
+            "$rawValue": "rgba(41, 57, 71, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#435d74"
+            "$value": "#435d74",
+            "$rawValue": "rgba(67, 93, 116, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#5c81a2"
+            "$value": "#5c81a2",
+            "$rawValue": "rgba(92, 129, 162, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#76a5cf"
+            "$value": "#76a5cf",
+            "$rawValue": "rgba(118, 165, 207, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#92ccff"
+            "$value": "#92ccff",
+            "$rawValue": "rgba(146, 204, 255, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#a4d4ff"
+            "$value": "#a4d4ff",
+            "$rawValue": "rgba(164, 212, 255, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#b8deff"
+            "$value": "#b8deff",
+            "$rawValue": "rgba(184, 222, 255, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#cbe7ff"
+            "$value": "#cbe7ff",
+            "$rawValue": "rgba(203, 231, 255, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#def0ff"
+            "$value": "#def0ff",
+            "$rawValue": "rgba(222, 240, 255, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(146, 204, 255, 0.06)"
+            "$value": "rgba(146, 204, 255, 0.06)",
+            "$rawValue": "rgba(146, 204, 255, 0.06)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(146, 204, 255, 0.08)"
+            "$value": "rgba(146, 204, 255, 0.08)",
+            "$rawValue": "rgba(146, 204, 255, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(146, 204, 255, 0.12)"
+            "$value": "rgba(146, 204, 255, 0.12)",
+            "$rawValue": "rgba(146, 204, 255, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(146, 204, 255, 0.16)"
+            "$value": "rgba(146, 204, 255, 0.16)",
+            "$rawValue": "rgba(146, 204, 255, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(146, 204, 255, 0.30)"
+            "$value": "rgba(146, 204, 255, 0.3)",
+            "$rawValue": "rgba(146, 204, 255, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(146, 204, 255, 0.38)"
+            "$value": "rgba(146, 204, 255, 0.38)",
+            "$rawValue": "rgba(146, 204, 255, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(146, 204, 255, 0.50)"
+            "$value": "rgba(146, 204, 255, 0.5)",
+            "$rawValue": "rgba(146, 204, 255, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(146, 204, 255, 0.56)"
+            "$value": "rgba(146, 204, 255, 0.56)",
+            "$rawValue": "rgba(146, 204, 255, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(146, 204, 255, 0.87)"
+            "$value": "rgba(146, 204, 255, 0.87)",
+            "$rawValue": "rgba(146, 204, 255, 0.87)"
           }
         },
         "slate-blue": {
           "50": {
             "$type": "color",
-            "$value": "#ebeff4"
+            "$value": "#ebeff4",
+            "$rawValue": "rgba(235, 239, 244, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#c6d3df"
+            "$value": "#c6d3df",
+            "$rawValue": "rgba(198, 211, 223, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#a2b7cb"
+            "$value": "#a2b7cb",
+            "$rawValue": "rgba(162, 183, 203, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#7d9cb7"
+            "$value": "#7d9cb7",
+            "$rawValue": "rgba(125, 156, 183, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#5980a3"
+            "$value": "#5980a3",
+            "$rawValue": "rgba(89, 128, 163, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#32628d"
+            "$value": "#32628d",
+            "$rawValue": "rgba(50, 98, 141, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#2a5276"
+            "$value": "#2a5276",
+            "$rawValue": "rgba(42, 82, 118, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#21405c"
+            "$value": "#21405c",
+            "$rawValue": "rgba(33, 64, 92, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#182f43"
+            "$value": "#182f43",
+            "$rawValue": "rgba(24, 47, 67, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#0f1d2a"
+            "$value": "#0f1d2a",
+            "$rawValue": "rgba(15, 29, 42, 1)"
           },
           "400-alpha-04": {
             "$type": "color",
-            "$value": "rgba(89, 128, 163, 0.04)"
+            "$value": "rgba(89, 128, 163, 0.04)",
+            "$rawValue": "rgba(89, 128, 163, 0.04)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(50, 98, 141, 0.06)"
+            "$value": "rgba(50, 98, 141, 0.06)",
+            "$rawValue": "rgba(50, 98, 141, 0.06)"
           },
           "500-alpha-04": {
             "$type": "color",
-            "$value": "rgba(50, 98, 141, 0.04)"
+            "$value": "rgba(50, 98, 141, 0.04)",
+            "$rawValue": "rgba(50, 98, 141, 0.04)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(50, 98, 141, 0.08)"
+            "$value": "rgba(50, 98, 141, 0.08)",
+            "$rawValue": "rgba(50, 98, 141, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(50, 98, 141, 0.12)"
+            "$value": "rgba(50, 98, 141, 0.12)",
+            "$rawValue": "rgba(50, 98, 141, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(50, 98, 141, 0.16)"
+            "$value": "rgba(50, 98, 141, 0.16)",
+            "$rawValue": "rgba(50, 98, 141, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(50, 98, 141, 0.30)"
+            "$value": "rgba(50, 98, 141, 0.3)",
+            "$rawValue": "rgba(50, 98, 141, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(50, 98, 141, 0.38)"
+            "$value": "rgba(50, 98, 141, 0.38)",
+            "$rawValue": "rgba(50, 98, 141, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(50, 98, 141, 0.50)"
+            "$value": "rgba(50, 98, 141, 0.5)",
+            "$rawValue": "rgba(50, 98, 141, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(50, 98, 141, 0.56)"
+            "$value": "rgba(50, 98, 141, 0.56)",
+            "$rawValue": "rgba(50, 98, 141, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(50, 98, 141, 0.87)"
+            "$value": "rgba(50, 98, 141, 0.87)",
+            "$rawValue": "rgba(50, 98, 141, 0.87)"
           }
         },
         "slate-blue-darkly": {
           "50": {
             "$type": "color",
-            "$value": "#101419"
+            "$value": "#101419",
+            "$rawValue": "rgba(16, 20, 25, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#2b3846"
+            "$value": "#2b3846",
+            "$rawValue": "rgba(43, 56, 70, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#475c72"
+            "$value": "#475c72",
+            "$rawValue": "rgba(71, 92, 114, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#63819f"
+            "$value": "#63819f",
+            "$rawValue": "rgba(99, 129, 159, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#7fa5cc"
+            "$value": "#7fa5cc",
+            "$rawValue": "rgba(127, 165, 204, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#9ccbfb"
+            "$value": "#9ccbfb",
+            "$rawValue": "rgba(156, 203, 251, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#acd4fc"
+            "$value": "#acd4fc",
+            "$rawValue": "rgba(172, 212, 252, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#beddfc"
+            "$value": "#beddfc",
+            "$rawValue": "rgba(190, 221, 252, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#d0e6fd"
+            "$value": "#d0e6fd",
+            "$rawValue": "rgba(208, 230, 253, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#e1effe"
+            "$value": "#e1effe",
+            "$rawValue": "rgba(225, 239, 254, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(156, 203, 251, 0.06)"
+            "$value": "rgba(156, 203, 251, 0.06)",
+            "$rawValue": "rgba(156, 203, 251, 0.06)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(156, 203, 251, 0.08)"
+            "$value": "rgba(156, 203, 251, 0.08)",
+            "$rawValue": "rgba(156, 203, 251, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(156, 203, 251, 0.12)"
+            "$value": "rgba(156, 203, 251, 0.12)",
+            "$rawValue": "rgba(156, 203, 251, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(156, 203, 251, 0.16)"
+            "$value": "rgba(156, 203, 251, 0.16)",
+            "$rawValue": "rgba(156, 203, 251, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(156, 203, 251, 0.30)"
+            "$value": "rgba(156, 203, 251, 0.3)",
+            "$rawValue": "rgba(156, 203, 251, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(156, 203, 251, 0.38)"
+            "$value": "rgba(156, 203, 251, 0.38)",
+            "$rawValue": "rgba(156, 203, 251, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(156, 203, 251, 0.50)"
+            "$value": "rgba(156, 203, 251, 0.5)",
+            "$rawValue": "rgba(156, 203, 251, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(156, 203, 251, 0.56)"
+            "$value": "rgba(156, 203, 251, 0.56)",
+            "$rawValue": "rgba(156, 203, 251, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(156, 203, 251, 0.87)"
+            "$value": "rgba(156, 203, 251, 0.87)",
+            "$rawValue": "rgba(156, 203, 251, 0.87)"
           }
         }
       },
@@ -1634,361 +2015,449 @@
         "soft-teal": {
           "50": {
             "$type": "color",
-            "$value": "#f3f9f9"
+            "$value": "#f3f9f9",
+            "$rawValue": "rgba(243, 249, 249, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#deefed"
+            "$value": "#deefed",
+            "$rawValue": "rgba(222, 239, 237, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#c8e5e1"
+            "$value": "#c8e5e1",
+            "$rawValue": "rgba(200, 229, 225, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#b3dad6"
+            "$value": "#b3dad6",
+            "$rawValue": "rgba(179, 218, 214, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#9ed0ca"
+            "$value": "#9ed0ca",
+            "$rawValue": "rgba(158, 208, 202, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#87c5be"
+            "$value": "#87c5be",
+            "$rawValue": "rgba(135, 197, 190, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#71a49e"
+            "$value": "#71a49e",
+            "$rawValue": "rgba(113, 164, 158, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#59817d"
+            "$value": "#59817d",
+            "$rawValue": "rgba(89, 129, 125, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#415e5b"
+            "$value": "#415e5b",
+            "$rawValue": "rgba(65, 94, 91, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#293b39"
+            "$value": "#293b39",
+            "$rawValue": "rgba(41, 59, 57, 1)"
           },
           "400-alpha-50": {
             "$type": "color",
-            "$value": "rgba(158, 208, 202, 0.50)"
+            "$value": "rgba(158, 208, 202, 0.5)",
+            "$rawValue": "rgba(158, 208, 202, 0.5)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(135, 197, 190, 0.06)"
+            "$value": "rgba(135, 197, 190, 0.06)",
+            "$rawValue": "rgba(135, 197, 190, 0.06)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(135, 197, 190, 0.16)"
+            "$value": "rgba(135, 197, 190, 0.16)",
+            "$rawValue": "rgba(135, 197, 190, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(135, 197, 190, 0.30)"
+            "$value": "rgba(135, 197, 190, 0.3)",
+            "$rawValue": "rgba(135, 197, 190, 0.3)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(135, 197, 190, 0.50)"
+            "$value": "rgba(135, 197, 190, 0.5)",
+            "$rawValue": "rgba(135, 197, 190, 0.5)"
           },
           "800-alpha-06": {
             "$type": "color",
-            "$value": "rgba(65, 94, 91, 0.06)"
+            "$value": "rgba(65, 94, 91, 0.06)",
+            "$rawValue": "rgba(65, 94, 91, 0.06)"
           },
           "800-alpha-08": {
             "$type": "color",
-            "$value": "rgba(65, 94, 91, 0.08)"
+            "$value": "rgba(65, 94, 91, 0.08)",
+            "$rawValue": "rgba(65, 94, 91, 0.08)"
           },
           "800-alpha-12": {
             "$type": "color",
-            "$value": "rgba(65, 94, 91, 0.12)"
+            "$value": "rgba(65, 94, 91, 0.12)",
+            "$rawValue": "rgba(65, 94, 91, 0.12)"
           },
           "800-alpha-16": {
             "$type": "color",
-            "$value": "rgba(65, 94, 91, 0.16)"
+            "$value": "rgba(65, 94, 91, 0.16)",
+            "$rawValue": "rgba(65, 94, 91, 0.16)"
           },
           "800-alpha-30": {
             "$type": "color",
-            "$value": "rgba(65, 94, 91, 0.30)"
+            "$value": "rgba(65, 94, 91, 0.3)",
+            "$rawValue": "rgba(65, 94, 91, 0.3)"
           },
           "800-alpha-38": {
             "$type": "color",
-            "$value": "rgba(65, 94, 91, 0.38)"
+            "$value": "rgba(65, 94, 91, 0.38)",
+            "$rawValue": "rgba(65, 94, 91, 0.38)"
           },
           "800-alpha-50": {
             "$type": "color",
-            "$value": "rgba(65, 94, 91, 0.50)"
+            "$value": "rgba(65, 94, 91, 0.5)",
+            "$rawValue": "rgba(65, 94, 91, 0.5)"
           },
           "800-alpha-56": {
             "$type": "color",
-            "$value": "rgba(65, 94, 91, 0.56)"
+            "$value": "rgba(65, 94, 91, 0.56)",
+            "$rawValue": "rgba(65, 94, 91, 0.56)"
           },
           "800-alpha-87": {
             "$type": "color",
-            "$value": "rgba(65, 94, 91, 0.87)"
+            "$value": "rgba(65, 94, 91, 0.87)",
+            "$rawValue": "rgba(65, 94, 91, 0.87)"
           }
         },
         "soft-teal-darkly": {
           "50": {
             "$type": "color",
-            "$value": "#0c1211"
+            "$value": "#0c1211",
+            "$rawValue": "rgba(12, 18, 17, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#213230"
+            "$value": "#213230",
+            "$rawValue": "rgba(33, 50, 48, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#36524e"
+            "$value": "#36524e",
+            "$rawValue": "rgba(54, 82, 78, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#4b716d"
+            "$value": "#4b716d",
+            "$rawValue": "rgba(75, 113, 109, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#60918c"
+            "$value": "#60918c",
+            "$rawValue": "rgba(96, 145, 140, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#76b3ac"
+            "$value": "#76b3ac",
+            "$rawValue": "rgba(118, 179, 172, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#8dc0ba"
+            "$value": "#8dc0ba",
+            "$rawValue": "rgba(141, 192, 186, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#a5cdc9"
+            "$value": "#a5cdc9",
+            "$rawValue": "rgba(165, 205, 201, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#bedbd7"
+            "$value": "#bedbd7",
+            "$rawValue": "rgba(190, 219, 215, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#d6e8e6"
+            "$value": "#d6e8e6",
+            "$rawValue": "rgba(214, 232, 230, 1)"
           },
           "600-alpha-06": {
             "$type": "color",
-            "$value": "rgba(141, 192, 186, 0.06)"
+            "$value": "rgba(141, 192, 186, 0.06)",
+            "$rawValue": "rgba(141, 192, 186, 0.06)"
           },
           "600-alpha-08": {
             "$type": "color",
-            "$value": "rgba(141, 192, 186, 0.08)"
+            "$value": "rgba(141, 192, 186, 0.08)",
+            "$rawValue": "rgba(141, 192, 186, 0.08)"
           },
           "600-alpha-12": {
             "$type": "color",
-            "$value": "rgba(141, 192, 186, 0.12)"
+            "$value": "rgba(141, 192, 186, 0.12)",
+            "$rawValue": "rgba(141, 192, 186, 0.12)"
           },
           "600-alpha-16": {
             "$type": "color",
-            "$value": "rgba(141, 192, 186, 0.16)"
+            "$value": "rgba(141, 192, 186, 0.16)",
+            "$rawValue": "rgba(141, 192, 186, 0.16)"
           },
           "600-alpha-30": {
             "$type": "color",
-            "$value": "rgba(141, 192, 186, 0.30)"
+            "$value": "rgba(141, 192, 186, 0.3)",
+            "$rawValue": "rgba(141, 192, 186, 0.3)"
           },
           "600-alpha-38": {
             "$type": "color",
-            "$value": "rgba(141, 192, 186, 0.38)"
+            "$value": "rgba(141, 192, 186, 0.38)",
+            "$rawValue": "rgba(141, 192, 186, 0.38)"
           },
           "600-alpha-50": {
             "$type": "color",
-            "$value": "rgba(141, 192, 186, 0.50)"
+            "$value": "rgba(141, 192, 186, 0.5)",
+            "$rawValue": "rgba(141, 192, 186, 0.5)"
           },
           "600-alpha-56": {
             "$type": "color",
-            "$value": "rgba(141, 192, 186, 0.56)"
+            "$value": "rgba(141, 192, 186, 0.56)",
+            "$rawValue": "rgba(141, 192, 186, 0.56)"
           },
           "600-alpha-87": {
             "$type": "color",
-            "$value": "rgba(141, 192, 186, 0.87)"
+            "$value": "rgba(141, 192, 186, 0.87)",
+            "$rawValue": "rgba(141, 192, 186, 0.87)"
           }
         },
         "forest-green": {
           "50": {
             "$type": "color",
-            "$value": "#e9f5e9"
+            "$value": "#e9f5e9",
+            "$rawValue": "rgba(233, 245, 233, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#c2e2c2"
+            "$value": "#c2e2c2",
+            "$rawValue": "rgba(194, 226, 194, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#9ccf9c"
+            "$value": "#9ccf9c",
+            "$rawValue": "rgba(156, 207, 156, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#75bc75"
+            "$value": "#75bc75",
+            "$rawValue": "rgba(117, 188, 117, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#4eaa4e"
+            "$value": "#4eaa4e",
+            "$rawValue": "rgba(78, 170, 78, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#259625"
+            "$value": "#259625",
+            "$rawValue": "rgba(37, 150, 37, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#1f7d1f"
+            "$value": "#1f7d1f",
+            "$rawValue": "rgba(31, 125, 31, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#186218"
+            "$value": "#186218",
+            "$rawValue": "rgba(24, 98, 24, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#124812"
+            "$value": "#124812",
+            "$rawValue": "rgba(18, 72, 18, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#0b2d0b"
+            "$value": "#0b2d0b",
+            "$rawValue": "rgba(11, 45, 11, 1)"
           },
           "200-alpha-06": {
             "$type": "color",
-            "$value": "rgba(156, 207, 156, 0.06)"
+            "$value": "rgba(156, 207, 156, 0.06)",
+            "$rawValue": "rgba(156, 207, 156, 0.06)"
           },
           "200-alpha-08": {
             "$type": "color",
-            "$value": "rgba(156, 207, 156, 0.08)"
+            "$value": "rgba(156, 207, 156, 0.08)",
+            "$rawValue": "rgba(156, 207, 156, 0.08)"
           },
           "200-alpha-12": {
             "$type": "color",
-            "$value": "rgba(156, 207, 156, 0.12)"
+            "$value": "rgba(156, 207, 156, 0.12)",
+            "$rawValue": "rgba(156, 207, 156, 0.12)"
           },
           "200-alpha-16": {
             "$type": "color",
-            "$value": "rgba(156, 207, 156, 0.16)"
+            "$value": "rgba(156, 207, 156, 0.16)",
+            "$rawValue": "rgba(156, 207, 156, 0.16)"
           },
           "200-alpha-30": {
             "$type": "color",
-            "$value": "rgba(156, 207, 156, 0.30)"
+            "$value": "rgba(156, 207, 156, 0.3)",
+            "$rawValue": "rgba(156, 207, 156, 0.3)"
           },
           "200-alpha-38": {
             "$type": "color",
-            "$value": "rgba(156, 207, 156, 0.38)"
+            "$value": "rgba(156, 207, 156, 0.38)",
+            "$rawValue": "rgba(156, 207, 156, 0.38)"
           },
           "200-alpha-50": {
             "$type": "color",
-            "$value": "rgba(156, 207, 156, 0.50)"
+            "$value": "rgba(156, 207, 156, 0.5)",
+            "$rawValue": "rgba(156, 207, 156, 0.5)"
           },
           "200-alpha-56": {
             "$type": "color",
-            "$value": "rgba(156, 207, 156, 0.56)"
+            "$value": "rgba(156, 207, 156, 0.56)",
+            "$rawValue": "rgba(156, 207, 156, 0.56)"
           },
           "200-alpha-87": {
             "$type": "color",
-            "$value": "rgba(156, 207, 156, 0.87)"
+            "$value": "rgba(156, 207, 156, 0.87)",
+            "$rawValue": "rgba(156, 207, 156, 0.87)"
           },
           "400-alpha-50": {
             "$type": "color",
-            "$value": "rgba(78, 170, 78, 0.50)"
+            "$value": "rgba(78, 170, 78, 0.5)",
+            "$rawValue": "rgba(78, 170, 78, 0.5)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(37, 150, 37, 0.50)"
+            "$value": "rgba(37, 150, 37, 0.5)",
+            "$rawValue": "rgba(37, 150, 37, 0.5)"
           },
           "700-alpha-06": {
             "$type": "color",
-            "$value": "rgba(24, 98, 24, 0.06)"
+            "$value": "rgba(24, 98, 24, 0.06)",
+            "$rawValue": "rgba(24, 98, 24, 0.06)"
           },
           "700-alpha-08": {
             "$type": "color",
-            "$value": "rgba(24, 98, 24, 0.08)"
+            "$value": "rgba(24, 98, 24, 0.08)",
+            "$rawValue": "rgba(24, 98, 24, 0.08)"
           },
           "700-alpha-16": {
             "$type": "color",
-            "$value": "rgba(24, 98, 24, 0.16)"
+            "$value": "rgba(24, 98, 24, 0.16)",
+            "$rawValue": "rgba(24, 98, 24, 0.16)"
           },
           "700-alpha-30": {
             "$type": "color",
-            "$value": "rgba(24, 98, 24, 0.30)"
+            "$value": "rgba(24, 98, 24, 0.3)",
+            "$rawValue": "rgba(24, 98, 24, 0.3)"
           },
           "700-alpha-50": {
             "$type": "color",
-            "$value": "rgba(24, 98, 24, 0.50)"
+            "$value": "rgba(24, 98, 24, 0.5)",
+            "$rawValue": "rgba(24, 98, 24, 0.5)"
           }
         },
         "forest-green-darkly": {
           "50": {
             "$type": "color",
-            "$value": "#0b160a"
+            "$value": "#0b160a",
+            "$rawValue": "rgba(11, 22, 10, 1)"
           },
           "100": {
             "$type": "color",
-            "$value": "#1f3e1c"
+            "$value": "#1f3e1c",
+            "$rawValue": "rgba(31, 62, 28, 1)"
           },
           "200": {
             "$type": "color",
-            "$value": "#33652e"
+            "$value": "#33652e",
+            "$rawValue": "rgba(51, 101, 46, 1)"
           },
           "300": {
             "$type": "color",
-            "$value": "#488d3f"
+            "$value": "#488d3f",
+            "$rawValue": "rgba(72, 141, 63, 1)"
           },
           "400": {
             "$type": "color",
-            "$value": "#5cb451"
+            "$value": "#5cb451",
+            "$rawValue": "rgba(92, 180, 81, 1)"
           },
           "500": {
             "$type": "color",
-            "$value": "#71de64"
+            "$value": "#71de64",
+            "$rawValue": "rgba(113, 222, 100, 1)"
           },
           "600": {
             "$type": "color",
-            "$value": "#89e37e"
+            "$value": "#89e37e",
+            "$rawValue": "rgba(137, 227, 126, 1)"
           },
           "700": {
             "$type": "color",
-            "$value": "#a2e999"
+            "$value": "#a2e999",
+            "$rawValue": "rgba(162, 233, 153, 1)"
           },
           "800": {
             "$type": "color",
-            "$value": "#bbefb5"
+            "$value": "#bbefb5",
+            "$rawValue": "rgba(187, 239, 181, 1)"
           },
           "900": {
             "$type": "color",
-            "$value": "#d4f5d1"
+            "$value": "#d4f5d1",
+            "$rawValue": "rgba(212, 245, 209, 1)"
           },
           "500-alpha-06": {
             "$type": "color",
-            "$value": "rgba(113, 222, 100, 0.06)"
+            "$value": "rgba(113, 222, 100, 0.06)",
+            "$rawValue": "rgba(113, 222, 100, 0.06)"
           },
           "500-alpha-08": {
             "$type": "color",
-            "$value": "rgba(113, 222, 100, 0.08)"
+            "$value": "rgba(113, 222, 100, 0.08)",
+            "$rawValue": "rgba(113, 222, 100, 0.08)"
           },
           "500-alpha-12": {
             "$type": "color",
-            "$value": "rgba(113, 222, 100, 0.12)"
+            "$value": "rgba(113, 222, 100, 0.12)",
+            "$rawValue": "rgba(113, 222, 100, 0.12)"
           },
           "500-alpha-16": {
             "$type": "color",
-            "$value": "rgba(113, 222, 100, 0.16)"
+            "$value": "rgba(113, 222, 100, 0.16)",
+            "$rawValue": "rgba(113, 222, 100, 0.16)"
           },
           "500-alpha-30": {
             "$type": "color",
-            "$value": "rgba(113, 222, 100, 0.30)"
+            "$value": "rgba(113, 222, 100, 0.3)",
+            "$rawValue": "rgba(113, 222, 100, 0.3)"
           },
           "500-alpha-38": {
             "$type": "color",
-            "$value": "rgba(113, 222, 100, 0.38)"
+            "$value": "rgba(113, 222, 100, 0.38)",
+            "$rawValue": "rgba(113, 222, 100, 0.38)"
           },
           "500-alpha-50": {
             "$type": "color",
-            "$value": "rgba(113, 222, 100, 0.50)"
+            "$value": "rgba(113, 222, 100, 0.5)",
+            "$rawValue": "rgba(113, 222, 100, 0.5)"
           },
           "500-alpha-56": {
             "$type": "color",
-            "$value": "rgba(113, 222, 100, 0.56)"
+            "$value": "rgba(113, 222, 100, 0.56)",
+            "$rawValue": "rgba(113, 222, 100, 0.56)"
           },
           "500-alpha-87": {
             "$type": "color",
-            "$value": "rgba(113, 222, 100, 0.87)"
+            "$value": "rgba(113, 222, 100, 0.87)",
+            "$rawValue": "rgba(113, 222, 100, 0.87)"
           }
         }
       }
@@ -1998,7 +2467,8 @@
     "typography": {
       "fontsize-xs": {
         "$type": "dimension",
-        "$value": 12
+        "$value": 12,
+        "$rawValue": 12
       }
     }
   },
@@ -2007,7 +2477,8 @@
       "white": {
         "100": {
           "$type": "color",
-          "$value": "{Lighthouse.colors.neutrals.white.100}"
+          "$value": "{Lighthouse.colors.neutrals.white.100}",
+          "$rawValue": "rgba(255, 255, 255, 1)"
         }
       }
     }

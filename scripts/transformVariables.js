@@ -274,17 +274,21 @@ function createTokenMapping(collectionInfo) {
           // Ensure color is in correct format (hex or rgba)
           if (typeof value === 'object' && 'r' in value && 'g' in value && 'b' in value) {
             const { r, g, b, a = 1 } = value;
+            const rInt = Math.round(r * 255);
+            const gInt = Math.round(g * 255);
+            const bInt = Math.round(b * 255);
+            const aFloat = parseFloat(a.toFixed(2));
             
             // Convert to hex if no alpha or alpha is 1
             if (a === 1) {
-              const hex = [r, g, b]
-                .map(n => Math.round(n * 255).toString(16).padStart(2, '0'))
+              const hex = [rInt, gInt, bInt]
+                .map(n => n.toString(16).padStart(2, '0'))
                 .join('');
               return `#${hex}`;
             }
             
             // Use rgba for transparent colors
-            return `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a.toFixed(2)})`;
+            return `rgba(${rInt}, ${gInt}, ${bInt}, ${aFloat})`;
           }
           return value;
         }
@@ -599,6 +603,64 @@ function sanitizeName(name) {
 }
 
 /**
+ * Recursively resolve a variable reference to find the actual raw value
+ * @param {string|Object} value - The value or reference to resolve
+ * @param {Object} variableMap - Map of variable IDs to variable objects
+ * @param {Set} visitedRefs - Set of already visited references to avoid infinite loops
+ * @returns {Object} The resolved raw value and formatted value
+ */
+function resolveReference(value, variableMap, visitedRefs = new Set()) {
+  // Base case 1: Direct color object
+  if (typeof value === 'object' && value !== null && 'r' in value && 'g' in value && 'b' in value) {
+    const { r, g, b, a = 1 } = value;
+    const rInt = Math.round(r * 255);
+    const gInt = Math.round(g * 255);
+    const bInt = Math.round(b * 255);
+    const aFloat = typeof a === 'number' ? parseFloat(a.toFixed(2)) : 1;
+    
+    // Create raw RGBA value
+    const rawValue = `rgba(${rInt}, ${gInt}, ${bInt}, ${aFloat})`;
+    
+    return { rawValue, formattedValue: null };  // formattedValue will be set by the color transform
+  }
+  
+  // Recursive case: Variable alias
+  if (typeof value === 'object' && value !== null && value.type === 'VARIABLE_ALIAS') {
+    const refId = value.id;
+    
+    // Avoid circular references
+    if (visitedRefs.has(refId)) {
+      console.warn(`⚠️ Circular reference detected: ${refId}`);
+      return { rawValue: null, formattedValue: null };
+    }
+    
+    // Add to visited set
+    visitedRefs.add(refId);
+    
+    // Look up the referenced variable
+    const refVariable = variableMap[refId];
+    if (!refVariable) {
+      console.warn(`⚠️ Referenced variable not found: ${refId}`);
+      return { rawValue: null, formattedValue: null };
+    }
+    
+    // Get the first mode value (assuming all modes have same raw value)
+    const modeId = Object.keys(refVariable.valuesByMode || {})[0];
+    if (!modeId) {
+      console.warn(`⚠️ No modes found for variable: ${refVariable.name}`);
+      return { rawValue: null, formattedValue: null };
+    }
+    
+    // Get the value for this mode and resolve it recursively
+    const modeValue = refVariable.valuesByMode[modeId];
+    return resolveReference(modeValue, variableMap, visitedRefs);
+  }
+  
+  // Default case: Can't resolve further
+  return { rawValue: null, formattedValue: null };
+}
+
+/**
  * Transform a value based on its type and the token mapping rules
  * @param {any} value - Value to transform
  * @param {Object} variable - Variable from Figma
@@ -624,12 +686,31 @@ function transformValue(value, variable, variableMap, tokenMap) {
       // Handle references
       const refRule = tokenMap.patterns.find(p => p.type === 'VARIABLE_ALIAS');
       if (refRule) {
+        // Convert Figma reference to our token reference format
         token.$value = refRule.transform(value, variable);
+        
+        // If this is a color reference, try to resolve it to get the raw value
+        if (variable.resolvedType === 'COLOR') {
+          const resolved = resolveReference(value, variableMap);
+          if (resolved.rawValue) {
+            token.$rawValue = resolved.rawValue;
+          } else {
+            // If we couldn't resolve it, keep the reference
+            token.$rawValue = token.$value;
+          }
+        }
       }
     } else if (variable.resolvedType === 'COLOR') {
       // Handle colors
       const colorRule = tokenMap.patterns.find(p => p.type === 'COLOR');
       if (colorRule) {
+        // Resolve the raw color value
+        const resolved = resolveReference(value, variableMap);
+        if (resolved.rawValue) {
+          token.$rawValue = resolved.rawValue;
+        }
+        
+        // Transform the display value
         token.$value = colorRule.transform(value, variable);
       }
     }
@@ -637,7 +718,21 @@ function transformValue(value, variable, variableMap, tokenMap) {
     // Handle dimensions
     const dimensionRule = tokenMap.patterns.find(p => p.type === 'FLOAT');
     if (dimensionRule) {
+      // Store the original number in rawValue
+      token.$rawValue = value;
       token.$value = dimensionRule.transform(value, variable);
+    }
+  } else if (typeof value === 'string' && variable.resolvedType === 'COLOR') {
+    // Handle direct hex or rgba values in strings
+    if (value.startsWith('#')) {
+      // For hex colors, we'll provide an rgba version in rawValue
+      const r = parseInt(value.substring(1, 3), 16);
+      const g = parseInt(value.substring(3, 5), 16);
+      const b = parseInt(value.substring(5, 7), 16);
+      token.$rawValue = `rgba(${r}, ${g}, ${b}, 1)`;
+    } else if (value.startsWith('rgba')) {
+      // For rgba strings, use as is
+      token.$rawValue = value;
     }
   }
   
@@ -707,6 +802,130 @@ function generateMetadata(description) {
 }
 
 /**
+ * Resolve references to find actual raw values
+ * @param {Object} tokenSet - The set of tokens to process
+ * @returns {Object} Processed tokens with resolved raw values
+ */
+function resolveRawValueReferences(tokenSet) {
+  console.log('🔍 Resolving raw value references...');
+  
+  // First flatten the token structure to make lookups easier
+  const flatTokens = {};
+  const directColorValues = {};
+  
+  // Function to flatten the nested structure
+  function flattenTokens(obj, path = []) {
+    Object.entries(obj).forEach(([key, value]) => {
+      if (key === 'metadata') return;
+      
+      const currentPath = [...path, key];
+      const dotPath = currentPath.join('.');
+      
+      if (value && typeof value === 'object') {
+        // Check if it's a token (has $type and $value)
+        if (value.$type && value.$value !== undefined) {
+          flatTokens[dotPath] = value;
+          
+          // Cache direct color values for quick lookup
+          if (value.$type === 'color') {
+            if (typeof value.$value === 'string') {
+              if (value.$value.startsWith('#')) {
+                // Convert hex to rgba for consistency
+                const hex = value.$value.substring(1);
+                const r = parseInt(hex.substring(0, 2), 16);
+                const g = parseInt(hex.substring(2, 4), 16);
+                const b = parseInt(hex.substring(4, 6), 16);
+                directColorValues[dotPath] = `rgba(${r}, ${g}, ${b}, 1)`;
+              } else if (value.$value.startsWith('rgba')) {
+                directColorValues[dotPath] = value.$value;
+              }
+            }
+          }
+        } else {
+          // It's a category or subcategory, recurse
+          flattenTokens(value, currentPath);
+        }
+      }
+    });
+  }
+  
+  // Flatten the token structure
+  flattenTokens(tokenSet);
+  
+  // First collect all direct color values
+  // Then do multiple passes to resolve references
+  
+  // Function to resolve reference to its raw value
+  function resolveRawValue(refPath) {
+    // Remove curly braces if present
+    const cleanPath = refPath.replace(/^\{|\}$/g, '');
+    
+    // Direct lookup in our cache of raw values
+    return directColorValues[cleanPath] || null;
+  }
+  
+  // Process all color tokens with direct values first
+  Object.keys(flatTokens).forEach(tokenPath => {
+    const token = flatTokens[tokenPath];
+    
+    // Only process color tokens
+    if (token.$type === 'color') {
+      if (typeof token.$value === 'string') {
+        // Direct color values
+        if (token.$value.startsWith('#')) {
+          const hex = token.$value.substring(1);
+          const r = parseInt(hex.substring(0, 2), 16);
+          const g = parseInt(hex.substring(2, 4), 16);
+          const b = parseInt(hex.substring(4, 6), 16);
+          token.$rawValue = `rgba(${r}, ${g}, ${b}, 1)`;
+          directColorValues[tokenPath] = token.$rawValue;
+        } else if (token.$value.startsWith('rgba')) {
+          token.$rawValue = token.$value;
+          directColorValues[tokenPath] = token.$rawValue;
+        }
+      }
+    }
+  });
+  
+  // Now do multiple passes to resolve references
+  let resolutionCount = 0;
+  let changed = true;
+  let maxPasses = 10; // Limit to prevent infinite loops
+  
+  while (changed && maxPasses > 0) {
+    changed = false;
+    maxPasses--;
+    
+    Object.keys(flatTokens).forEach(tokenPath => {
+      const token = flatTokens[tokenPath];
+      
+      // Only process color tokens with references
+      if (token.$type === 'color' && typeof token.$value === 'string' && 
+          token.$value.startsWith('{') && token.$value.endsWith('}') &&
+          (!token.$rawValue || token.$rawValue.startsWith('{'))) {
+        
+        // Get the referenced path
+        const referencedPath = token.$value.replace(/^\{|\}$/g, '');
+        
+        // Check if we have a resolved value for this reference
+        if (directColorValues[referencedPath]) {
+          token.$rawValue = directColorValues[referencedPath];
+          directColorValues[tokenPath] = token.$rawValue; // Add to our cache
+          resolutionCount++;
+          changed = true;
+        }
+      }
+    });
+    
+    console.log(`Pass ${10-maxPasses}: Resolved ${resolutionCount} references so far, changed=${changed}`);
+  }
+  
+  console.log(`✅ Resolved ${resolutionCount} reference raw values`);
+  
+  return tokenSet;
+}
+
+/**
  * Generate or update token files based on transformed data
  * @param {Object} transformedTokens - Transformed token data
  * @param {Object} existingFiles - Existing token files
@@ -718,6 +937,15 @@ function generateTokenFiles(transformedTokens, existingFiles, collectionInfo) {
   // Ensure directories exist
   ensureDirectoryExists(CONFIG.outputDir);
   ensureDirectoryExists(CONFIG.archiveDir);
+  
+  // Resolve references for all token sets to get proper raw values
+  console.log('Resolving references in core tokens...');
+  transformedTokens.core = resolveRawValueReferences(transformedTokens.core);
+  
+  console.log('Resolving references in mode tokens...');
+  for (const [mode, tokens] of Object.entries(transformedTokens.modes)) {
+    transformedTokens.modes[mode] = resolveRawValueReferences(tokens);
+  }
   
   // Generate core tokens file
   const coreFilename = CONFIG.coreTokensFilename;
