@@ -9,6 +9,8 @@ This directory contains scripts for managing the design system tokens and genera
 - `transformVariables.js` - Transforms Figma variables to design tokens
 
 - `generateTailwindConfig.js` - Generates Tailwind CSS configuration and CSS variables theme file
+- `createMUIButtonTheme.js` - Creates a theme.json file for MUI Button components
+- `prepareMUIButtonDemo.js` - Prepares an MUI button demo by copying theme.json and creating example files
 
 ## How to Use
 
@@ -24,6 +26,8 @@ This directory contains scripts for managing the design system tokens and genera
    npm run transform-variables # Transform to design tokens
 
    npm run generate-tailwind  # Generate Tailwind config and CSS theme
+   npm run generate-mui-theme # Generate MUI theme
+   npm run prepare-mui-demo   # Prepare MUI button demo
    ```
 
 3. Or run the full process:
