@@ -1,6 +1,6 @@
 /**
  * Auto-generated theme variables
- * Generated on 8/11/2025
+ * Generated on 8/13/2025
  * DO NOT EDIT MANUALLY
  */
 
@@ -1604,7 +1604,7 @@
     --component-list-item-text-fill-support-text: var(--base-text-caption);
     --component-list-item-text-fill-timestamp: var(--base-text-disabled);
     --component-tab-badge-count: var(--lighthouse-typography-fontsize-lg);
-    --component-button-button-padding-vertical: var(--spacing-spacing-2xs);
+    --component-button-button-padding-vertical: var(--spacing-spacing-xs);
     --component-button-button-padding-horizontal: var(--spacing-spacing-sm-md);
     --component-button-primary-background-default: var(--base-primary-main);
     --component-button-primary-background-hover: var(--base-primary-_states-hover);

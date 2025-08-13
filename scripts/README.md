@@ -7,7 +7,7 @@ This directory contains scripts for managing the design system tokens and genera
 - `fetchFigmaVariables.js` - Fetches variables from Figma API
 - `analyzeVariables.js` - Analyzes Figma variables to understand structure
 - `transformVariables.js` - Transforms Figma variables to design tokens
-- `updateTheme.js` - Updates the theme file with the latest tokens
+
 - `generateTailwindConfig.js` - Generates Tailwind CSS configuration and CSS variables theme file
 
 ## How to Use
@@ -22,7 +22,7 @@ This directory contains scripts for managing the design system tokens and genera
    npm run fetch-variables    # Fetch variables from Figma
    npm run analyze-variables  # Analyze variable structure
    npm run transform-variables # Transform to design tokens
-   npm run update-theme       # Update theme file
+
    npm run generate-tailwind  # Generate Tailwind config and CSS theme
    ```
 

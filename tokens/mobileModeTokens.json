@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Mobile mode tokens",
-    "updated": "Aug 11, 2025",
+    "updated": "Aug 13, 2025",
     "author": "Design System Team"
   },
   "base": {
@@ -1436,7 +1436,7 @@
     "button": {
       "button-padding-vertical": {
         "$type": "dimension",
-        "$value": "{spacing.spacing-2xs}"
+        "$value": "{spacing.spacing-xs}"
       },
       "button-padding-horizontal": {
         "$type": "dimension",

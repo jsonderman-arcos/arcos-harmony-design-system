@@ -6,9 +6,9 @@
     "fetch-variables": "node scripts/fetchFigmaVariables.js",
     "analyze-variables": "node scripts/analyzeVariables.js",
     "transform-variables": "node scripts/transformVariables.js",
-    "update-theme": "node scripts/updateTheme.js",
+    
     "generate-tailwind": "node scripts/generateTailwindConfig.js",
-    "build-tokens": "npm run fetch-variables && npm run analyze-variables && npm run transform-variables && npm run update-theme",
+  "build-tokens": "npm run fetch-variables && npm run analyze-variables && npm run transform-variables",
     "build-all": "npm run build-tokens && npm run generate-tailwind"
   },
   "dependencies": {

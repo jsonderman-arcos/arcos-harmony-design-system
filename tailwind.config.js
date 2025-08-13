@@ -1,6 +1,6 @@
 /** 
  * Tailwind CSS configuration
- * Auto-generated from design tokens on 8/11/2025
+ * Auto-generated from design tokens on 8/13/2025
  * DO NOT EDIT MANUALLY
  */
  
