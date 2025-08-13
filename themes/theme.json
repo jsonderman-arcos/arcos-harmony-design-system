@@ -1,0 +1,57 @@
+{
+  "colorSchemes": {},
+  "shadows": [
+    "none"
+  ],
+  "typography": {},
+  "spacing": [
+    0
+  ],
+  "breakpoints": {
+    "values": {}
+  },
+  "components": {
+    "MuiButton": {
+      "styleOverrides": {
+        "root": {
+          "fontFeatureSettings": "'liga' off, 'clig' off",
+          "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+          "textTransform": "none",
+          "borderRadius": "var(--mui-shape-borderRadius)",
+          "boxShadow": "none"
+        },
+        "sizeLarge": {
+          "fontSize": "1rem",
+          "lineHeight": "26px",
+          "letterSpacing": "0.46px",
+          "padding": "8px 20px"
+        },
+        "sizeMedium": {
+          "fontSize": "0.875rem",
+          "lineHeight": "24px",
+          "letterSpacing": "0.4px",
+          "padding": "6px 16px"
+        },
+        "sizeSmall": {
+          "fontSize": "0.75rem",
+          "lineHeight": "20px",
+          "letterSpacing": "0.4px",
+          "padding": "4px 10px"
+        },
+        "contained": {
+          "boxShadow": "none"
+        },
+        "outlined": {
+          "borderWidth": "1px",
+          "borderStyle": "solid",
+          "&:hover": {
+            "borderWidth": "1px"
+          }
+        },
+        "text": {
+          "padding": "6px 8px"
+        }
+      }
+    }
+  }
+}
