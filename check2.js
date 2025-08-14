@@ -1,0 +1,1 @@
+const fs = require("fs"); const theme = JSON.parse(fs.readFileSync("themes/theme.json")); for (const mode in theme.colorSchemes) { console.log(`${mode} mode keys: ${Object.keys(theme.colorSchemes[mode])}`); console.log(`  Has nested colorSchemes? ${theme.colorSchemes[mode].colorSchemes !== undefined}`); }

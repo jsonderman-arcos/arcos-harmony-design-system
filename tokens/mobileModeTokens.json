@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Mobile mode tokens",
-    "updated": "Aug 13, 2025",
+    "updated": "Aug 14, 2025",
     "author": "Design System Team"
   },
   "base": {
@@ -1368,7 +1368,8 @@
       },
       "comments": {
         "$type": "string",
-        "$value": "Carryover from MUI"
+        "$value": "Carryover from MUI",
+        "$rawValue": "Carryover from MUI"
       },
       "input": {
         "standard": {
@@ -1500,7 +1501,8 @@
     },
     "comments": {
       "$type": "string",
-      "$value": "Lighthouse Theme base tokens"
+      "$value": "Lighthouse Theme base tokens",
+      "$rawValue": "Lighthouse Theme base tokens"
     }
   },
   "component": {
@@ -1513,7 +1515,8 @@
     },
     "comments": {
       "$type": "string",
-      "$value": "Lighthouse Component-specific tokens"
+      "$value": "Lighthouse Component-specific tokens",
+      "$rawValue": "Lighthouse Component-specific tokens"
     },
     "panel": {
       "border": {

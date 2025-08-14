@@ -20,23 +20,66 @@ import themeConfig from '../theme.json';
 
 // Function to create theme from theme.json
 function createMuiTheme(mode = 'light') {
-  // Use the appropriate color scheme from the theme configuration
-  const colorScheme = themeConfig.colorSchemes[mode] || themeConfig.colorSchemes.light;
+  // Set default colors for when theme config is missing colorSchemes
+  const defaultColors = {
+    light: {
+      palette: {
+        primary: {
+          main: '#5916d2', 
+          contrastText: '#ffffff'
+        },
+        secondary: {
+          main: '#9c27b0', // Default MUI purple
+          contrastText: '#ffffff'
+        }
+      }
+    },
+    dark: {
+      palette: {
+        primary: {
+          main: '#0044f9', 
+          contrastText: '#000000'
+        },
+        secondary: {
+          main: '#ce93d8', // Lighter purple for dark mode
+          contrastText: '#000000'
+        }
+      }
+    },
+    mobile: {
+      palette: {
+        primary: {
+          main: '#ffa5f5', // Different blue for mobile
+          contrastText: '#ffffff'
+        },
+        secondary: {
+          main: '#ab47bc', // Different purple for mobile
+          contrastText: '#ffffff'
+        }
+      }
+    }
+  };
+  
+  // Get colorScheme if available in config, otherwise use default
+  const hasColorSchemes = themeConfig.colorSchemes && Object.keys(themeConfig.colorSchemes).length > 0;
+  const colorScheme = hasColorSchemes ? 
+    (themeConfig.colorSchemes[mode] || themeConfig.colorSchemes.light) : 
+    defaultColors[mode] || defaultColors.light;
   
   // Create a theme instance with the selected color scheme
   return createTheme({
     palette: {
       mode: mode === 'dark' ? 'dark' : 'light',
-      primary: colorScheme.palette.primary,
-      secondary: colorScheme.palette.secondary,
+      primary: colorScheme.palette?.primary || defaultColors.light.palette.primary,
+      secondary: colorScheme.palette?.secondary || defaultColors.light.palette.secondary,
     },
     components: {
       ...themeConfig.components,
       ...(colorScheme.components || {})
     },
-    typography: themeConfig.typography,
-    shadows: themeConfig.shadows,
-    spacing: themeConfig.spacing,
+    typography: themeConfig.typography || {},
+    shadows: themeConfig.shadows || ["none"],
+    spacing: themeConfig.spacing || [0, 4, 8, 16, 32, 64],
   });
 }
 

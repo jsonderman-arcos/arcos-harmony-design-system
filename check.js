@@ -1,0 +1,1 @@
+const fs = require("fs"); const theme = JSON.parse(fs.readFileSync("themes/theme.json")); console.log("Top level keys:", Object.keys(theme)); console.log("Does it have colorSchemes?", theme.colorSchemes !== undefined); if (theme.colorSchemes) console.log("Color modes:", Object.keys(theme.colorSchemes));

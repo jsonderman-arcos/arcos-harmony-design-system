@@ -1,0 +1,1 @@
+const fs = require("fs"); const theme = JSON.parse(fs.readFileSync("themes/theme.json")); console.log(`Top level keys: ${Object.keys(theme)}`); console.log(`Color schemes: ${Object.keys(theme.colorSchemes)}`); for (const mode in theme.colorSchemes) { console.log(`${mode} mode keys: ${Object.keys(theme.colorSchemes[mode])}`); }

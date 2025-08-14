@@ -7,11 +7,13 @@
  * with token definitions and easier searching.
  * 
  * Use this as a reference when updating theme.json or when creating MUI button themes.
+ *
+ * colorSchemes: {},
  */
 
 // Export the theme mapping as a JavaScript object
 module.exports = {
-  colorSchemes: {},
+  
   shadows: [
     "none",
     "0px 2px 1px -1px {lighthouse.effects.shadow-level-1}, 0px 1px 1px 0px {lighthouse.effects.shadow-level-2}, 0px 1px 3px 0px {lighthouse.effects.shadow-level-3}",

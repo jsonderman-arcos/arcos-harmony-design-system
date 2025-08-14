@@ -34,19 +34,44 @@ tokenFiles
     const modeTokensPath = path.join(TOKENS_DIR, tokenFile);
     const modeTokens = JSON.parse(fs.readFileSync(modeTokensPath, 'utf8'));
     
+    // Check if the tokens file has only metadata and no actual tokens
+    const hasOnlyMetadata = Object.keys(modeTokens).length === 1 && modeTokens.metadata;
+    
+    // Skip this mode if it only has metadata
+    if (hasOnlyMetadata) {
+      console.log(`Skipping empty color mode: ${modeName} (only contains metadata)`);
+      return;
+    }
+    
     // Combine mode tokens with core tokens for a complete set
     const combinedTokens = { ...coreTokens, ...modeTokens };
     
-    // Create mode-specific theme by processing the buttonThemeMapping
-    const modeTheme = processTheme(buttonThemeMapping, combinedTokens);
+    // Create a deep clone of the buttonThemeMapping template WITHOUT the colorSchemes property
+    let baseTheme = JSON.parse(JSON.stringify(buttonThemeMapping));
+    
+    // Explicitly remove the colorSchemes property if it exists
+    if (baseTheme.colorSchemes !== undefined) {
+      delete baseTheme.colorSchemes;
+    }
+    
+    // Process the theme with token replacements
+    const modeTheme = processTheme(baseTheme, combinedTokens);
+    
+    // Double-check to make sure no colorSchemes made it through
+    if (modeTheme.colorSchemes !== undefined) {
+      delete modeTheme.colorSchemes;
+      console.log(`Removed nested colorSchemes from ${modeName} mode`);
+    }
     
     // Add to color schemes
     colorSchemes[modeName] = modeTheme;
   });
 
 // Create the final theme.json with all color schemes
+// We'll make a clean copy of buttonThemeMapping but exclude its empty colorSchemes
+const { colorSchemes: _, ...themeBase } = buttonThemeMapping;
 const finalTheme = { 
-  ...buttonThemeMapping,
+  ...themeBase,
   colorSchemes
 };
 
@@ -65,6 +90,11 @@ console.log(`Successfully created theme.json with ${Object.keys(colorSchemes).le
 function processTheme(theme, tokens) {
   // Deep clone the theme to avoid modifying the original
   const processedTheme = JSON.parse(JSON.stringify(theme));
+  
+  // Remove any colorSchemes property as it shouldn't be nested
+  if (processedTheme.colorSchemes !== undefined) {
+    delete processedTheme.colorSchemes;
+  }
   
   // Process each property recursively
   traverseAndReplace(processedTheme, tokens);
@@ -101,12 +131,18 @@ function replaceTokens(str, tokens) {
   
   while ((match = tokenRegex.exec(str)) !== null) {
     const tokenPath = match[1]; // e.g., "Base.primary.main"
-    const tokenValue = getTokenValue(tokenPath, tokens);
+    let tokenValue = getTokenValue(tokenPath, tokens);
     
     if (tokenValue !== undefined) {
       result = result.replace(match[0], tokenValue);
     } else {
-      console.warn(`Warning: Token not found for ${match[0]}`);
+      // If the token is still not found, use the fallback value
+      const fallbackValue = getFallbackValue(tokenPath);
+      if (fallbackValue !== undefined) {
+        result = result.replace(match[0], fallbackValue);
+      } else {
+        console.warn(`Warning: Token not found for ${match[0]}`);
+      }
     }
   }
   
@@ -114,71 +150,11 @@ function replaceTokens(str, tokens) {
 }
 
 /**
- * Gets a token's raw value from a dot-notation path
- * @param {string} path - The dot notation path to the token
- * @param {Object} tokens - The tokens object
- * @returns {string|undefined} - The raw value or undefined if not found
+ * Provides fallback values for known token paths
+ * @param {string} path - The token path
+ * @returns {string|undefined} - The fallback value or undefined
  */
-function getTokenValue(path, tokens) {
-  const parts = path.split('.');
-  
-  // Handle special case for Components.button path mapping
-  if (path.startsWith('Components.button.')) {
-    const buttonProperty = path.replace('Components.button.', '');
-    
-    // Try to find the token in components.button
-    if (tokens.components && tokens.components.button) {
-      if (tokens.components.button[buttonProperty] && 
-          tokens.components.button[buttonProperty].$rawValue) {
-        return tokens.components.button[buttonProperty].$rawValue;
-      }
-    }
-  }
-  
-  // Handle Base.primary and other Base paths
-  if (path.startsWith('Base.')) {
-    const basePath = path.replace('Base.', 'base.');
-    const baseParts = basePath.split('.');
-    
-    // Try to follow the exact path in tokens with lowercase 'base'
-    let current = tokens;
-    for (const part of baseParts) {
-      if (!current || typeof current !== 'object') {
-        break;
-      }
-      current = current[part];
-    }
-    
-    if (current && current.$rawValue !== undefined) {
-      return current.$rawValue;
-    }
-    
-    // Try to handle states and special cases
-    if (baseParts[1] === 'primary' && baseParts[2] === 'states') {
-      // Special handling for primary.states paths
-      if (tokens.base && tokens.base.primary && tokens.base.primary._states) {
-        const stateName = baseParts[3];
-        const stateToken = tokens.base.primary._states[stateName];
-        if (stateToken && stateToken.$rawValue !== undefined) {
-          return stateToken.$rawValue;
-        }
-      }
-    }
-    
-    // Handle contrast-text case
-    if (baseParts[2] === 'contrast-text') {
-      const colorType = baseParts[1]; // primary, secondary, etc.
-      if (tokens.base && tokens.base[colorType] && tokens.base[colorType]['on-main']) {
-        return tokens.base[colorType]['on-main'].$rawValue;
-      }
-    }
-  }
-  
-  // Handle case-insensitive search through tokens
-  let foundValue = searchTokensRecursively(tokens, parts);
-  if (foundValue) return foundValue;
-  
-  // Add fallbacks for common tokens that might be missing
+function getFallbackValue(path) {
   const fallbacks = {
     'Components.button.button-padding-vertical': '8px',
     'Components.button.button-padding-horizontal': '20px',
@@ -199,10 +175,118 @@ function getTokenValue(path, tokens) {
     'Base.secondary.main': 'rgba(156, 39, 176, 1)',
     'Base.secondary.dark': 'rgba(123, 31, 139, 1)',
     'Base.secondary.contrast-text': 'rgba(255, 255, 255, 1)',
-    'radii.border-radius': '4px'
+    'radii.border-radius': '4px',
+    'lighthouse.effects.shadow-level-1': 'rgba(0, 0, 0, 0.12)',
+    'lighthouse.effects.shadow-level-2': 'rgba(0, 0, 0, 0.14)',
+    'lighthouse.effects.shadow-level-3': 'rgba(0, 0, 0, 0.2)',
+    'lighthouse.typography.fontfamily-base': 'Arial',
+    'lighthouse.typography.fontsize-base': '16px',
+    'lighthouse.typography.fontsize-4xl': '48px',
+    'lighthouse.typography.fontsize-3xl': '36px',
+    'lighthouse.typography.fontsize-2xl': '30px',
+    'lighthouse.typography.fontsize-xl': '24px',
+    'lighthouse.typography.fontsize-lg': '20px',
+    'lighthouse.typography.fontsize-md': '16px',
+    'lighthouse.typography.fontsize-sm': '14px',
+    'lighthouse.typography.fontweight-light': '300',
+    'lighthouse.typography.fontweight-regular': '400',
+    'lighthouse.typography.fontweight-medium': '500',
+    'lighthouse.typography.fontweight-bold': '700'
   };
   
   return fallbacks[path];
+}
+
+/**
+ * Gets a token's raw value from a dot-notation path
+ * @param {string} path - The dot notation path to the token
+ * @param {Object} tokens - The tokens object
+ * @returns {string|undefined} - The raw value or undefined if not found
+ */
+function getTokenValue(path, tokens) {
+  const parts = path.split('.');
+  
+  // Generic function to get token value considering both $rawValue and $value
+  function getValueFromToken(token) {
+    if (!token || typeof token !== 'object') return undefined;
+    
+    // Prefer $rawValue if available, otherwise use $value
+    if (token.$rawValue !== undefined) {
+      return token.$rawValue;
+    } else if (token.$value !== undefined) {
+      return token.$value;
+    }
+    return undefined;
+  }
+  
+  // Generic path traversal function
+  function traversePath(obj, pathParts) {
+    let current = obj;
+    for (const part of pathParts) {
+      if (!current || typeof current !== 'object') {
+        return undefined;
+      }
+      current = current[part];
+    }
+    return current;
+  }
+  
+  // Handle special case for Components.button path mapping
+  if (path.startsWith('Components.button.')) {
+    const buttonProperty = path.replace('Components.button.', '');
+    
+    // Try to find the token in components.button
+    if (tokens.components && tokens.components.button) {
+      const token = tokens.components.button[buttonProperty];
+      const value = getValueFromToken(token);
+      if (value !== undefined) return value;
+    }
+  }
+  
+  // Handle lighthouse paths
+  if (path.startsWith('lighthouse.')) {
+    const token = traversePath(tokens, parts);
+    const value = getValueFromToken(token);
+    if (value !== undefined) return value;
+  }
+  
+  // Handle Base.primary and other Base paths
+  if (path.startsWith('Base.')) {
+    const basePath = path.replace('Base.', 'base.');
+    const baseParts = basePath.split('.');
+    
+    // Try to follow the exact path in tokens with lowercase 'base'
+    const token = traversePath(tokens, baseParts);
+    const value = getValueFromToken(token);
+    if (value !== undefined) return value;
+    
+    // Try to handle states and special cases
+    if (baseParts[1] === 'primary' && baseParts[2] === 'states') {
+      // Special handling for primary.states paths
+      if (tokens.base && tokens.base.primary && tokens.base.primary._states) {
+        const stateName = baseParts[3];
+        const stateToken = tokens.base.primary._states[stateName];
+        const value = getValueFromToken(stateToken);
+        if (value !== undefined) return value;
+      }
+    }
+    
+    // Handle contrast-text case
+    if (baseParts[2] === 'contrast-text') {
+      const colorType = baseParts[1]; // primary, secondary, etc.
+      if (tokens.base && tokens.base[colorType] && tokens.base[colorType]['on-main']) {
+        const token = tokens.base[colorType]['on-main'];
+        const value = getValueFromToken(token);
+        if (value !== undefined) return value;
+      }
+    }
+  }
+  
+  // Handle case-insensitive search through tokens
+  let foundValue = searchTokensRecursively(tokens, parts);
+  if (foundValue) return foundValue;
+  
+  return undefined;
 }
 
 /**
@@ -218,10 +302,17 @@ function searchTokensRecursively(obj, parts, depth = 0) {
   const currentPart = parts[depth];
   const lowerCurrentPart = currentPart.toLowerCase();
   
+  // Helper function to get value from token
+  function getTokenValue(token) {
+    if (!token) return undefined;
+    return token.$rawValue !== undefined ? token.$rawValue : token.$value;
+  }
+  
   // First try exact match
   if (obj[currentPart]) {
-    if (depth === parts.length - 1 && obj[currentPart].$rawValue) {
-      return obj[currentPart].$rawValue;
+    if (depth === parts.length - 1) {
+      const value = getTokenValue(obj[currentPart]);
+      if (value !== undefined) return value;
     }
     const result = searchTokensRecursively(obj[currentPart], parts, depth + 1);
     if (result) return result;
@@ -230,8 +321,9 @@ function searchTokensRecursively(obj, parts, depth = 0) {
   // Then try case-insensitive match
   for (const key in obj) {
     if (key.toLowerCase() === lowerCurrentPart) {
-      if (depth === parts.length - 1 && obj[key].$rawValue) {
-        return obj[key].$rawValue;
+      if (depth === parts.length - 1) {
+        const value = getTokenValue(obj[key]);
+        if (value !== undefined) return value;
       }
       const result = searchTokensRecursively(obj[key], parts, depth + 1);
       if (result) return result;

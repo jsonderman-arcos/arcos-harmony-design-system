@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Core design tokens",
-    "updated": "Aug 13, 2025",
+    "updated": "Aug 14, 2025",
     "author": "Design System Team"
   },
   "breakpoints": {
@@ -156,30 +156,36 @@
   "animation": {
     "duration-fast": {
       "$type": "string",
-      "$value": "150ms"
+      "$value": "150ms",
+      "$rawValue": "150ms"
     },
     "duration-slow": {
       "$type": "string",
-      "$value": "300ms"
+      "$value": "300ms",
+      "$rawValue": "300ms"
     },
     "easing-standard": {
       "$type": "string",
-      "$value": "cubic-bezier(0.4, 0.0, 0.2, 1)"
+      "$value": "cubic-bezier(0.4, 0.0, 0.2, 1)",
+      "$rawValue": "cubic-bezier(0.4, 0.0, 0.2, 1)"
     },
     "easing-emphasized": {
       "$type": "string",
-      "$value": "cubic-bezier(0.2, 0, 0, 1)"
+      "$value": "cubic-bezier(0.2, 0, 0, 1)",
+      "$rawValue": "cubic-bezier(0.2, 0, 0, 1)"
     }
   },
   "lighthouse": {
     "typography": {
       "fontfamily-base": {
         "$type": "string",
-        "$value": "Arial"
+        "$value": "Arial",
+        "$rawValue": "Arial"
       },
       "fontfamily-narrow": {
         "$type": "string",
-        "$value": "Arial Narrow"
+        "$value": "Arial Narrow",
+        "$rawValue": "Arial Narrow"
       },
       "fontweight-light": {
         "$type": "dimension",

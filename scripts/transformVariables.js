@@ -786,6 +786,9 @@ function transformValue(value, variable, variableMap, tokenMap) {
       // For rgba strings, use as is
       token.$rawValue = value;
     }
+  } else if (typeof value === 'string' && variable.resolvedType === 'STRING') {
+    // For string type values, set $rawValue equal to $value
+    token.$rawValue = value;
   }
   
   return token;
@@ -965,6 +968,16 @@ function resolveRawValueReferences(tokenSet) {
         const isNonDimensional = isNonDimensionalValue(tokenPath);
         token.$rawValue = isNonDimensional ? token.$value : `${token.$value}px`;
         directValues[tokenPath] = token.$rawValue;
+      }
+    }
+    // Process string tokens with direct values
+    else if (token.$type === 'string') {
+      if (typeof token.$value === 'string') {
+        // For direct string values, ensure $rawValue is set
+        if (!token.$value.startsWith('{')) {
+          token.$rawValue = token.$value;
+          directValues[tokenPath] = token.$rawValue;
+        }
       }
     }
   });
