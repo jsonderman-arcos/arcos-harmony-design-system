@@ -1,132 +1,132 @@
 {
   "shadows": [
     "none",
-    "0px 2px 1px -1px {lighthouse.effects.shadow-level-1}, 0px 1px 1px 0px {lighthouse.effects.shadow-level-2}, 0px 1px 3px 0px {lighthouse.effects.shadow-level-3}",
-    "0px 3px 3px -2px {lighthouse.effects.shadow-level-1}, 0px 3px 4px 0px {lighthouse.effects.shadow-level-2}, 0px 1px 8px 0px {lighthouse.effects.shadow-level-3}",
-    "0px 3px 5px -1px {lighthouse.effects.shadow-level-1}, 0px 6px 10px 0px {lighthouse.effects.shadow-level-2}, 0px 1px 18px 0px {lighthouse.effects.shadow-level-3}",
-    "0px 5px 5px -3px {lighthouse.effects.shadow-level-1}, 0px 8px 10px 1px {lighthouse.effects.shadow-level-2}, 0px 3px 14px 2px {lighthouse.effects.shadow-level-3}",
-    "0px 7px 8px -4px {lighthouse.effects.shadow-level-1}, 0px 12px 17px 2px {lighthouse.effects.shadow-level-2}, 0px 5px 22px 4px {lighthouse.effects.shadow-level-3}"
+    "0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.2)",
+    "0px 3px 3px -2px rgba(0, 0, 0, 0.12), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.2)",
+    "0px 3px 5px -1px rgba(0, 0, 0, 0.12), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.2)",
+    "0px 5px 5px -3px rgba(0, 0, 0, 0.12), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.2)",
+    "0px 7px 8px -4px rgba(0, 0, 0, 0.12), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.2)"
   ],
   "typography": {
-    "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-    "fontSize": "{lighthouse.typography.fontsize-base}",
-    "fontWeightLight": "{lighthouse.typography.fontweight-light}",
-    "fontWeightRegular": "{lighthouse.typography.fontweight-regular}",
-    "fontWeightMedium": "{lighthouse.typography.fontweight-medium}",
-    "fontWeightBold": "{lighthouse.typography.fontweight-bold}",
+    "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+    "fontSize": "16px",
+    "fontWeightLight": "300",
+    "fontWeightRegular": "400",
+    "fontWeightMedium": "500",
+    "fontWeightBold": "700",
     "h1": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-medium}",
-      "fontSize": "{lighthouse.typography.fontsize-4xl}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "500",
+      "fontSize": "48px",
       "lineHeight": 1.2,
       "letterSpacing": "-0.01562em"
     },
     "h2": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-medium}",
-      "fontSize": "{lighthouse.typography.fontsize-3xl}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "500",
+      "fontSize": "36px",
       "lineHeight": 1.2,
       "letterSpacing": "-0.00833em"
     },
     "h3": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-medium}",
-      "fontSize": "{lighthouse.typography.fontsize-2xl}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "500",
+      "fontSize": "30px",
       "lineHeight": 1.25,
       "letterSpacing": "0em"
     },
     "h4": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-medium}",
-      "fontSize": "{lighthouse.typography.fontsize-xl}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "500",
+      "fontSize": "24px",
       "lineHeight": 1.3,
       "letterSpacing": "0.00735em"
     },
     "h5": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-medium}",
-      "fontSize": "{lighthouse.typography.fontsize-lg}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "500",
+      "fontSize": "20px",
       "lineHeight": 1.35,
       "letterSpacing": "0em"
     },
     "h6": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-medium}",
-      "fontSize": "{lighthouse.typography.fontsize-md}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "500",
+      "fontSize": "18px",
       "lineHeight": 1.4,
       "letterSpacing": "0.0075em"
     },
     "subtitle1": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-regular}",
-      "fontSize": "{lighthouse.typography.fontsize-base}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "400",
+      "fontSize": "16px",
       "lineHeight": 1.5,
       "letterSpacing": "0.00938em"
     },
     "subtitle2": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-medium}",
-      "fontSize": "{lighthouse.typography.fontsize-sm}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "500",
+      "fontSize": "14px",
       "lineHeight": 1.5,
       "letterSpacing": "0.00714em"
     },
     "body1": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-regular}",
-      "fontSize": "{lighthouse.typography.fontsize-base}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "400",
+      "fontSize": "16px",
       "lineHeight": 1.5,
       "letterSpacing": "0.00938em"
     },
     "body2": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-regular}",
-      "fontSize": "{lighthouse.typography.fontsize-sm}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "400",
+      "fontSize": "14px",
       "lineHeight": 1.5,
       "letterSpacing": "0.01071em"
     },
     "button": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-medium}",
-      "fontSize": "{lighthouse.typography.fontsize-base}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "500",
+      "fontSize": "16px",
       "lineHeight": 1.625,
       "letterSpacing": "0.02857em",
       "textTransform": "none"
     },
     "caption": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-regular}",
-      "fontSize": "{lighthouse.typography.fontsize-xs}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "400",
+      "fontSize": "12px",
       "lineHeight": 1.4,
       "letterSpacing": "0.03333em"
     },
     "overline": {
-      "fontFamily": "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
-      "fontWeight": "{lighthouse.typography.fontweight-regular}",
-      "fontSize": "{lighthouse.typography.fontsize-2xs}",
+      "fontFamily": "Arial, Helvetica, Arial, sans-serif",
+      "fontWeight": "400",
+      "fontSize": "10px",
       "lineHeight": 2.66,
       "letterSpacing": "0.08333em",
       "textTransform": "uppercase"
     }
   },
   "spacing": [
-    "{spacing.spacing-none}",
-    "{spacing.spacing-3xs}",
-    "{spacing.spacing-2xs}",
-    "{spacing.spacing-xs}",
-    "{spacing.spacing-sm}",
-    "{spacing.spacing-sm-md}",
-    "{spacing.spacing-md}",
-    "{spacing.spacing-lg}",
-    "{spacing.spacing-xl}",
-    "{spacing.spacing-2xl}"
+    "0px",
+    "4px",
+    "8px",
+    "12px",
+    "16px",
+    "20px",
+    "24px",
+    "32px",
+    "40px",
+    "48px"
   ],
   "breakpoints": {
     "values": {
       "xs": 0,
-      "sm": "{breakpoints.breakpoint-sm}",
-      "md": "{breakpoints.breakpoint-md}",
-      "lg": "{breakpoints.breakpoint-lg}",
-      "xl": "{breakpoints.breakpoint-xl}"
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px"
     }
   },
   "components": {
@@ -142,48 +142,48 @@
             "lineHeight": "26px /* 162.5% */",
             "letterSpacing": "0.46px",
             "textTransform": "none",
-            "padding": "{Components.button.button-padding-vertical} {Components.button.button-padding-horizontal}",
-            "borderRadius": "{radii.border-radius}",
+            "padding": "8px 20px",
+            "borderRadius": "8px",
             "opacity": "1",
             "boxShadow": "none",
             "&:not(.Mui-disabled):not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.primary.contrast-text}",
-              "background": "{Base.primary.main}",
+              "color": "rgba(255, 255, 255, 1)",
+              "background": "rgba(25, 118, 210, 1)",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.primary.contrast-text}",
+                "background": "rgba(255, 255, 255, 1)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled).Mui-focusVisible:not(:hover)": {
-              "color": "{Base.primary.contrast-text}",
-              "background": "{Base.primary.main}",
+              "color": "rgba(255, 255, 255, 1)",
+              "background": "rgba(25, 118, 210, 1)",
               "& .MuiTouchRipple-root": {
                 "width": "58.901px",
                 "height": "54px",
                 "borderRadius": "100px",
                 "opacity": "0.3",
-                "background": "{Base.primary.contrast-text}",
+                "background": "rgba(255, 255, 255, 1)",
                 "padding": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled):not(.Mui-focusVisible):hover": {
-              "background": "{Base.primary.dark}",
-              "color": "{Base.primary.contrast-text}"
+              "background": "rgba(21, 101, 192, 1)",
+              "color": "rgba(255, 255, 255, 1)"
             },
             "&.Mui-disabled:not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.action.disabled}",
-              "background": "{Base.action.disabledBackground}",
+              "color": "rgba(255, 255, 255, 0.3)",
+              "background": "rgba(0, 0, 0, 0.12)",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.action.disabled}",
+                "background": "rgba(255, 255, 255, 0.3)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
@@ -199,8 +199,8 @@
             "lineHeight": "26px /* 162.5% */",
             "letterSpacing": "0.46px",
             "textTransform": "none",
-            "padding": "{Components.button.button-padding-vertical} {Components.button.button-padding-horizontal}",
-            "borderRadius": "{radii.border-radius}",
+            "padding": "8px 20px",
+            "borderRadius": "8px",
             "opacity": "1",
             "boxShadow": "none",
             "&:not(.Mui-disabled):not(.Mui-focusVisible):not(:hover)": {
@@ -234,13 +234,13 @@
               "color": "rgba(0, 0, 0, 0.87)"
             },
             "&.Mui-disabled:not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.action.disabled}",
-              "background": "{Base.action.disabledBackground}",
+              "color": "rgba(255, 255, 255, 0.3)",
+              "background": "rgba(0, 0, 0, 0.12)",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.action.disabled}",
+                "background": "rgba(255, 255, 255, 0.3)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
@@ -256,48 +256,48 @@
             "lineHeight": "26px /* 162.5% */",
             "letterSpacing": "0.46px",
             "textTransform": "none",
-            "padding": "{Components.button.button-padding-vertical} {Components.button.button-padding-horizontal}",
-            "borderRadius": "{radii.border-radius}",
+            "padding": "8px 20px",
+            "borderRadius": "8px",
             "opacity": "1",
             "boxShadow": "none",
             "&:not(.Mui-disabled):not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.secondary.contrast-text}",
-              "background": "{Base.secondary.main}",
+              "color": "rgba(255, 255, 255, 1)",
+              "background": "rgba(156, 39, 176, 1)",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.secondary.contrast-text}",
+                "background": "rgba(255, 255, 255, 1)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled).Mui-focusVisible:not(:hover)": {
-              "color": "{Base.secondary.contrast-text}",
-              "background": "{Base.secondary.main}",
+              "color": "rgba(255, 255, 255, 1)",
+              "background": "rgba(156, 39, 176, 1)",
               "& .MuiTouchRipple-root": {
                 "width": "58.901px",
                 "height": "54px",
                 "borderRadius": "100px",
                 "opacity": "0.3",
-                "background": "{Base.secondary.contrast-text}",
+                "background": "rgba(255, 255, 255, 1)",
                 "padding": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled):not(.Mui-focusVisible):hover": {
-              "background": "{Base.secondary.dark}",
-              "color": "{Base.secondary.contrast-text}"
+              "background": "rgba(123, 31, 139, 1)",
+              "color": "rgba(255, 255, 255, 1)"
             },
             "&.Mui-disabled:not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.action.disabled}",
-              "background": "{Base.action.disabledBackground}",
+              "color": "rgba(255, 255, 255, 0.3)",
+              "background": "rgba(0, 0, 0, 0.12)",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.action.disabled}",
+                "background": "rgba(255, 255, 255, 0.3)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
@@ -313,48 +313,48 @@
             "lineHeight": "26px /* 162.5% */",
             "letterSpacing": "0.46px",
             "textTransform": "none",
-            "padding": "{Components.button.button-padding-vertical} {Components.button.button-padding-horizontal}",
-            "borderRadius": "{radii.border-radius}",
+            "padding": "8px 20px",
+            "borderRadius": "8px",
             "opacity": "1",
             "boxShadow": "none",
             "&:not(.Mui-disabled):not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.error.contrast-text}",
-              "background": "{Base.error.main}",
+              "color": "rgba(255, 255, 255, 1)",
+              "background": "rgba(255, 99, 71, 1)",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.error.contrast-text}",
+                "background": "rgba(255, 255, 255, 1)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled).Mui-focusVisible:not(:hover)": {
-              "color": "{Base.error.contrast-text}",
-              "background": "{Base.error.main}",
+              "color": "rgba(255, 255, 255, 1)",
+              "background": "rgba(255, 99, 71, 1)",
               "& .MuiTouchRipple-root": {
                 "width": "58.901px",
                 "height": "54px",
                 "borderRadius": "100px",
                 "opacity": "0.3",
-                "background": "{Base.error.contrast-text}",
+                "background": "rgba(255, 255, 255, 1)",
                 "padding": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled):not(.Mui-focusVisible):hover": {
-              "background": "{Base.error.dark}",
-              "color": "{Base.error.contrast-text}"
+              "background": "rgba(220, 84, 61, 1)",
+              "color": "rgba(255, 255, 255, 1)"
             },
             "&.Mui-disabled:not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.action.disabled}",
-              "background": "{Base.action.disabledBackground}",
+              "color": "rgba(255, 255, 255, 0.3)",
+              "background": "rgba(0, 0, 0, 0.12)",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.action.disabled}",
+                "background": "rgba(255, 255, 255, 0.3)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
@@ -370,48 +370,48 @@
             "lineHeight": "26px /* 162.5% */",
             "letterSpacing": "0.46px",
             "textTransform": "none",
-            "padding": "{Components.button.button-padding-vertical} {Components.button.button-padding-horizontal}",
-            "borderRadius": "{radii.border-radius}",
+            "padding": "8px 20px",
+            "borderRadius": "8px",
             "opacity": "1",
             "boxShadow": "none",
             "&:not(.Mui-disabled):not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.warning.contrast-text}",
-              "background": "{Base.warning.main}",
+              "color": "rgba(0, 0, 0, 0.87)",
+              "background": "rgba(255, 152, 0, 1)",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.warning.contrast-text}",
+                "background": "rgba(0, 0, 0, 0.87)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled).Mui-focusVisible:not(:hover)": {
-              "color": "{Base.warning.contrast-text}",
-              "background": "{Base.warning.main}",
+              "color": "rgba(0, 0, 0, 0.87)",
+              "background": "rgba(255, 152, 0, 1)",
               "& .MuiTouchRipple-root": {
                 "width": "58.901px",
                 "height": "54px",
                 "borderRadius": "100px",
                 "opacity": "0.3",
-                "background": "{Base.warning.contrast-text}",
+                "background": "rgba(0, 0, 0, 0.87)",
                 "padding": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled):not(.Mui-focusVisible):hover": {
-              "background": "{Base.warning.dark}",
-              "color": "{Base.warning.contrast-text}"
+              "background": "rgba(230, 137, 0, 1)",
+              "color": "rgba(0, 0, 0, 0.87)"
             },
             "&.Mui-disabled:not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.action.disabled}",
-              "background": "{Base.action.disabledBackground}",
+              "color": "rgba(255, 255, 255, 0.3)",
+              "background": "rgba(0, 0, 0, 0.12)",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.action.disabled}",
+                "background": "rgba(255, 255, 255, 0.3)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
@@ -427,42 +427,42 @@
             "letterSpacing": "0.4px",
             "textTransform": "none",
             "padding": "6px 16px",
-            "borderRadius": "{radii.border-radius}",
+            "borderRadius": "8px",
             "opacity": "1",
             "boxShadow": "none",
             "&:not(.Mui-disabled):not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.primary.contrast-text}",
-              "background": "{Base.primary.main}",
+              "color": "rgba(255, 255, 255, 1)",
+              "background": "rgba(25, 118, 210, 1)",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.primary.contrast-text}",
+                "background": "rgba(255, 255, 255, 1)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled).Mui-focusVisible:not(:hover)": {
-              "color": "{Base.primary.contrast-text}",
-              "background": "{Base.primary.main}",
+              "color": "rgba(255, 255, 255, 1)",
+              "background": "rgba(25, 118, 210, 1)",
               "& .MuiTouchRipple-root": {
                 "width": "58.901px",
                 "height": "54px",
                 "borderRadius": "100px",
                 "opacity": "0.3",
-                "background": "{Base.primary.contrast-text}",
+                "background": "rgba(255, 255, 255, 1)",
                 "padding": "0",
                 "boxShadow": "none"
               }
             },
             "&.Mui-disabled:not(.Mui-focusVisible):not(:hover)": {
-              "background": "{Base.action.disabledBackground}",
-              "color": "{Base.action.disabled}"
+              "background": "rgba(0, 0, 0, 0.12)",
+              "color": "rgba(255, 255, 255, 0.3)"
             },
             "&:not(.Mui-disabled):not(.Mui-focusVisible):hover": {
-              "background": "{Base.primary.dark}",
-              "color": "{Base.primary.contrast-text}"
+              "background": "rgba(21, 101, 192, 1)",
+              "color": "rgba(255, 255, 255, 1)"
             }
           },
           "&.MuiButton-sizeLarge.MuiButton-outlinedPrimary": {
@@ -474,30 +474,30 @@
             "lineHeight": "26px /* 162.5% */",
             "letterSpacing": "0.46px",
             "textTransform": "none",
-            "padding": "{Components.button.button-padding-vertical} {Components.button.button-padding-horizontal}",
-            "borderRadius": "{radii.border-radius}",
+            "padding": "8px 20px",
+            "borderRadius": "8px",
             "opacity": "1",
             "boxShadow": "none",
             "&:not(.Mui-disabled):not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.primary.main}",
+              "color": "rgba(25, 118, 210, 1)",
               "background": "transparent",
-              "borderColor": "{Base.primary.states.outlinedBorder}",
+              "borderColor": "rgba(156, 203, 251, 0.5)",
               "borderWidth": "1px",
               "borderStyle": "solid",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.primary.main}",
+                "background": "rgba(25, 118, 210, 1)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled).Mui-focusVisible:not(:hover)": {
-              "color": "{Base.primary.main}",
+              "color": "rgba(25, 118, 210, 1)",
               "background": "transparent",
-              "borderColor": "{Base.primary.states.outlinedBorder}",
+              "borderColor": "rgba(156, 203, 251, 0.5)",
               "borderWidth": "1px",
               "borderStyle": "solid",
               "& .MuiTouchRipple-root": {
@@ -505,29 +505,29 @@
                 "height": "54px",
                 "borderRadius": "100px",
                 "opacity": "0.3",
-                "background": "{Base.primary.main}",
+                "background": "rgba(25, 118, 210, 1)",
                 "padding": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled):not(.Mui-focusVisible):hover": {
-              "color": "{Base.primary.contrast-text}",
-              "background": "{Base.primary.states.hover}",
-              "borderColor": "{Base.primary.states.outlinedBorder}",
+              "color": "rgba(255, 255, 255, 1)",
+              "background": "rgba(176, 213, 251, 1)",
+              "borderColor": "rgba(156, 203, 251, 0.5)",
               "borderWidth": "1px",
               "borderStyle": "solid"
             },
             "&.Mui-disabled:not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.action.disabled}",
+              "color": "rgba(255, 255, 255, 0.3)",
               "background": "transparent",
-              "borderColor": "{Base.action.disabledBackground}",
+              "borderColor": "rgba(0, 0, 0, 0.12)",
               "borderWidth": "1px",
               "borderStyle": "solid",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.action.disabled}",
+                "background": "rgba(255, 255, 255, 0.3)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
@@ -544,47 +544,47 @@
             "letterSpacing": "0.46px",
             "textTransform": "none",
             "padding": "6px 8px",
-            "borderRadius": "{radii.border-radius}",
+            "borderRadius": "8px",
             "opacity": "1",
             "boxShadow": "none",
             "&:not(.Mui-disabled):not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.primary.main}",
+              "color": "rgba(25, 118, 210, 1)",
               "background": "transparent",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.primary.main}",
+                "background": "rgba(25, 118, 210, 1)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled).Mui-focusVisible:not(:hover)": {
-              "color": "{Base.primary.main}",
+              "color": "rgba(25, 118, 210, 1)",
               "background": "transparent",
               "& .MuiTouchRipple-root": {
                 "width": "58.901px",
                 "height": "54px",
                 "borderRadius": "100px",
                 "opacity": "0.3",
-                "background": "{Base.primary.main}",
+                "background": "rgba(25, 118, 210, 1)",
                 "padding": "0",
                 "boxShadow": "none"
               }
             },
             "&:not(.Mui-disabled):not(.Mui-focusVisible):hover": {
-              "color": "{Base.primary.contrast-text}",
-              "background": "{Base.primary.states.hover}"
+              "color": "rgba(255, 255, 255, 1)",
+              "background": "rgba(176, 213, 251, 1)"
             },
             "&.Mui-disabled:not(.Mui-focusVisible):not(:hover)": {
-              "color": "{Base.action.disabled}",
+              "color": "rgba(255, 255, 255, 0.3)",
               "background": "transparent",
               "& .MuiTouchRipple-root": {
                 "width": "80px",
                 "height": "42px",
                 "opacity": "0.3",
-                "background": "{Base.action.disabled}",
+                "background": "rgba(255, 255, 255, 0.3)",
                 "padding": "0",
                 "borderRadius": "0",
                 "boxShadow": "none"
@@ -597,13 +597,23 @@
   },
   "colorSchemes": {
     "dark": {
+      "palette": {
+        "primary": {
+          "main": "#0044f9",
+          "contrastText": "#ffffff"
+        },
+        "secondary": {
+          "main": "#ce93d8",
+          "contrastText": "#000000"
+        }
+      },
       "shadows": [
         "none",
-        "0px 2px 1px -1px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 1px 1px 0px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 1px 3px 0px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 3px 3px -2px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 3px 4px 0px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 1px 8px 0px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 3px 5px -1px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 6px 10px 0px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 1px 18px 0px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 5px 5px -3px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 8px 10px 1px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 3px 14px 2px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 7px 8px -4px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 12px 17px 2px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 5px 22px 4px {Lighthouse.colors.neutrals.black.alpha-20}"
+        "0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.2)",
+        "0px 3px 3px -2px rgba(0, 0, 0, 0.12), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.2)",
+        "0px 3px 5px -1px rgba(0, 0, 0, 0.12), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.2)",
+        "0px 5px 5px -3px rgba(0, 0, 0, 0.12), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.2)",
+        "0px 7px 8px -4px rgba(0, 0, 0, 0.12), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.2)"
       ],
       "typography": {
         "fontFamily": "Arial, Helvetica, Arial, sans-serif",
@@ -1195,13 +1205,23 @@
       }
     },
     "light": {
+      "palette": {
+        "primary": {
+          "main": "#5916d2",
+          "contrastText": "#ffffff"
+        },
+        "secondary": {
+          "main": "#9c27b0",
+          "contrastText": "#ffffff"
+        }
+      },
       "shadows": [
         "none",
-        "0px 2px 1px -1px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 1px 1px 0px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 1px 3px 0px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 3px 3px -2px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 3px 4px 0px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 1px 8px 0px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 3px 5px -1px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 6px 10px 0px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 1px 18px 0px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 5px 5px -3px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 8px 10px 1px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 3px 14px 2px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 7px 8px -4px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 12px 17px 2px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 5px 22px 4px {Lighthouse.colors.neutrals.black.alpha-20}"
+        "0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.2)",
+        "0px 3px 3px -2px rgba(0, 0, 0, 0.12), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.2)",
+        "0px 3px 5px -1px rgba(0, 0, 0, 0.12), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.2)",
+        "0px 5px 5px -3px rgba(0, 0, 0, 0.12), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.2)",
+        "0px 7px 8px -4px rgba(0, 0, 0, 0.12), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.2)"
       ],
       "typography": {
         "fontFamily": "Arial, Helvetica, Arial, sans-serif",
@@ -1793,13 +1813,23 @@
       }
     },
     "mobile": {
+      "palette": {
+        "primary": {
+          "main": "#ffa5f5",
+          "contrastText": "#ffffff"
+        },
+        "secondary": {
+          "main": "#ab47bc",
+          "contrastText": "#ffffff"
+        }
+      },
       "shadows": [
         "none",
-        "0px 2px 1px -1px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 1px 1px 0px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 1px 3px 0px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 3px 3px -2px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 3px 4px 0px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 1px 8px 0px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 3px 5px -1px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 6px 10px 0px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 1px 18px 0px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 5px 5px -3px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 8px 10px 1px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 3px 14px 2px {Lighthouse.colors.neutrals.black.alpha-20}",
-        "0px 7px 8px -4px {Lighthouse.colors.neutrals.black.alpha-12}, 0px 12px 17px 2px {Lighthouse.colors.neutrals.black.alpha-14}, 0px 5px 22px 4px {Lighthouse.colors.neutrals.black.alpha-20}"
+        "0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.2)",
+        "0px 3px 3px -2px rgba(0, 0, 0, 0.12), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.2)",
+        "0px 3px 5px -1px rgba(0, 0, 0, 0.12), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.2)",
+        "0px 5px 5px -3px rgba(0, 0, 0, 0.12), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.2)",
+        "0px 7px 8px -4px rgba(0, 0, 0, 0.12), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.2)"
       ],
       "typography": {
         "fontFamily": "Arial, Helvetica, Arial, sans-serif",

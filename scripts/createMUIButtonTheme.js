@@ -70,8 +70,12 @@ tokenFiles
 // Create the final theme.json with all color schemes
 // We'll make a clean copy of buttonThemeMapping but exclude its empty colorSchemes
 const { colorSchemes: _, ...themeBase } = buttonThemeMapping;
+
+// Process the base theme with token values from core tokens
+const processedThemeBase = processTheme(themeBase, coreTokens);
+
 const finalTheme = { 
-  ...themeBase,
+  ...processedThemeBase,
   colorSchemes
 };
 
@@ -215,18 +219,61 @@ function getTokenValue(path, tokens) {
       return token.$rawValue;
     } else if (token.$value !== undefined) {
       return token.$value;
+    } else if (token.value !== undefined) {
+      // Handle possible alternative formats (value without $)
+      return token.value;
+    } else if (token.rawValue !== undefined) {
+      return token.rawValue;
     }
+    
+    // If the token itself is a simple value (not an object with $rawValue/$value)
+    if (typeof token === 'string' || typeof token === 'number') {
+      return token;
+    }
+    
     return undefined;
   }
   
-  // Generic path traversal function
+  // Generic path traversal function with case-insensitive and dash handling
   function traversePath(obj, pathParts) {
     let current = obj;
     for (const part of pathParts) {
       if (!current || typeof current !== 'object') {
         return undefined;
       }
-      current = current[part];
+      
+      // First try direct access
+      if (current[part] !== undefined) {
+        current = current[part];
+        continue;
+      }
+      
+      // Try case-insensitive match if direct access fails
+      const lowerPart = part.toLowerCase();
+      let found = false;
+      
+      for (const key in current) {
+        if (key.toLowerCase() === lowerPart) {
+          current = current[key];
+          found = true;
+          break;
+        }
+      }
+      
+      if (!found) {
+        // Special handling for keys with dashes
+        if (part.includes('-')) {
+          const dashedKey = Object.keys(current).find(key => 
+            key.toLowerCase() === lowerPart || 
+            key.toLowerCase().replace(/-/g, '') === lowerPart.replace(/-/g, '')
+          );
+          if (dashedKey) {
+            current = current[dashedKey];
+            continue;
+          }
+        }
+        return undefined;
+      }
     }
     return current;
   }
@@ -246,8 +293,54 @@ function getTokenValue(path, tokens) {
   // Handle lighthouse paths
   if (path.startsWith('lighthouse.')) {
     const token = traversePath(tokens, parts);
+    
+    // Debug logging to understand what we're getting
+    console.log(`Path: ${path}, Token found:`, token ? (typeof token) : 'undefined');
+    
+    // If token is directly an object with $rawValue/$value
     const value = getValueFromToken(token);
-    if (value !== undefined) return value;
+    if (value !== undefined) {
+      console.log(`✅ Resolved ${path} to "${value}"`);
+      return value;
+    }
+    
+    // Special handling for string tokens that might be nested
+    if (token && typeof token === 'object') {
+      if (token.$type === 'string' && (token.$rawValue !== undefined || token.$value !== undefined)) {
+        const stringValue = token.$rawValue !== undefined ? token.$rawValue : token.$value;
+        console.log(`✅ Resolved ${path} (string token) to "${stringValue}"`);
+        return stringValue;
+      }
+    }
+    
+    console.log(`⚠️ Failed to resolve ${path}`);
+    
+    // Try direct object access with lowercase and without dashes as a fallback
+    const simplePathParts = path.toLowerCase().split('.');
+    let current = tokens;
+    for (let i = 0; i < simplePathParts.length; i++) {
+      const simplePart = simplePathParts[i].replace(/-/g, '');
+      let found = false;
+      
+      for (const key in current) {
+        if (key.toLowerCase().replace(/-/g, '') === simplePart) {
+          current = current[key];
+          found = true;
+          break;
+        }
+      }
+      
+      if (!found) {
+        console.log(`⚠️ Failed at part: ${simplePart}`);
+        return undefined;
+      }
+    }
+    
+    const fallbackValue = getValueFromToken(current);
+    if (fallbackValue !== undefined) {
+      console.log(`✅ Resolved ${path} (fallback) to "${fallbackValue}"`);
+      return fallbackValue;
+    }
   }
   
   // Handle Base.primary and other Base paths

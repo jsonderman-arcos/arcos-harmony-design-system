@@ -23,62 +23,56 @@ function createMuiTheme(mode = 'light') {
   // Set default colors for when theme config is missing colorSchemes
   const defaultColors = {
     light: {
-      palette: {
-        primary: {
-          main: '#5916d2', 
-          contrastText: '#ffffff'
-        },
-        secondary: {
-          main: '#9c27b0', // Default MUI purple
-          contrastText: '#ffffff'
-        }
+      primary: {
+        main: '#5916d2', 
+        contrastText: '#ffffff'
+      },
+      secondary: {
+        main: '#9c27b0', // Default MUI purple
+        contrastText: '#ffffff'
       }
     },
     dark: {
-      palette: {
-        primary: {
-          main: '#0044f9', 
-          contrastText: '#000000'
-        },
-        secondary: {
-          main: '#ce93d8', // Lighter purple for dark mode
-          contrastText: '#000000'
-        }
+      primary: {
+        main: '#0044f9', 
+        contrastText: '#ffffff'
+      },
+      secondary: {
+        main: '#ce93d8', // Lighter purple for dark mode
+        contrastText: '#000000'
       }
     },
     mobile: {
-      palette: {
-        primary: {
-          main: '#ffa5f5', // Different blue for mobile
-          contrastText: '#ffffff'
-        },
-        secondary: {
-          main: '#ab47bc', // Different purple for mobile
-          contrastText: '#ffffff'
-        }
+      primary: {
+        main: '#ffa5f5', // Different blue for mobile
+        contrastText: '#ffffff'
+      },
+      secondary: {
+        main: '#ab47bc', // Different purple for mobile
+        contrastText: '#ffffff'
       }
     }
   };
-  
-  // Get colorScheme if available in config, otherwise use default
+
+  // Get colorScheme components if available in config
   const hasColorSchemes = themeConfig.colorSchemes && Object.keys(themeConfig.colorSchemes).length > 0;
   const colorScheme = hasColorSchemes ? 
     (themeConfig.colorSchemes[mode] || themeConfig.colorSchemes.light) : 
-    defaultColors[mode] || defaultColors.light;
+    {};
   
-  // Create a theme instance with the selected color scheme
+  // Create a theme instance with the appropriate settings
   return createTheme({
     palette: {
       mode: mode === 'dark' ? 'dark' : 'light',
-      primary: colorScheme.palette?.primary || defaultColors.light.palette.primary,
-      secondary: colorScheme.palette?.secondary || defaultColors.light.palette.secondary,
+      primary: colorScheme.palette?.primary || defaultColors[mode]?.primary || defaultColors.light.primary,
+      secondary: colorScheme.palette?.secondary || defaultColors[mode]?.secondary || defaultColors.light.secondary,
     },
     components: {
       ...themeConfig.components,
       ...(colorScheme.components || {})
     },
-    typography: themeConfig.typography || {},
-    shadows: themeConfig.shadows || ["none"],
+    typography: colorScheme.typography || themeConfig.typography || {},
+    shadows: colorScheme.shadows || themeConfig.shadows || ["none"],
     spacing: themeConfig.spacing || [0, 4, 8, 16, 32, 64],
   });
 }
@@ -98,6 +92,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {/* Add theme debugging info */}
       <Container maxWidth="md" sx={{ mt: 8, mb: 8, py: 2 }}>
         <Paper elevation={3} sx={{ p: { xs: 4, sm: 6 }, borderRadius: 2 }}>
           <Typography 
