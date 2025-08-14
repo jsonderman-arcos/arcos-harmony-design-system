@@ -1,665 +1,254 @@
 /**
- * MUI Button Theme Generator
- * 
- * This script creates a theme.json file focused specifically on Button components
- * across all three themes (light, dark, and largescreen modes).
- * 
- * It reads design tokens from the tokens/ directory and creates a MUI-compatible
- * theme configuration focusing only on button styling.
+ * Script that uses button-theme-mapping.js to create themes/theme.json file
+ * by replacing placeholders with tokens' rawValue from different color modes
  */
 
 const fs = require('fs');
 const path = require('path');
 
-// Configuration
-const CONFIG = {
-  // Input paths
-  coreTokensPath: path.join(__dirname, '..', 'tokens', 'coreTokens.json'),
-  modesCollectionPath: path.join(__dirname, '..', 'variables', 'figma-collections-modes.json'),
-  
-  // Output path
-  outputPath: path.join(__dirname, '..', 'themes', 'theme.json'),
-  
-  // Token files naming convention
-  tokenFilePattern: mode => path.join(__dirname, '..', 'tokens', `${mode.toLowerCase()}ModeTokens.json`),
-};
+// Import button theme mapping template
+const buttonThemeMapping = require('./button-theme-mapping');
 
-/**
- * Analyzes available modes from the figma-collections-modes.json file
- * @returns {Object} Information about available modes, collections and their mappings
- */
-function analyzeModes() {
-  console.log('Analyzing available modes...');
-  
-  try {
-    const modesCollection = JSON.parse(fs.readFileSync(CONFIG.modesCollectionPath, 'utf8'));
-    
-    // Get unique modes from the collections
-    const modes = modesCollection.modes || [];
-    
-    // Format mode names to match token file naming convention
-    // Converts "Light" -> "light", "Dark" -> "dark", "Large Screen" -> "largescreen"
-    const formattedModes = modes.map(mode => ({
-      originalName: mode,
-      formattedName: mode.toLowerCase().replace(/\s+/g, '')
-    }));
-    
-    console.log(`Found ${formattedModes.length} modes: ${formattedModes.map(m => m.originalName).join(', ')}`);
-    
-    return {
-      modes: formattedModes,
-      modeIds: modesCollection.modeIds || {},
-      collections: modesCollection.collections || [],
-      modesByCollection: modesCollection.modesByCollection || {}
-    };
-  } catch (error) {
-    console.error('Error analyzing modes:', error);
-    console.log('Falling back to default modes: light, dark');
-    
-    // Fallback to default modes if analysis fails
-    return {
-      modes: [
-        { originalName: 'Light', formattedName: 'light' },
-        { originalName: 'Dark', formattedName: 'dark' },
-        { originalName: 'Large Screen', formattedName: 'largescreen' }
-      ],
-      modeIds: {},
-      collections: [],
-      modesByCollection: {}
-    };
-  }
-}
+// Define paths
+const TOKENS_DIR = path.join(__dirname, '../tokens');
+const THEMES_DIR = path.join(__dirname, '../themes');
 
-/**
- * Loads token data from specified file paths
- * @param {Array} modes The list of modes to load tokens for
- * @returns {Object} Object containing all token sets
- */
-function loadTokens(modes) {
-  console.log('Loading tokens...');
-  
-  try {
-    const tokens = {
-      core: JSON.parse(fs.readFileSync(CONFIG.coreTokensPath, 'utf8'))
-    };
+// Get all token files
+const tokenFiles = fs.readdirSync(TOKENS_DIR)
+  .filter(file => file.endsWith('Tokens.json'));
+
+// Load core tokens that are shared across all modes
+const coreTokensPath = path.join(TOKENS_DIR, 'coreTokens.json');
+const coreTokens = JSON.parse(fs.readFileSync(coreTokensPath, 'utf8'));
+
+// Process each mode token file
+const colorSchemes = {};
+
+tokenFiles
+  .filter(file => file !== 'coreTokens.json')
+  .forEach(tokenFile => {
+    // Extract mode name from the file name (e.g., darkModeTokens.json -> dark)
+    const modeName = tokenFile.replace('ModeTokens.json', '');
     
     // Load mode-specific tokens
-    for (const mode of modes) {
-      const tokenFilePath = CONFIG.tokenFilePattern(mode.formattedName);
-      
-      if (fs.existsSync(tokenFilePath)) {
-        tokens[mode.formattedName] = JSON.parse(fs.readFileSync(tokenFilePath, 'utf8'));
-        console.log(`Loaded tokens for ${mode.originalName} mode`);
-      } else {
-        console.warn(`Warning: Token file not found for ${mode.originalName} mode at ${tokenFilePath}`);
-      }
-    }
+    const modeTokensPath = path.join(TOKENS_DIR, tokenFile);
+    const modeTokens = JSON.parse(fs.readFileSync(modeTokensPath, 'utf8'));
     
-    return tokens;
-  } catch (error) {
-    console.error('Error loading token files:', error);
-    process.exit(1);
-  }
+    // Combine mode tokens with core tokens for a complete set
+    const combinedTokens = { ...coreTokens, ...modeTokens };
+    
+    // Create mode-specific theme by processing the buttonThemeMapping
+    const modeTheme = processTheme(buttonThemeMapping, combinedTokens);
+    
+    // Add to color schemes
+    colorSchemes[modeName] = modeTheme;
+  });
+
+// Create the final theme.json with all color schemes
+const finalTheme = { 
+  ...buttonThemeMapping,
+  colorSchemes
+};
+
+// Write the final theme to theme.json
+const outputPath = path.join(THEMES_DIR, 'theme.json');
+fs.writeFileSync(outputPath, JSON.stringify(finalTheme, null, 2), 'utf8');
+
+console.log(`Successfully created theme.json with ${Object.keys(colorSchemes).length} color modes: ${Object.keys(colorSchemes).join(', ')}`);
+
+/**
+ * Processes a theme by replacing token placeholders with actual values
+ * @param {Object} theme - The theme object with placeholders
+ * @param {Object} tokens - The tokens object containing raw values
+ * @returns {Object} - The processed theme with actual values
+ */
+function processTheme(theme, tokens) {
+  // Deep clone the theme to avoid modifying the original
+  const processedTheme = JSON.parse(JSON.stringify(theme));
+  
+  // Process each property recursively
+  traverseAndReplace(processedTheme, tokens);
+  
+  return processedTheme;
 }
 
 /**
- * Extracts button-specific tokens from token sets
- * @param {Object} tokens The complete token set
- * @returns {Object} Button-specific tokens
+ * Recursively traverses an object and replaces token placeholders with raw values
+ * @param {Object} obj - The object to traverse
+ * @param {Object} tokens - The tokens object containing raw values
  */
-function extractButtonTokens(tokens) {
-  console.log('Extracting button-specific tokens...');
-  
-  const buttonTokens = {};
-  
-  // Include core tokens for reference resolution
-  if (tokens.core) {
-    buttonTokens.core = tokens.core;
-  }
-  
-  // Extract theme-specific button tokens from each mode
-  for (const [themeName, themeTokens] of Object.entries(tokens)) {
-    if (themeName === 'core') continue; // We've already added core tokens
-    
-    // Check for button tokens
-    const hasButtonTokens = themeTokens.button || // Check if there's a button object
-                         (themeTokens.component && themeTokens.component.button); // Or check inside component
-    
-    if (!hasButtonTokens) {
-      console.log(`Skipping ${themeName} mode - no button tokens found`);
-      continue;
-    }
-    
-    console.log(`Found button tokens for ${themeName} mode`);
-    buttonTokens[themeName] = {};
-    
-    // Extract button-specific tokens
-    if (themeTokens.button) {
-      buttonTokens[themeName].button = themeTokens.button;
-    } else if (themeTokens.component && themeTokens.component.button) {
-      buttonTokens[themeName].button = themeTokens.component.button;
-    }
-    
-    // Extract relevant base tokens that might be referenced by button tokens
-    if (themeTokens.Base) {
-      buttonTokens[themeName].Base = themeTokens.Base;
-    }
-    
-    // Extract other token categories that might be referenced by button tokens
-    const relevantCategories = ['Lighthouse', 'spacing', 'typography', 'component'];
-    relevantCategories.forEach(category => {
-      if (themeTokens[category]) {
-        buttonTokens[themeName][category] = themeTokens[category];
-      }
-    });
-  }
-  
-  return buttonTokens;
-}
-
-/**
- * Resolves token references (e.g., {Base.primary.main}) to actual values
- * @param {Object} buttonTokens The extracted button tokens
- * @param {Object} allTokens All available tokens for reference resolution
- * @returns {Object} Resolved button tokens
- */
-function resolveTokenReferences(buttonTokens, allTokens) {
-  console.log('Resolving token references...');
-  
-  const resolvedTokens = JSON.parse(JSON.stringify(buttonTokens)); // Deep clone
-  
-  // Process each mode
-  for (const [modeName, modeTokens] of Object.entries(buttonTokens)) {
-    if (modeName === 'core') continue; // Skip core tokens, they're just for reference
-    
-    console.log(`Resolving references for ${modeName} mode...`);
-    resolveReferencesInObject(resolvedTokens[modeName], modeName, allTokens);
-  }
-  
-  return resolvedTokens;
-}
-
-/**
- * Helper function to recursively resolve references in an object
- * @param {Object} obj The object to resolve references in
- * @param {String} modeName The current mode name
- * @param {Object} allTokens All available tokens for reference resolution
- * @param {Number} depth Current recursion depth to prevent infinite loops
- */
-function resolveReferencesInObject(obj, modeName, allTokens, depth = 0) {
-  if (!obj || typeof obj !== 'object' || depth > 10) return; // Prevent infinite recursion
-  
-  // Process each property
-  for (const [key, value] of Object.entries(obj)) {
-    // If it's a token with a reference value
-    if (value && typeof value === 'object' && value.$type && value.$value) {
-      if (typeof value.$value === 'string' && value.$value.startsWith('{') && value.$value.endsWith('}')) {
-        // It's a reference
-        const refPath = value.$value.slice(1, -1); // Remove the braces
-        const resolvedValue = resolveReference(refPath, modeName, allTokens);
-        
-        if (resolvedValue !== undefined) {
-          // If resolvedValue is still a reference string, try to resolve it again
-          if (typeof resolvedValue === 'string' && 
-              resolvedValue.startsWith('{') && 
-              resolvedValue.endsWith('}')) {
-            // Try to resolve the nested reference
-            const nestedRefPath = resolvedValue.slice(1, -1);
-            const nestedResolvedValue = resolveReference(nestedRefPath, modeName, allTokens);
-            
-            if (nestedResolvedValue !== undefined) {
-              obj[key] = {
-                ...value,
-                $value: nestedResolvedValue,
-                // If there's a raw value in the reference, use it
-                $rawValue: typeof nestedResolvedValue === 'object' && nestedResolvedValue.$rawValue !== undefined 
-                  ? nestedResolvedValue.$rawValue 
-                  : (typeof nestedResolvedValue === 'string' ? nestedResolvedValue : value.$rawValue),
-                $originalRef: value.$value // Keep the original reference for debugging
-              };
-            }
-          } else {
-            // Update the value with the resolved reference
-            obj[key] = {
-              ...value,
-              $value: resolvedValue,
-              // If there's a raw value in the reference, use it
-              $rawValue: typeof resolvedValue === 'object' && resolvedValue.$rawValue !== undefined 
-                ? resolvedValue.$rawValue 
-                : (typeof resolvedValue === 'string' ? resolvedValue : value.$rawValue),
-              $originalRef: value.$value // Keep the original reference for debugging
-            };
-          }
-        }
-      }
-    } 
-    // If it's an object, recurse
-    else if (value && typeof value === 'object') {
-      resolveReferencesInObject(value, modeName, allTokens, depth + 1);
+function traverseAndReplace(obj, tokens) {
+  for (const key in obj) {
+    if (typeof obj[key] === 'string' && obj[key].includes('{') && obj[key].includes('}')) {
+      obj[key] = replaceTokens(obj[key], tokens);
+    } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+      traverseAndReplace(obj[key], tokens);
     }
   }
 }
 
 /**
- * Resolves a single reference path to its value
- * @param {String} refPath The reference path (e.g., "Base.primary.main")
- * @param {String} modeName The current mode name
- * @param {Object} allTokens All available tokens
- * @param {Number} depth Current recursion depth to prevent infinite loops
- * @returns {*} The resolved value, or undefined if not found
+ * Replaces token placeholders in a string with actual values
+ * @param {string} str - String containing token placeholders like "{Base.primary.main}"
+ * @param {Object} tokens - The tokens object containing raw values
+ * @returns {string} - The string with placeholders replaced with raw values
  */
-function resolveReference(refPath, modeName, allTokens, depth = 0) {
-  if (depth > 10) {
-    console.warn(`Possible circular reference detected: ${refPath} in mode ${modeName}`);
-    return undefined;
+function replaceTokens(str, tokens) {
+  // Extract all token references from the string
+  const tokenRegex = /{([^{}]*)}/g;
+  let match;
+  let result = str;
+  
+  while ((match = tokenRegex.exec(str)) !== null) {
+    const tokenPath = match[1]; // e.g., "Base.primary.main"
+    const tokenValue = getTokenValue(tokenPath, tokens);
+    
+    if (tokenValue !== undefined) {
+      result = result.replace(match[0], tokenValue);
+    } else {
+      console.warn(`Warning: Token not found for ${match[0]}`);
+    }
   }
   
-  try {
-    const parts = refPath.split('.');
-    
-    // First try to resolve from the current mode
-    let resolvedValue = findValueByPath(allTokens[modeName], parts);
-    
-    // If not found in current mode, try core tokens
-    if (resolvedValue === undefined && allTokens.core) {
-      resolvedValue = findValueByPath(allTokens.core, parts);
-    }
-    
-    // Check if we found a value
-    if (resolvedValue !== undefined) {
-      // If it's a reference itself, resolve it recursively
-      if (typeof resolvedValue === 'string' && 
-          resolvedValue.startsWith('{') && 
-          resolvedValue.endsWith('}')) {
-        return resolveReference(resolvedValue.slice(1, -1), modeName, allTokens, depth + 1);
-      }
-      
-      // If it's an object with a $rawValue, prioritize that
-      if (typeof resolvedValue === 'object' && resolvedValue.$rawValue !== undefined) {
-        return resolvedValue.$rawValue;
-      }
-    }
-    
-    return resolvedValue;
-  } catch (error) {
-    console.warn(`Failed to resolve reference: ${refPath} in mode ${modeName}`);
-    return undefined;
-  }
+  return result;
 }
 
 /**
- * Helper function to find a value by path in an object
- * @param {Object} obj The object to search in
- * @param {Array} pathParts The path parts to navigate
- * @returns {*} The value if found, undefined otherwise
+ * Gets a token's raw value from a dot-notation path
+ * @param {string} path - The dot notation path to the token
+ * @param {Object} tokens - The tokens object
+ * @returns {string|undefined} - The raw value or undefined if not found
  */
-function findValueByPath(obj, pathParts) {
-  if (!obj || !pathParts.length) return undefined;
+function getTokenValue(path, tokens) {
+  const parts = path.split('.');
   
-  let current = obj;
-  
-  for (const part of pathParts) {
-    if (!current || typeof current !== 'object') return undefined;
-    current = current[part];
+  // Handle special case for Components.button path mapping
+  if (path.startsWith('Components.button.')) {
+    const buttonProperty = path.replace('Components.button.', '');
+    
+    // Try to find the token in components.button
+    if (tokens.components && tokens.components.button) {
+      if (tokens.components.button[buttonProperty] && 
+          tokens.components.button[buttonProperty].$rawValue) {
+        return tokens.components.button[buttonProperty].$rawValue;
+      }
+    }
   }
   
-  // If we found a token object, prioritize $rawValue over $value
-  if (current && typeof current === 'object') {
-    // Prefer $rawValue if available, otherwise fall back to $value
-    if (current.$rawValue !== undefined) {
+  // Handle Base.primary and other Base paths
+  if (path.startsWith('Base.')) {
+    const basePath = path.replace('Base.', 'base.');
+    const baseParts = basePath.split('.');
+    
+    // Try to follow the exact path in tokens with lowercase 'base'
+    let current = tokens;
+    for (const part of baseParts) {
+      if (!current || typeof current !== 'object') {
+        break;
+      }
+      current = current[part];
+    }
+    
+    if (current && current.$rawValue !== undefined) {
       return current.$rawValue;
-    } else if (current.$value !== undefined) {
-      return current.$value;
     }
-  }
-  
-  return current;
-}
-
-/**
- * Transforms the button tokens into MUI theme format
- * @param {Object} buttonTokens The extracted and resolved button tokens
- * @param {Object} allTokens All available tokens for reference resolution
- * @returns {Object} MUI-compatible theme object
- */
-function transformToMUITheme(buttonTokens, allTokens) {
-  console.log('Transforming to MUI theme format...');
-  
-  // Create the base theme structure 
-  const theme = {
-    colorSchemes: {},
-    shadows: ["none"],  // Starting with just "none", can be expanded
-    typography: {},     // Will be populated if needed
-    spacing: [0],       // Base spacing unit, can be expanded
-    breakpoints: {
-      values: {}        // Will be populated if needed
-    },
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {}      // Common button styles across all variants
+    
+    // Try to handle states and special cases
+    if (baseParts[1] === 'primary' && baseParts[2] === 'states') {
+      // Special handling for primary.states paths
+      if (tokens.base && tokens.base.primary && tokens.base.primary._states) {
+        const stateName = baseParts[3];
+        const stateToken = tokens.base.primary._states[stateName];
+        if (stateToken && stateToken.$rawValue !== undefined) {
+          return stateToken.$rawValue;
         }
       }
     }
-  };
-  
-  // Set up the button component's basic structure
-  const buttonStyleOverrides = theme.components.MuiButton.styleOverrides;
-  
-  // Process each mode (theme) dynamically
-  for (const [modeName, modeTokens] of Object.entries(buttonTokens)) {
-    if (modeName === 'core') continue; // Skip core tokens
     
-    // Map our mode names to MUI color scheme keys
-    // MUI expects "light" and "dark" as standard color scheme keys
-    // But can also support custom scheme names
-    let schemeKey = modeName;
-    
-    console.log(`Processing ${modeName} mode for MUI theme...`);
-    
-    // Initialize the color scheme with palette
-    theme.colorSchemes[schemeKey] = {
-      palette: {
-        // Basic palette structure
-        primary: {},
-        secondary: {},
-        error: {},
-        warning: {},
-        info: {},
-        success: {},
-        background: {},
-        text: {}
-      }
-    };
-    
-    // Extract button colors from tokens and map to MUI palette
-    if (modeTokens.button) {
-      // Map primary button colors
-      if (modeTokens.button.primary?.background?.default) {
-        // Prefer $rawValue over $value
-        theme.colorSchemes[schemeKey].palette.primary.main = 
-          modeTokens.button.primary.background.default.$rawValue !== undefined
-            ? modeTokens.button.primary.background.default.$rawValue
-            : modeTokens.button.primary.background.default.$value;
-        
-        // If text color is specified
-        if (modeTokens.button.primary?.text?.default) {
-          theme.colorSchemes[schemeKey].palette.primary.contrastText = 
-            modeTokens.button.primary.text.default.$rawValue !== undefined
-              ? modeTokens.button.primary.text.default.$rawValue
-              : modeTokens.button.primary.text.default.$value;
-        }
-        
-        // If hover state is specified
-        if (modeTokens.button.primary?.background?.hover) {
-          theme.colorSchemes[schemeKey].palette.primary.dark = 
-            modeTokens.button.primary.background.hover.$rawValue !== undefined
-              ? modeTokens.button.primary.background.hover.$rawValue
-              : modeTokens.button.primary.background.hover.$value;
-        }
-        
-        // If disabled state is specified
-        if (modeTokens.button.primary?.background?.disabled) {
-          // MUI doesn't directly support disabled colors in palette
-          // We'll add it to our custom properties for component styles
-          theme.colorSchemes[schemeKey].palette.primary.disabled = 
-            modeTokens.button.primary.background.disabled.$rawValue !== undefined
-              ? modeTokens.button.primary.background.disabled.$rawValue
-              : modeTokens.button.primary.background.disabled.$value;
-        }
-      }
-      
-      // Map secondary button colors
-      if (modeTokens.button.secondary?.background?.default) {
-        // Use raw value or fully resolved reference
-        const secondaryMain = modeTokens.button.secondary.background.default.$rawValue !== undefined
-          ? modeTokens.button.secondary.background.default.$rawValue
-          : modeTokens.button.secondary.background.default.$value;
-
-        theme.colorSchemes[schemeKey].palette.secondary.main = secondaryMain;
-        
-        // For text, ensure we resolve any remaining references
-        if (modeTokens.button.secondary?.text?.default) {
-          let contrastText = modeTokens.button.secondary.text.default.$rawValue !== undefined
-            ? modeTokens.button.secondary.text.default.$rawValue
-            : modeTokens.button.secondary.text.default.$value;
-          
-          // If it's still a reference string, try to resolve it manually
-          if (typeof contrastText === 'string' && 
-              contrastText.startsWith('{') && 
-              contrastText.endsWith('}')) {
-            const refPath = contrastText.slice(1, -1);
-            
-            // Special case handling for known references
-            if (refPath === 'Base.secondary.on-main' && (modeName === 'dark' || modeName === 'mobile')) {
-              contrastText = "rgba(255, 255, 255, 1)";
-            } else {
-              const resolved = resolveReference(refPath, modeName, allTokens);
-              if (resolved !== undefined) {
-                contrastText = resolved;
-              }
-            }
-          }
-          
-          theme.colorSchemes[schemeKey].palette.secondary.contrastText = contrastText;
-        }
-        
-        // For hover state
-        if (modeTokens.button.secondary?.background?.hover) {
-          const hoverColor = modeTokens.button.secondary.background.hover.$rawValue !== undefined
-            ? modeTokens.button.secondary.background.hover.$rawValue
-            : modeTokens.button.secondary.background.hover.$value;
-          
-          theme.colorSchemes[schemeKey].palette.secondary.dark = hoverColor;
-        }
-      }
-      
-      // Handle ghost button if available (this would map to MUI's outlined variant)
-      if (modeTokens.button.ghost) {
-        if (!theme.colorSchemes[schemeKey].components) {
-          theme.colorSchemes[schemeKey].components = {};
-        }
-        
-        if (!theme.colorSchemes[schemeKey].components.MuiButton) {
-          theme.colorSchemes[schemeKey].components.MuiButton = { styleOverrides: {} };
-        }
-        
-        // Add ghost button styles to the outlined variant
-        theme.colorSchemes[schemeKey].components.MuiButton.styleOverrides.outlined = {
-          backgroundColor: modeTokens.button.ghost.background?.default?.$rawValue !== undefined
-            ? modeTokens.button.ghost.background.default.$rawValue
-            : (modeTokens.button.ghost.background?.default?.$value || 'transparent'),
-          borderColor: modeTokens.button.ghost.border?.default?.$rawValue !== undefined
-            ? modeTokens.button.ghost.border.default.$rawValue
-            : (modeTokens.button.ghost.border?.default?.$value || 'currentColor'),
-          color: modeTokens.button.ghost.text?.default?.$rawValue !== undefined
-            ? modeTokens.button.ghost.text.default.$rawValue
-            : (modeTokens.button.ghost.text?.default?.$value || 'inherit')
-        };
-        
-        // Add hover state if available
-        if (modeTokens.button.ghost.background?.hover || modeTokens.button.ghost.text?.hover) {
-          theme.colorSchemes[schemeKey].components.MuiButton.styleOverrides.outlined['&:hover'] = {
-            backgroundColor: modeTokens.button.ghost.background?.hover?.$rawValue !== undefined
-              ? modeTokens.button.ghost.background.hover.$rawValue
-              : modeTokens.button.ghost.background?.hover?.$value,
-            color: modeTokens.button.ghost.text?.hover?.$rawValue !== undefined
-              ? modeTokens.button.ghost.text.hover.$rawValue
-              : modeTokens.button.ghost.text?.hover?.$value
-          };
-        }
-      }
-      
-      // Extract button sizes if available
-      const paddingVertical = modeTokens.button['button-padding-vertical']?.$rawValue !== undefined
-        ? modeTokens.button['button-padding-vertical'].$rawValue
-        : modeTokens.button['button-padding-vertical']?.$value;
-      const paddingHorizontal = modeTokens.button['button-padding-horizontal']?.$rawValue !== undefined
-        ? modeTokens.button['button-padding-horizontal'].$rawValue
-        : modeTokens.button['button-padding-horizontal']?.$value;
-      
-      if (paddingVertical && paddingHorizontal) {
-        // Set the padding for this color scheme
-        if (!theme.colorSchemes[schemeKey].components) {
-          theme.colorSchemes[schemeKey].components = {};
-        }
-        
-        if (!theme.colorSchemes[schemeKey].components.MuiButton) {
-          theme.colorSchemes[schemeKey].components.MuiButton = { styleOverrides: {} };
-        }
-        
-        if (!theme.colorSchemes[schemeKey].components.MuiButton.styleOverrides.sizeMedium) {
-          theme.colorSchemes[schemeKey].components.MuiButton.styleOverrides.sizeMedium = {};
-        }
-        
-        theme.colorSchemes[schemeKey].components.MuiButton.styleOverrides.sizeMedium.padding = 
-          `${paddingVertical} ${paddingHorizontal}`;
+    // Handle contrast-text case
+    if (baseParts[2] === 'contrast-text') {
+      const colorType = baseParts[1]; // primary, secondary, etc.
+      if (tokens.base && tokens.base[colorType] && tokens.base[colorType]['on-main']) {
+        return tokens.base[colorType]['on-main'].$rawValue;
       }
     }
   }
   
-  // Setup general button style overrides that apply across all color schemes
-  // These are shared properties that don't vary by theme
+  // Handle case-insensitive search through tokens
+  let foundValue = searchTokensRecursively(tokens, parts);
+  if (foundValue) return foundValue;
   
-  // Define base styles for all buttons
-  buttonStyleOverrides.root = {
-    fontFeatureSettings: "'liga' off, 'clig' off",
-    fontFamily: "Arial, Helvetica, Arial, sans-serif",
-    textTransform: "none", // Most design systems prefer no text transform
-    borderRadius: "var(--mui-shape-borderRadius)",
-    boxShadow: "none"  // Flat design is common in modern UIs
+  // Add fallbacks for common tokens that might be missing
+  const fallbacks = {
+    'Components.button.button-padding-vertical': '8px',
+    'Components.button.button-padding-horizontal': '20px',
+    'Base.action.disabledBackground': 'rgba(0, 0, 0, 0.12)',
+    'Base.action.disabled': 'rgba(255, 255, 255, 0.3)',
+    'Base.primary.states.outlinedBorder': 'rgba(156, 203, 251, 0.5)',
+    'Base.primary.states.hover': 'rgba(176, 213, 251, 1)',
+    'Base.primary.main': 'rgba(25, 118, 210, 1)',
+    'Base.primary.dark': 'rgba(21, 101, 192, 1)',
+    'Base.primary.light': 'rgba(66, 165, 245, 1)',
+    'Base.primary.contrast-text': 'rgba(255, 255, 255, 1)',
+    'Base.error.main': 'rgba(255, 99, 71, 1)',
+    'Base.error.dark': 'rgba(220, 84, 61, 1)',
+    'Base.error.contrast-text': 'rgba(255, 255, 255, 1)',
+    'Base.warning.main': 'rgba(255, 152, 0, 1)',
+    'Base.warning.dark': 'rgba(230, 137, 0, 1)',
+    'Base.warning.contrast-text': 'rgba(0, 0, 0, 0.87)',
+    'Base.secondary.main': 'rgba(156, 39, 176, 1)',
+    'Base.secondary.dark': 'rgba(123, 31, 139, 1)',
+    'Base.secondary.contrast-text': 'rgba(255, 255, 255, 1)',
+    'radii.border-radius': '4px'
   };
   
-  // Define size variants - can be overridden by specific color schemes
-  buttonStyleOverrides.sizeLarge = {
-    fontSize: "1rem",
-    lineHeight: "26px",
-    letterSpacing: "0.46px",
-    padding: "8px 20px",
-  };
+  return fallbacks[path];
+}
+
+/**
+ * Recursively searches tokens for a matching path
+ * @param {Object} obj - The current object level to search in
+ * @param {Array} parts - The parts of the path to find
+ * @param {number} depth - Current depth in the search
+ * @returns {string|undefined} - The raw value if found
+ */
+function searchTokensRecursively(obj, parts, depth = 0) {
+  if (depth >= parts.length) return undefined;
   
-  buttonStyleOverrides.sizeMedium = {
-    fontSize: "0.875rem",
-    lineHeight: "24px",
-    letterSpacing: "0.4px",
-    padding: "6px 16px",
-  };
+  const currentPart = parts[depth];
+  const lowerCurrentPart = currentPart.toLowerCase();
   
-  buttonStyleOverrides.sizeSmall = {
-    fontSize: "0.75rem",
-    lineHeight: "20px",
-    letterSpacing: "0.4px",
-    padding: "4px 10px",
-  };
-  
-  // Define variant styles (these are the base styles that will be overridden by color schemes)
-  buttonStyleOverrides.contained = {
-    boxShadow: "none"
-  };
-  
-  buttonStyleOverrides.outlined = {
-    borderWidth: "1px",
-    borderStyle: "solid",
-    "&:hover": {
-      borderWidth: "1px" // Maintain border width on hover
+  // First try exact match
+  if (obj[currentPart]) {
+    if (depth === parts.length - 1 && obj[currentPart].$rawValue) {
+      return obj[currentPart].$rawValue;
     }
-  };
-  
-  buttonStyleOverrides.text = {
-    padding: "6px 8px"
-  };
-  
-  console.log(`Created theme with ${Object.keys(theme.colorSchemes).length} color schemes: ${Object.keys(theme.colorSchemes).join(', ')}`);
-  
-  return theme;
-}
-
-/**
- * Main function to orchestrate the theme generation process
- */
-async function generateButtonTheme() {
-  console.log('Starting MUI Button Theme generation...');
-  
-  // 1. Analyze available modes
-  const modesInfo = analyzeModes();
-  console.log(`Working with modes: ${modesInfo.modes.map(m => m.originalName).join(', ')}`);
-  
-  // 2. Load all tokens based on discovered modes
-  const allTokens = loadTokens(modesInfo.modes);
-  
-  // 3. Extract button-specific tokens
-  const buttonTokens = extractButtonTokens(allTokens);
-  
-  // 4. Resolve token references
-  const resolvedTokens = resolveTokenReferences(buttonTokens, allTokens);
-  
-  // 5. Transform to MUI theme format
-  const muiTheme = transformToMUITheme(resolvedTokens, allTokens);
-  
-  // 6. Save the theme.json file
-  fs.writeFileSync(CONFIG.outputPath, JSON.stringify(muiTheme, null, 2));
-  
-  console.log(`Button theme successfully generated at: ${CONFIG.outputPath}`);
-}
-
-/**
- * Test function to check the analyzeModes function
- */
-function testAnalyzeModes() {
-  console.log('Testing analyzeModes() function...');
-  
-  try {
-    // Call analyzeModes and get the result
-    const modesInfo = analyzeModes();
-    
-    // Print detailed results
-    console.log('\n=== Mode Analysis Results ===');
-    console.log(`\nTotal modes found: ${modesInfo.modes.length}`);
-    
-    // Log each mode with its formatted name
-    console.log('\nModes and their formatted names:');
-    modesInfo.modes.forEach(mode => {
-      console.log(`- ${mode.originalName} -> ${mode.formattedName}`);
-    });
-    
-    // Log mode IDs
-    console.log('\nMode IDs:');
-    Object.entries(modesInfo.modeIds).forEach(([name, id]) => {
-      console.log(`- ${name}: ${id}`);
-    });
-    
-    // Log collections
-    console.log('\nCollections:');
-    modesInfo.collections.forEach(collection => {
-      console.log(`- ${collection.name} (${collection.id})`);
-    });
-    
-    // Log modes by collection
-    console.log('\nModes by Collection:');
-    Object.entries(modesInfo.modesByCollection).forEach(([collectionId, modes]) => {
-      // Find collection name
-      const collection = modesInfo.collections.find(c => c.id === collectionId);
-      const collectionName = collection ? collection.name : 'Unknown Collection';
-      console.log(`- ${collectionName} (${collectionId}): ${modes.join(', ')}`);
-    });
-    
-    console.log('\n=== End of Mode Analysis ===\n');
-    return modesInfo;
-  } catch (error) {
-    console.error('Error testing analyzeModes:', error);
-    return null;
+    const result = searchTokensRecursively(obj[currentPart], parts, depth + 1);
+    if (result) return result;
   }
+  
+  // Then try case-insensitive match
+  for (const key in obj) {
+    if (key.toLowerCase() === lowerCurrentPart) {
+      if (depth === parts.length - 1 && obj[key].$rawValue) {
+        return obj[key].$rawValue;
+      }
+      const result = searchTokensRecursively(obj[key], parts, depth + 1);
+      if (result) return result;
+    }
+  }
+  
+  return undefined;
 }
 
-// Choose which function to run based on command line arguments
-if (process.argv.includes('--test-modes')) {
-  testAnalyzeModes();
-} else {
-  // Run the full theme generator
-  generateButtonTheme()
-    .then(() => console.log('Button theme generation completed successfully'))
-    .catch(error => {
-      console.error('Error generating button theme:', error);
-      process.exit(1);
-    });
+/**
+ * Helper function to find a key in an object ignoring case
+ * @param {Object} obj - The object to search in
+ * @param {string} key - The key to find (case-insensitive)
+ * @returns {any} - The value if found, undefined otherwise
+ */
+function findKeyIgnoreCase(obj, key) {
+  const lowerKey = key.toLowerCase();
+  const matchingKey = Object.keys(obj).find(k => k.toLowerCase() === lowerKey);
+  return matchingKey ? obj[matchingKey] : undefined;
 }

@@ -12,11 +12,135 @@
 // Export the theme mapping as a JavaScript object
 module.exports = {
   colorSchemes: {},
-  shadows: ["none"],
-  typography: {},
-  spacing: [0],
+  shadows: [
+    "none",
+    "0px 2px 1px -1px {lighthouse.effects.shadow-level-1}, 0px 1px 1px 0px {lighthouse.effects.shadow-level-2}, 0px 1px 3px 0px {lighthouse.effects.shadow-level-3}",
+    "0px 3px 3px -2px {lighthouse.effects.shadow-level-1}, 0px 3px 4px 0px {lighthouse.effects.shadow-level-2}, 0px 1px 8px 0px {lighthouse.effects.shadow-level-3}",
+    "0px 3px 5px -1px {lighthouse.effects.shadow-level-1}, 0px 6px 10px 0px {lighthouse.effects.shadow-level-2}, 0px 1px 18px 0px {lighthouse.effects.shadow-level-3}",
+    "0px 5px 5px -3px {lighthouse.effects.shadow-level-1}, 0px 8px 10px 1px {lighthouse.effects.shadow-level-2}, 0px 3px 14px 2px {lighthouse.effects.shadow-level-3}",
+    "0px 7px 8px -4px {lighthouse.effects.shadow-level-1}, 0px 12px 17px 2px {lighthouse.effects.shadow-level-2}, 0px 5px 22px 4px {lighthouse.effects.shadow-level-3}"
+  ],
+  typography: {
+    fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+    fontSize: "{lighthouse.typography.fontsize-base}",
+    fontWeightLight: "{lighthouse.typography.fontweight-light}",
+    fontWeightRegular: "{lighthouse.typography.fontweight-regular}",
+    fontWeightMedium: "{lighthouse.typography.fontweight-medium}",
+    fontWeightBold: "{lighthouse.typography.fontweight-bold}",
+    h1: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-medium}",
+      fontSize: "{lighthouse.typography.fontsize-4xl}",
+      lineHeight: 1.2,
+      letterSpacing: "-0.01562em"
+    },
+    h2: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-medium}",
+      fontSize: "{lighthouse.typography.fontsize-3xl}",
+      lineHeight: 1.2,
+      letterSpacing: "-0.00833em"
+    },
+    h3: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-medium}",
+      fontSize: "{lighthouse.typography.fontsize-2xl}",
+      lineHeight: 1.25,
+      letterSpacing: "0em"
+    },
+    h4: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-medium}",
+      fontSize: "{lighthouse.typography.fontsize-xl}",
+      lineHeight: 1.3,
+      letterSpacing: "0.00735em"
+    },
+    h5: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-medium}",
+      fontSize: "{lighthouse.typography.fontsize-lg}",
+      lineHeight: 1.35,
+      letterSpacing: "0em"
+    },
+    h6: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-medium}",
+      fontSize: "{lighthouse.typography.fontsize-md}",
+      lineHeight: 1.4,
+      letterSpacing: "0.0075em"
+    },
+    subtitle1: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-regular}",
+      fontSize: "{lighthouse.typography.fontsize-base}",
+      lineHeight: 1.5,
+      letterSpacing: "0.00938em"
+    },
+    subtitle2: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-medium}",
+      fontSize: "{lighthouse.typography.fontsize-sm}",
+      lineHeight: 1.5,
+      letterSpacing: "0.00714em"
+    },
+    body1: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-regular}",
+      fontSize: "{lighthouse.typography.fontsize-base}",
+      lineHeight: 1.5,
+      letterSpacing: "0.00938em"
+    },
+    body2: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-regular}",
+      fontSize: "{lighthouse.typography.fontsize-sm}",
+      lineHeight: 1.5,
+      letterSpacing: "0.01071em"
+    },
+    button: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-medium}",
+      fontSize: "{lighthouse.typography.fontsize-base}",
+      lineHeight: 1.625,
+      letterSpacing: "0.02857em",
+      textTransform: "none"
+    },
+    caption: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-regular}",
+      fontSize: "{lighthouse.typography.fontsize-xs}",
+      lineHeight: 1.4,
+      letterSpacing: "0.03333em"
+    },
+    overline: {
+      fontFamily: "{lighthouse.typography.fontfamily-base}, Helvetica, Arial, sans-serif",
+      fontWeight: "{lighthouse.typography.fontweight-regular}",
+      fontSize: "{lighthouse.typography.fontsize-2xs}",
+      lineHeight: 2.66,
+      letterSpacing: "0.08333em",
+      textTransform: "uppercase"
+    }
+  },
+  spacing: [
+    "{spacing.spacing-none}",
+    "{spacing.spacing-3xs}",
+    "{spacing.spacing-2xs}",
+    "{spacing.spacing-xs}",
+    "{spacing.spacing-sm}",
+    "{spacing.spacing-sm-md}",
+    "{spacing.spacing-md}",
+    "{spacing.spacing-lg}",
+    "{spacing.spacing-xl}",
+    "{spacing.spacing-2xl}"
+  ],
   breakpoints: {
-    values: {}
+    values: {
+      xs: 0,
+      sm: "{breakpoints.breakpoint-sm}",
+      md: "{breakpoints.breakpoint-md}",
+      lg: "{breakpoints.breakpoint-lg}",
+      xl: "{breakpoints.breakpoint-xl}"
+    }
   },
   components: {
     MuiButton: {
