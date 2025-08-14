@@ -92,7 +92,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* Add theme debugging info */}
       <Container maxWidth="md" sx={{ mt: 8, mb: 8, py: 2 }}>
         <Paper elevation={3} sx={{ p: { xs: 4, sm: 6 }, borderRadius: 2 }}>
           <Typography 

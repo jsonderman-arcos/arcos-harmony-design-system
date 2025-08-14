@@ -7,13 +7,23 @@
  * with token definitions and easier searching.
  * 
  * Use this as a reference when updating theme.json or when creating MUI button themes.
- *
- * colorSchemes: {},
  */
+
 
 // Export the theme mapping as a JavaScript object
 module.exports = {
-  
+  // Palette definitions using token placeholders
+ palette: {
+        "primary": {
+          "main": "{Base.primary.main}",
+          "contrastText": "{Base.primary.contrast-text}"
+        },
+        "secondary": {
+          "main": "{Base.secondary.main}",
+          "contrastText": "{Base.secondary.contrast-text}"
+        }
+      },
+
   shadows: [
     "none",
     "0px 2px 1px -1px {lighthouse.effects.shadow-level-1}, 0px 1px 1px 0px {lighthouse.effects.shadow-level-2}, 0px 1px 3px 0px {lighthouse.effects.shadow-level-3}",

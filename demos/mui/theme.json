@@ -1,4 +1,68 @@
 {
+  "palette": {
+    "primary": {
+      "main": "Colors.primary.main",
+      "light": "Colors.primary.light",
+      "dark": "Colors.primary.dark",
+      "contrastText": "Colors.primary.contrastText"
+    },
+    "secondary": {
+      "main": "Colors.secondary.main",
+      "light": "Colors.secondary.light",
+      "dark": "Colors.secondary.dark",
+      "contrastText": "Colors.secondary.contrastText"
+    },
+    "error": {
+      "main": "Colors.error.main",
+      "light": "Colors.error.light",
+      "dark": "Colors.error.dark",
+      "contrastText": "Colors.error.contrastText"
+    },
+    "warning": {
+      "main": "Colors.warning.main",
+      "light": "Colors.warning.light",
+      "dark": "Colors.warning.dark",
+      "contrastText": "Colors.warning.contrastText"
+    },
+    "info": {
+      "main": "Colors.info.main",
+      "light": "Colors.info.light",
+      "dark": "Colors.info.dark",
+      "contrastText": "Colors.info.contrastText"
+    },
+    "success": {
+      "main": "Colors.success.main",
+      "light": "Colors.success.light",
+      "dark": "Colors.success.dark",
+      "contrastText": "Colors.success.contrastText"
+    },
+    "text": {
+      "primary": "Colors.text.primary",
+      "secondary": "Colors.text.secondary",
+      "disabled": "Colors.text.disabled",
+      "hint": "Colors.text.hint"
+    },
+    "background": {
+      "default": "Colors.background.default",
+      "paper": "Colors.background.paper",
+      "disabled": "Colors.background.disabled"
+    },
+    "action": {
+      "active": "Colors.action.active",
+      "hover": "Colors.action.hover",
+      "selected": "Colors.action.selected",
+      "disabled": "Colors.action.disabled",
+      "disabledBackground": "Colors.action.disabledBackground",
+      "focus": "Colors.action.focus",
+      "hoverOpacity": "Colors.action.hoverOpacity",
+      "selectedOpacity": "Colors.action.selectedOpacity",
+      "disabledOpacity": "Colors.action.disabledOpacity",
+      "focusOpacity": "Colors.action.focusOpacity",
+      "activatedOpacity": "Colors.action.activatedOpacity"
+    },
+    "divider": "Colors.divider",
+    "mode": "Colors.mode"
+  },
   "shadows": [
     "none",
     "0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.2)",
@@ -599,13 +663,67 @@
     "dark": {
       "palette": {
         "primary": {
-          "main": "#0044f9",
-          "contrastText": "#ffffff"
+          "main": "Colors.primary.main",
+          "light": "Colors.primary.light",
+          "dark": "Colors.primary.dark",
+          "contrastText": "Colors.primary.contrastText"
         },
         "secondary": {
-          "main": "#ce93d8",
-          "contrastText": "#000000"
-        }
+          "main": "Colors.secondary.main",
+          "light": "Colors.secondary.light",
+          "dark": "Colors.secondary.dark",
+          "contrastText": "Colors.secondary.contrastText"
+        },
+        "error": {
+          "main": "Colors.error.main",
+          "light": "Colors.error.light",
+          "dark": "Colors.error.dark",
+          "contrastText": "Colors.error.contrastText"
+        },
+        "warning": {
+          "main": "Colors.warning.main",
+          "light": "Colors.warning.light",
+          "dark": "Colors.warning.dark",
+          "contrastText": "Colors.warning.contrastText"
+        },
+        "info": {
+          "main": "Colors.info.main",
+          "light": "Colors.info.light",
+          "dark": "Colors.info.dark",
+          "contrastText": "Colors.info.contrastText"
+        },
+        "success": {
+          "main": "Colors.success.main",
+          "light": "Colors.success.light",
+          "dark": "Colors.success.dark",
+          "contrastText": "Colors.success.contrastText"
+        },
+        "text": {
+          "primary": "Colors.text.primary",
+          "secondary": "Colors.text.secondary",
+          "disabled": "Colors.text.disabled",
+          "hint": "Colors.text.hint"
+        },
+        "background": {
+          "default": "Colors.background.default",
+          "paper": "Colors.background.paper",
+          "disabled": "Colors.background.disabled"
+        },
+        "action": {
+          "active": "Colors.action.active",
+          "hover": "Colors.action.hover",
+          "selected": "Colors.action.selected",
+          "disabled": "Colors.action.disabled",
+          "disabledBackground": "Colors.action.disabledBackground",
+          "focus": "Colors.action.focus",
+          "hoverOpacity": "Colors.action.hoverOpacity",
+          "selectedOpacity": "Colors.action.selectedOpacity",
+          "disabledOpacity": "Colors.action.disabledOpacity",
+          "focusOpacity": "Colors.action.focusOpacity",
+          "activatedOpacity": "Colors.action.activatedOpacity"
+        },
+        "divider": "Colors.divider",
+        "mode": "Colors.mode"
       },
       "shadows": [
         "none",
@@ -1207,13 +1325,67 @@
     "light": {
       "palette": {
         "primary": {
-          "main": "#5916d2",
-          "contrastText": "#ffffff"
+          "main": "Colors.primary.main",
+          "light": "Colors.primary.light",
+          "dark": "Colors.primary.dark",
+          "contrastText": "Colors.primary.contrastText"
         },
         "secondary": {
-          "main": "#9c27b0",
-          "contrastText": "#ffffff"
-        }
+          "main": "Colors.secondary.main",
+          "light": "Colors.secondary.light",
+          "dark": "Colors.secondary.dark",
+          "contrastText": "Colors.secondary.contrastText"
+        },
+        "error": {
+          "main": "Colors.error.main",
+          "light": "Colors.error.light",
+          "dark": "Colors.error.dark",
+          "contrastText": "Colors.error.contrastText"
+        },
+        "warning": {
+          "main": "Colors.warning.main",
+          "light": "Colors.warning.light",
+          "dark": "Colors.warning.dark",
+          "contrastText": "Colors.warning.contrastText"
+        },
+        "info": {
+          "main": "Colors.info.main",
+          "light": "Colors.info.light",
+          "dark": "Colors.info.dark",
+          "contrastText": "Colors.info.contrastText"
+        },
+        "success": {
+          "main": "Colors.success.main",
+          "light": "Colors.success.light",
+          "dark": "Colors.success.dark",
+          "contrastText": "Colors.success.contrastText"
+        },
+        "text": {
+          "primary": "Colors.text.primary",
+          "secondary": "Colors.text.secondary",
+          "disabled": "Colors.text.disabled",
+          "hint": "Colors.text.hint"
+        },
+        "background": {
+          "default": "Colors.background.default",
+          "paper": "Colors.background.paper",
+          "disabled": "Colors.background.disabled"
+        },
+        "action": {
+          "active": "Colors.action.active",
+          "hover": "Colors.action.hover",
+          "selected": "Colors.action.selected",
+          "disabled": "Colors.action.disabled",
+          "disabledBackground": "Colors.action.disabledBackground",
+          "focus": "Colors.action.focus",
+          "hoverOpacity": "Colors.action.hoverOpacity",
+          "selectedOpacity": "Colors.action.selectedOpacity",
+          "disabledOpacity": "Colors.action.disabledOpacity",
+          "focusOpacity": "Colors.action.focusOpacity",
+          "activatedOpacity": "Colors.action.activatedOpacity"
+        },
+        "divider": "Colors.divider",
+        "mode": "Colors.mode"
       },
       "shadows": [
         "none",
@@ -1815,13 +1987,67 @@
     "mobile": {
       "palette": {
         "primary": {
-          "main": "#ffa5f5",
-          "contrastText": "#ffffff"
+          "main": "Colors.primary.main",
+          "light": "Colors.primary.light",
+          "dark": "Colors.primary.dark",
+          "contrastText": "Colors.primary.contrastText"
         },
         "secondary": {
-          "main": "#ab47bc",
-          "contrastText": "#ffffff"
-        }
+          "main": "Colors.secondary.main",
+          "light": "Colors.secondary.light",
+          "dark": "Colors.secondary.dark",
+          "contrastText": "Colors.secondary.contrastText"
+        },
+        "error": {
+          "main": "Colors.error.main",
+          "light": "Colors.error.light",
+          "dark": "Colors.error.dark",
+          "contrastText": "Colors.error.contrastText"
+        },
+        "warning": {
+          "main": "Colors.warning.main",
+          "light": "Colors.warning.light",
+          "dark": "Colors.warning.dark",
+          "contrastText": "Colors.warning.contrastText"
+        },
+        "info": {
+          "main": "Colors.info.main",
+          "light": "Colors.info.light",
+          "dark": "Colors.info.dark",
+          "contrastText": "Colors.info.contrastText"
+        },
+        "success": {
+          "main": "Colors.success.main",
+          "light": "Colors.success.light",
+          "dark": "Colors.success.dark",
+          "contrastText": "Colors.success.contrastText"
+        },
+        "text": {
+          "primary": "Colors.text.primary",
+          "secondary": "Colors.text.secondary",
+          "disabled": "Colors.text.disabled",
+          "hint": "Colors.text.hint"
+        },
+        "background": {
+          "default": "Colors.background.default",
+          "paper": "Colors.background.paper",
+          "disabled": "Colors.background.disabled"
+        },
+        "action": {
+          "active": "Colors.action.active",
+          "hover": "Colors.action.hover",
+          "selected": "Colors.action.selected",
+          "disabled": "Colors.action.disabled",
+          "disabledBackground": "Colors.action.disabledBackground",
+          "focus": "Colors.action.focus",
+          "hoverOpacity": "Colors.action.hoverOpacity",
+          "selectedOpacity": "Colors.action.selectedOpacity",
+          "disabledOpacity": "Colors.action.disabledOpacity",
+          "focusOpacity": "Colors.action.focusOpacity",
+          "activatedOpacity": "Colors.action.activatedOpacity"
+        },
+        "divider": "Colors.divider",
+        "mode": "Colors.mode"
       },
       "shadows": [
         "none",
