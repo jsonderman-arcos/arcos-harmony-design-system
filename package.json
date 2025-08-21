@@ -1,0 +1,25 @@
+{
+  "name": "ux-design-system",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "tokens:build": "ts-node src/tokens/scripts/build-from-figma.ts",
+    "tokens:watch": "chokidar 'src/tokens/raw/tokens-raw-response.json' -c 'yarn tokens:build'"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4",
+    "@types/node": "^20.12.12",
+    "chokidar-cli": "^3.0.0"
+},
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.3.1",
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
+    "style-dictionary": "^5.0.1"
+  }
+}
