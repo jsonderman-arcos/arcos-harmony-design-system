@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Card, CardContent, Typography, Button } from '@mui/material'
+import { Typography, Button } from '@mui/material'
 import './App.css'
 
 function App() {

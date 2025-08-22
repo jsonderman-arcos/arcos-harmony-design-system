@@ -327,11 +327,33 @@ function writeCssByMode(
 const coreCss = `/* AUTO-GENERATED: CORE */\n` + writeCssByMode(flatCore, coreCol, { preferAlias: false });
 const themeCss = `/* AUTO-GENERATED: THEME */\n` + writeCssByMode(flatTheme, themeCol, { preferAlias: true });
 
+// Utility function to flatten objects into dot-notation keys
+function flattenObject(obj: any, prefix = ''): Record<string, string> {
+  return Object.entries(obj).reduce((acc, [key, value]) => {
+    const newKey = prefix ? `${prefix}.${key}` : key;
+    if (typeof value === 'object' && value !== null) {
+      Object.assign(acc, flattenObject(value, newKey));
+    } else {
+      acc[newKey] = String(value);
+    }
+    return acc;
+  }, {} as Record<string, string>);
+}
+
+// Write the standard flat JSON files
 fs.writeFileSync(path.join(OUT_DIR, 'core.flat.json'), JSON.stringify(flatCore, null, 2));
 fs.writeFileSync(path.join(OUT_DIR, 'theme.flat.json'), JSON.stringify(flatTheme, null, 2));
 fs.writeFileSync(path.join(OUT_DIR, 'core.css'), coreCss);
 fs.writeFileSync(path.join(OUT_DIR, 'theme.css'), themeCss);
 fs.writeFileSync(path.join(OUT_DIR, 'tokens.css'), `${coreCss}\n${themeCss}`);
+
+// Write additional flattened versions with dot-notation keys for MUI compatibility
+const coreJson = flatCore;
+const themeJson = flatTheme;
+const flatCoreDot = flattenObject(coreJson);
+const flatThemeDot = flattenObject(themeJson);
+fs.writeFileSync(path.join(OUT_DIR, 'core.muiflat.json'), JSON.stringify(flatCoreDot, null, 2));
+fs.writeFileSync(path.join(OUT_DIR, 'theme.muiflat.json'), JSON.stringify(flatThemeDot, null, 2));
 
 console.log('[tokens] Wrote:');
 console.log('-', path.join(OUT_DIR, 'core.css'));
@@ -339,3 +361,5 @@ console.log('-', path.join(OUT_DIR, 'theme.css'));
 console.log('-', path.join(OUT_DIR, 'tokens.css'));
 console.log('-', path.join(OUT_DIR, 'core.flat.json'));
 console.log('-', path.join(OUT_DIR, 'theme.flat.json'));
+console.log('-', path.join(OUT_DIR, 'core.flat.json.flat.json'));
+console.log('-', path.join(OUT_DIR, 'theme.flat.json.flat.json'));

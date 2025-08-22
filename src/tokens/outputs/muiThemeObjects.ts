@@ -6,27 +6,28 @@ export const muiThemeLight: ThemeOptions = {
   "palette": {
     "mode": "light",
     "common": {
-      "white": "#ffffff",
-      "black": "#000000"
+      "white": "rgba(255, 255, 255, 1)",
+      "black": "rgba(0, 0, 0, 1)"
     },
     "primary": {
-      "main": "#1976d2"
+      "main": "rgba(25, 118, 210, 1)"
     },
     "secondary": {
-      "main": "#9c27b0"
+      "main": "rgba(156, 39, 176, 1)"
     },
     "background": {
-      "default": "#fff",
-      "paper": "#fff"
+      "default": "rgba(255, 255, 255, 1)",
+      "paper": "rgba(255, 255, 255, 1)"
     },
     "text": {
-      "primary": "#000",
-      "secondary": "#666"
+      "primary": "rgba(0, 0, 0, 1)",
+      "secondary": "rgba(102, 102, 102, 1)"
     }
   },
   "typography": {
     "fontFamily": "\"Arial\", sans-serif\"",
     "fontSize": 14,
+    "fontWeightLight": 300,
     "fontWeightRegular": 400,
     "fontWeightMedium": 500,
     "h1": {
@@ -69,7 +70,7 @@ export const muiThemeLight: ThemeOptions = {
       "styleOverrides": {
         "root": {
           "borderRadius": "8px",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "rgba(255, 255, 255, 1)"
         }
       }
     }
@@ -80,27 +81,28 @@ export const muiThemeDark: ThemeOptions = {
   "palette": {
     "mode": "dark",
     "common": {
-      "white": "#ffffff",
-      "black": "#000000"
+      "white": "rgba(255, 255, 255, 1)",
+      "black": "rgba(0, 0, 0, 1)"
     },
     "primary": {
-      "main": "#1976d2"
+      "main": "rgba(25, 118, 210, 1)"
     },
     "secondary": {
-      "main": "#9c27b0"
+      "main": "rgba(156, 39, 176, 1)"
     },
     "background": {
-      "default": "#121212",
-      "paper": "#1d1d1d"
+      "default": "rgba(18, 18, 18, 1)",
+      "paper": "rgba(29, 29, 29, 1)"
     },
     "text": {
-      "primary": "#fff",
-      "secondary": "#aaa"
+      "primary": "rgba(255, 255, 255, 1)",
+      "secondary": "rgba(170, 170, 170, 1)"
     }
   },
   "typography": {
     "fontFamily": "\"Arial\", sans-serif\"",
     "fontSize": 14,
+    "fontWeightLight": 300,
     "fontWeightRegular": 400,
     "fontWeightMedium": 500,
     "h1": {
@@ -143,7 +145,7 @@ export const muiThemeDark: ThemeOptions = {
       "styleOverrides": {
         "root": {
           "borderRadius": "8px",
-          "backgroundColor": "#1d1d1d"
+          "backgroundColor": "rgba(29, 29, 29, 1)"
         }
       }
     }

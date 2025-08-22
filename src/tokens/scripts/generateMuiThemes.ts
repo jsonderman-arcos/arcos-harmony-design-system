@@ -3,13 +3,27 @@ import path from 'node:path';
 import { ThemeOptions } from '@mui/material/styles';
 
 // Paths
-const coreJsonPath = path.resolve(__dirname, '../outputs/core.flat.json');
-const themeJsonPath = path.resolve(__dirname, '../outputs/theme.flat.json');
+const coreCssPath = path.resolve(__dirname, '../outputs/core.css');
+const themeCssPath = path.resolve(__dirname, '../outputs/theme.css');
 const outPath = path.resolve(__dirname, '../outputs/muiThemeObjects.ts');
 
-// Load flat tokens
-const flatCore = JSON.parse(fs.readFileSync(coreJsonPath, 'utf8'));
-const flatTheme = JSON.parse(fs.readFileSync(themeJsonPath, 'utf8'));
+// Load CSS custom properties from files
+const coreCssVars = fs.readFileSync(coreCssPath, 'utf8');
+const themeCssVars = fs.readFileSync(themeCssPath, 'utf8');
+
+// Parser to convert CSS custom properties into a flat JS object
+function parseCssVars(cssContent: string): Record<string, string> {
+  const tokenMap: Record<string, string> = {};
+  const regex = /--([^:]+):\s*([^;]+);/g;
+  let match;
+  while ((match = regex.exec(cssContent))) {
+    tokenMap[match[1].trim()] = match[2].trim();
+  }
+  return tokenMap;
+}
+
+const flattenedCore = parseCssVars(coreCssVars);
+const flattenedTheme = parseCssVars(themeCssVars);
 
 // Helper to convert kebab-case to camelCase
 function toCamelCase(str: string): string {
@@ -37,10 +51,10 @@ function resolveNumericToken(tokenValue: string): number | undefined {
 
 // Extract tokens by prefix, with fallback to a secondary flat token source
 function extractTokens(
-  flat: any,
+  flat: Record<string, string>,
   prefix: string,
-  mode: string,
-  fallbackFlat?: any
+  _mode: string,
+  fallbackFlat?: Record<string, string>
 ): Record<string, string> {
   const themeVars: Record<string, string> = {};
   // Merge keys from both sources (theme and fallback/core)
@@ -55,12 +69,12 @@ function extractTokens(
     const themeToken = flat[name];
     const fallbackToken = fallbackFlat?.[name];
     let value: string | undefined = undefined;
-    if (themeToken && themeToken.valuesByMode?.[mode]) {
-      value = themeToken.valuesByMode[mode];
-    } else if (fallbackToken && fallbackToken.valuesByMode?.[mode]) {
-      value = fallbackToken.valuesByMode[mode];
+    if (themeToken !== undefined) {
+      value = themeToken;
+    } else if (fallbackToken !== undefined) {
+      value = fallbackToken;
     }
-    if (value) themeVars[camelName] = value;
+    if (value !== undefined) themeVars[camelName] = value;
   }
   return themeVars;
 }
@@ -180,12 +194,12 @@ function buildMuiTheme(
 }
 
 // Process tokens (use core as fallback)
-const lightTokens = extractTokens(flatTheme, 'lighthouse-theme', 'Light', flatCore);
-const darkTokens = extractTokens(flatTheme, 'lighthouse-theme', 'Dark', flatCore);
+const lightTokens = extractTokens(flattenedTheme, 'lighthouse-theme', 'Light', flattenedCore);
+const darkTokens = extractTokens(flattenedTheme, 'lighthouse-theme', 'Dark', flattenedCore);
 
-const muiThemeLight = buildMuiTheme(lightTokens, 'light', flatCore);
+const muiThemeLight = buildMuiTheme(lightTokens, 'light', flattenedCore);
 // For dark, merge dark tokens over light tokens (both with core fallback)
-const muiThemeDark = buildMuiTheme({ ...lightTokens, ...darkTokens }, 'dark', flatCore);
+const muiThemeDark = buildMuiTheme({ ...lightTokens, ...darkTokens }, 'dark', flattenedCore);
 
 // Write to output file
 const outContent = `/* AUTO-GENERATED MUI THEMES */
