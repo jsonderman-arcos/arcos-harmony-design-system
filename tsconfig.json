@@ -1,14 +1,20 @@
 {
   "compilerOptions": {
     "target": "esnext",
-  "module": "commonjs",
+    "module": "commonjs",
+     "resolveJsonModule": true,
     "moduleResolution": "node",
     "jsx": "react-jsx",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "baseUrl": "./src",
+    "paths": {
+      "@theme": ["tokens/outputs/muiThemeObjects"],
+      "@outputs/*": ["tokens/outputs/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

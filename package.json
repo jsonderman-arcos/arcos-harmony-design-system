@@ -10,11 +10,12 @@
     "tokens:mui": "ts-node src/tokens/scripts/generateMuiThemes.ts"
   },
   "devDependencies": {
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.4",
     "@types/node": "^20.12.12",
-    "chokidar-cli": "^3.0.0"
-},
+    "chokidar-cli": "^3.0.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.4"
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
