@@ -57,11 +57,151 @@ export const muiThemeLight: ThemeOptions = {
     "MuiButton": {
       "styleOverrides": {
         "root": {
-          "backgroundColor": "rgba(242, 103, 36, 1)",
-          "color": "#ffffff",
-          "borderRadius": "4px",
+          "borderRadius": 8,
+          "&:focus-visible": {
+            "outline": "2px solid ",
+            "outlineOffset": 2
+          }
+        },
+        "containedPrimary": {
+          "backgroundColor": "",
+          "color": "",
           "&:hover": {
-            "backgroundColor": "rgba(245, 130, 72, 1)"
+            "backgroundColor": "",
+            "boxShadow": "none"
+          },
+          "&:active": {
+            "backgroundColor": ""
+          },
+          "&.Mui-disabled": {
+            "color": "",
+            "backgroundColor": ""
+          }
+        },
+        "outlinedPrimary": {
+          "borderColor": "",
+          "color": "",
+          "&:hover": {
+            "backgroundColor": ""
+          }
+        },
+        "textPrimary": {
+          "color": "",
+          "&:hover": {
+            "backgroundColor": ""
+          }
+        }
+      }
+    },
+    "MuiCheckbox": {
+      "styleOverrides": {
+        "root": {
+          "color": "",
+          "&.Mui-checked": {
+            "color": ""
+          },
+          "&:hover": {
+            "backgroundColor": ""
+          },
+          "&.Mui-disabled": {
+            "color": ""
+          },
+          "&:focus-visible": {
+            "outline": "2px solid ",
+            "outlineOffset": 2,
+            "borderRadius": 8
+          }
+        }
+      }
+    },
+    "MuiRadio": {
+      "styleOverrides": {
+        "root": {
+          "color": "",
+          "&.Mui-checked": {
+            "color": ""
+          },
+          "&:hover": {
+            "backgroundColor": ""
+          },
+          "&.Mui-disabled": {
+            "color": ""
+          },
+          "&:focus-visible": {
+            "outline": "2px solid ",
+            "outlineOffset": 2,
+            "borderRadius": 8
+          }
+        }
+      }
+    },
+    "MuiSelect": {
+      "styleOverrides": {
+        "select": {
+          "&:focus": {
+            "backgroundColor": "transparent"
+          }
+        },
+        "icon": {
+          "color": ""
+        }
+      }
+    },
+    "MuiOutlinedInput": {
+      "styleOverrides": {
+        "root": {
+          "borderRadius": 8,
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            "borderColor": ""
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            "borderColor": "",
+            "boxShadow": "0 0 0 3px "
+          }
+        },
+        "notchedOutline": {
+          "borderColor": "",
+          "borderWidth": 1
+        },
+        "input": {
+          "color": "",
+          "&::placeholder": {
+            "color": ""
+          }
+        }
+      }
+    },
+    "MuiFormLabel": {
+      "styleOverrides": {
+        "root": {
+          "color": ""
+        },
+        "asterisk": {
+          "color": ""
+        }
+      }
+    },
+    "MuiFormHelperText": {
+      "styleOverrides": {
+        "root": {
+          "color": ""
+        }
+      }
+    },
+    "MuiTextField": {
+      "defaultProps": {
+        "variant": "outlined"
+      }
+    },
+    "MuiChip": {
+      "styleOverrides": {
+        "root": {
+          "borderRadius": 8,
+          "border": "1px solid ",
+          "backgroundColor": "",
+          "&.MuiChip-colorPrimary": {
+            "backgroundColor": "",
+            "color": ""
           }
         }
       }
@@ -69,11 +209,56 @@ export const muiThemeLight: ThemeOptions = {
     "MuiCard": {
       "styleOverrides": {
         "root": {
-          "borderRadius": "8px",
-          "backgroundColor": "rgba(255, 255, 255, 1)"
+          "borderRadius": 8,
+          "backgroundColor": "",
+          "border": "1px solid "
+        }
+      }
+    },
+    "MuiPaper": {
+      "styleOverrides": {
+        "root": {
+          "backgroundColor": "",
+          "borderRadius": 8
+        },
+        "outlined": {
+          "border": "1px solid ",
+          "backgroundColor": ""
+        },
+        "elevation1": {
+          "backgroundColor": ""
+        }
+      }
+    },
+    "MuiTabs": {
+      "styleOverrides": {
+        "indicator": {
+          "backgroundColor": "",
+          "height": 2
+        }
+      }
+    },
+    "MuiTab": {
+      "styleOverrides": {
+        "root": {
+          "color": "",
+          "&.Mui-selected": {
+            "color": ""
+          },
+          "&:hover": {
+            "backgroundColor": ""
+          },
+          "&:focus-visible": {
+            "outline": "2px solid ",
+            "outlineOffset": 2,
+            "borderRadius": 8
+          }
         }
       }
     }
+  },
+  "tokens": {
+    "color": {}
   }
 };
 
@@ -132,11 +317,151 @@ export const muiThemeDark: ThemeOptions = {
     "MuiButton": {
       "styleOverrides": {
         "root": {
-          "backgroundColor": "rgba(242, 103, 36, 1)",
-          "color": "#ffffff",
-          "borderRadius": "4px",
+          "borderRadius": 8,
+          "&:focus-visible": {
+            "outline": "2px solid ",
+            "outlineOffset": 2
+          }
+        },
+        "containedPrimary": {
+          "backgroundColor": "",
+          "color": "",
           "&:hover": {
-            "backgroundColor": "rgba(245, 130, 72, 1)"
+            "backgroundColor": "",
+            "boxShadow": "none"
+          },
+          "&:active": {
+            "backgroundColor": ""
+          },
+          "&.Mui-disabled": {
+            "color": "",
+            "backgroundColor": ""
+          }
+        },
+        "outlinedPrimary": {
+          "borderColor": "",
+          "color": "",
+          "&:hover": {
+            "backgroundColor": ""
+          }
+        },
+        "textPrimary": {
+          "color": "",
+          "&:hover": {
+            "backgroundColor": ""
+          }
+        }
+      }
+    },
+    "MuiCheckbox": {
+      "styleOverrides": {
+        "root": {
+          "color": "",
+          "&.Mui-checked": {
+            "color": ""
+          },
+          "&:hover": {
+            "backgroundColor": ""
+          },
+          "&.Mui-disabled": {
+            "color": ""
+          },
+          "&:focus-visible": {
+            "outline": "2px solid ",
+            "outlineOffset": 2,
+            "borderRadius": 8
+          }
+        }
+      }
+    },
+    "MuiRadio": {
+      "styleOverrides": {
+        "root": {
+          "color": "",
+          "&.Mui-checked": {
+            "color": ""
+          },
+          "&:hover": {
+            "backgroundColor": ""
+          },
+          "&.Mui-disabled": {
+            "color": ""
+          },
+          "&:focus-visible": {
+            "outline": "2px solid ",
+            "outlineOffset": 2,
+            "borderRadius": 8
+          }
+        }
+      }
+    },
+    "MuiSelect": {
+      "styleOverrides": {
+        "select": {
+          "&:focus": {
+            "backgroundColor": "transparent"
+          }
+        },
+        "icon": {
+          "color": ""
+        }
+      }
+    },
+    "MuiOutlinedInput": {
+      "styleOverrides": {
+        "root": {
+          "borderRadius": 8,
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            "borderColor": ""
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            "borderColor": "",
+            "boxShadow": "0 0 0 3px "
+          }
+        },
+        "notchedOutline": {
+          "borderColor": "",
+          "borderWidth": 1
+        },
+        "input": {
+          "color": "",
+          "&::placeholder": {
+            "color": ""
+          }
+        }
+      }
+    },
+    "MuiFormLabel": {
+      "styleOverrides": {
+        "root": {
+          "color": ""
+        },
+        "asterisk": {
+          "color": ""
+        }
+      }
+    },
+    "MuiFormHelperText": {
+      "styleOverrides": {
+        "root": {
+          "color": ""
+        }
+      }
+    },
+    "MuiTextField": {
+      "defaultProps": {
+        "variant": "outlined"
+      }
+    },
+    "MuiChip": {
+      "styleOverrides": {
+        "root": {
+          "borderRadius": 8,
+          "border": "1px solid ",
+          "backgroundColor": "",
+          "&.MuiChip-colorPrimary": {
+            "backgroundColor": "",
+            "color": ""
           }
         }
       }
@@ -144,10 +469,55 @@ export const muiThemeDark: ThemeOptions = {
     "MuiCard": {
       "styleOverrides": {
         "root": {
-          "borderRadius": "8px",
-          "backgroundColor": "rgba(29, 29, 29, 1)"
+          "borderRadius": 8,
+          "backgroundColor": "",
+          "border": "1px solid "
+        }
+      }
+    },
+    "MuiPaper": {
+      "styleOverrides": {
+        "root": {
+          "backgroundColor": "",
+          "borderRadius": 8
+        },
+        "outlined": {
+          "border": "1px solid ",
+          "backgroundColor": ""
+        },
+        "elevation1": {
+          "backgroundColor": ""
+        }
+      }
+    },
+    "MuiTabs": {
+      "styleOverrides": {
+        "indicator": {
+          "backgroundColor": "",
+          "height": 2
+        }
+      }
+    },
+    "MuiTab": {
+      "styleOverrides": {
+        "root": {
+          "color": "",
+          "&.Mui-selected": {
+            "color": ""
+          },
+          "&:hover": {
+            "backgroundColor": ""
+          },
+          "&:focus-visible": {
+            "outline": "2px solid ",
+            "outlineOffset": 2,
+            "borderRadius": 8
+          }
         }
       }
     }
+  },
+  "tokens": {
+    "color": {}
   }
 };

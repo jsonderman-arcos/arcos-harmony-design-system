@@ -8,7 +8,7 @@ export const MuiTableHead = {
             backgroundColor: t.surfaceRaised(),
             '& .MuiTableCell-head': {
               color: t.textSecondary(),
-              borderBottom: `${t.borderSize()}px solid ${t.divider()}`,
+              borderBottom: `${t.borderSize}px solid ${t.divider()}`,
             },
           },
         },

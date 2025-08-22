@@ -1,31 +1,33 @@
 // src/tokens/scripts/generateMuiOverrides.ts
 import type { Theme, Components } from '@mui/material/styles';
+import { createTokenUtils } from './lib/tokenUtils';
 import { MuiButton } from './overrides/Button';
-import { MuiCheckbox } from './overrides/Checkbox';
-import { MuiRadio} from './overrides/Radio';
-import {MuiSelect} from './overrides/Select';
-import {MuiOutlinedInput} from './overrides/OutlinedInput';
-import {MuiFormLabel} from './overrides/FormLabel';
-import {MuiFormHelperText} from './overrides/FormHelperText';
-import {MuiTextField} from './overrides/TextField';
-import {MuiChip} from './overrides/Chip';
+//import { MuiCheckbox } from './overrides/Checkbox';
+//import { MuiRadio} from './overrides/Radio';
+//import {MuiSelect} from './overrides/Select';
+//import {MuiOutlinedInput} from './overrides/OutlinedInput';
+//import {MuiFormLabel} from './overrides/FormLabel';
+//import {MuiFormHelperText} from './overrides/FormHelperText';
+//import {MuiTextField} from './overrides/TextField';
+//import {MuiChip} from './overrides/Chip';
 //import {MuiTableHead} from './overrides/TableHead';
 //import {MuiTableCell} from './overrides/TableCell';
 //import {MuiTableRow} from './overrides/TableRow';
-import {MuiCard} from './overrides/Card';
-import {MuiPaper} from './overrides/Paper';
+//import {MuiCard} from './overrides/Card';
+//import {MuiPaper} from './overrides/Paper';
 //import {MuiMenu} from './overrides/Menu';
 //import {MuiMenuItem} from './overrides/MenuItem';
-import {MuiTabs} from './overrides/Tabs';
-import {MuiTab} from './overrides/Tab';
+//import {MuiTabs} from './overrides/Tabs';
+//import {MuiTab} from './overrides/Tab';
 import { token, tokenNumber, t } from './lib/tokenUtils';
 
 
 /** Build `theme.components` overrides */
-export function buildComponentOverrides(theme: Theme): Components {
-  const components: Components = {
-    MuiButton: MuiButton,
-    MuiCheckbox: MuiCheckbox,
+export function buildComponentOverrides(theme: any): Components {
+  const t = createTokenUtils(theme);
+  return {
+    MuiButton: MuiButton(t),
+    /*MuiCheckbox: MuiCheckbox,
     MuiRadio: MuiRadio,
     MuiSelect: MuiSelect,
     MuiOutlinedInput: MuiOutlinedInput,
@@ -36,7 +38,6 @@ export function buildComponentOverrides(theme: Theme): Components {
     MuiCard: MuiCard,
     MuiPaper: MuiPaper,
     MuiTabs: MuiTabs,
-    MuiTab: MuiTab,
+    MuiTab: MuiTab,*/
   };
-  return components;
 }

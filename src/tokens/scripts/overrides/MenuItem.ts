@@ -5,10 +5,10 @@ import { t } from '../lib/tokenUtils';
 export const Button = {
   styleOverrides: {
     root: {
-      borderRadius: t.radius(),
+      borderRadius: t.radius,
       textTransform: 'none',
       '&:focus-visible': {
-        outline: `${Math.max(2, t.borderSize())}px solid ${t.primaryFocusRing() || t.focusRing()}`,
+        outline: `${Math.max(2, t.borderSize)}px solid ${t.primaryFocusRing() || t.focusRing()}`,
         outlineOffset: 2,
       },
     },

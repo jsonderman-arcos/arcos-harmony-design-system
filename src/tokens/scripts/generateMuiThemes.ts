@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { ThemeOptions } from '@mui/material/styles';
+import { ThemeOptions, Theme } from '@mui/material/styles';
+import { buildComponentOverrides } from './generateMuiOverrides';
 
 // Paths
 const coreCssPath = path.resolve(__dirname, '../outputs/core.css');
@@ -85,7 +86,7 @@ function buildMuiTheme(
   mode: 'light' | 'dark',
   fallback: Record<string, string>
 ): ThemeOptions {
-  return {
+  const baseTheme = {
     palette: {
       mode,
       common: {
@@ -156,41 +157,90 @@ function buildMuiTheme(
       : fallback.spacingBase
         ? toTokenVar('spacingBase')
         : resolveNumericToken(fallback.spacingBase ?? '8') ?? 8,
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            backgroundColor: theme.componentButtonBg
-              ? toTokenVar('componentButtonBg')
-              : 'rgba(242, 103, 36, 1)',
-            color: theme.componentButtonFg
-              ? toTokenVar('componentButtonFg')
-              : '#ffffff',
-            borderRadius: theme.borderRadiusSm
-              ? toTokenVar('borderRadiusSm')
-              : '4px',
-            '&:hover': {
-              backgroundColor: theme.componentButtonBgHover
-                ? toTokenVar('componentButtonBgHover')
-                : 'rgba(245, 130, 72, 1)',
-            },
+    components: buildComponentOverrides({
+      palette: {
+        mode,
+        common: {
+          white: theme.white ? toTokenVar('white') : 'rgba(255, 255, 255, 1)',
+          black: theme.black ? toTokenVar('black') : 'rgba(0, 0, 0, 1)',
           },
+        primary: {
+          main: theme.primary
+            ? toTokenVar('primary')
+            : 'rgba(25, 118, 210, 1)',
+        },
+        secondary: {
+          main: theme.secondary
+            ? toTokenVar('secondary')
+            : 'rgba(156, 39, 176, 1)',
+        },
+        background: {
+          default: theme.background
+            ? toTokenVar('background')
+            : mode === 'light' ? 'rgba(255, 255, 255, 1)' : 'rgba(18, 18, 18, 1)',
+          paper: theme.surface
+            ? toTokenVar('surface')
+            : mode === 'light' ? 'rgba(255, 255, 255, 1)' : 'rgba(29, 29, 29, 1)',
+        },
+        text: {
+          primary: theme.textPrimary
+            ? toTokenVar('textPrimary')
+            : mode === 'light' ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)',
+          secondary: theme.textSecondary
+            ? toTokenVar('textSecondary')
+            : mode === 'light' ? 'rgba(102, 102, 102, 1)' : 'rgba(170, 170, 170, 1)',
         },
       },
-      MuiCard: {
-        styleOverrides: {
-          root: {
-            borderRadius: theme.borderRadiusMd
-              ? toTokenVar('borderRadiusMd')
-              : '8px',
-            backgroundColor: theme.cardBackground
-              ? toTokenVar('cardBackground')
-              : mode === 'light' ? 'rgba(255, 255, 255, 1)' : 'rgba(29, 29, 29, 1)',
-          },
-        },
+      typography: {
+        fontFamily: theme.fontFamily
+          ? toTokenVar('fontFamily')
+          : fallback.fontFamily
+            ? toTokenVar('fontFamily')
+            : '"Arial", sans-serif"',
+        fontSize: resolveNumericToken(theme.fontSizeBase) ??
+                  resolveNumericToken(fallback.fontSizeBase) ??
+                  14,
+        fontWeightLight: resolveNumericToken(theme.fontWeightLight) ??
+                         resolveNumericToken(fallback.fontWeightLight) ??
+                         300,
+        fontWeightRegular: resolveNumericToken(theme.fontWeightRegular) ??
+                           resolveNumericToken(fallback.fontWeightRegular) ??
+                           400,
+        fontWeightMedium: resolveNumericToken(theme.fontWeightMedium) ??
+                          resolveNumericToken(fallback.fontWeightMedium) ??
+                          500,
+        h1: { fontSize: theme.fontSizeH1 ? toTokenVar('fontSizeH1') : '6rem' },
+        h2: { fontSize: theme.fontSizeH2 ? toTokenVar('fontSizeH2') : '3.75rem' },
+        h3: { fontSize: theme.fontSizeH3 ? toTokenVar('fontSizeH3') : '3rem' },
+        h4: { fontSize: theme.fontSizeH4 ? toTokenVar('fontSizeH4') : '2.125rem' },
+        h5: { fontSize: theme.fontSizeH5 ? toTokenVar('fontSizeH5') : '1.5rem' },
+        h6: { fontSize: theme.fontSizeH6 ? toTokenVar('fontSizeH6') : '1.25rem' },
       },
-    },
+      shape: {
+        borderRadius: theme.borderRadiusSm
+          ? toTokenVar('borderRadiusSm')
+          : fallback.borderRadiusSm
+            ? toTokenVar('borderRadiusSm')
+            : resolveNumericToken(fallback.borderRadiusSm ?? '4') ?? 4,
+      },
+      spacing: theme.spacingBase
+        ? toTokenVar('spacingBase')
+        : fallback.spacingBase
+          ? toTokenVar('spacingBase')
+          : resolveNumericToken(fallback.spacingBase ?? '8') ?? 8,
+    } as any),
   };
+
+  (baseTheme as any).tokens = {
+    color: Object.entries(theme)
+      .filter(([key]) => key.toLowerCase().includes('color'))
+      .reduce((acc, [key, value]) => {
+        acc[key] = toTokenVar(key);
+        return acc;
+      }, {} as Record<string, string>)
+  };
+
+  return baseTheme;
 }
 
 // Process tokens (use core as fallback)

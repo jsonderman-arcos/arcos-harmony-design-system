@@ -5,7 +5,7 @@ import { t } from '../lib/tokenUtils';
 export const MuiOutlinedInput = {
       styleOverrides: {
         root: {
-          borderRadius: t.radius(),
+          borderRadius: t.radius,
           '&:hover .MuiOutlinedInput-notchedOutline': {
             borderColor: t.primaryMain(),
           },
@@ -16,7 +16,7 @@ export const MuiOutlinedInput = {
         },
         notchedOutline: {
           borderColor: t.divider(),
-          borderWidth: t.borderSize(),
+          borderWidth: t.borderSize,
         },
         input: {
           color: t.textPrimary(),

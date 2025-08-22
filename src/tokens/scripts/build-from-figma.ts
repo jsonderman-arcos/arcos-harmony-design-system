@@ -361,5 +361,5 @@ console.log('-', path.join(OUT_DIR, 'theme.css'));
 console.log('-', path.join(OUT_DIR, 'tokens.css'));
 console.log('-', path.join(OUT_DIR, 'core.flat.json'));
 console.log('-', path.join(OUT_DIR, 'theme.flat.json'));
-console.log('-', path.join(OUT_DIR, 'core.flat.json.flat.json'));
-console.log('-', path.join(OUT_DIR, 'theme.flat.json.flat.json'));
+console.log('-', path.join(OUT_DIR, 'core.muiflat.json'));
+console.log('-', path.join(OUT_DIR, 'theme.muiflat.json'));
