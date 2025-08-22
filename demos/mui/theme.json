@@ -1,12 +1,22 @@
 {
-  "palette": {
-    "primary": {
-      "main": "rgba(25, 118, 210, 1)",
-      "contrastText": "rgba(255, 255, 255, 1)"
+  "colorSchemes": {
+    "light": {
+      "palette": {
+        "primary": { "main": "#ff0000", "contrastText": "#ffffff" },
+        "secondary": { "main": "#00ff00", "contrastText": "#000000" }
+      }
     },
-    "secondary": {
-      "main": "rgba(156, 39, 176, 1)",
-      "contrastText": "rgba(255, 255, 255, 1)"
+    "dark": {
+      "palette": {
+        "primary": { "main": "#0000ff", "contrastText": "#ffffff" },
+        "secondary": { "main": "#ffff00", "contrastText": "#000000" }
+      }
+    },
+    "mobile": {
+      "palette": {
+        "primary": { "main": "#ff00ff", "contrastText": "#000000" },
+        "secondary": { "main": "#00ffff", "contrastText": "#000000" }
+      }
     }
   },
   "shadows": [

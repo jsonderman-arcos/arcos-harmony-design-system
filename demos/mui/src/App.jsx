@@ -24,7 +24,7 @@ function createMuiTheme(mode = 'light') {
   const defaultColors = {
     light: {
       primary: {
-        main: '#5916d2', 
+        main: '#05683dff', 
         contrastText: '#ffffff'
       },
       secondary: {
