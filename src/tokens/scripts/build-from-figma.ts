@@ -4,6 +4,18 @@ import path from 'node:path';
 
 const OPTIMIZE_MODE_DIFF = true;
 
+// Allow selecting which collections to build via CLI or ENV
+// Usage: node build-from-figma.js --collections="Core,Lighthouse Theme,Theme – Application"
+// or set env: BUILD_COLLECTIONS="Core,Lighthouse Theme"
+const ARG_COLLECTIONS = process.argv.find(a => a.startsWith('--collections='));
+const REQ_COLLECTIONS: string[] | null = ARG_COLLECTIONS
+  ? ARG_COLLECTIONS.split('=')[1].split(',').map(s => s.trim()).filter(Boolean)
+  : (process.env.BUILD_COLLECTIONS
+      ? String(process.env.BUILD_COLLECTIONS).split(',').map(s => s.trim()).filter(Boolean)
+      : null);
+
+const isCoreCollectionName = (name: string) => /(^|[^a-z])core([^a-z]|$)/i.test(name);
+
 /** ---------- tiny utils ---------- */
 const toKebab = (s: string) =>
   s
@@ -73,7 +85,7 @@ type FlatMap = Record<string, FlatToken>; // key is kebab name (no leading --)
 
 /** ---------- read input ---------- */
 const INPUT = path.resolve('src/tokens/inputs/tokens-raw-response.json'); // adjust if needed
-const OUT_DIR = path.resolve('src/tokens/outputs');
+const OUT_DIR = path.resolve('src/theme');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const raw: FigmaResponse = JSON.parse(fs.readFileSync(INPUT, 'utf8'));
@@ -83,18 +95,34 @@ collections.forEach(c => console.log('-', c.name));
 
 const variables = raw.meta.variables;
 
-/** ---------- detect Core / Theme by collection name ---------- */
-const coreCol = collections.find(c => /(^|[^a-z])core([^a-z]|$)/i.test(c.name));
-const themeCol = collections.find(c => /(theme|lighthouse)/i.test(c.name) && c !== coreCol);
+/** ---------- choose which collections to build ---------- */
+let buildCollections: FigmaCollection[] = [];
 
-if (!coreCol || !themeCol) {
-  console.error('Could not detect Core and Theme collections by name. Found:');
-  collections.forEach(c => console.error('-', c.name));
-  process.exit(1);
+if (REQ_COLLECTIONS && REQ_COLLECTIONS.length) {
+  // fuzzy match by substring (case-insensitive)
+  const wanted = REQ_COLLECTIONS.map(s => s.toLowerCase());
+  buildCollections = collections.filter(c => wanted.some(w => c.name.toLowerCase().includes(w)));
+  if (!buildCollections.length) {
+    console.error('No matching collections for:', REQ_COLLECTIONS.join(', '));
+    console.error('Available collections:');
+    collections.forEach(c => console.error('-', c.name));
+    process.exit(1);
+  }
+} else {
+  // fallback to legacy auto-detect: one Core + one Theme-like
+  const coreCol = collections.find(c => isCoreCollectionName(c.name));
+  const themeCol = collections.find(c => /(theme|lighthouse)/i.test(c.name) && (!coreCol || c.id !== coreCol.id));
+  if (!coreCol || !themeCol) {
+    console.error('Could not auto-detect Core and Theme collections. Use --collections or BUILD_COLLECTIONS. Found:');
+    collections.forEach(c => console.error('-', c.name));
+    process.exit(1);
+  }
+  buildCollections = [coreCol, themeCol];
 }
 
-const CORE_PREFIX = normCollectionName(coreCol.name);          // "core"
-const THEME_PREFIX = normCollectionName(themeCol.name);        // "lighthouse-theme" (example)
+const COLLECTION_PREFIX: Record<string, string> = Object.fromEntries(
+  buildCollections.map(c => [c.id, normCollectionName(c.name)])
+);
 
 /** ---------- build a global id -> cssVarName map ---------- */
 function kebabFromFigmaName(n: string) {
@@ -115,24 +143,15 @@ const idToVar: Record<VarId, `--${string}`> = {};
 
 for (const v of Object.values(variables)) {
   const col = raw.meta.variableCollections[v.variableCollectionId];
-    if (!col) continue;
-
-  let prefix: string;
-  if (coreCol && col.id === coreCol.id) {
-    prefix = CORE_PREFIX;
-  } else if (themeCol && col.id === themeCol.id) {
-    prefix = THEME_PREFIX;
-  } else {
-    console.warn(`Unknown collection ID: ${col.id}`);
-    continue;
-  }
-
+  if (!col) continue;
+  if (!buildCollections.find(bc => bc.id === col.id)) continue; // skip variables from collections we are not building
+  const prefix = COLLECTION_PREFIX[col.id];
   idToVar[v.id] = makeCssVarName(prefix, v.name);
-  }
+}
 
 /** ---------- flatten a collection ---------- */
 function flattenCollection(col: FigmaCollection): FlatMap {
-  const prefix = col.id === coreCol!.id ? CORE_PREFIX : THEME_PREFIX;
+  const prefix = COLLECTION_PREFIX[col.id];
   const fm: FlatMap = {};
   for (const vid of col.variableIds) {
     const v = variables[vid];
@@ -166,8 +185,9 @@ function flattenCollection(col: FigmaCollection): FlatMap {
   return fm;
 }
 
-const flatCore = flattenCollection(coreCol);
-const flatTheme = flattenCollection(themeCol);
+const flatByCollection: Record<string, FlatMap> = Object.fromEntries(
+  buildCollections.map(col => [col.id, flattenCollection(col)])
+);
 
 /** ---------- resolve Core internal aliases to raw values ---------- */
 function resolveCoreAliasesToRaw(fm: FlatMap, col: FigmaCollection): FlatMap {
@@ -228,10 +248,14 @@ function resolveCoreAliasesToRaw(fm: FlatMap, col: FigmaCollection): FlatMap {
   return fm;
 }
 
-resolveCoreAliasesToRaw(flatCore, coreCol);
+for (const col of buildCollections) {
+  if (isCoreCollectionName(col.name)) {
+    resolveCoreAliasesToRaw(flatByCollection[col.id], col);
+  }
+}
 
 /** ---------- CSS scope planners (auto from mode names) ---------- */
-function scopeOpenClose(collection: FigmaCollection, isTheme: boolean) {
+function scopeOpenClose(collection: FigmaCollection, isThemeLike: boolean) {
   const defaultModeName =
     collection.modes.find(m => m.modeId === collection.defaultModeId)?.name ??
     collection.modes[0].name;
@@ -243,7 +267,7 @@ function scopeOpenClose(collection: FigmaCollection, isTheme: boolean) {
     const name = m.name;
     const norm = toKebab(name);
 
-    if (isTheme) {
+    if (isThemeLike) {
       // Theme: default mode at :root; others at [data-theme="..."]
       if (name === defaultModeName) {
         scopes.push({ modeName: name, open: ':root {\n', close: '}\n' });
@@ -285,13 +309,51 @@ function scopeOpenClose(collection: FigmaCollection, isTheme: boolean) {
   return { scopes, defaultModeName };
 }
 
+/** ---------- helper to resolve var(--...) references recursively ---------- */
+function resolveFinalValue(
+  value: string,
+  map: FlatMap,
+  preferredMode?: string,
+  fallbackMode?: string,
+): string {
+  let val = value;
+  const seen = new Set<string>();
+
+  while (/^var\(--.+\)$/.test(val)) {
+    // Extract the CSS var name and normalize to our FlatMap key (no leading `--`)
+    const rawRef = String(val).slice(4, -1);
+    const ref = rawRef.replace(/^--/, ''); // keys in FlatMap do NOT include leading dashes
+
+    if (seen.has(ref)) break;
+    seen.add(ref);
+
+    const token = map[ref];
+    if (!token) break;
+
+    // Resolution order: preferred mode -> fallback mode -> Default -> Light -> first available
+    let next =
+      (preferredMode ? token.valuesByMode[preferredMode] : undefined) ??
+      (fallbackMode ? token.valuesByMode[fallbackMode] : undefined) ??
+      token.valuesByMode['Default'] ??
+      token.valuesByMode['Light'] ??
+      Object.values(token.valuesByMode)[0];
+
+    if (next == null) break;
+
+    val = String(next);
+  }
+
+  return val;
+}
+
 /** ---------- CSS writers ---------- */
 function writeCssByMode(
   fm: FlatMap,
   collection: FigmaCollection,
+  resolverMap: FlatMap,
   opts: { preferAlias: boolean },
 ) {
-  const { scopes, defaultModeName } = scopeOpenClose(collection, collection.id === themeCol!.id);
+  const { scopes, defaultModeName } = scopeOpenClose(collection, !isCoreCollectionName(collection.name));
   const names = Object.keys(fm).sort();
   let css = '';
 
@@ -303,7 +365,6 @@ function writeCssByMode(
       const val = t.valuesByMode[s.modeName];
       const fallback = t.valuesByMode[defaultModeName];
 
-      // Always emit for default mode, or if OPTIMIZE_MODE_DIFF is false
       if (
         s.modeName === defaultModeName ||
         !OPTIMIZE_MODE_DIFF ||
@@ -311,10 +372,16 @@ function writeCssByMode(
         val !== fallback
       ) {
         const output = val ?? fallback;
+        const resolvedOutput = resolveFinalValue(
+          String(output),
+          resolverMap,
+          s.modeName,
+          defaultModeName,
+        );
         if (opts.preferAlias && t.aliasOf && /^var\(--/.test(String(output))) {
           css += `  ${varName}: ${output};\n`;
         } else {
-          css += `  ${varName}: ${output};\n`;
+          css += `  ${varName}: ${resolvedOutput};\n`;
         }
       }
     }
@@ -323,43 +390,74 @@ function writeCssByMode(
   return css;
 }
 
-/** ---------- emit files ---------- */
-const coreCss = `/* AUTO-GENERATED: CORE */\n` + writeCssByMode(flatCore, coreCol, { preferAlias: false });
-const themeCss = `/* AUTO-GENERATED: THEME */\n` + writeCssByMode(flatTheme, themeCol, { preferAlias: true });
-
 // Utility function to flatten objects into dot-notation keys
 function flattenObject(obj: any, prefix = ''): Record<string, string> {
-  return Object.entries(obj).reduce((acc, [key, value]) => {
-    const newKey = prefix ? `${prefix}.${key}` : key;
-    if (typeof value === 'object' && value !== null) {
-      Object.assign(acc, flattenObject(value, newKey));
+  const result: Record<string, string> = {};
+
+  function recurse(current: any, prop: string) {
+    if (Object(current) !== current || Array.isArray(current)) {
+      result[prop] = String(current);
     } else {
-      acc[newKey] = String(value);
+      let isEmpty = true;
+      for (const key in current) {
+        isEmpty = false;
+        recurse(current[key], prop ? `${prop}.${key}` : key);
+      }
+      if (isEmpty && prop) result[prop] = '';
     }
-    return acc;
-  }, {} as Record<string, string>);
+  }
+
+  recurse(obj, prefix);
+  return result;
 }
 
-// Write the standard flat JSON files
-fs.writeFileSync(path.join(OUT_DIR, 'core.flat.json'), JSON.stringify(flatCore, null, 2));
-fs.writeFileSync(path.join(OUT_DIR, 'theme.flat.json'), JSON.stringify(flatTheme, null, 2));
-fs.writeFileSync(path.join(OUT_DIR, 'core.css'), coreCss);
-fs.writeFileSync(path.join(OUT_DIR, 'theme.css'), themeCss);
-fs.writeFileSync(path.join(OUT_DIR, 'tokens.css'), `${coreCss}\n${themeCss}`);
+/** ---------- emit files (multi-collection) ---------- */
 
-// Write additional flattened versions with dot-notation keys for MUI compatibility
-const coreJson = flatCore;
-const themeJson = flatTheme;
-const flatCoreDot = flattenObject(coreJson);
-const flatThemeDot = flattenObject(themeJson);
-fs.writeFileSync(path.join(OUT_DIR, 'core.muiflat.json'), JSON.stringify(flatCoreDot, null, 2));
-fs.writeFileSync(path.join(OUT_DIR, 'theme.muiflat.json'), JSON.stringify(flatThemeDot, null, 2));
+// Build a single resolver map from all selected collections (after core alias resolution)
+const combinedResolver: FlatMap = Object.assign({}, ...buildCollections.map(c => flatByCollection[c.id]));
 
-console.log('[tokens] Wrote:');
-console.log('-', path.join(OUT_DIR, 'core.css'));
-console.log('-', path.join(OUT_DIR, 'theme.css'));
+let aggregatedCss = '';
+
+for (const col of buildCollections) {
+  const prefix = COLLECTION_PREFIX[col.id];
+  const fm = flatByCollection[col.id];
+  const preferAlias = !isCoreCollectionName(col.name);
+
+  const css = `/* AUTO-GENERATED: ${prefix.toUpperCase()} */\n` + writeCssByMode(fm, col, combinedResolver, { preferAlias });
+  aggregatedCss += css + '\n';
+
+  // Write per-collection flat JSON
+  fs.writeFileSync(path.join(OUT_DIR, `${prefix}.flat.json`), JSON.stringify(fm, null, 2));
+  fs.writeFileSync(path.join(OUT_DIR, `${prefix}.css`), css);
+
+  // Resolved object -> dot notation for MUI compatibility
+  const defaultModeName = col.modes.find(m => m.modeId === col.defaultModeId)?.name ?? col.modes[0].name;
+  const resolvedObj = Object.fromEntries(
+    Object.entries(fm).map(([k, t]) => [
+      k,
+      {
+        ...t,
+        valuesByMode: Object.fromEntries(
+          Object.entries(t.valuesByMode).map(([m, v]) => [
+            m,
+            resolveFinalValue(String(v), combinedResolver, m, defaultModeName),
+          ])
+        ),
+      },
+    ])
+  );
+  const dot = flattenObject(resolvedObj);
+  fs.writeFileSync(path.join(OUT_DIR, `${prefix}.muiflat.json`), JSON.stringify(dot, null, 2));
+}
+
+// Aggregate CSS
+fs.writeFileSync(path.join(OUT_DIR, 'tokens.css'), aggregatedCss.trim() + '\n');
+
+console.log('[tokens] Built collections:');
+for (const col of buildCollections) {
+  const prefix = COLLECTION_PREFIX[col.id];
+  console.log('-', col.name, '=>', path.join(OUT_DIR, `${prefix}.css`));
+  console.log('  ', path.join(OUT_DIR, `${prefix}.flat.json`));
+  console.log('  ', path.join(OUT_DIR, `${prefix}.muiflat.json`));
+}
 console.log('-', path.join(OUT_DIR, 'tokens.css'));
-console.log('-', path.join(OUT_DIR, 'core.flat.json'));
-console.log('-', path.join(OUT_DIR, 'theme.flat.json'));
-console.log('-', path.join(OUT_DIR, 'core.muiflat.json'));
-console.log('-', path.join(OUT_DIR, 'theme.muiflat.json'));

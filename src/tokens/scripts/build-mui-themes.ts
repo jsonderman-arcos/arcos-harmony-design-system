@@ -2,13 +2,82 @@ import fs from 'fs';
 import path from 'path';
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 import { createTokenUtils } from './lib/tokenUtils';
-import {MuiButton} from './overrides/Button';
 
-const OUTPUT_DIR = path.resolve(__dirname, '../outputs');
+const OUTPUT_DIR = path.resolve(__dirname, '../../theme');
 const OUTPUT_FILE = path.resolve(OUTPUT_DIR, 'mui-theme.json');
+const OUTPUT_THEME_TS = path.resolve(__dirname, '../../theme/mui-theme.ts');
+const OVERRIDES_DIR = path.resolve(__dirname, './overrides');
+
+/** Auto-load all component override factories from ./overrides
+ *  An override file should export one or more functions named like `MuiButton`, `MuiChip`, etc.
+ *  Each function receives the token utils `t` and returns a valid MUI component override object.
+ */
+function loadOverrides(t: ReturnType<typeof createTokenUtils>): Record<string, unknown> {
+  const components: Record<string, unknown> = {};
+  if (!fs.existsSync(OVERRIDES_DIR)) return components;
+
+  const files = fs.readdirSync(OVERRIDES_DIR).filter(f => /\.(ts|js|mjs|cjs)$/.test(f));
+  for (const file of files) {
+    const full = path.resolve(OVERRIDES_DIR, file);
+    // Support both ESM transpiled outputs and ts-node require
+    let mod: any;
+    try {
+      mod = require(full);
+    } catch {
+      // Fall back to dynamic import for ESM if needed
+      try {
+        mod = require(full.replace(/\.(ts|mjs)$/, '.js'));
+      } catch {
+        continue;
+      }
+    }
+
+    // Named exports starting with "Mui"
+    Object.keys(mod).forEach((key) => {
+      const exp = mod[key];
+      if (typeof exp === 'function' && /^Mui[A-Z]/.test(key)) {
+        try {
+          components[key] = exp(t);
+        } catch (e) {
+          console.warn(`Failed to build override for ${key} from ${file}:`, e);
+        }
+      }
+    });
+
+    // Default export support: either a function returning { MuiX: {...} } or a map of factories
+    if (mod && typeof mod.default === 'function') {
+      try {
+        const out = mod.default(t);
+        if (out && typeof out === 'object') {
+          Object.entries(out).forEach(([k, v]) => {
+            if (/^Mui[A-Z]/.test(k)) components[k] = v;
+          });
+        }
+      } catch {
+        // ignore bad default export
+      }
+    } else if (mod && mod.default && typeof mod.default === 'object') {
+      Object.entries(mod.default).forEach(([k, v]: [string, any]) => {
+        if (typeof v === 'function') {
+          try {
+            components[k] = v(t);
+          } catch (e) {
+            console.warn(`Failed to build override for ${k} (default map) from ${file}:`, e);
+          }
+        } else if (/^Mui[A-Z]/.test(k)) {
+          components[k] = v;
+        }
+      });
+    }
+  }
+
+  return components;
+}
 
 function loadTokens(fileName: string): Record<string, string> {
-  const fullPath = path.resolve(OUTPUT_DIR, fileName);
+  const fullPath = path.resolve("./src/theme", fileName);
+  /* console.log('SourceFile')
+  console.log(fullPath) */
   return JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
 }
 
@@ -27,21 +96,31 @@ function isValidMuiColor(value: string | undefined | null): boolean {
 }
 
 function buildMuiTheme(tokens: Record<string, string>): ThemeOptions {
-  const { t } = createTokenUtils(tokens);
-  console.log('Available token keys:', Object.keys(tokens));
-  console.log('Primary main color token:', t.primaryMain());
-  console.log('On primary color token:', t.onPrimary());
-  console.log('Secondary main color token:', t.secondaryMain());
-  console.log('Surface color token:', t.surface());
-  console.log('Surface raised color token:', t.surfaceRaised());
-  console.log('Text primary color token:', t.textPrimary());
-  console.log('Text secondary color token:', t.textSecondary());
-  console.log('Text disabled color token:', t.textDisabled());
-  console.log('Divider color token:', t.divider());
-  console.log('Action hover color token:', t.actionHover());
-  console.log('Action selected color token:', t.actionSelected());
-  console.log('Action disabled color token:', t.actionDisabled());
-  console.log('Action disabled background color token:', t.actionDisabledBg());
+  const  t  = createTokenUtils(tokens);
+  // Polyfill missing helpers if createTokenUtils doesn't provide them yet
+  const anyT: any = t as any;
+  if (typeof anyT.primaryFocusRing !== 'function') {
+    anyT.primaryFocusRing = () =>
+      (typeof anyT.focusRing === 'function' && anyT.focusRing()) ||
+      (typeof anyT.actionSelected === 'function' && anyT.actionSelected()) ||
+      (typeof anyT.primaryMain === 'function' && anyT.primaryMain()) ||
+      'rgba(0, 0, 0, 0.6)';
+  }
+  if (typeof anyT.focusRing !== 'function') {
+    anyT.focusRing = () =>
+      (typeof anyT.actionSelected === 'function' && anyT.actionSelected()) ||
+      (typeof anyT.primaryMain === 'function' && anyT.primaryMain()) ||
+      'rgba(0, 0, 0, 0.6)';
+  }
+  if (typeof anyT.borderSize !== 'number' || Number.isNaN(anyT.borderSize)) {
+    anyT.borderSize = Number(
+      tokens['lighthouse--theme-base-border-size.default'] ??
+        tokens['lighthouse--theme-base-border-size-default'] ??
+        1
+    );
+  }
+  //console.log('Available token keys:', Object.keys(tokens));
+  //console.log('Primary main color token:', t.primaryMain());
 
   // Default color fallbacks
   const DEFAULTS = {
@@ -116,7 +195,7 @@ function buildMuiTheme(tokens: Record<string, string>): ThemeOptions {
       borderRadius: t.radius,
     },
     components: {
-      MuiButton: MuiButton(t),
+      ...loadOverrides(t),
     },
   };
 }
@@ -128,8 +207,22 @@ function main() {
   const themeOptions = buildMuiTheme({ ...coreTokens, ...themeTokens });
   const muiTheme = createTheme(themeOptions);
 
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(muiTheme, null, 2));
-  console.log(`MUI theme written to ${OUTPUT_FILE}`);
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  // 1) Raw ThemeOptions JSON (optional, useful for debugging)
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(themeOptions, null, 2));
+  // 2) A consumable TS module exporting a Theme for ThemeProvider
+  const banner = `/* Auto-generated by build-mui-themes.ts — do not edit by hand */`;
+  const tsModule = `${banner}
+import { createTheme, ThemeOptions } from '@mui/material/styles';
+
+export const themeOptions: ThemeOptions = ${JSON.stringify(themeOptions, null, 2)};
+const theme = createTheme(themeOptions);
+export default theme;
+`;
+  fs.writeFileSync(OUTPUT_THEME_TS, tsModule);
+
+  console.log(`Wrote ThemeOptions JSON → ${OUTPUT_FILE}`);
+  console.log(`Wrote ready-to-import MUI theme → ${OUTPUT_THEME_TS}`);
 }
 
 main();

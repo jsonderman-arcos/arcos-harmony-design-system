@@ -12,8 +12,9 @@
     "outDir": "dist",
     "baseUrl": "./src",
     "paths": {
-      "@theme": ["tokens/outputs/muiThemeObjects"],
-      "@outputs/*": ["tokens/outputs/*"]
+      "@theme/*": ["theme/*"],
+      "@outputs/*": ["tokens/outputs/*"],
+      "@themeOut/*":["theme/*"]
     }
   },
   "include": ["src"],

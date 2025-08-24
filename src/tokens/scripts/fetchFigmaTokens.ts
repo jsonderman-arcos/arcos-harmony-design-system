@@ -8,7 +8,7 @@ dotenv.config();
 const FIGMA_TOKEN = process.env.FIGMA_PERSONAL_TOKEN;
 const FIGMA_FILE_KEY = process.env.FIGMA_FILE_KEY;
 const FIGMA_VARIABLES_ENDPOINT = `https://api.figma.com/v1/files/${FIGMA_FILE_KEY}/variables/local`;
-const OUTPUT_PATH = path.resolve(__dirname, '../src/tokens/raw/tokens-raw-response.json');
+const OUTPUT_PATH = path.resolve(__dirname, '../inputs/tokens-raw-response.json');
 
 async function fetchFigmaTokens() {
   if (!FIGMA_TOKEN || !FIGMA_FILE_KEY) {

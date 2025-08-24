@@ -785,7 +785,7 @@
   --lighthouse--theme-component-button-secondary-background-default: var(--lighthouse--theme-base-secondary-main);
   --lighthouse--theme-component-button-secondary-background-disabled: var(--lighthouse--theme-base-action-disabled-background);
   --lighthouse--theme-component-button-secondary-background-hover: var(--lighthouse--theme-base-secondary-states-hover);
-  --lighthouse--theme-component-button-secondary-text-default: var(--lighthouse--theme-base-secondary-on-main);
+  --lighthouse--theme-component-button-secondary-text-default: rgba(255,255,255,1);
   --lighthouse--theme-component-button-secondary-text-disabled: var(--lighthouse--theme-base-text-disabled);
   --lighthouse--theme-component-comments: Lighthouse Component-specific tokens;
   --lighthouse--theme-component-filtercard-arrived-states-active-fill: var(--lighthouse--theme-base-status-status-arrived-default);

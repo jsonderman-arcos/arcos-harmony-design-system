@@ -27,6 +27,7 @@
           "VariableID:15948:75812",
           "VariableID:15948:75813",
           "VariableID:15948:75814",
+          "VariableID:16646:40200",
           "VariableID:15948:75815",
           "VariableID:15948:75816",
           "VariableID:15948:75817",
@@ -184,8 +185,8 @@
           "VariableID:15948:76001",
           "VariableID:15948:76002",
           "VariableID:15948:76003",
-          "VariableID:15948:76004",
           "VariableID:16097:185109",
+          "VariableID:15948:76004",
           "VariableID:16097:185110",
           "VariableID:16097:185111",
           "VariableID:16097:185112",
@@ -501,10 +502,31 @@
           "VariableID:16173:377"
         ]
       },
+      "VariableCollectionId:54c37122b92d6f7561bd49074246dfe51e74a374/93:36": {
+        "defaultModeId": "73:0",
+        "id": "VariableCollectionId:54c37122b92d6f7561bd49074246dfe51e74a374/93:36",
+        "name": "Colors",
+        "remote": true,
+        "modes": [
+          {
+            "modeId": "73:0",
+            "name": "Light"
+          },
+          {
+            "modeId": "93:0",
+            "name": "Dark"
+          }
+        ],
+        "key": "54c37122b92d6f7561bd49074246dfe51e74a374",
+        "hiddenFromPublishing": true,
+        "variableIds": [
+          "VariableID:9e5ce2b7ae9d206fa48e567571a53375a263c819/93:32"
+        ]
+      },
       "VariableCollectionId:15948:75783": {
         "defaultModeId": "15948:2",
         "id": "VariableCollectionId:15948:75783",
-        "name": "Lighthouse Theme",
+        "name": "Theme",
         "remote": false,
         "modes": [
           {
@@ -935,6 +957,31 @@
           "VariableID:16099:185139",
           "VariableID:16099:185140"
         ]
+      },
+      "VariableCollectionId:a05f07d4805b49c4164802919039d41b4422b2f2/15858:865": {
+        "defaultModeId": "15686:0",
+        "id": "VariableCollectionId:a05f07d4805b49c4164802919039d41b4422b2f2/15858:865",
+        "name": "Application",
+        "remote": true,
+        "modes": [
+          {
+            "modeId": "15686:0",
+            "name": "Light"
+          },
+          {
+            "modeId": "15686:1",
+            "name": "Dark"
+          },
+          {
+            "modeId": "15722:0",
+            "name": "Mobile"
+          }
+        ],
+        "key": "a05f07d4805b49c4164802919039d41b4422b2f2",
+        "hiddenFromPublishing": true,
+        "variableIds": [
+          "VariableID:a81c2c27d9ea279ab26d278e4e168f719a764194/15858:1721"
+        ]
       }
     },
     "variables": {
@@ -1039,6 +1086,24 @@
         "hiddenFromPublishing": false,
         "valuesByMode": {
           "15948:5": 0,
+          "16284:0": 0
+        },
+        "scopes": [
+          "ALL_SCOPES"
+        ],
+        "codeSyntax": {}
+      },
+      "VariableID:16646:40200": {
+        "id": "VariableID:16646:40200",
+        "name": "radii/border-radius-max",
+        "remote": false,
+        "key": "d1979527c83d700f4da3eb23622c5387bdf4fb05",
+        "variableCollectionId": "VariableCollectionId:15948:75808",
+        "resolvedType": "FLOAT",
+        "description": "",
+        "hiddenFromPublishing": false,
+        "valuesByMode": {
+          "15948:5": 100,
           "16284:0": 0
         },
         "scopes": [
@@ -4987,34 +5052,6 @@
         ],
         "codeSyntax": {}
       },
-      "VariableID:15948:76004": {
-        "id": "VariableID:15948:76004",
-        "name": "Lighthouse/colors/yellows/pale-yellow-darkly/50",
-        "remote": false,
-        "key": "e3037a8500a7e0e9ac69b88454c4a4d7c27a6641",
-        "variableCollectionId": "VariableCollectionId:15948:75808",
-        "resolvedType": "COLOR",
-        "description": "",
-        "hiddenFromPublishing": false,
-        "valuesByMode": {
-          "15948:5": {
-            "r": 0.09803921729326248,
-            "g": 0.07058823853731155,
-            "b": 0.04313725605607033,
-            "a": 1
-          },
-          "16284:0": {
-            "r": 0.09803921729326248,
-            "g": 0.07058823853731155,
-            "b": 0.04313725605607033,
-            "a": 1
-          }
-        },
-        "scopes": [
-          "ALL_SCOPES"
-        ],
-        "codeSyntax": {}
-      },
       "VariableID:16097:185109": {
         "id": "VariableID:16097:185109",
         "name": "Lighthouse/colors/yellows/pale-yellow/500-alpha-06",
@@ -5036,6 +5073,34 @@
             "g": 0.7607843279838562,
             "b": 0.5254902243614197,
             "a": 0.05999999865889549
+          }
+        },
+        "scopes": [
+          "ALL_SCOPES"
+        ],
+        "codeSyntax": {}
+      },
+      "VariableID:15948:76004": {
+        "id": "VariableID:15948:76004",
+        "name": "Lighthouse/colors/yellows/pale-yellow-darkly/50",
+        "remote": false,
+        "key": "e3037a8500a7e0e9ac69b88454c4a4d7c27a6641",
+        "variableCollectionId": "VariableCollectionId:15948:75808",
+        "resolvedType": "COLOR",
+        "description": "",
+        "hiddenFromPublishing": false,
+        "valuesByMode": {
+          "15948:5": {
+            "r": 0.09803921729326248,
+            "g": 0.07058823853731155,
+            "b": 0.04313725605607033,
+            "a": 1
+          },
+          "16284:0": {
+            "r": 0.09803921729326248,
+            "g": 0.07058823853731155,
+            "b": 0.04313725605607033,
+            "a": 1
           }
         },
         "scopes": [
