@@ -1,0 +1,22 @@
+// src/tokens/scripts/lib/theme/selectors.ts
+export const SELECTORS: Record<string, string[]> = {
+  textPrimary: ['theme-base-content.text-primary', 'theme-base-text-primary'],
+  textSecondary: ['theme-base-content.text-secondary', 'theme-base-text-secondary'],
+  textDisabled: ['theme-base-content.text-disabled', 'theme-base-text-disabled'],
+  divider: ['theme-base-borders.divider', 'theme-base-divider-default'],
+  surface: ['theme-base-surface.surface', 'theme-base-background-elevations-base'],
+  surfaceRaised: ['theme-base-surface.surface-raised', 'theme-base-background-elevations-highest'],
+  primaryMain: ['theme-base-brand-primary.main', 'theme-base-primary-primary-main', 'theme-base-primary-main'],
+  primaryLight: ['theme-base-primary-primary-light', 'theme-base-primary-light'],
+  primaryDark: ['theme-base-primary-primary-dark', 'theme-base-primary-dark'],
+  onPrimary: ['theme-base-on-primary.main', 'theme-base-primary-contrast-text'],
+  primaryHover: ['theme-base-primary.states-hover', 'theme-base-primary-states-hover'],
+  primarySelected: ['theme-base-primary.states-selected', 'theme-base-primary-states-selected'],
+  primaryFocusRing: ['theme-base-primary.states-focus-visible', 'theme-base-primary-states-focus-visible'],
+  secondaryMain: ['theme-base-brand-secondary.main', 'theme-base-secondary-main'],
+  focusRing: ['theme-base-text.states-focus-visible', 'theme-base-text-states-focus-visible'],
+  actionHover: ['theme-base-action.hover', 'theme-base-action-hover'],
+  actionSelected: ['theme-base-action.selected', 'theme-base-action-selected'],
+  actionDisabled: ['theme-base-action.disabled', 'theme-base-action-disabled'],
+  actionDisabledBg: ['theme-base-action.disabled-bg', 'theme-base-action-disabled-background'],
+};

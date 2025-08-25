@@ -1,93 +1,34 @@
 // src/tokens/utils/tokenUtils.ts
-import core from '@theme/core.muiflat.json';
+/*import core from '@theme/core.muiflat.json';
 import theme from '@theme/theme.muiflat.json';
 
 const TOKENS: Record<string, string> = {
   ...core,
   ...theme,
-};
+};*/
+// src/tokens/utils/tokenUtils.ts (facade)
+import {
+  TOKENS, activeMode, byModeKey, token, tokenNumber, choose,
+  setTokenMode as coreSetTokenMode,
+} from './core/tokenCore';
+import { clearPrefixCaches } from './families/utils';
+import { allCoreRadii, radiusMax, radiusByName, radiiSorted } from './families/radii';
+import { allCoreSpacing, spacingByName, spacingClosest } from './families/spacing';
+import { paperElevationToken, paperBackgroundForElevation } from './families/elevation';
+import { SELECTORS } from './theme/selectors';
 
-/** Return the raw value of a token key (rgba/hex/px/etc). 
-export function token(key: string, fallback?: string): string {
-  const v = TOKENS[key];
-  if (!v || v === 'var(undefined)') return fallback ?? '';
+const selectors = Object.fromEntries(
+  Object.entries(SELECTORS).map(([name, keys]) => [name, () => choose(keys)])
+) as Record<string, () => string>;
 
-  const aliasMatch = v.match(/^var\((--[^)]+)\)$/);
-  if (aliasMatch) {
-    const aliasKey = aliasMatch[1].replace(/^--/, '');
-    return TOKENS[aliasKey] || fallback || '';
-  }
-
-  return v;
-}*/
-
-let CURRENT_MODE = 'Light';
-
-const activeMode = () => CURRENT_MODE || 'Light';
-
-function byModeKey(key: string, mode = activeMode()): string | undefined {
-  return (
-    TOKENS[`${key}.valuesByMode.${mode}`] ??
-    TOKENS[`${key}.valuesByMode.Default`] ??
-    TOKENS[`${key}.valuesByMode.Light`]
-  );
-}
-
-function choose(keys: string[], mode = activeMode(), fallback?: string): string {
-  for (const k of keys) {
-    const v = byModeKey(k, mode);
-    if (v != null && v !== '' && v !== 'var(undefined)') return v;
-  }
-  return fallback ?? '';
-}
-
-/** List resolved token values whose keys start with a given prefix (mode-aware, alias-resolving). */
-export function tokensByPrefix(prefix: string): Record<string, string> {
-  const mode = activeMode();
-  const bases = new Set<string>();
-
-  for (const key of Object.keys(TOKENS)) {
-    if (!key.startsWith(prefix)) continue;
-    if (key.endsWith('.aliasOf')) continue;
-    const base = key.includes('.valuesByMode.') ? key.split('.valuesByMode.')[0] : key;
-    bases.add(base);
-  }
-
-  const out: Record<string, string> = {};
-  for (const base of bases) {
-    const direct = byModeKey(base, mode) ?? TOKENS[base];
-    if (direct == null || direct === '' || direct === 'var(undefined)') continue;
-
-    // Resolve single-level var(--alias) if present
-    let v = String(direct);
-    if (v.startsWith('var(')) {
-      const alias = v.match(/^var\((--[^)]+)\)$/)?.[1]?.replace(/^--/, '');
-      if (alias) v = byModeKey(alias, mode) ?? v;
-    }
-    out[base] = v;
-  }
-  return out;
-}
-
-/** All core radii tokens (numeric), e.g., core-radii-border-radius-*, including -max if present. */
-export function allCoreRadii(): Record<string, number> {
-  const raw = tokensByPrefix('core-radii-border-radius');
-  const out: Record<string, number> = {};
-  for (const [k, v] of Object.entries(raw)) {
-    const n = parseFloat(String(v));
-    if (Number.isFinite(n)) out[k] = n;
-  }
-  return out;
-}
-
-/** Max radius convenience: uses `core-radii-border-radius-max` if defined; otherwise max of all radii; falls back to 9999. */
-export function radiusMax(): number {
-  const explicit = token('core-radii-border-radius-max', '');
-  const n = parseFloat(explicit);
-  if (Number.isFinite(n)) return n;
-  const all = Object.values(allCoreRadii());
-  return all.length ? Math.max(...all) : 9999;
-}
+// --- memoization caches (cleared when mode changes) ---
+//const tokenCache = new Map<string, string>();            // key: `${mode}::${key}`
+/*const byPrefixCache = new Map<string, Record<string,string>>(); // key: `${mode}::${prefix}`
+const numericByPrefixCache = new Map<string, Record<string,number>>(); // key: `${mode}::${prefix}`
+*/
+// --- memoization caches (for prefix scans; cleared when mode changes) ---
+const byPrefixCache = new Map<string, Record<string, string>>();   // `${mode}::${prefix}`
+const numericByPrefixCache = new Map<string, Record<string, number>>(); // `${mode}::${prefix}`
 
 /** ---------- Number parsing helpers ---------- */
 const toNum = (v: unknown, fb = NaN) => {
@@ -95,191 +36,26 @@ const toNum = (v: unknown, fb = NaN) => {
   return Number.isFinite(n) ? n : fb;
 };
 
-/** Return numeric tokens for a prefix (mode-aware, alias-resolving). */
-export function numericTokensByPrefix(prefix: string): Record<string, number> {
-  const raw = tokensByPrefix(prefix);
-  const out: Record<string, number> = {};
-  for (const [k, v] of Object.entries(raw)) {
-    const n = toNum(v);
-    if (Number.isFinite(n)) out[k] = n;
-  }
-  return out;
-}
-
-/** All core spacing tokens: core-spacing-spacing-* → number map. */
-export function allCoreSpacing(): Record<string, number> {
-  return numericTokensByPrefix('core-spacing-spacing-');
-}
-
 /** Sorted [key, value] entries by numeric value ascending for any numeric family. */
 export function sortEntriesByValueAsc(obj: Record<string, number>): Array<[string, number]> {
   return Object.entries(obj).sort((a, b) => a[1] - b[1]);
 }
 
-/** Get a spacing value by token *suffix* (e.g., 'md', 'xl') or full key. */
-export function spacingByName(name: string, fallback?: number): number {
-  const family = allCoreSpacing();
-  if (family[name] != null) return family[name];
-  const fullKey = name.startsWith('core-spacing-spacing-') ? name : `core-spacing-spacing-${name}`;
-  if (family[fullKey] != null) return family[fullKey];
-  return fallback ?? 0;
-}
-
-/** Get the spacing step closest to a given number of pixels. */
-export function spacingClosest(px: number): { key: string; value: number } {
-  const family = allCoreSpacing();
-  const entries = sortEntriesByValueAsc(family);
-  if (!entries.length) return { key: 'core-spacing-spacing-base', value: px };
-  let best = entries[0];
-  let bestDiff = Math.abs(entries[0][1] - px);
-  for (const e of entries) {
-    const diff = Math.abs(e[1] - px);
-    if (diff < bestDiff) { best = e; bestDiff = diff; }
-  }
-  return { key: best[0], value: best[1] };
-}
-
-/** Convenience getters for radius families */
-export function radiusByName(name: string, fallback?: number): number {
-  const family = allCoreRadii();
-  if (family[name] != null) return family[name];
-  const fullKey = name.startsWith('core-radii-border-radius') ? name : `core-radii-border-radius-${name}`;
-  if (family[fullKey] != null) return family[fullKey];
-  return fallback ?? 0;
-}
-
-export function radiiSorted(): Array<[string, number]> {
-  return sortEntriesByValueAsc(allCoreRadii());
-}
-
-/** ---------- Paper elevation mapping (exact → theme-base-background-elevation-*) ---------- */
-const PAPER_ELEVATION_TOKENS: Record<number, string> = {
-  0: 'theme-base-background-elevations-base',
-  1: 'theme-base-background-elevations-level-1',
-  2: 'theme-base-background-elevations-level-2',
-  3: 'theme-base-background-elevations-level-3',
-  4: 'theme-base-background-elevations-level-4',
-  5: 'theme-base-background-elevations-level-5',
-  6: 'theme-base-background-elevations-highest',
-};
-
-/** Returns the token key for a given Paper elevation. 0..6 map explicitly; any other number maps to "highest". */
-export function paperElevationToken(level: number): string {
-  return Object.prototype.hasOwnProperty.call(PAPER_ELEVATION_TOKENS, level)
-    ? PAPER_ELEVATION_TOKENS[level]
-    : 'theme-base-background-elevations-highest';
-}
-
-/** Returns the resolved background value for a given Paper elevation. */
-export function paperBackgroundForElevation(level: number): string {
-  const key = paperElevationToken(level);
-  return token(key, token('theme-base-background-elevations-highest', ''));
-}
 
 export function setTokenMode(mode: 'Light' | 'Dark' | 'Mobile') {
-  CURRENT_MODE = mode;
+  coreSetTokenMode(mode);
+  clearPrefixCaches();
 }
 
-export function token(key: string, fallback?: string): string {
-  const mode = activeMode();
 
-  // 1) Direct lookup by mode
-  let modeValue = byModeKey(key, mode);
-
-  // 2) Resolve var(--alias) if present (should be rare since builder resolves, but safe)
-  if (modeValue?.startsWith('var(')) {
-    const alias = modeValue.match(/^var\((--[^)]+)\)$/)?.[1]?.replace(/^--/, '');
-    if (alias) {
-      const aliasVal = byModeKey(alias, mode);
-      if (aliasVal) return aliasVal;
-    }
-  }
-
-  // 3) Resolve aliasOf metadata
-  const aliasOf = TOKENS[`${key}.aliasOf`]?.replace(/^--/, '');
-  if (!modeValue && aliasOf) {
-    const aliased = byModeKey(aliasOf, mode);
-    if (aliased) return aliased;
-  }
-
-  // 4) Return the found value or fallback
-  return modeValue ?? fallback ?? '';
-}
-
-/** Utility to resolve number tokens (px/rem without units) */
-export function tokenNumber(key: string, fallback = 0): number {
-  const val = token(key);
-  const num = parseFloat(val);
-  return isNaN(num) ? fallback : num;
-}
+/*const selectors = Object.fromEntries(
+  Object.entries(SELECTORS).map(([name, keys]) => [name, () => choose(keys)])
+) as Record<keyof typeof SELECTORS, () => string> & Record<string, () => string>;
+ */
 
 /** Shorthand reads for common design tokens */
 export const t = {
-  // Base text & surfaces
-  textPrimary: () =>
-    choose(['theme-base-content.text-primary', 'theme-base-text-primary']),
-  textSecondary: () =>
-    choose(['theme-base-content.text-secondary', 'theme-base-text-secondary']),
-  textDisabled: () =>
-    choose(['theme-base-content.text-disabled', 'theme-base-text-disabled']),
-  divider: () =>
-    choose(['theme-base-borders.divider', 'theme-base-divider-default']),
-  surface: () =>
-    choose([
-      'theme-base-surface.surface',
-      'theme-base-background-elevations-base',
-    ]),
-  surfaceRaised: () =>
-    choose([
-      'theme-base-surface.surface-raised',
-      'theme-base-background-paper-elevation-1',
-    ]),
-
-  // Primary
-  primaryMain: () =>
-    choose([
-      'theme-base-brand-primary.main',
-      'theme-base-primary-primary-main',
-      'theme-base-primary-main',
-    ]),
-  primaryLight: () =>
-    choose(['theme-base-primary-primary-light', 'theme-base-primary-light']),
-  primaryDark: () =>
-    choose(['theme-base-primary-primary-dark', 'theme-base-primary-dark']),
-  onPrimary: () =>
-    choose(['theme-base-on-primary.main', 'theme-base-primary-contrast-text']),
-  primaryHover: () =>
-    choose(['theme-base-primary.states-hover', 'theme-base-primary-states-hover']),
-  primarySelected: () =>
-    choose([
-      'theme-base-primary.states-selected',
-      'theme-base-primary-states-selected',
-    ]),
-  primaryFocusRing: () =>
-    choose([
-      'theme-base-primary.states-focus-visible',
-      'theme-base-primary-states-focus-visible',
-    ]),
-
-  // Secondary (if you need it)
-  secondaryMain: () =>
-    choose([
-      'theme-base-brand-secondary.main',
-      'theme-base-secondary-main',
-    ]),
-
-  // Focus / generic states
-  focusRing: () =>
-    choose(['theme-base-text.states-focus-visible', 'theme-base-text-states-focus-visible']),
-  actionHover: () =>
-    choose(['theme-base-action.hover', 'theme-base-action-hover']),
-  actionSelected: () =>
-    choose(['theme-base-action.selected', 'theme-base-action-selected']),
-  actionDisabled: () =>
-    choose(['theme-base-action.disabled', 'theme-base-action-disabled']),
-  actionDisabledBg: () =>
-    choose(['theme-base-action.disabled-bg', 'theme-base-action-disabled-background']),
-
+  ...selectors,
   // Paper elevation mapping
   paperElevationToken: (level: number) => paperElevationToken(level),
   paperBackgroundForElevation: (level: number) => paperBackgroundForElevation(level),
@@ -325,42 +101,10 @@ export function createTokenUtils(tokens: Record<string, string>) {
   };
   
   return {
-    // Base text & surfaces
-    textPrimary: () =>
-      get('theme-base-content.text-primary', 'theme-base-text-primary'),
-    textSecondary: () =>
-      get('theme-base-content.text-secondary', 'theme-base-text-secondary'),
-    textDisabled: () =>
-      get('theme-base-content.text-disabled', 'theme-base-text-disabled'),
-    divider: () =>
-      get('theme-base-borders.divider', 'theme-base-divider-default'),
-    surface: () =>
-      get('theme-base-surface.surface', 'theme-base-background-elevations-base'),
-    surfaceRaised: () =>
-      get('theme-base-surface.surface-raised', 'theme-base-background-elevations-level-1'),
-  
-    // Primary
-    primaryMain: () =>
-      get(
-        'theme-base-brand-primary.main',
-        'theme-base-primary-primary-main',
-        'theme-base-primary-main'
-      ),
-    primaryLight: () =>
-      get('theme-base-primary-primary-light', 'theme-base-primary-light'),
-    primaryDark: () =>
-      get('theme-base-primary-primary-dark', 'theme-base-primary-dark'),
-    onPrimary: () =>
-      get('theme-base-on-primary.main', 'theme-base-primary-contrast-text'),
-    primaryHover: () =>
-      get('theme-base-primary.states-hover', 'theme-base-primary-states-hover'),
-    primarySelected: () =>
-      get('theme-base-primary.states-selected', 'theme-base-primary-states-selected'),
-    primaryFocusRing: () =>
-      get(
-        'theme-base-primary.states-focus-visible',
-        'theme-base-primary-states-focus-visible'
-      ),
+    // semantic selectors
+    ...Object.fromEntries(
+      Object.entries(SELECTORS).map(([name, keys]) => [name, () => get(...keys)])
+    ),
 
     // ---- Status (only tokens present in theme.muiflat.json)
     // Arrived
@@ -522,21 +266,6 @@ export function createTokenUtils(tokens: Record<string, string>) {
     successMain: () => get('theme-base-feedback-success-main'),
     onSuccess:   () => get('theme-base-feedback-success-contrast-text'),
 
-    // Secondary
-    secondaryMain: () =>
-      get('theme-base-brand-secondary.main', 'theme-base-secondary-main'),
-  
-    // Focus / generic states
-    focusRing: () =>
-      get('theme-base-text.states-focus-visible', 'theme-base-text-states-focus-visible'),
-    actionHover: () => get('theme-base-action.hover', 'theme-base-action-hover'),
-    actionSelected: () =>
-      get('theme-base-action.selected', 'theme-base-action-selected'),
-    actionDisabled: () =>
-      get('theme-base-action.disabled', 'theme-base-action-disabled'),
-    actionDisabledBg: () =>
-      get('theme-base-action.disabled-bg', 'theme-base-action-disabled-background'),
-  
     // Spacing family (core-spacing-spacing-*)
     spacingsAll: () => allCoreSpacing(),
     spacingBy: (name: string, fb?: number) => spacingByName(name, fb),

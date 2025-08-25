@@ -8,6 +8,24 @@ const OUTPUT_FILE = path.resolve(OUTPUT_DIR, 'mui-theme.json');
 const OUTPUT_THEME_TS = path.resolve(__dirname, '../../theme/mui-theme.ts');
 const OVERRIDES_DIR = path.resolve(__dirname, './overrides');
 
+// near the top of build-mui-themes.ts (or right before you create `t`)
+type TokenSelectors = {
+  primaryMain: () => string;
+  onPrimary: () => string;
+  secondaryMain: () => string;
+  surface: () => string;
+  surfaceRaised: () => string;
+  textPrimary: () => string;
+  textSecondary: () => string;
+  textDisabled: () => string;
+  divider: () => string;
+  actionHover: () => string;
+  actionSelected: () => string;
+  actionDisabled: () => string;
+  actionDisabledBg: () => string;
+  paperBackgroundForElevation: (level: number) => string;
+};
+
 /** Auto-load all component override factories from ./overrides
  *  An override file should export one or more functions named like `MuiButton`, `MuiChip`, etc.
  *  Each function receives the token utils `t` and returns a valid MUI component override object.
@@ -96,7 +114,7 @@ function isValidMuiColor(value: string | undefined | null): boolean {
 }
 
 function buildMuiTheme(tokens: Record<string, string>): ThemeOptions {
-  const  t  = createTokenUtils(tokens);
+  const t = createTokenUtils(tokens) as ReturnType<typeof createTokenUtils> & TokenSelectors & Record<string, any>;
   // Polyfill missing helpers if createTokenUtils doesn't provide them yet
   const anyT: any = t as any;
   if (typeof anyT.primaryFocusRing !== 'function') {
@@ -150,8 +168,13 @@ function buildMuiTheme(tokens: Record<string, string>): ThemeOptions {
       main: isValidMuiColor(t.secondaryMain()) ? t.secondaryMain() : DEFAULTS.secondaryMain,
     },
     background: {
-      default: isValidMuiColor(t.surface()) ? t.surface() : DEFAULTS.surface,
-      paper: isValidMuiColor(t.surfaceRaised()) ? t.surfaceRaised() : DEFAULTS.surfaceRaised,
+      // map to your 7-level elevation family: base (0) for app background, level-1 for Paper
+      default: isValidMuiColor(t.paperBackgroundForElevation(0))
+        ? t.paperBackgroundForElevation(0)
+        : DEFAULTS.surface,
+      paper: isValidMuiColor(t.paperBackgroundForElevation(1))
+        ? t.paperBackgroundForElevation(1)
+        : DEFAULTS.surfaceRaised,
     },
     text: {
       primary: isValidMuiColor(t.textPrimary()) ? t.textPrimary() : DEFAULTS.textPrimary,

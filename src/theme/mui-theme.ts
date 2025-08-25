@@ -75,7 +75,7 @@ export const themeOptions: ThemeOptions = {
       "styleOverrides": {
         "root": {
           "borderRadius": 8,
-          "backgroundColor": "rgba(189,189,189,1)",
+          "backgroundColor": "rgba(255,255,255,1)",
           "border": "1px solid rgba(0,0,0,0.11999999731779099)"
         }
       }
@@ -85,7 +85,7 @@ export const themeOptions: ThemeOptions = {
         "root": {
           "borderRadius": 100,
           "border": "1px solid rgba(0,0,0,0.11999999731779099)",
-          "backgroundColor": "rgba(189,189,189,1)",
+          "backgroundColor": "rgba(255,255,255,1)",
           "color": "rgba(0,0,0,0.699999988079071)"
         },
         "filled": {},
@@ -103,7 +103,7 @@ export const themeOptions: ThemeOptions = {
             "variant": "filled"
           },
           "style": {
-            "backgroundColor": "rgba(189,189,189,1)",
+            "backgroundColor": "rgba(255,255,255,1)",
             "color": "rgba(0,0,0,0.699999988079071)",
             "& .MuiChip-deleteIcon": {
               "color": "rgba(0,0,0,0.699999988079071)"
