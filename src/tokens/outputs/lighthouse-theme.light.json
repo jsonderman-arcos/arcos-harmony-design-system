@@ -1,0 +1,60 @@
+{
+  "Base": {
+    "border": {
+      "size-default": 1
+    },
+    "spacing": {
+      "spacing-minimum": 3,
+      "width-compact": 360,
+      "width-wide": 640,
+      "width-regular": 520
+    },
+    "layout": {
+      "grid": {
+        "columns": 0,
+        "gutter": 0,
+        "margin": 0,
+        "container-max-width": 0
+      },
+      "gaps": {
+        "components": 0,
+        "stack": 0,
+        "inline": 0
+      }
+    },
+    "_components": {
+      "comments": "Carryover from MUI"
+    },
+    "comments": "Lighthouse Theme base tokens"
+  },
+  "Component": {
+    "comments": "Lighthouse Component-specific tokens",
+    "panel": {
+      "panel-width-compact": 360,
+      "panel-width-wide": 640,
+      "panel-width-default": 520,
+      "heading-level-1": 0,
+      "heading-level-2": 0,
+      "heading-level-3": 0
+    },
+    "tab-badge": {
+      "count": 0
+    },
+    "map-marker": {
+      "convoy": {
+        "stroke-weight": 2
+      },
+      "stack": {
+        "stroke-weight": 3
+      }
+    },
+    "status-chip": {
+      "chip-pad-vertical": 3
+    },
+    "list-item": {
+      "spacing": {
+        "default": 0
+      }
+    }
+  }
+}

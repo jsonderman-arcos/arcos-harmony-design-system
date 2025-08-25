@@ -1,0 +1,149 @@
+{
+  "Base": {
+    "border": {
+      "size-default": 1
+    },
+    "spacing": {
+      "spacing-minimum": 3,
+      "width-compact": 320,
+      "width-wide": 320,
+      "width-regular": 320
+    },
+    "layout": {
+      "grid": {
+        "columns": 0,
+        "gutter": 0,
+        "margin": 0,
+        "container-max-width": 0
+      },
+      "gaps": {
+        "components": 0,
+        "stack": 0,
+        "inline": 0
+      }
+    },
+    "_components": {
+      "comments": "Carryover from MUI"
+    },
+    "comments": "Lighthouse Theme base tokens",
+    "feedback": {
+      "warning": {
+        "states-hover": "rgba(255, 255, 255, 1)"
+      }
+    }
+  },
+  "Component": {
+    "comments": "Lighthouse Component-specific tokens",
+    "panel": {
+      "panel-width-compact": 320,
+      "panel-width-wide": 320,
+      "panel-width-default": 320,
+      "heading-level-1": 0,
+      "heading-level-2": 0,
+      "heading-level-3": 0
+    },
+    "navigation": {
+      "sidebar": {
+        "icon-fill-default": "rgba(255, 255, 255, 1)",
+        "label-fill-default": "rgba(255, 255, 255, 1)",
+        "background-fill": "rgba(255, 255, 255, 1)",
+        "icon-fill-selected": "rgba(255, 255, 255, 1)",
+        "label-fill-selected": "rgba(255, 255, 255, 1)",
+        "background-fill-selected": "rgba(255, 255, 255, 1)",
+        "stroke-selected": "rgba(255, 255, 255, 1)",
+        "bar-border-stroke": "rgba(255, 255, 255, 1)"
+      },
+      "footer": {
+        "background-fill": "rgba(255, 255, 255, 1)",
+        "text-fill-default": "rgba(255, 255, 255, 1)"
+      }
+    },
+    "map-marker": {
+      "convoy": {
+        "stroke-weight": 2
+      },
+      "stack": {
+        "stroke-weight": 3
+      }
+    },
+    "filtercard": {
+      "inbound": {
+        "_states": {
+          "enabled-fill": "rgba(255, 255, 255, 1)",
+          "enabled-stroke": "rgba(255, 255, 255, 1)",
+          "hover-fill": "rgba(255, 255, 255, 1)",
+          "hover-stroke": "rgba(255, 255, 255, 1)",
+          "active-fill": "rgba(255, 255, 255, 1)",
+          "active-stroke": "rgba(255, 255, 255, 1)"
+        },
+        "text-fill": "rgba(255, 255, 255, 1)",
+        "text-fill-contrast": "rgba(255, 255, 255, 1)"
+      },
+      "no-signal": {
+        "text-fill 2": "rgba(255, 255, 255, 1)",
+        "text-fill-contrast 2": "rgba(255, 255, 255, 1)",
+        "_states": {
+          "enabled-fill": "rgba(255, 255, 255, 1)",
+          "enabled-stroke": "rgba(255, 255, 255, 1)",
+          "hover-fill": "rgba(255, 255, 255, 1)",
+          "hover-stroke": "rgba(255, 255, 255, 1)",
+          "active-fill": "rgba(255, 255, 255, 1)",
+          "active-stroke": "rgba(255, 255, 255, 1)"
+        }
+      },
+      "arrived": {
+        "text-fill": "rgba(255, 255, 255, 1)",
+        "text-fill-contrast": "rgba(255, 255, 255, 1)",
+        "_states": {
+          "enabled-fill": "rgba(255, 255, 255, 1)",
+          "enabled-stroke": "rgba(255, 255, 255, 1)",
+          "hover-fill": "rgba(255, 255, 255, 1)",
+          "hover-stroke": "rgba(255, 255, 255, 1)",
+          "active-fill": "rgba(255, 255, 255, 1)",
+          "active-stroke": "rgba(255, 255, 255, 1)"
+        }
+      },
+      "idle": {
+        "text-fill": "rgba(255, 255, 255, 1)",
+        "text-fill-contrast": "rgba(255, 255, 255, 1)",
+        "_states": {
+          "enabled-fill": "rgba(255, 255, 255, 1)",
+          "enabled-stroke": "rgba(255, 255, 255, 1)",
+          "hover-fill": "rgba(255, 255, 255, 1)",
+          "hover-stroke": "rgba(255, 255, 255, 1)",
+          "active-fill": "rgba(255, 255, 255, 1)",
+          "active-stroke": "rgba(255, 255, 255, 1)"
+        }
+      }
+    },
+    "status-chip": {
+      "chip-pad-vertical": 3
+    },
+    "button": {
+      "primary": {
+        "background": {
+          "disabled": "rgba(255, 255, 255, 1)"
+        },
+        "text": {
+          "default": "rgba(255, 255, 255, 1)"
+        }
+      },
+      "secondary": {
+        "background": {
+          "default": "rgba(255, 255, 255, 1)",
+          "disabled": "rgba(255, 255, 255, 1)"
+        }
+      },
+      "ghost": {
+        "background": {
+          "hover": "rgba(255, 255, 255, 1)"
+        },
+        "text": {
+          "default": "rgba(255, 255, 255, 1)",
+          "hover": "rgba(255, 255, 255, 1)",
+          "disabled": "rgba(255, 255, 255, 1)"
+        }
+      }
+    }
+  }
+}
