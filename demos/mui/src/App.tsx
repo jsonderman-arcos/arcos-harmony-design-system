@@ -7,8 +7,8 @@ function App() {
 
   return (
     <div style={{ padding: '2rem' }}>
-      <Paper elevation={20}>
-        <Card>
+      <Paper elevation={3} sx={{ p: 2 }}>
+        <Card elevation={0} sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
           <CardContent>
             <Typography variant="h5" component="div" gutterBottom>
               MUI Card Demo

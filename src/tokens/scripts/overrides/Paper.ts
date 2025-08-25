@@ -1,15 +1,16 @@
 import { t } from '../lib/tokenUtils';
 
-export const MuiPaper = {
-      styleOverrides: {
-        root: {
-          backgroundColor: t.surface(),
-          borderRadius: t.radius,
-        },
-        outlined: {
-          border: `${t.borderSize}px solid ${t.divider()}`,
-          backgroundColor: t.surface(),
-        },
-        elevation1: { backgroundColor: t.surfaceRaised() },
-      },
+export function MuiPaper(t:any){
+  return{
+    styleOverrides: {
+    root: ({ ownerState }: any) => ({
+      backgroundColor: t.paperBackgroundForElevation(ownerState?.elevation ?? 0),
+      borderRadius: t.radius,
+    }),
+    outlined: {
+      border: `${t.borderSize}px solid ${t.divider()}`,
+      backgroundColor: t.surface(),
+    },
+  },
+}
 };

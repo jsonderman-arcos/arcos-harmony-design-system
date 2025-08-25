@@ -152,6 +152,30 @@ export function radiiSorted(): Array<[string, number]> {
   return sortEntriesByValueAsc(allCoreRadii());
 }
 
+/** ---------- Paper elevation mapping (exact → theme-base-background-elevation-*) ---------- */
+const PAPER_ELEVATION_TOKENS: Record<number, string> = {
+  0: 'theme-base-background-elevations-base',
+  1: 'theme-base-background-elevations-level-1',
+  2: 'theme-base-background-elevations-level-2',
+  3: 'theme-base-background-elevations-level-3',
+  4: 'theme-base-background-elevations-level-4',
+  5: 'theme-base-background-elevations-level-5',
+  6: 'theme-base-background-elevations-highest',
+};
+
+/** Returns the token key for a given Paper elevation. 0..6 map explicitly; any other number maps to "highest". */
+export function paperElevationToken(level: number): string {
+  return Object.prototype.hasOwnProperty.call(PAPER_ELEVATION_TOKENS, level)
+    ? PAPER_ELEVATION_TOKENS[level]
+    : 'theme-base-background-elevations-highest';
+}
+
+/** Returns the resolved background value for a given Paper elevation. */
+export function paperBackgroundForElevation(level: number): string {
+  const key = paperElevationToken(level);
+  return token(key, token('theme-base-background-elevations-highest', ''));
+}
+
 export function setTokenMode(mode: 'Light' | 'Dark' | 'Mobile') {
   CURRENT_MODE = mode;
 }
@@ -203,7 +227,7 @@ export const t = {
   surface: () =>
     choose([
       'theme-base-surface.surface',
-      'theme-base-background-paper-elevation-0',
+      'theme-base-background-elevations-base',
     ]),
   surfaceRaised: () =>
     choose([
@@ -256,6 +280,9 @@ export const t = {
   actionDisabledBg: () =>
     choose(['theme-base-action.disabled-bg', 'theme-base-action-disabled-background']),
 
+  // Paper elevation mapping
+  paperElevationToken: (level: number) => paperElevationToken(level),
+  paperBackgroundForElevation: (level: number) => paperBackgroundForElevation(level),
   // Radius / borders (falls back if token missing)
   radius: Number(token('theme-base-shape.radius', token('core-radii-border-radius', '8'))),
   // Shape / numeric (radii)
@@ -308,9 +335,9 @@ export function createTokenUtils(tokens: Record<string, string>) {
     divider: () =>
       get('theme-base-borders.divider', 'theme-base-divider-default'),
     surface: () =>
-      get('theme-base-surface.surface', 'theme-base-background-paper-elevation-0'),
+      get('theme-base-surface.surface', 'theme-base-background-elevations-base'),
     surfaceRaised: () =>
-      get('theme-base-surface.surface-raised', 'theme-base-background-paper-elevation-1'),
+      get('theme-base-surface.surface-raised', 'theme-base-background-elevations-level-1'),
   
     // Primary
     primaryMain: () =>
@@ -519,6 +546,9 @@ export function createTokenUtils(tokens: Record<string, string>) {
     radiusMax: () => radiusMax(),
     radiusBy: (name: string, fb?: number) => radiusByName(name, fb),
     radiiSorted: () => radiiSorted(),
+    // Paper elevation mapping
+    paperElevationToken: (level: number) => paperElevationToken(level),
+    paperBackgroundForElevation: (level: number) => get(paperElevationToken(level), 'theme-base-background-elevations-highest'),
     // Shape / numeric
     radius: getNumber('theme-base-shape.radius', getNumber('core-radii-border-radius', 8)),
     borderSize: getNumber('theme-base-border-size.default', getNumber('theme-base-border-size-default', 1)),

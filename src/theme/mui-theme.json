@@ -283,6 +283,14 @@
           }
         }
       ]
+    },
+    "MuiPaper": {
+      "styleOverrides": {
+        "outlined": {
+          "border": "1px solid rgba(0,0,0,0.11999999731779099)",
+          "backgroundColor": "rgba(158,158,158,1)"
+        }
+      }
     }
   }
 }
