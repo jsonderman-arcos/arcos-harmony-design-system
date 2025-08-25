@@ -54,7 +54,7 @@
   "core-radii-border-radius-max.collectionId": "VariableCollectionId:15948:75808",
   "core-radii-border-radius-max.collectionName": "Core",
   "core-radii-border-radius-max.valuesByMode.Default": "100",
-  "core-radii-border-radius-max.valuesByMode.Large Screen": "0",
+  "core-radii-border-radius-max.valuesByMode.Large Screen": "100",
   "core-spacing-spacing-none.id": "VariableID:15948:75815",
   "core-spacing-spacing-none.var": "--core-spacing-spacing-none",
   "core-spacing-spacing-none.name": "core-spacing-spacing-none",

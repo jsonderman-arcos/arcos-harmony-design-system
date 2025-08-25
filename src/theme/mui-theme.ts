@@ -83,7 +83,7 @@ export const themeOptions: ThemeOptions = {
     "MuiChip": {
       "styleOverrides": {
         "root": {
-          "borderRadius": 8,
+          "borderRadius": 100,
           "border": "1px solid rgba(0,0,0,0.11999999731779099)",
           "backgroundColor": "rgba(189,189,189,1)",
           "color": "rgba(0,0,0,0.699999988079071)"

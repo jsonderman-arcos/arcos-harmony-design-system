@@ -1,6 +1,6 @@
 export function MuiChip(t: any) {
   const base = {
-    borderRadius: t.radius,
+    borderRadius: t.radiusBy('max',100),
     border: `${t.borderSize}px solid ${t.divider()}`,
     backgroundColor: t.surfaceRaised(),
     color: t.textSecondary(),
