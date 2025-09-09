@@ -9,6 +9,7 @@ Buttons allow users to perform actions with a single click or tap, providing cle
 **Purpose:** Buttons are primarily used to give a command to the system, and secondarily to change the status of an object, or navigate to another page.
 
 ### Command
+
 Used to give a command to the system, such as submitting a form, saving changes, or executing an action.
 
 **Command**: do what?
@@ -18,7 +19,6 @@ Used to give a command to the system, such as submitting a form, saving changes,
 [Log in]
 [Send my information]
 [Add team member]
-
 ❌ Avoid
 [Login] (noun, not a verb)
 [Send] (too generic)
@@ -28,35 +28,27 @@ Used to give a command to the system, such as submitting a form, saving changes,
 
 ### Status
 Used to change the status of an object, such as marking an item as complete. Allowed to use instead of commands to save space and reduce non-informative labels like “Mark as…”
-
 **Predicative complement:** subject is what? which?
-
 **Adjunct:** how? why? what for? when?
-
 ```
 ✅ Good
 [Approved]
 [Junk]
 [Important]
 [Requires review]
-
 ✅  Allowed
 [Mark as approved] (command form)
-
 ❌ Avoid
 [Change status to approved] (too long)
 ```
 
 ### Navigation
 Used to navigate to another page or section of the application, such as going to a settings page or viewing a profile. Helps to save space avoiding command-based labels like “Go to…”
-
 **Subject:** what?
-
 ```
 ✅ Good
 [To profile]
 [Settings]
-
 ❌ Avoid
 [Advanced] (not clear what it does)
 [More] (not informative)
@@ -67,7 +59,6 @@ Used to navigate to another page or section of the application, such as going to
 - **Actions**: Execute commands like delete, edit, or share
 - **Status changes**: Mark items as complete, approved, or important
 - **Navigation**: Move to different sections or pages
-
 ***Note:***\* Avoid using buttons for navigation when links or tabs are more appropriate, as buttons imply an action rather than a navigation intent.\*
 
 ## How to use
@@ -88,7 +79,6 @@ Used to navigate to another page or section of the application, such as going to
 - Button text must be descriptive to the action it will perform, e.g. [Send my information] instead of [Submit form]
 
 ## Accessibility requirements
-
 ### **WCAG 2.2 compliance**
 - Minimum contrast: 4.5:1 for labels, 3:1 for borders and focus indicators
 - Focus visible indicators required for keyboard navigation
@@ -113,20 +103,16 @@ Used to navigate to another page or section of the application, such as going to
 | **Disabled** | Grayed out, reduced opacity, non-interactive | Option exists but is currently unavailable | Prerequisites not met, insufficient permissions |
 | **Focused** | Visible outline or highlight around button | Indicates keyboard navigation position | User navigates via keyboard |
 | **Loading** | Spinner or progress indicator within button | Provide continuous feedback during processing | When an action is being processed |
-
 ## Examples
 ### ✅ Correct usage
-
 ```
 Command buttons:
 [Log in]
 [Send my information]
 [Add team member]
-
 Status buttons:
 [Approved]
 [Junk]
-
 Navigation buttons:
 [To profile]
 [Settings]
