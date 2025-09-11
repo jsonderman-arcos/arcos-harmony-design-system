@@ -351,11 +351,121 @@
         }
       ]
     },
-    "MuiPaper": {
+    "MuiFormControl": {
       "styleOverrides": {
+        "root": {
+          "backgroundColor": "transparent"
+        }
+      }
+    },
+    "MuiFormLabel": {
+      "styleOverrides": {
+        "root": {
+          "color": "rgba(0,0,0,0.699999988079071)",
+          "fontWeight": 500,
+          "fontSize": "1rem"
+        },
+        "asterisk": {
+          "color": "rgba(50,98,141,1)"
+        }
+      }
+    },
+    "MuiPaper": {
+      "defaultProps": {
+        "elevation": 0
+      },
+      "styleOverrides": {
+        "root": {
+          "borderRadius": 8
+        },
         "outlined": {
           "border": "1px solid rgba(0,0,0,0.11999999731779099)",
           "backgroundColor": "rgba(158,158,158,1)"
+        }
+      },
+      "variants": [
+        {
+          "props": {
+            "elevation": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(158,158,158,1)",
+            "--mui-palette-background-paper": "rgba(158,158,158,1)"
+          }
+        },
+        {
+          "props": {
+            "elevation": 1
+          },
+          "style": {
+            "backgroundColor": "rgba(189,189,189,1)",
+            "--mui-palette-background-paper": "rgba(189,189,189,1)"
+          }
+        },
+        {
+          "props": {
+            "elevation": 2
+          },
+          "style": {
+            "backgroundColor": "rgba(210,210,210,1)",
+            "--mui-palette-background-paper": "rgba(210,210,210,1)"
+          }
+        },
+        {
+          "props": {
+            "elevation": 3
+          },
+          "style": {
+            "backgroundColor": "rgba(224,224,224,1)",
+            "--mui-palette-background-paper": "rgba(224,224,224,1)"
+          }
+        },
+        {
+          "props": {
+            "elevation": 4
+          },
+          "style": {
+            "backgroundColor": "rgba(238,238,238,1)",
+            "--mui-palette-background-paper": "rgba(238,238,238,1)"
+          }
+        },
+        {
+          "props": {
+            "elevation": 5
+          },
+          "style": {
+            "backgroundColor": "rgba(245,245,245,1)",
+            "--mui-palette-background-paper": "rgba(245,245,245,1)"
+          }
+        },
+        {
+          "props": {
+            "elevation": 6
+          },
+          "style": {
+            "backgroundColor": "rgba(255,255,255,1)",
+            "--mui-palette-background-paper": "rgba(255,255,255,1)"
+          }
+        }
+      ]
+    },
+    "MuiTextField": {
+      "defaultProps": {
+        "variant": "outlined"
+      },
+      "styleOverrides": {
+        "root": {
+          "borderRadius": 8
+        }
+      }
+    },
+    "MuiOutlinedInput": {
+      "styleOverrides": {
+        "root": {
+          "backgroundColor": "#fff",
+          "&.Mui-disabled": {
+            "backgroundColor": "rgba(0,0,0,0.11999999731779099)"
+          }
         }
       }
     }

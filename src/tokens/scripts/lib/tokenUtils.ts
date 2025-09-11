@@ -33,7 +33,25 @@ export function setTokenMode(mode: 'Light' | 'Dark' | 'Mobile') {
 }
 
 export const t = Object.freeze({
+ 
+
   ...selectors,
+  // specific selectors
+  textPrimary: () => token('theme-base-text-primary'),
+  textSecondary: () => token('theme-base-text-secondary'),
+  primaryMain: () => token('theme-base-primary-main'),
+  primaryHover: () => token('theme-base-primary-hover'),
+  primaryDark: () => token('theme-base-primary-dark'),           // Added
+  onPrimary: () => token('theme-base-on-primary'),               // Added
+  inputWhiteBg: () => token('core-lighthouse-colors-neutrals-white-100'),
+  textDisabled: () => token('theme-base-text-disabled'),
+  actionDisabledBg: () => token('theme-base-action-disabled-bg'),
+  actionDisabled: () => token('theme-base-action-disabled'),
+  primaryFocusRing: () => token('theme-base-primary-focus-ring'),
+  focusRing: () => token('theme-base-focus-ring'),
+  actionHover: () => token('theme-base-action-hover'),
+  // Divider
+  divider: () => token('theme-base-divider'),
   // Paper elevation mapping
   paperElevationToken: (level: number) => paperElevationToken(level),
   paperBackgroundForElevation: (level: number) => paperBackgroundForElevation(level) ?? token(paperElevationToken(level), token('theme-base-background-elevations-highest')),

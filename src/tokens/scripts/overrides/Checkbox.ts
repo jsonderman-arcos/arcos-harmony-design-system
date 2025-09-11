@@ -1,5 +1,3 @@
-
-
 import { t } from '../lib/tokenUtils';
 
 export const MuiCheckbox = {

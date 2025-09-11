@@ -10,7 +10,7 @@ export const MuiTab = {
           '&:focus-visible': {
             outline: `${Math.max(2, t.borderSize)}px solid ${t.primaryFocusRing() || t.focusRing()}`,
             outlineOffset: 2,
-            borderRadius: t.radius,
+            borderRadius: 0,
           },
         },
       },
