@@ -1,5 +1,9 @@
-import { useState } from 'react'
+import * as React from "react";
 import {
+  createTheme,
+  ThemeProvider,
+  CssBaseline,
+  Alert,
   Typography,
   Button,
   Card,
@@ -15,20 +19,68 @@ import {
   Switch,
   TextField,
   Tabs,
-  Tab
-} from '@mui/material'
+  Tab,
+  Snackbar,
+  type SnackbarCloseReason,
+} from "@mui/material";
 // import Grid from '@mui/material/Grid' // No longer needed
-import './App.css'
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [tab, setTab] = useState(0)
-  const label = { inputProps: { 'aria-label': 'Color switch demo' } };
+  // Mode Switching functions
+  const [mode, setMode] = React.useState<"light" | "dark">("light");
+  const theme = createTheme({
+    palette: {
+      mode,
+    },
+  });
+  const [count, setCount] = React.useState(0);
+  const [tab, setTab] = React.useState(0);
+  const label = { inputProps: { "aria-label": "Color switch demo" } };
+
+  // Chip Functions
+  const handleDelete = () => {
+    console.info("You clicked the delete icon.");
+  };
+
+  // Snack bar functions
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const handleSnackbarClose = (
+    _event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+React.useEffect(() => {
+  setSnackbarOpen(true);
+}, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
-        <Card elevation={ 3 } >
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div style={{ padding: "2rem" }}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={mode === "dark"}
+              onChange={() => setMode(mode === "light" ? "dark" : "light")}
+            />
+          }
+          label="Dark mode"
+        />
+        <Card elevation={3}>
           <CardContent>
+            <Alert
+              severity="success"
+              variant="filled"
+              sx={{ mb: 2 }}
+              onClose={() => {}}
+            >
+              This is an info alert — check it out!
+            </Alert>
             <Typography variant="h5" component="div" gutterBottom>
               MUI Card Demo
             </Typography>
@@ -37,6 +89,14 @@ function App() {
               color="success"
               variant="filled"
               sx={{ mb: 2 }}
+            />
+            <Chip
+              label="default State"
+              color="default"
+              variant="filled"
+              sx={{ mb: 2 }}
+              clickable
+              onDelete={handleDelete}
             />
             <TextField
               label="Demo Input"
@@ -62,7 +122,6 @@ function App() {
             {/*</Paper>*/}
             {tab === 0 && (
               <>
-                
                 <FormControl fullWidth sx={{ mt: 2 }}>
                   <Select defaultValue="" displayEmpty size="small">
                     <option value="" disabled>
@@ -82,35 +141,69 @@ function App() {
             )}
             {tab === 1 && (
               <>
-              <Switch {...label} defaultChecked color="secondary" />
-              <FormGroup>
-                <FormControlLabel control={<Switch defaultChecked color="warning"/>} label="Label" />
-              </FormGroup>
-              <FormControl>
-                <RadioGroup defaultValue="a" name="demo-radio-group">
-                  <FormControlLabel value="a" control={<Radio />} label="Option A" />
-                  <FormControlLabel value="b" control={<Radio />} label="Option B" />
-                </RadioGroup>
-              </FormControl>
+                <Switch {...label} defaultChecked color="secondary" />
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Switch defaultChecked color="warning" />}
+                    label="Label"
+                  />
+                </FormGroup>
+                <FormControl>
+                  <RadioGroup defaultValue="a" name="demo-radio-group">
+                    <FormControlLabel
+                      value="a"
+                      control={<Radio />}
+                      label="Option A"
+                    />
+                    <FormControlLabel
+                      value="b"
+                      control={<Radio />}
+                      label="Option B"
+                    />
+                  </RadioGroup>
+                </FormControl>
               </>
             )}
             {/* Buttons below Tabs */}
-            <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+            <div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
               <Button variant="contained" onClick={() => setCount(count + 1)}>
                 Click Me
               </Button>
-              <Button
+             <Button
                 variant="contained"
                 color="secondary"
-                onClick={() => alert('Secondary button clicked')}
+                onClick={() => alert("Secondary button clicked")}
               >
-                Secondary Action
+                Secondary State
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => alert("Error button clicked")}
+              >
+                Error State
               </Button>
             </div>
           </CardContent>
         </Card>
-    </div>
-  )
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+        >
+          <Alert
+            severity="error"
+            variant="filled"
+            onClose={handleSnackbarClose}
+            sx={{ width: "100%" }}
+          >
+            This is an error alert inside a snackbar!
+          </Alert>
+        </Snackbar>
+      </div>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;

@@ -1,22 +1,58 @@
 export function MuiChip(t: any) {
+  const v = (name: string, fallback: string) => `var(--${name}, ${fallback})`;
+
+  // Base surface/text/divider via CSS vars with fallbacks to theme helpers
+  const surfaceRaised = v('theme-base-surface-raised', t.surfaceRaised?.() || '#fff');
+  const textSecondary = v('theme-base-text-secondary', t.textSecondary?.() || 'rgba(0,0,0,0.6)');
+  const textPrimary = v('theme-base-text-primary', t.textPrimary?.() || 'rgba(0,0,0,0.87)');
+  const divider = v('theme-base-divider', t.divider?.() || 'rgba(0,0,0,0.12)');
+
+  // Palette roles as CSS variables (aligns with Switch.ts)
+  const primary = {
+    main: v('theme-base-palette-primary-main', '#1976d2'),
+    on: v('theme-base-palette-primary-contrast-text', '#ffffff'),
+  } as const;
+  const secondary = {
+    main: v('theme-base-palette-secondary-main', '#9c27b0'),
+    on: v('theme-base-palette-secondary-contrast-text', '#ffffff'),
+  } as const;
+  const error = {
+    main: v('theme-base-palette-error-main', '#d32f2f'),
+    on: v('theme-base-palette-error-contrast-text', '#ffffff'),
+  } as const;
+  const warning = {
+    main: v('theme-base-palette-warning-main', '#ed6c02'),
+    on: v('theme-base-palette-warning-contrast-text', textPrimary),
+  } as const;
+  const info = {
+    main: v('theme-base-palette-info-main', '#0288d1'),
+    on: v('theme-base-palette-info-contrast-text', '#ffffff'),
+  } as const;
+  const success = {
+    main: v('theme-base-palette-success-main', '#2e7d32'),
+    on: v('theme-base-palette-success-contrast-text', '#ffffff'),
+  } as const;
+
   const base = {
-    borderRadius: t.radiusBy('max',100),
-    border: `${t.borderSize}px solid ${t.divider()}`,
-    backgroundColor: t.surfaceRaised(),
-    color: t.textSecondary(),
+    borderRadius: t.radiusBy?.('max', 100) ?? '9999px',
+    border: `${t.borderSize ?? 1}px solid ${divider}`,
+    backgroundColor: surfaceRaised,
+    color: textSecondary,
+    // Delete icon alpha to 50%
+    '& .MuiChip-deleteIcon': { opacity: 0.5 },
   } as const;
 
   const filled = (bg: string, fg: string) => ({
     backgroundColor: bg,
     color: fg,
-    '& .MuiChip-deleteIcon': { color: fg },
+    '& .MuiChip-deleteIcon': { color: fg, opacity: 0.5 },
   });
 
   const outlined = (stroke: string, fg: string) => ({
     backgroundColor: 'transparent',
     borderColor: stroke,
     color: fg,
-    '& .MuiChip-deleteIcon': { color: fg },
+    '& .MuiChip-deleteIcon': { color: fg, opacity: 0.5 },
   });
 
   return {
@@ -24,10 +60,10 @@ export function MuiChip(t: any) {
       root: {
         ...base,
       },
-      // Variants
+      // Variants (we still declare these empty to let variants[] drive styles)
       filled: {},
       outlined: {},
-      // Colors
+      // Colors (kept for MUI specificity but styles come from variants[])
       colorPrimary: {},
       colorSecondary: {},
       colorError: {},
@@ -39,65 +75,65 @@ export function MuiChip(t: any) {
       // Default (no color prop): use surface/text
       {
         props: { variant: 'filled' },
-        style: filled(t.surfaceRaised(), t.textSecondary()),
+        style: filled(surfaceRaised, textSecondary),
       },
       {
         props: { variant: 'outlined' },
-        style: outlined(t.divider(), t.textSecondary()),
+        style: outlined(divider, textSecondary),
       },
       // Primary
       {
         props: { color: 'primary', variant: 'filled' },
-        style: filled(t.primaryMain(), t.onPrimary()),
+        style: filled(primary.main, primary.on),
       },
       {
         props: { color: 'primary', variant: 'outlined' },
-        style: outlined(t.primaryMain(), t.primaryMain()),
+        style: outlined(primary.main, primary.main),
       },
       // Secondary
       {
         props: { color: 'secondary', variant: 'filled' },
-        style: filled(t.secondaryMain(), t.onPrimary() || t.textPrimary()),
+        style: filled(secondary.main, secondary.on),
       },
       {
         props: { color: 'secondary', variant: 'outlined' },
-        style: outlined(t.secondaryMain(), t.secondaryMain()),
+        style: outlined(secondary.main, secondary.main),
       },
       // Error
       {
         props: { color: 'error', variant: 'filled' },
-        style: filled(t.errorMain?.() || '#d32f2f', t.onError?.() || '#fff'),
+        style: filled(error.main, error.on),
       },
       {
         props: { color: 'error', variant: 'outlined' },
-        style: outlined(t.errorMain?.() || '#970f0fff', t.errorMain?.() || '#d32f2f'),
+        style: outlined(error.main, error.main),
       },
       // Warning
       {
         props: { color: 'warning', variant: 'filled' },
-        style: filled(t.warningMain?.() || '#ed6c02', t.onWarning?.() || t.textPrimary()),
+        style: filled(warning.main, warning.on),
       },
       {
         props: { color: 'warning', variant: 'outlined' },
-        style: outlined(t.warningMain?.() || '#ed6c02', t.warningMain?.() || '#ed6c02'),
+        style: outlined(warning.main, warning.main),
       },
       // Info
       {
         props: { color: 'info', variant: 'filled' },
-        style: filled(t.infoMain?.() || '#0288d1', t.onInfo?.() || '#fff'),
+        style: filled(info.main, info.on),
       },
       {
         props: { color: 'info', variant: 'outlined' },
-        style: outlined(t.infoMain?.() || '#0288d1', t.infoMain?.() || '#0288d1'),
+        style: outlined(info.main, info.main),
       },
       // Success
       {
         props: { color: 'success', variant: 'filled' },
-        style: filled(t.successMain?.() || '#2e7d32', t.onSuccess?.() || '#fff'),
+        style: filled(success.main, success.on),
       },
       {
         props: { color: 'success', variant: 'outlined' },
-        style: outlined(t.successMain?.() || '#2e7d32', t.successMain?.() || '#2e7d32'),
+        style: outlined(success.main, success.main),
       },
     ],
   };

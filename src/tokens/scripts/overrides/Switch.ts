@@ -1,113 +1,111 @@
 export function MuiSwitch(t: any) {
-  const toAlpha = (c: string, alpha = 0.5) => {
-    // rgba(r,g,b,a)
-    const rgba = c.match(/^rgba?\(([^)]+)\)$/i);
-    if (rgba) {
-      const parts = rgba[1].split(',').map(s => s.trim());
-      const [r, g, b] = parts.map((p, i) => (i < 3 ? parseInt(p, 10) : p));
-      if (Number.isFinite(r) && Number.isFinite(g) && Number.isFinite(b)) {
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-      }
-    }
-    // #rrggbb
-    const hex = c.match(/^#([0-9a-f]{6})$/i);
-    if (hex) {
-      const n = parseInt(hex[1], 16);
-      const r = (n >> 16) & 255;
-      const g = (n >> 8) & 255;
-      const b = n & 255;
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    }
-    // Fallback: return original; caller may also set opacity
-    return c;
-  };
+  const v = (name: string, fallback: string) => `var(--${name}, ${fallback})`;
+
+  // Palette CSS variables with sensible fallbacks
+  const primary = v('theme-base-palette-primary-main', '#1976d2');
+  const secondary = v('theme-base-palette-secondary-main', '#9c27b0');
+  const error = v('theme-base-palette-error-main', '#d32f2f');
+  const warning = v('theme-base-palette-warning-main', '#ffa726');
+  const info = v('theme-base-palette-info-main', '#0288d1');
+  const success = v('theme-base-palette-success-main', '#388e3c');
+
+  const disabled = v('theme-base-action-disabled', 'rgba(0,0,0,0.38)');
+  const disabledBg = v('theme-base-action-disabled-bg', 'rgba(0,0,0,0.12)');
+  const thumbBg = v('theme-base-input-white-bg', '#fff');
+
+  // Helper to create semi-transparent track color using CSS vars
+  const mix = (cssVarWithFallback: string, pct = 50) =>
+    `color-mix(in srgb, ${cssVarWithFallback} ${pct}%, transparent)`;
+
   return {
     styleOverrides: {
       switchBase: {
-        // No generic color application; handle per-color so `color` prop works
-
         // Primary (default)
         '&.MuiSwitch-colorPrimary.Mui-checked': {
-          color: t.primaryMain ? t.primaryMain() : '#1976d2',
+          color: primary,
           '& + .MuiSwitch-track': {
-            backgroundColor: toAlpha(t.primaryMain ? t.primaryMain() : '#1976d2', 0.5),
+            backgroundColor: mix(primary, 50),
           },
           '& .MuiSwitch-thumb': {
-            backgroundColor: t.primaryMain ? t.primaryMain() : '#1976d2',
+            backgroundColor: primary,
           },
         },
 
         // Secondary
         '&.MuiSwitch-colorSecondary.Mui-checked': {
-          color: t.secondaryMain ? t.secondaryMain() : '#9c27b0',
+          color: secondary,
           '& + .MuiSwitch-track': {
-            backgroundColor: toAlpha(t.secondaryMain ? t.secondaryMain() : '#9c27b0', 0.5),
+            backgroundColor: mix(secondary, 50),
           },
           '& .MuiSwitch-thumb': {
-            backgroundColor: t.secondaryMain ? t.secondaryMain() : '#9c27b0',
+            backgroundColor: secondary,
           },
         },
 
         // Error
         '&.MuiSwitch-colorError.Mui-checked': {
-          color: t.errorMain ? t.errorMain() : '#d32f2f',
+          color: error,
           '& + .MuiSwitch-track': {
-            backgroundColor: toAlpha(t.errorMain ? t.errorMain() : '#d32f2f', 0.5),
+            backgroundColor: mix(error, 50),
           },
           '& .MuiSwitch-thumb': {
-            backgroundColor: t.errorMain ? t.errorMain() : '#d32f2f',
+            backgroundColor: error,
           },
         },
 
         // Warning
         '&.MuiSwitch-colorWarning.Mui-checked': {
-          color: t.warningMain ? t.warningMain() : '#ffa726',
+          color: warning,
           '& + .MuiSwitch-track': {
-            backgroundColor: toAlpha(t.warningMain ? t.warningMain() : '#ffa726', 0.5),
+            backgroundColor: mix(warning, 50),
           },
           '& .MuiSwitch-thumb': {
-            backgroundColor: t.warningMain ? t.warningMain() : '#ffa726',
+            backgroundColor: warning,
           },
         },
 
         // Info
         '&.MuiSwitch-colorInfo.Mui-checked': {
-          color: t.infoMain ? t.infoMain() : '#0288d1',
+          color: info,
           '& + .MuiSwitch-track': {
-            backgroundColor: toAlpha(t.infoMain ? t.infoMain() : '#0288d1', 0.5),
+            backgroundColor: mix(info, 50),
           },
           '& .MuiSwitch-thumb': {
-            backgroundColor: t.infoMain ? t.infoMain() : '#0288d1',
+            backgroundColor: info,
           },
         },
 
         // Success
         '&.MuiSwitch-colorSuccess.Mui-checked': {
-          color: t.successMain ? t.successMain() : '#388e3c',
+          color: success,
           '& + .MuiSwitch-track': {
-            backgroundColor: toAlpha(t.successMain ? t.successMain() : '#388e3c', 0.5),
+            backgroundColor: mix(success, 50),
           },
           '& .MuiSwitch-thumb': {
-            backgroundColor: t.successMain ? t.successMain() : '#388e3c',
+            backgroundColor: success,
           },
         },
+
+        // Disabled states
         '&.Mui-disabled': {
-          color: t.actionDisabled ? t.actionDisabled() : 'rgba(0,0,0,0.38)',
+          color: disabled,
         },
         '&.Mui-checked.Mui-disabled': {
-          color: t.actionDisabled ? t.actionDisabled() : 'rgba(0,0,0,0.38)',
+          color: disabled,
           '& + .MuiSwitch-track': {
             opacity: 0.5,
           },
         },
       },
+
       thumb: {
         // Unchecked thumb color
-        backgroundColor: t.inputWhiteBg ? t.inputWhiteBg() : '#fff',
+        backgroundColor: thumbBg,
       },
+
       track: {
         // Unchecked track color
-        backgroundColor: t.actionDisabledBg ? t.actionDisabledBg() : 'rgba(0,0,0,0.12)',
+        backgroundColor: disabledBg,
       },
     },
   };

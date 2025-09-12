@@ -29,41 +29,274 @@
     "borderRadius": 8
   },
   "components": {
+    "MuiAlert": {
+      "styleOverrides": {
+        "root": {
+          "borderRadius": 8
+        },
+        "standardSuccess": {
+          "backgroundColor": "var(--theme-base-feedback-success-light, #e8f5e9)",
+          "color": "var(--theme-base-feedback-success-dark, #1b5e20)"
+        },
+        "standardInfo": {
+          "backgroundColor": "var(--theme-base-feedback-info-light, #e3f2fd)",
+          "color": "var(--theme-base-feedback-info-dark, #01579b)"
+        },
+        "standardWarning": {
+          "backgroundColor": "var(--theme-base-feedback-warning-light, #fff4e5)",
+          "color": "var(--theme-base-feedback-warning-dark, #b53d00)"
+        },
+        "standardError": {
+          "backgroundColor": "var(--theme-base-feedback-error-light, #fde7e9)",
+          "color": "var(--theme-base-feedback-error-dark, #9a0007)"
+        },
+        "filledSuccess": {
+          "backgroundColor": "var(--theme-base-feedback-success-main, #2e7d32)",
+          "color": "var(--theme-base-feedback-success-contrast-text, #ffffff)"
+        },
+        "filledInfo": {
+          "backgroundColor": "var(--theme-base-feedback-info-main, #0288d1)",
+          "color": "var(--theme-base-feedback-info-contrast-text, #ffffff)"
+        },
+        "filledWarning": {
+          "backgroundColor": "var(--theme-base-feedback-warning-main, #ed6c02)",
+          "color": "var(--theme-base-feedback-warning-contrast-text, #1a1300)"
+        },
+        "filledError": {
+          "backgroundColor": "var(--theme-base-feedback-error-main, #d32f2f)",
+          "color": "var(--theme-base-feedback-error-contrast-text, #ffffff)"
+        },
+        "outlinedSuccess": {
+          "color": "var(--theme-base-feedback-success-dark, #1b5e20)",
+          "border": "1px solid",
+          "borderColor": "var(--theme-base-feedback-success-main, #2e7d32)"
+        },
+        "outlinedInfo": {
+          "color": "var(--theme-base-feedback-info-dark, #01579b)",
+          "border": "1px solid",
+          "borderColor": "var(--theme-base-feedback-info-main, #0288d1)"
+        },
+        "outlinedWarning": {
+          "color": "var(--theme-base-feedback-warning-dark, #b53d00)",
+          "border": "1px solid",
+          "borderColor": "var(--theme-base-feedback-warning-main, #ed6c02)"
+        },
+        "outlinedError": {
+          "color": "var(--theme-base-feedback-error-dark, #9a0007)",
+          "border": "1px solid",
+          "borderColor": "var(--theme-base-feedback-error-main, #d32f2f)"
+        }
+      }
+    },
     "MuiButton": {
       "styleOverrides": {
         "root": {
           "borderRadius": 8,
+          "textTransform": "none",
+          "boxShadow": "none",
           "&:focus-visible": {
-            "outline": "2px solid rgba(50,98,141,0.30000001192092896)",
+            "outline": "2px solid var(--theme-base-primary-states-focus-visible, rgba(50,98,141,0.30))",
             "outlineOffset": 2
           }
         },
         "containedPrimary": {
-          "backgroundColor": "rgba(50,98,141,1)",
-          "color": "rgba(235,239,244,1)",
+          "backgroundColor": "var(--theme-base-primary-main, #32628D)",
+          "color": "var(--theme-base-primary-on-main, #EBEFF4)",
+          "boxShadow": "none",
           "&:hover": {
-            "backgroundColor": "rgba(42,82,118,1)",
+            "backgroundColor": "var(--theme-base-primary-dark, #2A5276)",
             "boxShadow": "none"
           },
           "&:active": {
-            "backgroundColor": "rgba(42,82,118,1)"
+            "backgroundColor": "var(--theme-base-primary-dark, #2A5276)",
+            "boxShadow": "none"
           },
           "&.Mui-disabled": {
-            "color": "rgba(0,0,0,0.3799999952316284)",
-            "backgroundColor": "rgba(0,0,0,0.11999999731779099)"
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
+            "backgroundColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.12))",
+            "boxShadow": "none"
           }
         },
         "outlinedPrimary": {
-          "borderColor": "rgba(50,98,141,1)",
-          "color": "rgba(50,98,141,1)",
+          "color": "var(--theme-base-primary-main, #32628D)",
+          "borderColor": "var(--theme-base-primary-states-outlined-border, rgba(50,98,141,0.50))",
           "&:hover": {
-            "backgroundColor": "rgba(50,98,141,0.05999999865889549)"
+            "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
+            "borderColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.12))"
           }
         },
         "textPrimary": {
-          "color": "rgba(50,98,141,1)",
+          "color": "var(--theme-base-primary-main, #32628D)",
           "&:hover": {
-            "backgroundColor": "rgba(50,98,141,0.05999999865889549)"
+            "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))"
+          }
+        },
+        "containedSecondary": {
+          "backgroundColor": "var(--theme-base-secondary-main, #415E5B)",
+          "color": "var(--theme-base-secondary-on-main, #FFFFFF)",
+          "boxShadow": "none",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-secondary-dark, #71A49E)",
+            "boxShadow": "none"
+          },
+          "&:active": {
+            "backgroundColor": "var(--theme-base-secondary-dark, #71A49E)",
+            "boxShadow": "none"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
+            "backgroundColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.12))",
+            "boxShadow": "none"
+          }
+        },
+        "outlinedSecondary": {
+          "color": "var(--theme-base-secondary-main, #415E5B)",
+          "borderColor": "var(--theme-base-secondary-states-outlined-border, rgba(65,94,91,0.50))",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
+            "borderColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.12))"
+          }
+        },
+        "textSecondary": {
+          "color": "var(--theme-base-secondary-main, #415E5B)",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))"
+          }
+        },
+        "containedError": {
+          "backgroundColor": "var(--theme-base-feedback-error-main, #d32f2f)",
+          "color": "var(--theme-base-feedback-error-contrast-text, #ffffff)",
+          "boxShadow": "none",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-feedback-error-dark, #9a0007)",
+            "boxShadow": "none"
+          },
+          "&:active": {
+            "backgroundColor": "var(--theme-base-feedback-error-dark, #9a0007)",
+            "boxShadow": "none"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
+            "backgroundColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.12))",
+            "boxShadow": "none"
+          }
+        },
+        "outlinedError": {
+          "color": "var(--theme-base-feedback-error-main, #d32f2f)",
+          "borderColor": "var(--theme-base-feedback-error-main, #d32f2f)",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
+          }
+        },
+        "textError": {
+          "color": "var(--theme-base-feedback-error-main, #d32f2f)",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
+          }
+        },
+        "containedWarning": {
+          "backgroundColor": "var(--theme-base-feedback-warning-main, #ed6c02)",
+          "color": "var(--theme-base-feedback-warning-contrast-text, #1a1300)",
+          "boxShadow": "none",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-feedback-warning-dark, #b53d00)",
+            "boxShadow": "none"
+          },
+          "&:active": {
+            "backgroundColor": "var(--theme-base-feedback-warning-dark, #b53d00)",
+            "boxShadow": "none"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
+            "backgroundColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.12))",
+            "boxShadow": "none"
+          }
+        },
+        "outlinedWarning": {
+          "color": "var(--theme-base-feedback-warning-main, #ed6c02)",
+          "borderColor": "var(--theme-base-feedback-warning-main, #ed6c02)",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
+          }
+        },
+        "textWarning": {
+          "color": "var(--theme-base-feedback-warning-main, #ed6c02)",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
+          }
+        },
+        "containedInfo": {
+          "backgroundColor": "var(--theme-base-feedback-info-main, #0288d1)",
+          "color": "var(--theme-base-feedback-info-contrast-text, #ffffff)",
+          "boxShadow": "none",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-feedback-info-dark, #01579b)",
+            "boxShadow": "none"
+          },
+          "&:active": {
+            "backgroundColor": "var(--theme-base-feedback-info-dark, #01579b)",
+            "boxShadow": "none"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
+            "backgroundColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.12))",
+            "boxShadow": "none"
+          }
+        },
+        "outlinedInfo": {
+          "color": "var(--theme-base-feedback-info-main, #0288d1)",
+          "borderColor": "var(--theme-base-feedback-info-main, #0288d1)",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
+          }
+        },
+        "textInfo": {
+          "color": "var(--theme-base-feedback-info-main, #0288d1)",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
+          }
+        },
+        "containedSuccess": {
+          "backgroundColor": "var(--theme-base-feedback-success-main, #2e7d32)",
+          "color": "var(--theme-base-feedback-success-contrast-text, #ffffff)",
+          "boxShadow": "none",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-feedback-success-dark, #1b5e20)",
+            "boxShadow": "none"
+          },
+          "&:active": {
+            "backgroundColor": "var(--theme-base-feedback-success-dark, #1b5e20)",
+            "boxShadow": "none"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
+            "backgroundColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.12))",
+            "boxShadow": "none"
+          }
+        },
+        "outlinedSuccess": {
+          "color": "var(--theme-base-feedback-success-main, #2e7d32)",
+          "borderColor": "var(--theme-base-feedback-success-main, #2e7d32)",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
+          }
+        },
+        "textSuccess": {
+          "color": "var(--theme-base-feedback-success-main, #2e7d32)",
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
           }
         }
       }
@@ -148,9 +381,12 @@
       "styleOverrides": {
         "root": {
           "borderRadius": 100,
-          "border": "1px solid rgba(0,0,0,0.11999999731779099)",
-          "backgroundColor": "rgba(255,255,255,1)",
-          "color": "rgba(0,0,0,0.699999988079071)"
+          "border": "1px solid var(--theme-base-divider, rgba(0,0,0,0.11999999731779099))",
+          "backgroundColor": "var(--theme-base-surface-raised, rgba(255,255,255,1))",
+          "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.699999988079071))",
+          "& .MuiChip-deleteIcon": {
+            "opacity": 0.5
+          }
         },
         "filled": {},
         "outlined": {},
@@ -167,10 +403,11 @@
             "variant": "filled"
           },
           "style": {
-            "backgroundColor": "rgba(255,255,255,1)",
-            "color": "rgba(0,0,0,0.699999988079071)",
+            "backgroundColor": "var(--theme-base-surface-raised, rgba(255,255,255,1))",
+            "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.699999988079071))",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(0,0,0,0.699999988079071)"
+              "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.699999988079071))",
+              "opacity": 0.5
             }
           }
         },
@@ -180,10 +417,11 @@
           },
           "style": {
             "backgroundColor": "transparent",
-            "borderColor": "rgba(0,0,0,0.11999999731779099)",
-            "color": "rgba(0,0,0,0.699999988079071)",
+            "borderColor": "var(--theme-base-divider, rgba(0,0,0,0.11999999731779099))",
+            "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.699999988079071))",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(0,0,0,0.699999988079071)"
+              "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.699999988079071))",
+              "opacity": 0.5
             }
           }
         },
@@ -193,10 +431,11 @@
             "variant": "filled"
           },
           "style": {
-            "backgroundColor": "rgba(50,98,141,1)",
-            "color": "rgba(235,239,244,1)",
+            "backgroundColor": "var(--theme-base-palette-primary-main, #1976d2)",
+            "color": "var(--theme-base-palette-primary-contrast-text, #ffffff)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(235,239,244,1)"
+              "color": "var(--theme-base-palette-primary-contrast-text, #ffffff)",
+              "opacity": 0.5
             }
           }
         },
@@ -207,10 +446,11 @@
           },
           "style": {
             "backgroundColor": "transparent",
-            "borderColor": "rgba(50,98,141,1)",
-            "color": "rgba(50,98,141,1)",
+            "borderColor": "var(--theme-base-palette-primary-main, #1976d2)",
+            "color": "var(--theme-base-palette-primary-main, #1976d2)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(50,98,141,1)"
+              "color": "var(--theme-base-palette-primary-main, #1976d2)",
+              "opacity": 0.5
             }
           }
         },
@@ -220,10 +460,11 @@
             "variant": "filled"
           },
           "style": {
-            "backgroundColor": "rgba(65,94,91,1)",
-            "color": "rgba(235,239,244,1)",
+            "backgroundColor": "var(--theme-base-palette-secondary-main, #9c27b0)",
+            "color": "var(--theme-base-palette-secondary-contrast-text, #ffffff)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(235,239,244,1)"
+              "color": "var(--theme-base-palette-secondary-contrast-text, #ffffff)",
+              "opacity": 0.5
             }
           }
         },
@@ -234,10 +475,11 @@
           },
           "style": {
             "backgroundColor": "transparent",
-            "borderColor": "rgba(65,94,91,1)",
-            "color": "rgba(65,94,91,1)",
+            "borderColor": "var(--theme-base-palette-secondary-main, #9c27b0)",
+            "color": "var(--theme-base-palette-secondary-main, #9c27b0)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(65,94,91,1)"
+              "color": "var(--theme-base-palette-secondary-main, #9c27b0)",
+              "opacity": 0.5
             }
           }
         },
@@ -247,10 +489,11 @@
             "variant": "filled"
           },
           "style": {
-            "backgroundColor": "rgba(183,51,42,1)",
-            "color": "rgba(251,236,235,1)",
+            "backgroundColor": "var(--theme-base-palette-error-main, #d32f2f)",
+            "color": "var(--theme-base-palette-error-contrast-text, #ffffff)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(251,236,235,1)"
+              "color": "var(--theme-base-palette-error-contrast-text, #ffffff)",
+              "opacity": 0.5
             }
           }
         },
@@ -261,10 +504,11 @@
           },
           "style": {
             "backgroundColor": "transparent",
-            "borderColor": "rgba(183,51,42,1)",
-            "color": "rgba(183,51,42,1)",
+            "borderColor": "var(--theme-base-palette-error-main, #d32f2f)",
+            "color": "var(--theme-base-palette-error-main, #d32f2f)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(183,51,42,1)"
+              "color": "var(--theme-base-palette-error-main, #d32f2f)",
+              "opacity": 0.5
             }
           }
         },
@@ -274,10 +518,11 @@
             "variant": "filled"
           },
           "style": {
-            "backgroundColor": "rgba(255,189,48,1)",
-            "color": "rgba(77,52,0,1)",
+            "backgroundColor": "var(--theme-base-palette-warning-main, #ed6c02)",
+            "color": "var(--theme-base-palette-warning-contrast-text, var(--theme-base-text-primary, rgba(0,0,0,0.8700000047683716)))",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(77,52,0,1)"
+              "color": "var(--theme-base-palette-warning-contrast-text, var(--theme-base-text-primary, rgba(0,0,0,0.8700000047683716)))",
+              "opacity": 0.5
             }
           }
         },
@@ -288,10 +533,11 @@
           },
           "style": {
             "backgroundColor": "transparent",
-            "borderColor": "rgba(255,189,48,1)",
-            "color": "rgba(255,189,48,1)",
+            "borderColor": "var(--theme-base-palette-warning-main, #ed6c02)",
+            "color": "var(--theme-base-palette-warning-main, #ed6c02)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(255,189,48,1)"
+              "color": "var(--theme-base-palette-warning-main, #ed6c02)",
+              "opacity": 0.5
             }
           }
         },
@@ -301,10 +547,11 @@
             "variant": "filled"
           },
           "style": {
-            "backgroundColor": "rgba(2,123,184,1)",
-            "color": "rgba(230,244,252,1)",
+            "backgroundColor": "var(--theme-base-palette-info-main, #0288d1)",
+            "color": "var(--theme-base-palette-info-contrast-text, #ffffff)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(230,244,252,1)"
+              "color": "var(--theme-base-palette-info-contrast-text, #ffffff)",
+              "opacity": 0.5
             }
           }
         },
@@ -315,10 +562,11 @@
           },
           "style": {
             "backgroundColor": "transparent",
-            "borderColor": "rgba(2,123,184,1)",
-            "color": "rgba(2,123,184,1)",
+            "borderColor": "var(--theme-base-palette-info-main, #0288d1)",
+            "color": "var(--theme-base-palette-info-main, #0288d1)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(2,123,184,1)"
+              "color": "var(--theme-base-palette-info-main, #0288d1)",
+              "opacity": 0.5
             }
           }
         },
@@ -328,10 +576,11 @@
             "variant": "filled"
           },
           "style": {
-            "backgroundColor": "rgba(24,98,24,1)",
-            "color": "rgba(255,255,255,1)",
+            "backgroundColor": "var(--theme-base-palette-success-main, #2e7d32)",
+            "color": "var(--theme-base-palette-success-contrast-text, #ffffff)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(255,255,255,1)"
+              "color": "var(--theme-base-palette-success-contrast-text, #ffffff)",
+              "opacity": 0.5
             }
           }
         },
@@ -342,10 +591,11 @@
           },
           "style": {
             "backgroundColor": "transparent",
-            "borderColor": "rgba(24,98,24,1)",
-            "color": "rgba(24,98,24,1)",
+            "borderColor": "var(--theme-base-palette-success-main, #2e7d32)",
+            "color": "var(--theme-base-palette-success-main, #2e7d32)",
             "& .MuiChip-deleteIcon": {
-              "color": "rgba(24,98,24,1)"
+              "color": "var(--theme-base-palette-success-main, #2e7d32)",
+              "opacity": 0.5
             }
           }
         }
@@ -520,78 +770,143 @@
         }
       }
     },
+    "MuiSnackbar": {
+      "styleOverrides": {
+        "root": {
+          "& .MuiPaper-root, & .MuiSnackbarContent-root": {
+            "borderRadius": 8
+          },
+          "& .MuiSnackbarContent-root": {
+            "backgroundColor": "var(--theme-base-feedback-info-main, #0288d1)",
+            "color": "var(--theme-base-feedback-info-contrast-text, #ffffff)"
+          },
+          "& .MuiAlert-filledSuccess": {
+            "backgroundColor": "var(--theme-base-feedback-success-main, #2e7d32)",
+            "color": "var(--theme-base-feedback-success-contrast-text, #ffffff)"
+          },
+          "& .MuiAlert-filledInfo": {
+            "backgroundColor": "var(--theme-base-feedback-info-main, #0288d1)",
+            "color": "var(--theme-base-feedback-info-contrast-text, #ffffff)"
+          },
+          "& .MuiAlert-filledWarning": {
+            "backgroundColor": "var(--theme-base-feedback-warning-main, #ed6c02)",
+            "color": "var(--theme-base-feedback-warning-contrast-text, #1a1300)"
+          },
+          "& .MuiAlert-filledError": {
+            "backgroundColor": "var(--theme-base-feedback-error-main, #d32f2f)",
+            "color": "var(--theme-base-feedback-error-contrast-text, #ffffff)"
+          },
+          "& .MuiAlert-standardSuccess": {
+            "backgroundColor": "var(--theme-base-feedback-success-light, #e8f5e9)",
+            "color": "var(--theme-base-feedback-success-dark, #1b5e20)"
+          },
+          "& .MuiAlert-standardInfo": {
+            "backgroundColor": "var(--theme-base-feedback-info-light, #e3f2fd)",
+            "color": "var(--theme-base-feedback-info-dark, #01579b)"
+          },
+          "& .MuiAlert-standardWarning": {
+            "backgroundColor": "var(--theme-base-feedback-warning-light, #fff4e5)",
+            "color": "var(--theme-base-feedback-warning-dark, #b53d00)"
+          },
+          "& .MuiAlert-standardError": {
+            "backgroundColor": "var(--theme-base-feedback-error-light, #fde7e9)",
+            "color": "var(--theme-base-feedback-error-dark, #9a0007)"
+          },
+          "& .MuiAlert-outlinedSuccess": {
+            "color": "var(--theme-base-feedback-success-dark, #1b5e20)",
+            "border": "1px solid",
+            "borderColor": "var(--theme-base-feedback-success-main, #2e7d32)"
+          },
+          "& .MuiAlert-outlinedInfo": {
+            "color": "var(--theme-base-feedback-info-dark, #01579b)",
+            "border": "1px solid",
+            "borderColor": "var(--theme-base-feedback-info-main, #0288d1)"
+          },
+          "& .MuiAlert-outlinedWarning": {
+            "color": "var(--theme-base-feedback-warning-dark, #b53d00)",
+            "border": "1px solid",
+            "borderColor": "var(--theme-base-feedback-warning-main, #ed6c02)"
+          },
+          "& .MuiAlert-outlinedError": {
+            "color": "var(--theme-base-feedback-error-dark, #9a0007)",
+            "border": "1px solid",
+            "borderColor": "var(--theme-base-feedback-error-main, #d32f2f)"
+          }
+        }
+      }
+    },
     "MuiSwitch": {
       "styleOverrides": {
         "switchBase": {
           "&.MuiSwitch-colorPrimary.Mui-checked": {
-            "color": "rgba(50,98,141,1)",
+            "color": "var(--theme-base-palette-primary-main, #1976d2)",
             "& + .MuiSwitch-track": {
-              "backgroundColor": "rgba(50, 98, 141, 0.5)"
+              "backgroundColor": "color-mix(in srgb, var(--theme-base-palette-primary-main, #1976d2) 50%, transparent)"
             },
             "& .MuiSwitch-thumb": {
-              "backgroundColor": "rgba(50,98,141,1)"
+              "backgroundColor": "var(--theme-base-palette-primary-main, #1976d2)"
             }
           },
           "&.MuiSwitch-colorSecondary.Mui-checked": {
-            "color": "rgba(65,94,91,1)",
+            "color": "var(--theme-base-palette-secondary-main, #9c27b0)",
             "& + .MuiSwitch-track": {
-              "backgroundColor": "rgba(65, 94, 91, 0.5)"
+              "backgroundColor": "color-mix(in srgb, var(--theme-base-palette-secondary-main, #9c27b0) 50%, transparent)"
             },
             "& .MuiSwitch-thumb": {
-              "backgroundColor": "rgba(65,94,91,1)"
+              "backgroundColor": "var(--theme-base-palette-secondary-main, #9c27b0)"
             }
           },
           "&.MuiSwitch-colorError.Mui-checked": {
-            "color": "rgba(183,51,42,1)",
+            "color": "var(--theme-base-palette-error-main, #d32f2f)",
             "& + .MuiSwitch-track": {
-              "backgroundColor": "rgba(183, 51, 42, 0.5)"
+              "backgroundColor": "color-mix(in srgb, var(--theme-base-palette-error-main, #d32f2f) 50%, transparent)"
             },
             "& .MuiSwitch-thumb": {
-              "backgroundColor": "rgba(183,51,42,1)"
+              "backgroundColor": "var(--theme-base-palette-error-main, #d32f2f)"
             }
           },
           "&.MuiSwitch-colorWarning.Mui-checked": {
-            "color": "rgba(255,189,48,1)",
+            "color": "var(--theme-base-palette-warning-main, #ffa726)",
             "& + .MuiSwitch-track": {
-              "backgroundColor": "rgba(255, 189, 48, 0.5)"
+              "backgroundColor": "color-mix(in srgb, var(--theme-base-palette-warning-main, #ffa726) 50%, transparent)"
             },
             "& .MuiSwitch-thumb": {
-              "backgroundColor": "rgba(255,189,48,1)"
+              "backgroundColor": "var(--theme-base-palette-warning-main, #ffa726)"
             }
           },
           "&.MuiSwitch-colorInfo.Mui-checked": {
-            "color": "rgba(2,123,184,1)",
+            "color": "var(--theme-base-palette-info-main, #0288d1)",
             "& + .MuiSwitch-track": {
-              "backgroundColor": "rgba(2, 123, 184, 0.5)"
+              "backgroundColor": "color-mix(in srgb, var(--theme-base-palette-info-main, #0288d1) 50%, transparent)"
             },
             "& .MuiSwitch-thumb": {
-              "backgroundColor": "rgba(2,123,184,1)"
+              "backgroundColor": "var(--theme-base-palette-info-main, #0288d1)"
             }
           },
           "&.MuiSwitch-colorSuccess.Mui-checked": {
-            "color": "rgba(24,98,24,1)",
+            "color": "var(--theme-base-palette-success-main, #388e3c)",
             "& + .MuiSwitch-track": {
-              "backgroundColor": "rgba(24, 98, 24, 0.5)"
+              "backgroundColor": "color-mix(in srgb, var(--theme-base-palette-success-main, #388e3c) 50%, transparent)"
             },
             "& .MuiSwitch-thumb": {
-              "backgroundColor": "rgba(24,98,24,1)"
+              "backgroundColor": "var(--theme-base-palette-success-main, #388e3c)"
             }
           },
           "&.Mui-disabled": {
-            "color": "rgba(0,0,0,0.3799999952316284)"
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))"
           },
           "&.Mui-checked.Mui-disabled": {
-            "color": "rgba(0,0,0,0.3799999952316284)",
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
             "& + .MuiSwitch-track": {
               "opacity": 0.5
             }
           }
         },
         "thumb": {
-          "backgroundColor": "#fff"
+          "backgroundColor": "var(--theme-base-input-white-bg, #fff)"
         },
         "track": {
-          "backgroundColor": "rgba(0,0,0,0.11999999731779099)"
+          "backgroundColor": "var(--theme-base-action-disabled-bg, rgba(0,0,0,0.12))"
         }
       }
     },
