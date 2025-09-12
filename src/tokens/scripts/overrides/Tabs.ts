@@ -1,20 +1,21 @@
-import { t } from '../lib/tokenUtils';
 
-export function MuiTabs(t:any) {
+const v = (name: string, fallback: string) => `var(--${name}, ${fallback})`;
+
+export function MuiTabs(_t: any) {
   return {
     styleOverrides: {
       root: {
         backgroundColor: 'transparent',
         minHeight: 48,
-        borderBottom: `${t.borderSize}px solid ${t.divider ? t.divider() : '#e0e0e0'}`,
+        borderBottom: `${_t?.borderSize ?? 1}px solid ${v('theme-base-divider','rgba(0,0,0,0.12)')}`,
     },
     indicator: {
       height: 3,
       borderRadius: 2,
-      backgroundColor: t.primaryMain ? t.primaryMain() : '#1976d2',
+      backgroundColor: v('theme-base-primary-main', '#1976d2'),
     },
     scrollButtons: {
-      color: t.textSecondary ? t.textSecondary() : 'rgba(0,0,0,0.54)',
+      color: v('theme-base-text-primary', 'rgba(0,0,0,0.87)'),
       '&.Mui-disabled': {
         opacity: 0.3,
       },

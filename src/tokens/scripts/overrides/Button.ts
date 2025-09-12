@@ -8,11 +8,11 @@ export function MuiButton(t: any) {
   // ===== Base (matches theme.muiflat.json token names) =====
   // Primary (theme-base-primary-*)
   const primary = {
-    main: v('theme-base-primary-main', '#32628D'),
-    dark: v('theme-base-primary-dark', '#2A5276'),
-    on: v('theme-base-primary-on-main', '#EBEFF4'), // contrast text alias
+    main: v('theme-base-primary-main', 'rgba(50,98,141,1)'),
+    dark: v('theme-base-primary-dark', 'rgba(42,82,118,1)'),
+    on: v('theme-base-primary-on-main', 'rgba(235,239,244,1)'), // contrast text alias
     // Use `dark` as hover fallback if no explicit hover token exists
-    hoverBgSolid: v('theme-base-primary-dark', '#2A5276'),
+    hoverBgSolid: v('theme-base-primary-dark', 'rgba(42,82,118,1)'),
     // State overlays for outlined/text hovers
     stateHover: v('theme-base-primary-states-hover', 'rgba(50,98,141,0.06)'),
     stateSelected: v('theme-base-primary-states-selected', 'rgba(50,98,141,0.16)'),
@@ -23,10 +23,10 @@ export function MuiButton(t: any) {
 
   // Secondary (theme-base-secondary-*)
   const secondary = {
-    main: v('theme-base-secondary-main', '#415E5B'),
-    dark: v('theme-base-secondary-dark', '#71A49E'),
-    on: v('theme-base-secondary-on-main', '#FFFFFF'),
-    hoverBgSolid: v('theme-base-secondary-dark', '#71A49E'),
+    main: v('theme-base-secondary-main', 'rgba(65,94,91,1)'),
+    dark: v('theme-base-secondary-dark', 'rgba(113,164,158,1)'),
+    on: v('theme-base-secondary-on-main', 'rgba(255,255,255,1)'),
+    hoverBgSolid: v('theme-base-secondary-dark', 'rgba(113,164,158,1)'),
     stateHover: v('theme-base-secondary-states-hover', 'rgba(65,94,91,0.06)'),
     stateSelected: v('theme-base-secondary-states-selected', 'rgba(65,94,91,0.16)'),
     stateFocus: v('theme-base-secondary-states-focus', 'rgba(65,94,91,0.30)'),
@@ -36,31 +36,31 @@ export function MuiButton(t: any) {
 
   // Feedback (theme-base-feedback-*) — mirror Alert.ts usage
   const error = {
-    main: v('theme-base-feedback-error-main', '#d32f2f'),
-    dark: v('theme-base-feedback-error-dark', '#9a0007'),
-    on: v('theme-base-feedback-error-contrast-text', '#ffffff'),
-    hoverBgSolid: v('theme-base-feedback-error-dark', '#9a0007'),
+    main: v('theme-base-feedback-error-main', 'rgba(211,47,47,1)'),
+    dark: v('theme-base-feedback-error-dark', 'rgba(154,0,7,1)'),
+    on: v('theme-base-feedback-error-contrast-text', 'rgba(255,255,255,1)'),
+    hoverBgSolid: v('theme-base-feedback-error-dark', 'rgba(154,0,7,1)'),
   } as const;
 
   const warning = {
-    main: v('theme-base-feedback-warning-main', '#ed6c02'),
-    dark: v('theme-base-feedback-warning-dark', '#b53d00'),
-    on: v('theme-base-feedback-warning-contrast-text', '#1a1300'),
-    hoverBgSolid: v('theme-base-feedback-warning-dark', '#b53d00'),
+    main: v('theme-base-feedback-warning-main', 'rgba(237,108,2,1)'),
+    dark: v('theme-base-feedback-warning-dark', 'rgba(181,61,0,1)'),
+    on: v('theme-base-feedback-warning-contrast-text', 'rgba(26,19,0,1)'),
+    hoverBgSolid: v('theme-base-feedback-warning-dark', 'rgba(181,61,0,1)'),
   } as const;
 
   const info = {
-    main: v('theme-base-feedback-info-main', '#0288d1'),
-    dark: v('theme-base-feedback-info-dark', '#01579b'),
-    on: v('theme-base-feedback-info-contrast-text', '#ffffff'),
-    hoverBgSolid: v('theme-base-feedback-info-dark', '#01579b'),
+    main: v('theme-base-feedback-info-main', 'rgba(2,136,209,1)'),
+    dark: v('theme-base-feedback-info-dark', 'rgba(1,87,155,1)'),
+    on: v('theme-base-feedback-info-contrast-text', 'rgba(255,255,255,1)'),
+    hoverBgSolid: v('theme-base-feedback-info-dark', 'rgba(1,87,155,1)'),
   } as const;
 
   const success = {
-    main: v('theme-base-feedback-success-main', '#2e7d32'),
-    dark: v('theme-base-feedback-success-dark', '#1b5e20'),
-    on: v('theme-base-feedback-success-contrast-text', '#ffffff'),
-    hoverBgSolid: v('theme-base-feedback-success-dark', '#1b5e20'),
+    main: v('theme-base-feedback-success-main', 'rgba(46,125,50,1)'),
+    dark: v('theme-base-feedback-success-dark', 'rgba(27,94,32,1)'),
+    on: v('theme-base-feedback-success-contrast-text', 'rgba(255,255,255,1)'),
+    hoverBgSolid: v('theme-base-feedback-success-dark', 'rgba(27,94,32,1)'),
   } as const;
 
   // Actions / disabled / focus
@@ -103,6 +103,39 @@ export function MuiButton(t: any) {
         '&:focus-visible': {
           outline: `${borderSize}px solid ${focusRing}`,
           outlineOffset: 2,
+        },
+
+        /* Specificity bump to ensure primary/secondary win over default MUI rules */
+        '&.MuiButton-containedPrimary': {
+          backgroundColor: primary.main,
+          color: primary.on,
+          '&:hover': { backgroundColor: primary.hoverBgSolid, boxShadow: 'none' },
+          '&:active': { backgroundColor: primary.dark, boxShadow: 'none' },
+        },
+        '&.MuiButton-outlinedPrimary': {
+          color: primary.main,
+          borderColor: primary.stateOutlinedBorder,
+          '&:hover': overlay(primary.stateHover),
+        },
+        '&.MuiButton-textPrimary': {
+          color: primary.main,
+          '&:hover': overlay(primary.stateHover),
+        },
+
+        '&.MuiButton-containedSecondary': {
+          backgroundColor: secondary.main,
+          color: secondary.on,
+          '&:hover': { backgroundColor: secondary.hoverBgSolid, boxShadow: 'none' },
+          '&:active': { backgroundColor: secondary.dark, boxShadow: 'none' },
+        },
+        '&.MuiButton-outlinedSecondary': {
+          color: secondary.main,
+          borderColor: secondary.stateOutlinedBorder,
+          '&:hover': overlay(secondary.stateHover),
+        },
+        '&.MuiButton-textSecondary': {
+          color: secondary.main,
+          '&:hover': overlay(secondary.stateHover),
         },
       },
 

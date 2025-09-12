@@ -1,12 +1,13 @@
-import { t } from '../lib/tokenUtils';
 
-export function MuiFormHelperText(t:any) {
+const v = (name: string, fallback: string) => `var(--${name}, ${fallback})`;
+
+export function MuiFormHelperText(_t: any) {
   return {
     styleOverrides: {
       root: {
-        color: t.textSecondary(),
+        color: v('theme-base-text-secondary', 'rgba(0,0,0,0.6)'),
         backgroundColor: 'transparent',
       },
-  },
-};
+    },
+  };
 }

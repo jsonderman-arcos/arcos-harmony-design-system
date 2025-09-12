@@ -101,15 +101,20 @@ function loadTokens(fileName: string): Record<string, string> {
 
 function isValidMuiColor(value: string | undefined | null): boolean {
   if (!value || typeof value !== 'string') return false;
-  // Accept hex, rgb(a), hsl(a) and color names
-  // Hex: #RRGGBB or #RGB or #RRGGBBAA
-  if (/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(value)) return true;
-  // rgba() or rgb()
-  if (/^rgba?\((\s*\d+\s*,){2,3}\s*[\d.]+\s*\)$/i.test(value)) return true;
-  // hsla() or hsl()
-  if (/^hsla?\((\s*\d+\s*,){2,3}\s*[\d.]+\s*\)$/i.test(value)) return true;
-  // Basic color names (very basic fallback)
-  if (/^[a-z]+$/i.test(value)) return true;
+  const v = value.trim();
+  // Accept any usage of CSS custom properties, including fallbacks and nesting
+  // e.g., var(--token), var(--token, #fff), rgb(var(--token) / 0.5)
+  if (/var\(/i.test(v)) return true;
+  // Hex: #RGB/#RRGGBB/#RRGGBBAA/#RGBA
+  if (/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(v)) return true;
+  // rgb()/rgba()
+  if (/^rgba?\((.|\s)+\)$/i.test(v)) return true;
+  // hsl()/hsla()
+  if (/^hsla?\((.|\s)+\)$/i.test(v)) return true;
+  // Modern CSS color functions
+  if (/^(oklch|oklab|lab|lch|hwb|color|color-mix)\((.|\s)+\)$/i.test(v)) return true;
+  // Basic color names
+  if (/^[a-z]+$/i.test(v)) return true;
   return false;
 }
 
@@ -137,16 +142,36 @@ function buildMuiTheme(tokens: Record<string, string>): ThemeOptions {
         1
     );
   }
+  // Ensure primary/secondary helpers exist (resolve from Theme token keys)
+  if (typeof anyT.primaryMain !== 'function') {
+    anyT.primaryMain = () =>
+      tokens['theme-base-primary-main'] ?? tokens['themeBasePrimaryMain'] ?? tokens['primaryMain'];
+  }
+  if (typeof anyT.onPrimary !== 'function') {
+    anyT.onPrimary = () =>
+      tokens['theme-base-primary-on-main'] ?? tokens['themeBasePrimaryOnMain'] ?? tokens['primaryContrastText'];
+  }
+  if (typeof anyT.secondaryMain !== 'function') {
+    anyT.secondaryMain = () =>
+      tokens['theme-base-secondary-main'] ?? tokens['themeBaseSecondaryMain'] ?? tokens['secondaryMain'];
+  }
+  if (typeof anyT.paperBackgroundForElevation !== 'function') {
+    anyT.paperBackgroundForElevation = (level: number) =>
+      (tokens[`theme-base-background-paper-elevation-${level}`] as string | undefined) ??
+      (tokens[`themeBaseBackgroundPaperElevation${level}`] as string | undefined) ??
+      (tokens['theme-base-surface-light-main'] as string | undefined);
+  }
   //console.log('Available token keys:', Object.keys(tokens));
-  //console.log('Primary main color token:', t.primaryMain());
+  console.log('Primary main color token:', t.primaryMain());
 
   // Default color fallbacks
   const DEFAULTS = {
-    main: 'rgba(0,0,0,1)',
-    contrastText: '#fff',
-    secondaryMain: 'rgba(30,136,229,1)',
-    surface: '#fff',
-    surfaceRaised: '#f5f5f5',
+    main: 'rgba(50,98,141,1)',
+    primaryMain: 'rgba(50,98,141,1)',
+    contrastText: 'rgba(255,255,255,1)',
+    secondaryMain: 'rgba(65,94,91,1)',
+    surface: 'rgba(255,255,255,1)',
+    surfaceRaised: 'rgba(245,245,245,1)',
     textPrimary: 'rgba(0,0,0,0.87)',
     textSecondary: 'rgba(0,0,0,0.6)',
     textDisabled: 'rgba(0,0,0,0.38)',
@@ -161,11 +186,18 @@ function buildMuiTheme(tokens: Record<string, string>): ThemeOptions {
   const palette = {
     mode: 'light' as const,
     primary: {
-      main: isValidMuiColor(t.primaryMain()) ? t.primaryMain() : DEFAULTS.main,
+      main: isValidMuiColor(t.primaryMain()) ? t.primaryMain() : DEFAULTS.primaryMain,
       contrastText: isValidMuiColor(t.onPrimary()) ? t.onPrimary() : DEFAULTS.contrastText,
+      ...(isValidMuiColor(tokens['theme-base-primary-light']) && { light: tokens['theme-base-primary-light'] as string }),
+      ...(isValidMuiColor(tokens['theme-base-primary-dark']) && { dark: tokens['theme-base-primary-dark'] as string }),
     },
     secondary: {
       main: isValidMuiColor(t.secondaryMain()) ? t.secondaryMain() : DEFAULTS.secondaryMain,
+      contrastText: isValidMuiColor(tokens['theme-base-secondary-on-main'])
+        ? (tokens['theme-base-secondary-on-main'] as string)
+        : DEFAULTS.contrastText,
+      ...(isValidMuiColor(tokens['theme-base-secondary-light']) && { light: tokens['theme-base-secondary-light'] as string }),
+      ...(isValidMuiColor(tokens['theme-base-secondary-dark']) && { dark: tokens['theme-base-secondary-dark'] as string }),
     },
     background: {
       // map to your 7-level elevation family: base (0) for app background, level-1 for Paper
@@ -243,7 +275,6 @@ const theme = createTheme(themeOptions);
 export default theme;
 `;
   fs.writeFileSync(OUTPUT_THEME_TS, tsModule);
-
   console.log(`Wrote ThemeOptions JSON → ${OUTPUT_FILE}`);
   console.log(`Wrote ready-to-import MUI theme → ${OUTPUT_THEME_TS}`);
 }

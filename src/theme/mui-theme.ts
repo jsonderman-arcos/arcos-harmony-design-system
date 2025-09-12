@@ -9,7 +9,8 @@ export const themeOptions: ThemeOptions = {
       "contrastText": "rgba(235,239,244,1)"
     },
     "secondary": {
-      "main": "rgba(65,94,91,1)"
+      "main": "rgba(65,94,91,1)",
+      "contrastText": "rgba(255,255,255,1)"
     },
     "background": {
       "default": "rgba(158,158,158,1)",
@@ -100,18 +101,68 @@ export const themeOptions: ThemeOptions = {
           "&:focus-visible": {
             "outline": "2px solid var(--theme-base-primary-states-focus-visible, rgba(50,98,141,0.30))",
             "outlineOffset": 2
+          },
+          "&.MuiButton-containedPrimary": {
+            "backgroundColor": "var(--theme-base-primary-main, rgba(50,98,141,1))",
+            "color": "var(--theme-base-primary-on-main, rgba(235,239,244,1))",
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-primary-dark, rgba(42,82,118,1))",
+              "boxShadow": "none"
+            },
+            "&:active": {
+              "backgroundColor": "var(--theme-base-primary-dark, rgba(42,82,118,1))",
+              "boxShadow": "none"
+            }
+          },
+          "&.MuiButton-outlinedPrimary": {
+            "color": "var(--theme-base-primary-main, rgba(50,98,141,1))",
+            "borderColor": "var(--theme-base-primary-states-outlined-border, rgba(50,98,141,0.50))",
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
+            }
+          },
+          "&.MuiButton-textPrimary": {
+            "color": "var(--theme-base-primary-main, rgba(50,98,141,1))",
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
+            }
+          },
+          "&.MuiButton-containedSecondary": {
+            "backgroundColor": "var(--theme-base-secondary-main, rgba(65,94,91,1))",
+            "color": "var(--theme-base-secondary-on-main, rgba(255,255,255,1))",
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-secondary-dark, rgba(113,164,158,1))",
+              "boxShadow": "none"
+            },
+            "&:active": {
+              "backgroundColor": "var(--theme-base-secondary-dark, rgba(113,164,158,1))",
+              "boxShadow": "none"
+            }
+          },
+          "&.MuiButton-outlinedSecondary": {
+            "color": "var(--theme-base-secondary-main, rgba(65,94,91,1))",
+            "borderColor": "var(--theme-base-secondary-states-outlined-border, rgba(65,94,91,0.50))",
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
+            }
+          },
+          "&.MuiButton-textSecondary": {
+            "color": "var(--theme-base-secondary-main, rgba(65,94,91,1))",
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
+            }
           }
         },
         "containedPrimary": {
-          "backgroundColor": "var(--theme-base-primary-main, #32628D)",
-          "color": "var(--theme-base-primary-on-main, #EBEFF4)",
+          "backgroundColor": "var(--theme-base-primary-main, rgba(50,98,141,1))",
+          "color": "var(--theme-base-primary-on-main, rgba(235,239,244,1))",
           "boxShadow": "none",
           "&:hover": {
-            "backgroundColor": "var(--theme-base-primary-dark, #2A5276)",
+            "backgroundColor": "var(--theme-base-primary-dark, rgba(42,82,118,1))",
             "boxShadow": "none"
           },
           "&:active": {
-            "backgroundColor": "var(--theme-base-primary-dark, #2A5276)",
+            "backgroundColor": "var(--theme-base-primary-dark, rgba(42,82,118,1))",
             "boxShadow": "none"
           },
           "&.Mui-disabled": {
@@ -121,7 +172,7 @@ export const themeOptions: ThemeOptions = {
           }
         },
         "outlinedPrimary": {
-          "color": "var(--theme-base-primary-main, #32628D)",
+          "color": "var(--theme-base-primary-main, rgba(50,98,141,1))",
           "borderColor": "var(--theme-base-primary-states-outlined-border, rgba(50,98,141,0.50))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
@@ -132,7 +183,7 @@ export const themeOptions: ThemeOptions = {
           }
         },
         "textPrimary": {
-          "color": "var(--theme-base-primary-main, #32628D)",
+          "color": "var(--theme-base-primary-main, rgba(50,98,141,1))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
           },
@@ -141,15 +192,15 @@ export const themeOptions: ThemeOptions = {
           }
         },
         "containedSecondary": {
-          "backgroundColor": "var(--theme-base-secondary-main, #415E5B)",
-          "color": "var(--theme-base-secondary-on-main, #FFFFFF)",
+          "backgroundColor": "var(--theme-base-secondary-main, rgba(65,94,91,1))",
+          "color": "var(--theme-base-secondary-on-main, rgba(255,255,255,1))",
           "boxShadow": "none",
           "&:hover": {
-            "backgroundColor": "var(--theme-base-secondary-dark, #71A49E)",
+            "backgroundColor": "var(--theme-base-secondary-dark, rgba(113,164,158,1))",
             "boxShadow": "none"
           },
           "&:active": {
-            "backgroundColor": "var(--theme-base-secondary-dark, #71A49E)",
+            "backgroundColor": "var(--theme-base-secondary-dark, rgba(113,164,158,1))",
             "boxShadow": "none"
           },
           "&.Mui-disabled": {
@@ -159,7 +210,7 @@ export const themeOptions: ThemeOptions = {
           }
         },
         "outlinedSecondary": {
-          "color": "var(--theme-base-secondary-main, #415E5B)",
+          "color": "var(--theme-base-secondary-main, rgba(65,94,91,1))",
           "borderColor": "var(--theme-base-secondary-states-outlined-border, rgba(65,94,91,0.50))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
@@ -170,7 +221,7 @@ export const themeOptions: ThemeOptions = {
           }
         },
         "textSecondary": {
-          "color": "var(--theme-base-secondary-main, #415E5B)",
+          "color": "var(--theme-base-secondary-main, rgba(65,94,91,1))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
           },
@@ -179,15 +230,15 @@ export const themeOptions: ThemeOptions = {
           }
         },
         "containedError": {
-          "backgroundColor": "var(--theme-base-feedback-error-main, #d32f2f)",
-          "color": "var(--theme-base-feedback-error-contrast-text, #ffffff)",
+          "backgroundColor": "var(--theme-base-feedback-error-main, rgba(211,47,47,1))",
+          "color": "var(--theme-base-feedback-error-contrast-text, rgba(255,255,255,1))",
           "boxShadow": "none",
           "&:hover": {
-            "backgroundColor": "var(--theme-base-feedback-error-dark, #9a0007)",
+            "backgroundColor": "var(--theme-base-feedback-error-dark, rgba(154,0,7,1))",
             "boxShadow": "none"
           },
           "&:active": {
-            "backgroundColor": "var(--theme-base-feedback-error-dark, #9a0007)",
+            "backgroundColor": "var(--theme-base-feedback-error-dark, rgba(154,0,7,1))",
             "boxShadow": "none"
           },
           "&.Mui-disabled": {
@@ -197,28 +248,28 @@ export const themeOptions: ThemeOptions = {
           }
         },
         "outlinedError": {
-          "color": "var(--theme-base-feedback-error-main, #d32f2f)",
-          "borderColor": "var(--theme-base-feedback-error-main, #d32f2f)",
+          "color": "var(--theme-base-feedback-error-main, rgba(211,47,47,1))",
+          "borderColor": "var(--theme-base-feedback-error-main, rgba(211,47,47,1))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
           }
         },
         "textError": {
-          "color": "var(--theme-base-feedback-error-main, #d32f2f)",
+          "color": "var(--theme-base-feedback-error-main, rgba(211,47,47,1))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
           }
         },
         "containedWarning": {
-          "backgroundColor": "var(--theme-base-feedback-warning-main, #ed6c02)",
-          "color": "var(--theme-base-feedback-warning-contrast-text, #1a1300)",
+          "backgroundColor": "var(--theme-base-feedback-warning-main, rgba(237,108,2,1))",
+          "color": "var(--theme-base-feedback-warning-contrast-text, rgba(26,19,0,1))",
           "boxShadow": "none",
           "&:hover": {
-            "backgroundColor": "var(--theme-base-feedback-warning-dark, #b53d00)",
+            "backgroundColor": "var(--theme-base-feedback-warning-dark, rgba(181,61,0,1))",
             "boxShadow": "none"
           },
           "&:active": {
-            "backgroundColor": "var(--theme-base-feedback-warning-dark, #b53d00)",
+            "backgroundColor": "var(--theme-base-feedback-warning-dark, rgba(181,61,0,1))",
             "boxShadow": "none"
           },
           "&.Mui-disabled": {
@@ -228,28 +279,28 @@ export const themeOptions: ThemeOptions = {
           }
         },
         "outlinedWarning": {
-          "color": "var(--theme-base-feedback-warning-main, #ed6c02)",
-          "borderColor": "var(--theme-base-feedback-warning-main, #ed6c02)",
+          "color": "var(--theme-base-feedback-warning-main, rgba(237,108,2,1))",
+          "borderColor": "var(--theme-base-feedback-warning-main, rgba(237,108,2,1))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
           }
         },
         "textWarning": {
-          "color": "var(--theme-base-feedback-warning-main, #ed6c02)",
+          "color": "var(--theme-base-feedback-warning-main, rgba(237,108,2,1))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
           }
         },
         "containedInfo": {
-          "backgroundColor": "var(--theme-base-feedback-info-main, #0288d1)",
-          "color": "var(--theme-base-feedback-info-contrast-text, #ffffff)",
+          "backgroundColor": "var(--theme-base-feedback-info-main, rgba(2,136,209,1))",
+          "color": "var(--theme-base-feedback-info-contrast-text, rgba(255,255,255,1))",
           "boxShadow": "none",
           "&:hover": {
-            "backgroundColor": "var(--theme-base-feedback-info-dark, #01579b)",
+            "backgroundColor": "var(--theme-base-feedback-info-dark, rgba(1,87,155,1))",
             "boxShadow": "none"
           },
           "&:active": {
-            "backgroundColor": "var(--theme-base-feedback-info-dark, #01579b)",
+            "backgroundColor": "var(--theme-base-feedback-info-dark, rgba(1,87,155,1))",
             "boxShadow": "none"
           },
           "&.Mui-disabled": {
@@ -259,28 +310,28 @@ export const themeOptions: ThemeOptions = {
           }
         },
         "outlinedInfo": {
-          "color": "var(--theme-base-feedback-info-main, #0288d1)",
-          "borderColor": "var(--theme-base-feedback-info-main, #0288d1)",
+          "color": "var(--theme-base-feedback-info-main, rgba(2,136,209,1))",
+          "borderColor": "var(--theme-base-feedback-info-main, rgba(2,136,209,1))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
           }
         },
         "textInfo": {
-          "color": "var(--theme-base-feedback-info-main, #0288d1)",
+          "color": "var(--theme-base-feedback-info-main, rgba(2,136,209,1))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-primary-states-hover, rgba(50,98,141,0.06))"
           }
         },
         "containedSuccess": {
-          "backgroundColor": "var(--theme-base-feedback-success-main, #2e7d32)",
-          "color": "var(--theme-base-feedback-success-contrast-text, #ffffff)",
+          "backgroundColor": "var(--theme-base-feedback-success-main, rgba(46,125,50,1))",
+          "color": "var(--theme-base-feedback-success-contrast-text, rgba(255,255,255,1))",
           "boxShadow": "none",
           "&:hover": {
-            "backgroundColor": "var(--theme-base-feedback-success-dark, #1b5e20)",
+            "backgroundColor": "var(--theme-base-feedback-success-dark, rgba(27,94,32,1))",
             "boxShadow": "none"
           },
           "&:active": {
-            "backgroundColor": "var(--theme-base-feedback-success-dark, #1b5e20)",
+            "backgroundColor": "var(--theme-base-feedback-success-dark, rgba(27,94,32,1))",
             "boxShadow": "none"
           },
           "&.Mui-disabled": {
@@ -290,14 +341,14 @@ export const themeOptions: ThemeOptions = {
           }
         },
         "outlinedSuccess": {
-          "color": "var(--theme-base-feedback-success-main, #2e7d32)",
-          "borderColor": "var(--theme-base-feedback-success-main, #2e7d32)",
+          "color": "var(--theme-base-feedback-success-main, rgba(46,125,50,1))",
+          "borderColor": "var(--theme-base-feedback-success-main, rgba(46,125,50,1))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
           }
         },
         "textSuccess": {
-          "color": "var(--theme-base-feedback-success-main, #2e7d32)",
+          "color": "var(--theme-base-feedback-success-main, rgba(46,125,50,1))",
           "&:hover": {
             "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(65,94,91,0.06))"
           }
@@ -311,7 +362,7 @@ export const themeOptions: ThemeOptions = {
       "styleOverrides": {
         "root": {
           "borderRadius": 8,
-          "border": "1px solid rgba(0,0,0,0.11999999731779099)"
+          "border": "1px solid var(--theme-base-divider, rgba(0,0,0,0.11999999731779099))"
         }
       },
       "variants": [
@@ -320,8 +371,8 @@ export const themeOptions: ThemeOptions = {
             "elevation": 0
           },
           "style": {
-            "backgroundColor": "rgba(158,158,158,1)",
-            "--mui-palette-background-paper": "rgba(158,158,158,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-0, var(--theme-base-surface-level-0, rgba(158,158,158,1)))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-0, var(--theme-base-surface-level-0, rgba(158,158,158,1)))"
           }
         },
         {
@@ -329,8 +380,8 @@ export const themeOptions: ThemeOptions = {
             "elevation": 1
           },
           "style": {
-            "backgroundColor": "rgba(189,189,189,1)",
-            "--mui-palette-background-paper": "rgba(189,189,189,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-1, var(--theme-base-surface-level-1, rgba(189,189,189,1)))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-1, var(--theme-base-surface-level-1, rgba(189,189,189,1)))"
           }
         },
         {
@@ -338,8 +389,8 @@ export const themeOptions: ThemeOptions = {
             "elevation": 2
           },
           "style": {
-            "backgroundColor": "rgba(210,210,210,1)",
-            "--mui-palette-background-paper": "rgba(210,210,210,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-2, var(--theme-base-surface-level-2, rgba(210,210,210,1)))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-2, var(--theme-base-surface-level-2, rgba(210,210,210,1)))"
           }
         },
         {
@@ -347,8 +398,8 @@ export const themeOptions: ThemeOptions = {
             "elevation": 3
           },
           "style": {
-            "backgroundColor": "rgba(224,224,224,1)",
-            "--mui-palette-background-paper": "rgba(224,224,224,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-3, var(--theme-base-surface-level-3, rgba(224,224,224,1)))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-3, var(--theme-base-surface-level-3, rgba(224,224,224,1)))"
           }
         },
         {
@@ -356,8 +407,8 @@ export const themeOptions: ThemeOptions = {
             "elevation": 4
           },
           "style": {
-            "backgroundColor": "rgba(238,238,238,1)",
-            "--mui-palette-background-paper": "rgba(238,238,238,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-4, var(--theme-base-surface-level-4, rgba(238,238,238,1)))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-4, var(--theme-base-surface-level-4, rgba(238,238,238,1)))"
           }
         },
         {
@@ -365,8 +416,8 @@ export const themeOptions: ThemeOptions = {
             "elevation": 5
           },
           "style": {
-            "backgroundColor": "rgba(245,245,245,1)",
-            "--mui-palette-background-paper": "rgba(245,245,245,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-5, var(--theme-base-surface-level-5, rgba(245,245,245,1)))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-5, var(--theme-base-surface-level-5, rgba(245,245,245,1)))"
           }
         },
         {
@@ -374,8 +425,8 @@ export const themeOptions: ThemeOptions = {
             "elevation": 6
           },
           "style": {
-            "backgroundColor": "rgba(255,255,255,1)",
-            "--mui-palette-background-paper": "rgba(255,255,255,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-6, var(--theme-base-surface-level-6, rgba(255,255,255,1)))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-6, var(--theme-base-surface-level-6, rgba(255,255,255,1)))"
           }
         }
       ]
@@ -424,6 +475,35 @@ export const themeOptions: ThemeOptions = {
             "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.699999988079071))",
             "& .MuiChip-deleteIcon": {
               "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.699999988079071))",
+              "opacity": 0.5
+            }
+          }
+        },
+        {
+          "props": {
+            "color": "default",
+            "variant": "filled"
+          },
+          "style": {
+            "backgroundColor": "var(--theme-base-components-chip-default-close-fill, #f5f5f5)",
+            "color": "var(--theme-base-text-primary, rgba(0,0,0,0.8700000047683716))",
+            "& .MuiChip-deleteIcon": {
+              "color": "var(--theme-base-text-primary, rgba(0,0,0,0.8700000047683716))",
+              "opacity": 0.5
+            }
+          }
+        },
+        {
+          "props": {
+            "color": "default",
+            "variant": "outlined"
+          },
+          "style": {
+            "backgroundColor": "transparent",
+            "borderColor": "var(--theme-base-components-chip-default-enabled-border, #bdbdbd)",
+            "color": "var(--theme-base-text-primary, rgba(0,0,0,0.8700000047683716))",
+            "& .MuiChip-deleteIcon": {
+              "color": "var(--theme-base-text-primary, rgba(0,0,0,0.8700000047683716))",
               "opacity": 0.5
             }
           }
@@ -607,14 +687,16 @@ export const themeOptions: ThemeOptions = {
     "MuiFormControl": {
       "styleOverrides": {
         "root": {
-          "backgroundColor": "transparent"
+          "backgroundColor": "transparent",
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))",
+          "borderRadius": "4px"
         }
       }
     },
     "MuiFormHelperText": {
       "styleOverrides": {
         "root": {
-          "color": "rgba(0,0,0,0.699999988079071)",
+          "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.6))",
           "backgroundColor": "transparent"
         }
       }
@@ -622,12 +704,12 @@ export const themeOptions: ThemeOptions = {
     "MuiFormLabel": {
       "styleOverrides": {
         "root": {
-          "color": "rgba(0,0,0,0.699999988079071)",
+          "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.6))",
           "fontWeight": 500,
           "fontSize": "1rem"
         },
         "asterisk": {
-          "color": "rgba(50,98,141,1)"
+          "color": "var(--theme-base-primary-main, rgba(25,118,210,1))"
         }
       }
     },
@@ -635,12 +717,13 @@ export const themeOptions: ThemeOptions = {
       "styleOverrides": {
         "paper": {
           "borderRadius": 8,
-          "backgroundColor": "rgba(255,255,255,1)",
+          "backgroundColor": "var(--theme-base-components-input-outlined-background-fill, rgba(255,255,255,1))",
           "boxShadow": "rgba(210,210,210,1)",
           "minWidth": 160,
           "padding": "4px 0"
         },
         "list": {
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))",
           "paddingTop": 8,
           "paddingBottom": 8,
           "paddingLeft": 16,
@@ -653,24 +736,24 @@ export const themeOptions: ThemeOptions = {
         "root": {
           "borderRadius": 8,
           "textTransform": "none",
-          "color": "rgba(0,0,0,0.8700000047683716)",
-          "backgroundColor": "rgba(255,255,255,1)",
+          "color": "var(--theme-base-text-primary, rgba(33,33,33,1))",
+          "backgroundColor": "var(--theme-base-components-input-outlined-background-fill, rgba(255,255,255,1))",
           "&:hover": {
-            "backgroundColor": "rgba(0,0,0,0.05999999865889549)"
+            "backgroundColor": "var(--theme-base-action-hover, rgba(0,0,0,0.04))"
           },
           "&.Mui-selected": {
-            "backgroundColor": "rgba(50,98,141,1)",
-            "color": "rgba(235,239,244,1)",
+            "backgroundColor": "var(--theme-base-primary-main, rgba(50,98,141,1))",
+            "color": "var(--theme-base-on-primary, #fff)",
             "&:hover": {
-              "backgroundColor": "rgba(42,82,118,1)"
+              "backgroundColor": "var(--theme-base-primary-dark, rgba(33,66,99,1))"
             }
           },
           "&.Mui-disabled": {
-            "color": "rgba(0,0,0,0.3799999952316284)",
-            "backgroundColor": "rgba(0,0,0,0.11999999731779099)"
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
+            "backgroundColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.12))"
           },
           "&:focus-visible": {
-            "outline": "2px solid rgba(50,98,141,0.30000001192092896)",
+            "outline": "2px solid var(--theme-base-primary-focus-ring, #1976d2)",
             "outlineOffset": 2
           }
         }
@@ -682,11 +765,13 @@ export const themeOptions: ThemeOptions = {
       },
       "styleOverrides": {
         "root": {
-          "borderRadius": 8
+          "borderRadius": 8,
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))"
         },
         "outlined": {
-          "border": "1px solid rgba(0,0,0,0.11999999731779099)",
-          "backgroundColor": "rgba(158,158,158,1)"
+          "border": "1px solid var(--theme-base-divider, rgba(0,0,0,0.12))",
+          "backgroundColor": "var(--theme-base-surface, rgba(255,255,255,1))",
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))"
         }
       },
       "variants": [
@@ -695,8 +780,9 @@ export const themeOptions: ThemeOptions = {
             "elevation": 0
           },
           "style": {
-            "backgroundColor": "rgba(158,158,158,1)",
-            "--mui-palette-background-paper": "rgba(158,158,158,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-0, rgba(158,158,158,1))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-0, rgba(158,158,158,1))",
+            "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))"
           }
         },
         {
@@ -704,8 +790,9 @@ export const themeOptions: ThemeOptions = {
             "elevation": 1
           },
           "style": {
-            "backgroundColor": "rgba(189,189,189,1)",
-            "--mui-palette-background-paper": "rgba(189,189,189,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-1, rgba(189,189,189,1))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-1, rgba(189,189,189,1))",
+            "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))"
           }
         },
         {
@@ -713,8 +800,9 @@ export const themeOptions: ThemeOptions = {
             "elevation": 2
           },
           "style": {
-            "backgroundColor": "rgba(210,210,210,1)",
-            "--mui-palette-background-paper": "rgba(210,210,210,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-2, rgba(210,210,210,1))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-2, rgba(210,210,210,1))",
+            "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))"
           }
         },
         {
@@ -722,8 +810,9 @@ export const themeOptions: ThemeOptions = {
             "elevation": 3
           },
           "style": {
-            "backgroundColor": "rgba(224,224,224,1)",
-            "--mui-palette-background-paper": "rgba(224,224,224,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-3, rgba(224,224,224,1))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-3, rgba(224,224,224,1))",
+            "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))"
           }
         },
         {
@@ -731,8 +820,9 @@ export const themeOptions: ThemeOptions = {
             "elevation": 4
           },
           "style": {
-            "backgroundColor": "rgba(238,238,238,1)",
-            "--mui-palette-background-paper": "rgba(238,238,238,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-4, rgba(238,238,238,1))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-4, rgba(238,238,238,1))",
+            "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))"
           }
         },
         {
@@ -740,8 +830,9 @@ export const themeOptions: ThemeOptions = {
             "elevation": 5
           },
           "style": {
-            "backgroundColor": "rgba(245,245,245,1)",
-            "--mui-palette-background-paper": "rgba(245,245,245,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-5, rgba(245,245,245,1))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-5, rgba(245,245,245,1))",
+            "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))"
           }
         },
         {
@@ -749,11 +840,33 @@ export const themeOptions: ThemeOptions = {
             "elevation": 6
           },
           "style": {
-            "backgroundColor": "rgba(255,255,255,1)",
-            "--mui-palette-background-paper": "rgba(255,255,255,1)"
+            "backgroundColor": "var(--theme-base-background-elevations-level-6, rgba(255,255,255,1))",
+            "--mui-palette-background-paper": "var(--theme-base-background-elevations-level-6, rgba(255,255,255,1))",
+            "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))"
           }
         }
       ]
+    },
+    "MuiRadio": {
+      "styleOverrides": {
+        "root": {
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))",
+          "&.Mui-checked": {
+            "color": "var(--theme-base-primary-main, rgba(25,118,210,1))"
+          },
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-primary-states-hover, rgba(25,118,210,0.04))"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))"
+          },
+          "&:focus-visible": {
+            "outline": "2px solid var(--theme-base-primary-focus-ring, #1976d2)",
+            "outlineOffset": 2,
+            "borderRadius": 8
+          }
+        }
+      }
     },
     "MuiSelect": {
       "styleOverrides": {
@@ -761,15 +874,15 @@ export const themeOptions: ThemeOptions = {
           "&:focus": {
             "backgroundColor": "transparent"
           },
-          "color": "rgba(0,0,0,0.8700000047683716)",
-          "backgroundColor": "rgba(255,255,255,1)",
+          "color": "var(--theme-base-text-primary, rgba(33,33,33,1))",
+          "backgroundColor": "var(--theme-base-components-input-outlined-background-fill, rgba(255,255,255,1))",
           "&.Mui-disabled": {
-            "color": "rgba(0,0,0,0.3799999952316284)",
-            "backgroundColor": "rgba(0,0,0,0.11999999731779099)"
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))",
+            "backgroundColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.12))"
           }
         },
         "icon": {
-          "color": "rgba(0,0,0,0.699999988079071)"
+          "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.54))"
         }
       }
     },
@@ -916,15 +1029,15 @@ export const themeOptions: ThemeOptions = {
     "MuiTab": {
       "styleOverrides": {
         "root": {
-          "color": "rgba(0,0,0,0.699999988079071)",
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))",
           "&.Mui-selected": {
-            "color": "rgba(50,98,141,1)"
+            "color": "var(--theme-base-primary-main, rgba(25,118,210,1))"
           },
           "&:hover": {
-            "backgroundColor": "rgba(0,0,0,0.05999999865889549)"
+            "backgroundColor": "var(--theme-base-primary-states-hover, rgba(25,118,210,0.04))"
           },
           "&:focus-visible": {
-            "outline": "2px solid rgba(50,98,141,0.30000001192092896)",
+            "outline": "2px solid var(--theme-base-primary-focus-ring, #1976d2)",
             "outlineOffset": 2,
             "borderRadius": 0
           }
@@ -936,15 +1049,15 @@ export const themeOptions: ThemeOptions = {
         "root": {
           "backgroundColor": "transparent",
           "minHeight": 48,
-          "borderBottom": "1px solid rgba(0,0,0,0.11999999731779099)"
+          "borderBottom": "1px solid var(--theme-base-divider, rgba(0,0,0,0.12))"
         },
         "indicator": {
           "height": 3,
           "borderRadius": 2,
-          "backgroundColor": "rgba(50,98,141,1)"
+          "backgroundColor": "var(--theme-base-primary-main, #1976d2)"
         },
         "scrollButtons": {
-          "color": "rgba(0,0,0,0.699999988079071)",
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))",
           "&.Mui-disabled": {
             "opacity": 0.3
           }
@@ -967,10 +1080,77 @@ export const themeOptions: ThemeOptions = {
     "MuiOutlinedInput": {
       "styleOverrides": {
         "root": {
-          "backgroundColor": "#fff",
+          "borderRadius": 8,
+          "backgroundColor": "var(--theme-base-components-input-outlined-background-fill, var(--theme-base-background-elevations-level-0, rgba(158,158,158,1)))",
+          "--mui-palette-background-paper": "var(--theme-base-components-input-outlined-background-fill, var(--theme-base-background-elevations-level-0, rgba(158,158,158,1)))",
           "&.Mui-disabled": {
-            "backgroundColor": "rgba(0,0,0,0.11999999731779099)"
+            "backgroundColor": "var(--theme-base-action-disabled-background, rgba(0,0,0,0.11999999731779099))",
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.3799999952316284))"
+          },
+          "&.Mui-focused": {
+            "boxShadow": "0 0 0 1px var(--theme-base-primary-states-focus, rgba(25,118,210,0.12))"
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            "borderColor": "var(--theme-base-divider, rgba(0,0,0,0.11999999731779099))"
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            "borderColor": "var(--theme-base-primary-main, rgba(50,98,141,1))"
+          },
+          "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+            "borderColor": "var(--theme-base-feedback-error-main, rgba(211,47,47,1))"
+          },
+          "&.Mui-focused.MuiInputBase-colorWarning .MuiOutlinedInput-notchedOutline": {
+            "borderColor": "var(--theme-base-feedback-warning-main, rgba(237,108,2,1))"
+          },
+          "&.Mui-focused.MuiInputBase-colorInfo .MuiOutlinedInput-notchedOutline": {
+            "borderColor": "var(--theme-base-feedback-info-main, rgba(2,136,209,1))"
+          },
+          "&.Mui-focused.MuiInputBase-colorSuccess .MuiOutlinedInput-notchedOutline": {
+            "borderColor": "var(--theme-base-feedback-success-main, rgba(46,125,50,1))"
           }
+        },
+        "notchedOutline": {
+          "borderColor": "var(--theme-base-divider, rgba(0,0,0,0.11999999731779099))"
+        },
+        "input": {
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.87))"
+        },
+        "adornedStart": {},
+        "adornedEnd": {},
+        "colorPrimary": {},
+        "colorSecondary": {}
+      }
+    },
+    "MuiTypography": {
+      "defaultProps": {},
+      "styleOverrides": {
+        "root": {
+          "borderRadius": 8,
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.8700000047683716))"
+        },
+        "colorPrimary": {
+          "color": "var(--theme-base-primary-main, rgba(50,98,141,1))"
+        },
+        "colorSecondary": {
+          "color": "var(--theme-base-secondary-main, rgba(65,94,91,1))"
+        },
+        "colorTextPrimary": {
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.8700000047683716))"
+        },
+        "colorTextSecondary": {
+          "color": "var(--theme-base-text-secondary, rgba(0,0,0,0.699999988079071))"
+        },
+        "colorError": {
+          "color": "var(--theme-base-feedback-error-main, rgba(211,47,47,1))"
+        },
+        "colorWarning": {
+          "color": "var(--theme-base-feedback-warning-main, rgba(237,108,2,1))"
+        },
+        "colorInfo": {
+          "color": "var(--theme-base-feedback-info-main, rgba(2,136,209,1))"
+        },
+        "colorSuccess": {
+          "color": "var(--theme-base-feedback-success-main, rgba(46,125,50,1))"
         }
       }
     }

@@ -1,16 +1,16 @@
-import { t } from '../lib/tokenUtils';
+const v = (name: string, fallback: string) => `var(--${name}, ${fallback})`;
 
 export function MuiFormLabel(t: any) {
   return {
     styleOverrides: {
       root: {
-        color: t.textSecondary ? t.textSecondary() : t('theme-base-text-secondary'),
+        color: v('theme-base-text-secondary', 'rgba(0,0,0,0.6)'),
         fontWeight: 500,
         fontSize: '1rem',
         // Add more style properties as needed, or use label-specific tokens if available
       },
       asterisk: {
-        color: t.primaryMain ? t.primaryMain() : t('theme-base-primary-main'),
+        color: v('theme-base-primary-main', 'rgba(25,118,210,1)'),
       },
       // Add other overrides if needed
     },

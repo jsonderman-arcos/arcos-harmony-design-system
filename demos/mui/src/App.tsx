@@ -1,8 +1,5 @@
 import * as React from "react";
 import {
-  createTheme,
-  ThemeProvider,
-  CssBaseline,
   Alert,
   Typography,
   Button,
@@ -23,17 +20,12 @@ import {
   Snackbar,
   type SnackbarCloseReason,
 } from "@mui/material";
-// import Grid from '@mui/material/Grid' // No longer needed
+
 import "./App.css";
+import '../../../src/theme/core.css';   // ← the file that defines --core-lighthouse-... vars
+import '../../../src/theme/theme.css';         // ← your theme that references them
 
 function App() {
-  // Mode Switching functions
-  const [mode, setMode] = React.useState<"light" | "dark">("light");
-  const theme = createTheme({
-    palette: {
-      mode,
-    },
-  });
   const [count, setCount] = React.useState(0);
   const [tab, setTab] = React.useState(0);
   const label = { inputProps: { "aria-label": "Color switch demo" } };
@@ -59,18 +51,7 @@ React.useEffect(() => {
 }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
       <div style={{ padding: "2rem" }}>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={mode === "dark"}
-              onChange={() => setMode(mode === "light" ? "dark" : "light")}
-            />
-          }
-          label="Dark mode"
-        />
         <Card elevation={3}>
           <CardContent>
             <Alert
@@ -86,7 +67,7 @@ React.useEffect(() => {
             </Typography>
             <Chip
               label="Success State"
-              color="success"
+              color="primary"
               variant="filled"
               sx={{ mb: 2 }}
             />
@@ -166,7 +147,7 @@ React.useEffect(() => {
             )}
             {/* Buttons below Tabs */}
             <div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
-              <Button variant="contained" onClick={() => setCount(count + 1)}>
+              <Button variant="contained" color="primary" onClick={() => setCount(count + 1)}>
                 Click Me
               </Button>
              <Button
@@ -175,6 +156,14 @@ React.useEffect(() => {
                 onClick={() => alert("Secondary button clicked")}
               >
                 Secondary State
+              </Button>
+              <Button
+                variant="outlined"
+                color="success"
+                onClick={() => alert("Success button clicked")}
+                
+              >
+                Success State
               </Button>
               <Button
                 variant="contained"
@@ -202,7 +191,6 @@ React.useEffect(() => {
           </Alert>
         </Snackbar>
       </div>
-    </ThemeProvider>
   );
 }
 

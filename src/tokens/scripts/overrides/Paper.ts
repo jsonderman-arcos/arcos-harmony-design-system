@@ -1,13 +1,21 @@
-import { t } from '../lib/tokenUtils';
+
+const v = (name: string, fallback: string) => `var(--${name}, ${fallback})`;
 
 export function MuiPaper(t: any) {
-  const variants = Array.from({ length: 7 }, (_, level) => ({
-    props: { elevation: level },
-    style: {
-      backgroundColor: t.paperBackgroundForElevation(level),
-      ['--mui-palette-background-paper' as any]: t.paperBackgroundForElevation(level),
-    },
-  }));
+  const variants = Array.from({ length: 7 }, (_, level) => {
+    const bg = v(
+      `theme-base-background-elevations-level-${level}`,
+      t?.paperBackgroundForElevation ? t.paperBackgroundForElevation(level) : 'rgba(255,255,255,1)'
+    );
+    return {
+      props: { elevation: level },
+      style: {
+        backgroundColor: bg,
+        ['--mui-palette-background-paper' as any]: bg,
+        color: v('theme-base-text-primary', 'rgba(0,0,0,0.87)'),
+      },
+    };
+  });
 
   return {
     defaultProps: {
@@ -15,11 +23,13 @@ export function MuiPaper(t: any) {
     },
     styleOverrides: {
       root: {
-        borderRadius: t.radius,
+        borderRadius: t?.radius ?? '4px',
+        color: v('theme-base-text-primary', 'rgba(0,0,0,0.87)'),
       },
       outlined: {
-        border: `${t.borderSize}px solid ${t.divider()}`,
-        backgroundColor: t.surface(),
+        border: `${t?.borderSize ?? 1}px solid ${v('theme-base-divider','rgba(0,0,0,0.12)')}`,
+        backgroundColor: v('theme-base-surface', 'rgba(255,255,255,1)'),
+        color: v('theme-base-text-primary','rgba(0,0,0,0.87)'),
       },
     },
     variants,

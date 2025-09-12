@@ -8,6 +8,14 @@ export function MuiChip(t: any) {
   const divider = v('theme-base-divider', t.divider?.() || 'rgba(0,0,0,0.12)');
 
   // Palette roles as CSS variables (aligns with Switch.ts)
+    // Default Chip tokens (from theme-base-components-chip-default-*)
+  const chipDefault = {
+    fill: v('theme-base-components-chip-default-close-fill', '#f5f5f5'),
+    hover: v('theme-base-components-chip-default-hover-fill', 'rgba(0,0,0,0.12)'),
+    border: v('theme-base-components-chip-default-enabled-border', '#bdbdbd'),
+    focus: v('theme-base-components-chip-default-focus-fill', 'rgba(255,255,255,0.2)'),
+    text: textPrimary,
+  };
   const primary = {
     main: v('theme-base-palette-primary-main', '#1976d2'),
     on: v('theme-base-palette-primary-contrast-text', '#ffffff'),
@@ -80,6 +88,15 @@ export function MuiChip(t: any) {
       {
         props: { variant: 'outlined' },
         style: outlined(divider, textSecondary),
+      },
+      // Default chip (explicit color="default")
+      {
+        props: { color: 'default', variant: 'filled' },
+        style: filled(chipDefault.fill, chipDefault.text),
+      },
+      {
+        props: { color: 'default', variant: 'outlined' },
+        style: outlined(chipDefault.border, chipDefault.text),
       },
       // Primary
       {
