@@ -1,10 +1,26 @@
 {
   "name": "ux-design-system",
   "version": "1.0.0",
+  "private": false,
+  "description": "Design tokens and theme assets for our UX design system.",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
+    "build": "tsc -p tsconfig.build.json && npm run build:assets",
+    "build:assets": "mkdir -p dist/theme && cp -R src/theme/*.json dist/theme/ 2>/dev/null || true && cp -R src/theme/*.css dist/theme/ 2>/dev/null || true",
+    "clean": "rm -rf dist",
+    "prepare": "npm run build",
     "tokens:fetch": "ts-node src/tokens/scripts/fetchFigmaTokens.ts",
     "tokens:build": "ts-node src/tokens/scripts/build-from-figma.ts",
     "tokens:fetch-build": "ts-node src/tokens/scripts/fetchFigmaTokens.ts && yarn tokens:build",

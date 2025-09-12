@@ -114,7 +114,8 @@ React.useEffect(() => {
                   </Select>
                 </FormControl>
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={<Checkbox color="primary" />}
+                  color='error'
                   label="Check me!"
                   sx={{ mt: 2 }}
                 />

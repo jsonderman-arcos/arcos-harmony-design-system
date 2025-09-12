@@ -74,7 +74,7 @@
   --theme-base-components-avatar-fill: var(--core-lighthouse-colors-neutrals-neutral-400);
   --theme-base-components-backdrop-fill: var(--core-lighthouse-colors-neutrals-black-alpha-50);
   --theme-base-components-breadcrumbs-collapse-fill: var(--core-lighthouse-colors-neutrals-neutral-100);
-  --theme-base-components-chip-default-close-fill: var(--core-lighthouse-colors-neutrals-neutral-100);
+  --theme-base-components-chip-default-close-fill: var(--theme-base-action-selected);
   --theme-base-components-chip-default-enabled-border: var(--core-lighthouse-colors-neutrals-neutral-400);
   --theme-base-components-chip-default-focus-fill: var(--core-lighthouse-colors-neutrals-white-alpha-20);
   --theme-base-components-chip-default-hover-fill: var(--core-lighthouse-colors-neutrals-black-alpha-12);
@@ -452,7 +452,6 @@
   --theme-base-components-alert-warning-background: var(--core-lighthouse-colors-yellows-yellow-darkly-50);
   --theme-base-components-alert-warning-color: var(--theme-base-feedback-warning-dark);
   --theme-base-components-app-bar-default-fill: var(--theme-base-background-paper-elevation-4);
-  --theme-base-components-chip-default-close-fill: var(--core-lighthouse-colors-neutrals-white-100);
   --theme-base-components-chip-default-enabled-border: var(--core-lighthouse-colors-neutrals-neutral-700);
   --theme-base-components-chip-default-hover-fill: var(--core-lighthouse-colors-neutrals-white-alpha-12);
   --theme-base-components-input-filled-enabled-fill: var(--core-lighthouse-colors-neutrals-white-alpha-08);
@@ -629,6 +628,7 @@
   --theme-base-background-default: var(--core-lighthouse-colors-neutrals-white-100);
   --theme-base-background-edit: var(--core-lighthouse-colors-blues-vivid-blue-600);
   --theme-base-background-surface: var(--theme-base-background-paper-elevation-1);
+  --theme-base-components-chip-default-close-fill: var(--core-lighthouse-colors-neutrals-neutral-100);
   --theme-base-feedback-warning-states-hover: rgba(255,255,255,1);
   --theme-base-spacing-width-compact: 320;
   --theme-base-spacing-width-regular: 320;

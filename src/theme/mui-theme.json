@@ -428,6 +428,84 @@
         }
       ]
     },
+    "MuiCheckbox": {
+      "styleOverrides": {
+        "root": {
+          "color": "var(--theme-base-text-primary, rgba(0,0,0,0.56))",
+          "& .MuiSvgIcon-root": {
+            "color": "inherit"
+          },
+          "&:hover": {
+            "backgroundColor": "var(--theme-base-primary-states-hover, rgba(25,118,210,0.04))"
+          },
+          "&.Mui-disabled": {
+            "color": "var(--theme-base-action-disabled, rgba(0,0,0,0.38))"
+          },
+          "&:focus-visible": {
+            "outline": "2px solid var(--theme-base-primary-focus-ring, #1976d2)",
+            "outlineOffset": 2,
+            "borderRadius": "4px"
+          },
+          "&.Mui-checked, &.MuiCheckbox-indeterminate": {
+            "color": "var(--theme-base-primary-main, rgba(25,118,210,1))"
+          },
+          "&.MuiCheckbox-colorPrimary": {
+            "color": "var(--theme-base-primary-main, rgba(25,118,210,1))",
+            "&.Mui-checked, &.MuiCheckbox-indeterminate": {
+              "color": "var(--theme-base-primary-main, rgba(25,118,210,1))"
+            },
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-primary-states-hover, rgba(25,118,210,0.04))"
+            }
+          },
+          "&.MuiCheckbox-colorSecondary": {
+            "color": "var(--theme-base-secondary-main, rgba(156,39,176,1))",
+            "&.Mui-checked, &.MuiCheckbox-indeterminate": {
+              "color": "var(--theme-base-secondary-main, rgba(156,39,176,1))"
+            },
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-secondary-states-hover, rgba(156,39,176,0.04))"
+            }
+          },
+          "&.MuiCheckbox-colorError": {
+            "color": "var(--theme-base-feedback-error-main, rgba(211,47,47,1))",
+            "&.Mui-checked, &.MuiCheckbox-indeterminate": {
+              "color": "var(--theme-base-feedback-error-main, rgba(211,47,47,1))"
+            },
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-feedback-error-states-hover, rgba(211,47,47,0.08))"
+            }
+          },
+          "&.MuiCheckbox-colorWarning": {
+            "color": "var(--theme-base-feedback-warning-main, rgba(237,108,2,1))",
+            "&.Mui-checked, &.MuiCheckbox-indeterminate": {
+              "color": "var(--theme-base-feedback-warning-main, rgba(237,108,2,1))"
+            },
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-feedback-warning-states-hover, rgba(237,108,2,0.08))"
+            }
+          },
+          "&.MuiCheckbox-colorInfo": {
+            "color": "var(--theme-base-feedback-info-main, rgba(2,136,209,1))",
+            "&.Mui-checked, &.MuiCheckbox-indeterminate": {
+              "color": "var(--theme-base-feedback-info-main, rgba(2,136,209,1))"
+            },
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-feedback-info-states-hover, rgba(2,136,209,0.08))"
+            }
+          },
+          "&.MuiCheckbox-colorSuccess": {
+            "color": "var(--theme-base-feedback-success-main, rgba(46,125,50,1))",
+            "&.Mui-checked, &.MuiCheckbox-indeterminate": {
+              "color": "var(--theme-base-feedback-success-main, rgba(46,125,50,1))"
+            },
+            "&:hover": {
+              "backgroundColor": "var(--theme-base-feedback-success-states-hover, rgba(46,125,50,0.08))"
+            }
+          }
+        }
+      }
+    },
     "MuiChip": {
       "styleOverrides": {
         "root": {
