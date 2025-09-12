@@ -44,22 +44,16 @@ export function MuiTypography(t: any) {
         borderRadius: radius,
         // Default text color should follow the token so it swaps with data-theme
         color: text.primary,
+        // Match <Typography color="..."> utility classes
+        '&.MuiTypography-colorPrimary': { color: primary.main },
+        '&.MuiTypography-colorSecondary': { color: secondary.main },
+        '&.MuiTypography-colorTextPrimary': { color: text.primary },
+        '&.MuiTypography-colorTextSecondary': { color: text.secondary },
+        '&.MuiTypography-colorError': { color: error.main },
+        '&.MuiTypography-colorWarning': { color: warning.main },
+        '&.MuiTypography-colorInfo': { color: info.main },
+        '&.MuiTypography-colorSuccess': { color: success.main },
       },
-
-      // Matches <Typography color="primary"/"secondary">
-      colorPrimary: { color: primary.main },
-      colorSecondary: { color: secondary.main },
-
-      // Matches <Typography color="textPrimary"/"textSecondary">
-      colorTextPrimary: { color: text.primary },
-      colorTextSecondary: { color: text.secondary },
-
-      // Feedback colors
-      
-      colorError: { color: error.main },
-      colorWarning: { color: warning.main },
-      colorInfo: { color: info.main },
-      colorSuccess: { color: success.main },
     },
   };
 }

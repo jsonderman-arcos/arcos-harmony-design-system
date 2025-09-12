@@ -14,11 +14,12 @@
     ".": {
       "require": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./theme/*": "./dist/theme/*"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && npm run build:assets",
-    "build:assets": "mkdir -p dist/theme && cp -R src/theme/*.json dist/theme/ 2>/dev/null || true && cp -R src/theme/*.css dist/theme/ 2>/dev/null || true",
+    "build:assets": "mkdir -p dist/theme && cp -R src/theme/*.json dist/theme/ 2>/dev/null || true && cp -R src/theme/*.css dist/theme/ 2>/dev/null || true && cp -f src/index.d.ts dist/index.d.ts 2>/dev/null || true",
     "clean": "rm -rf dist",
     "prepare": "npm run build",
     "tokens:fetch": "ts-node src/tokens/scripts/fetchFigmaTokens.ts",
