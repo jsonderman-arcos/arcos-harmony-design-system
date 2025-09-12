@@ -59,7 +59,7 @@ Used to navigate to another page or section of the application, such as going to
 - **Actions**: Execute commands like delete, edit, or share
 - **Status changes**: Mark items as complete, approved, or important
 - **Navigation**: Move to different sections or pages
-***Note:***\* Avoid using buttons for navigation when links or tabs are more appropriate, as buttons imply an action rather than a navigation intent.\*
+***Note:*** Avoid using buttons for navigation when links or tabs are more appropriate, as buttons imply an action rather than a navigation intent.
 
 ## How to use
 ### Interaction
