@@ -361,6 +361,14 @@ export const themeOptions: ThemeOptions = {
         }
       }
     },
+    "MuiFormHelperText": {
+      "styleOverrides": {
+        "root": {
+          "color": "rgba(0,0,0,0.699999988079071)",
+          "backgroundColor": "transparent"
+        }
+      }
+    },
     "MuiFormLabel": {
       "styleOverrides": {
         "root": {
@@ -370,6 +378,51 @@ export const themeOptions: ThemeOptions = {
         },
         "asterisk": {
           "color": "rgba(50,98,141,1)"
+        }
+      }
+    },
+    "MuiMenu": {
+      "styleOverrides": {
+        "paper": {
+          "borderRadius": 8,
+          "backgroundColor": "rgba(255,255,255,1)",
+          "boxShadow": "rgba(210,210,210,1)",
+          "minWidth": 160,
+          "padding": "4px 0"
+        },
+        "list": {
+          "paddingTop": 8,
+          "paddingBottom": 8,
+          "paddingLeft": 16,
+          "paddingRight": 16
+        }
+      }
+    },
+    "MuiMenuItem": {
+      "styleOverrides": {
+        "root": {
+          "borderRadius": 8,
+          "textTransform": "none",
+          "color": "rgba(0,0,0,0.8700000047683716)",
+          "backgroundColor": "rgba(255,255,255,1)",
+          "&:hover": {
+            "backgroundColor": "rgba(0,0,0,0.05999999865889549)"
+          },
+          "&.Mui-selected": {
+            "backgroundColor": "rgba(50,98,141,1)",
+            "color": "rgba(235,239,244,1)",
+            "&:hover": {
+              "backgroundColor": "rgba(42,82,118,1)"
+            }
+          },
+          "&.Mui-disabled": {
+            "color": "rgba(0,0,0,0.3799999952316284)",
+            "backgroundColor": "rgba(0,0,0,0.11999999731779099)"
+          },
+          "&:focus-visible": {
+            "outline": "2px solid rgba(50,98,141,0.30000001192092896)",
+            "outlineOffset": 2
+          }
         }
       }
     },
@@ -451,6 +504,140 @@ export const themeOptions: ThemeOptions = {
           }
         }
       ]
+    },
+    "MuiSelect": {
+      "styleOverrides": {
+        "select": {
+          "&:focus": {
+            "backgroundColor": "transparent"
+          },
+          "color": "rgba(0,0,0,0.8700000047683716)",
+          "backgroundColor": "rgba(255,255,255,1)",
+          "&.Mui-disabled": {
+            "color": "rgba(0,0,0,0.3799999952316284)",
+            "backgroundColor": "rgba(0,0,0,0.11999999731779099)"
+          }
+        },
+        "icon": {
+          "color": "rgba(0,0,0,0.699999988079071)"
+        }
+      }
+    },
+    "MuiSwitch": {
+      "styleOverrides": {
+        "switchBase": {
+          "&.MuiSwitch-colorPrimary.Mui-checked": {
+            "color": "rgba(50,98,141,1)",
+            "& + .MuiSwitch-track": {
+              "backgroundColor": "rgba(50, 98, 141, 0.5)"
+            },
+            "& .MuiSwitch-thumb": {
+              "backgroundColor": "rgba(50,98,141,1)"
+            }
+          },
+          "&.MuiSwitch-colorSecondary.Mui-checked": {
+            "color": "rgba(65,94,91,1)",
+            "& + .MuiSwitch-track": {
+              "backgroundColor": "rgba(65, 94, 91, 0.5)"
+            },
+            "& .MuiSwitch-thumb": {
+              "backgroundColor": "rgba(65,94,91,1)"
+            }
+          },
+          "&.MuiSwitch-colorError.Mui-checked": {
+            "color": "rgba(183,51,42,1)",
+            "& + .MuiSwitch-track": {
+              "backgroundColor": "rgba(183, 51, 42, 0.5)"
+            },
+            "& .MuiSwitch-thumb": {
+              "backgroundColor": "rgba(183,51,42,1)"
+            }
+          },
+          "&.MuiSwitch-colorWarning.Mui-checked": {
+            "color": "rgba(255,189,48,1)",
+            "& + .MuiSwitch-track": {
+              "backgroundColor": "rgba(255, 189, 48, 0.5)"
+            },
+            "& .MuiSwitch-thumb": {
+              "backgroundColor": "rgba(255,189,48,1)"
+            }
+          },
+          "&.MuiSwitch-colorInfo.Mui-checked": {
+            "color": "rgba(2,123,184,1)",
+            "& + .MuiSwitch-track": {
+              "backgroundColor": "rgba(2, 123, 184, 0.5)"
+            },
+            "& .MuiSwitch-thumb": {
+              "backgroundColor": "rgba(2,123,184,1)"
+            }
+          },
+          "&.MuiSwitch-colorSuccess.Mui-checked": {
+            "color": "rgba(24,98,24,1)",
+            "& + .MuiSwitch-track": {
+              "backgroundColor": "rgba(24, 98, 24, 0.5)"
+            },
+            "& .MuiSwitch-thumb": {
+              "backgroundColor": "rgba(24,98,24,1)"
+            }
+          },
+          "&.Mui-disabled": {
+            "color": "rgba(0,0,0,0.3799999952316284)"
+          },
+          "&.Mui-checked.Mui-disabled": {
+            "color": "rgba(0,0,0,0.3799999952316284)",
+            "& + .MuiSwitch-track": {
+              "opacity": 0.5
+            }
+          }
+        },
+        "thumb": {
+          "backgroundColor": "#fff"
+        },
+        "track": {
+          "backgroundColor": "rgba(0,0,0,0.11999999731779099)"
+        }
+      }
+    },
+    "MuiTab": {
+      "styleOverrides": {
+        "root": {
+          "color": "rgba(0,0,0,0.699999988079071)",
+          "&.Mui-selected": {
+            "color": "rgba(50,98,141,1)"
+          },
+          "&:hover": {
+            "backgroundColor": "rgba(0,0,0,0.05999999865889549)"
+          },
+          "&:focus-visible": {
+            "outline": "2px solid rgba(50,98,141,0.30000001192092896)",
+            "outlineOffset": 2,
+            "borderRadius": 0
+          }
+        }
+      }
+    },
+    "MuiTabs": {
+      "styleOverrides": {
+        "root": {
+          "backgroundColor": "transparent",
+          "minHeight": 48,
+          "borderBottom": "1px solid rgba(0,0,0,0.11999999731779099)"
+        },
+        "indicator": {
+          "height": 3,
+          "borderRadius": 2,
+          "backgroundColor": "rgba(50,98,141,1)"
+        },
+        "scrollButtons": {
+          "color": "rgba(0,0,0,0.699999988079071)",
+          "&.Mui-disabled": {
+            "opacity": 0.3
+          }
+        },
+        "flexContainer": {
+          "minHeight": 48
+        }
+      }
     },
     "MuiTextField": {
       "defaultProps": {

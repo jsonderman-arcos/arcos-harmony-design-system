@@ -1,6 +1,7 @@
 import { t } from '../lib/tokenUtils';
 
-export const MuiMenu = {
+export function MuiMenu(t:any) {
+  return {
   styleOverrides: {
     paper: {
       borderRadius: t.radius,
@@ -11,8 +12,11 @@ export const MuiMenu = {
       // Add more overrides as needed from your mui-theme.json
     },
     list: {
-      paddingTop: 0,
-      paddingBottom: 0,
+      paddingTop: t.spacingBy('core-spacing-spacing-2xs'),
+      paddingBottom: t.spacingBy('core-spacing-spacing-2xs'),
+      paddingLeft: t.spacingBy('core-spacing-spacing-sm'),
+      paddingRight: t.spacingBy('core-spacing-spacing-sm'),
     },
   },
-};
+}
+}

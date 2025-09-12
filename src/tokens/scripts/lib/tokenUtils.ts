@@ -36,13 +36,26 @@ export const t = Object.freeze({
  
 
   ...selectors,
+  //statuses
+  errorMain: () => token('theme-base-feedback-error-main'),
+  warningMain: () => token('theme-base-feedback-warning-main'),
+  successMain: () => token('theme-base-feedback-success-main'),
+  infoMain: () => token('theme-base-feedback-info-main'),
+  errorDark: () => token('theme-base-feedback-error-dark'),
+  warningDark: () => token('theme-base-feedback-warning-dark'),
+  successDark: () => token('theme-base-feedback-success-dark'),
+  infoDark: () => token('theme-base-feedback-info-dark'),
+  errorLight: () => token('theme-base-feedback-error-light'),
+  warningLight: () => token('theme-base-feedback-warning-light'),
+  successLight: () => token('theme-base-feedback-success-light'),
+  infoLight: () => token('theme-base-feedback-info-light'),
   // specific selectors
   textPrimary: () => token('theme-base-text-primary'),
   textSecondary: () => token('theme-base-text-secondary'),
   primaryMain: () => token('theme-base-primary-main'),
   primaryHover: () => token('theme-base-primary-hover'),
-  primaryDark: () => token('theme-base-primary-dark'),           // Added
-  onPrimary: () => token('theme-base-on-primary'),               // Added
+  primaryDark: () => token('theme-base-primary-dark'),           
+  onPrimary: () => token('theme-base-on-primary'),               
   inputWhiteBg: () => token('core-lighthouse-colors-neutrals-white-100'),
   textDisabled: () => token('theme-base-text-disabled'),
   actionDisabledBg: () => token('theme-base-action-disabled-bg'),

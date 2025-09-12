@@ -1,11 +1,12 @@
 import { t } from '../lib/tokenUtils';
 
-export const MuiMenuItem = {
-  styleOverrides: {
-    root: {
-      borderRadius: t.radius,
-      textTransform: 'none',
-      color: t.textPrimary ? t.textPrimary() : 'rgba(33,33,33,1)',
+export function MuiMenuItem(t:any) {
+  return {
+    styleOverrides: {
+      root: {
+        borderRadius: t.radius,
+        textTransform: 'none',
+        color: t.textPrimary ? t.textPrimary() : 'rgba(33,33,33,1)',
       backgroundColor: t.inputWhiteBg ? t.inputWhiteBg() : 'rgba(255,255,255,1)',
       '&:hover': {
         backgroundColor: t.actionHover ? t.actionHover() : 'rgba(0,0,0,0.04)',
@@ -27,4 +28,5 @@ export const MuiMenuItem = {
       },
     },
   },
-};
+}
+}

@@ -1,10 +1,12 @@
 import { t } from '../lib/tokenUtils';
 
-export const MuiFormHelperText = {
-  styleOverrides: {
-    root: {
-      color: t.textSecondary(),
-      backgroundColor: 'transparent',
-    },
+export function MuiFormHelperText(t:any) {
+  return {
+    styleOverrides: {
+      root: {
+        color: t.textSecondary(),
+        backgroundColor: 'transparent',
+      },
   },
 };
+}

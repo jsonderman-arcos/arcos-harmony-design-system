@@ -8,10 +8,11 @@ import {
   Checkbox,
   FormControlLabel,
   FormControl,
-  Paper,
+  FormGroup,
   Radio,
   RadioGroup,
   Select,
+  Switch,
   TextField,
   Tabs,
   Tab
@@ -22,6 +23,7 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
   const [tab, setTab] = useState(0)
+  const label = { inputProps: { 'aria-label': 'Color switch demo' } };
 
   return (
     <div style={{ padding: '2rem' }}>
@@ -79,12 +81,18 @@ function App() {
               </>
             )}
             {tab === 1 && (
+              <>
+              <Switch {...label} defaultChecked color="secondary" />
+              <FormGroup>
+                <FormControlLabel control={<Switch defaultChecked color="warning"/>} label="Label" />
+              </FormGroup>
               <FormControl>
                 <RadioGroup defaultValue="a" name="demo-radio-group">
                   <FormControlLabel value="a" control={<Radio />} label="Option A" />
                   <FormControlLabel value="b" control={<Radio />} label="Option B" />
                 </RadioGroup>
               </FormControl>
+              </>
             )}
             {/* Buttons below Tabs */}
             <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
