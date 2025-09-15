@@ -119,6 +119,21 @@ export default function App() {
 - CJS: `const { muiThemeJson } = require('ux-design-system')`
 - Subpath CSS imports work identically in both module systems.
 
+**CSS‑Only Usage (no MUI)**
+- Import the CSS files in your app entry:
+  - `import 'ux-design-system/theme/tokens.css'`
+  - `import 'ux-design-system/theme/theme.css'` (semantic theme variables)
+- Use CSS variables directly in your styles:
+```css
+/* app.css */
+.btn-primary {
+  background: var(--theme-base-background-focus);
+  color: var(--core-aliases-colors-white-100);
+  border-radius: var(--core-geometry-radii-400, 8px);
+  padding: var(--core-geometry-spacing-400, 16px) var(--core-geometry-spacing-500, 20px);
+}
+```
+
 **TypeScript Notes**
 - The package ships a minimal `dist/index.d.ts`. If your TS config enforces type‑only imports, use `import { createTheme, type ThemeOptions } ...`.
 
@@ -136,5 +151,4 @@ export default function App() {
 **Troubleshooting**
 - “Missing ./dist/theme/… specifier”: Import CSS via `ux-design-system/theme/...` (subpath exports), not `dist/...`.
 - “Could not find a declaration for module 'ux-design-system'”: Ensure you’re on the latest tarball; it includes `dist/index.d.ts`.
-
 
