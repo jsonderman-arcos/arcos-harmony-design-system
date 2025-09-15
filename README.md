@@ -134,6 +134,51 @@ export default function App() {
 }
 ```
 
+**Tailwind Quickstart (optional)**
+- Prerequisites: Tailwind CSS installed in your React app.
+- Add the preset to your Tailwind config:
+  - CommonJS (`tailwind.config.js`):
+    ```js
+    // tailwind.config.js
+    module.exports = {
+      content: ['./src/**/*.{ts,tsx,js,jsx,html}'],
+      presets: [require('arcos-harmony-design-system/tailwind/preset.cjs')],
+    };
+    ```
+  - ESM (`tailwind.config.mjs`):
+    ```js
+    // tailwind.config.mjs
+    import preset from 'arcos-harmony-design-system/tailwind/preset.cjs';
+    export default {
+      content: ['./src/**/*.{ts,tsx,js,jsx,html}'],
+      presets: [preset],
+    };
+    ```
+- Import the CSS variables (once, e.g. in your app entry):
+  - `import 'arcos-harmony-design-system/theme/tokens.css'`
+  - `import 'arcos-harmony-design-system/theme/theme.css'`
+- Use in JSX:
+  - `className="bg-background text-primary rounded md:rounded-md"`
+  - Arbitrary values are also supported: `className="bg-[var(--theme-base-background-default)]"`
+- Customize further by extending your Tailwind config:
+  ```js
+  // tailwind.config.js
+  const ds = require('arcos-harmony-design-system/tailwind/preset.cjs');
+  module.exports = {
+    content: ['./src/**/*.{ts,tsx,js,jsx,html}'],
+    presets: [ds],
+    theme: {
+      extend: {
+        colors: {
+          // Map additional design tokens as needed
+          brand: 'var(--core-lighthouse-colors-brand-500)',
+        },
+      },
+    },
+  };
+  ```
+- Fallback behavior: If Tailwind isn’t used, nothing changes. Keep using MUI with `muiThemeJson` and CSS tokens normally.
+
 **TypeScript Notes**
 - The package ships a minimal `dist/index.d.ts`. If your TS config enforces type‑only imports, use `import { createTheme, type ThemeOptions } ...`.
 
@@ -151,4 +196,3 @@ export default function App() {
 **Troubleshooting**
 - “Missing ./dist/theme/… specifier”: Import CSS via `ux-design-system/theme/...` (subpath exports), not `dist/...`.
 - “Could not find a declaration for module 'ux-design-system'”: Ensure you’re on the latest tarball; it includes `dist/index.d.ts`.
-
