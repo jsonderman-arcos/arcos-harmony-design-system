@@ -75,6 +75,7 @@ UX Design System — Install & Usage Guide
 - Ensure MUI + Emotion are installed in the app:
   - `npm i @mui/material@^7 @emotion/react @emotion/styled`
 - `@mui/material` is treated as a peer dependency, so an existing app installation is reused and a duplicate copy will not be added.
+- Installing directly from Git runs the package `prepare` script during install, compiling the TypeScript sources and copying the CSS token files into `dist/`, so all theme JSON and CSS exports are ready without extra manual steps.
 
 **Use In A React App**
 - Import CSS tokens and build the MUI theme from JSON:
