@@ -66,10 +66,12 @@ UX Design System — Install & Usage Guide
 - You can install it into any React app to get consistent theming and tokens.
 
 **Install**
-- Local tarball (from this workspace):
-  - npm: `npm install /Users/jsonderman/Projects/SystemAutomation/ux-design-system/ux-design-system-1.0.0.tgz`
-  - yarn: `yarn add /Users/jsonderman/Projects/SystemAutomation/ux-design-system/ux-design-system-1.0.0.tgz`
-  - pnpm: `pnpm add /Users/jsonderman/Projects/SystemAutomation/ux-design-system/ux-design-system-1.0.0.tgz`
+- From Bitbucket (tag/branch/commit):
+  - Tag: `npm i bitbucket:arcos-inc/ux-design-system#v1.1.0`
+  - Branch: `npm i bitbucket:arcos-inc/ux-design-system#main`
+  - Commit: `npm i git+https://bitbucket.org/arcos-inc/ux-design-system.git#<commit-sha>`
+- From local folder during development:
+  - `npm i file:../ux-design-system` (adjust path as needed)
 - Ensure MUI + Emotion are installed in the app:
   - `npm i @mui/material@^7 @emotion/react @emotion/styled`
 
@@ -111,6 +113,12 @@ export default function App() {
 - JSON exports: `muiThemeJson`, `themeFlat`, `coreFlat`, `themeMuiFlat`, `coreMuiFlat` from `ux-design-system`.
 - CSS tokens: import via subpaths `ux-design-system/theme/tokens.css`, `ux-design-system/theme/theme.css`, `ux-design-system/theme/core.css`.
 
+**ESM vs CJS**
+- The package supports both ESM and CommonJS consumers.
+- ESM (recommended): `import { muiThemeJson } from 'ux-design-system'`
+- CJS: `const { muiThemeJson } = require('ux-design-system')`
+- Subpath CSS imports work identically in both module systems.
+
 **TypeScript Notes**
 - The package ships a minimal `dist/index.d.ts`. If your TS config enforces type‑only imports, use `import { createTheme, type ThemeOptions } ...`.
 
@@ -128,6 +136,5 @@ export default function App() {
 **Troubleshooting**
 - “Missing ./dist/theme/… specifier”: Import CSS via `ux-design-system/theme/...` (subpath exports), not `dist/...`.
 - “Could not find a declaration for module 'ux-design-system'”: Ensure you’re on the latest tarball; it includes `dist/index.d.ts`.
-
 
 
