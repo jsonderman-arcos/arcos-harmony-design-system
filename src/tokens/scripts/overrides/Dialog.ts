@@ -1,6 +1,6 @@
 import { t } from '../lib/tokenUtils';
 
-export function MuiCard(t: any) {
+export function MuiDialog(t: any) {
   // Helper for CSS vars with safe fallbacks
   const v = (name: string, fallback: string) => `var(--${name}, ${fallback})`;
 
