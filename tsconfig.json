@@ -1,35 +1,6 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-     "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "jsx": "react-jsx",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "incremental": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "dist",
-    "baseUrl": "./src",
-    "paths": {
-      "@theme/*": ["theme/*"],
-      "@outputs/*": ["tokens/outputs/*"]
-    }
-  },
-  "include": ["src"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    ".next",
-    ".turbo",
-    "coverage",
-    ".cache",
-    ".storybook",
-    "storybook-static",
-    "cypress",
-    "public",
-    "scripts"
-  ],
+  "files": [],
+  "references": [
+    { "path": "./packages/design-system" }
+  ]
 }

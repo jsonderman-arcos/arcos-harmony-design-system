@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const OPTIMIZE_MODE_DIFF = true;
+const PACKAGE_ROOT = path.resolve(__dirname, '..');
 
 // Allow selecting which collections to build via CLI or ENV
 // Usage: node build-from-figma.js --collections="Core,Lighthouse Theme,Theme – Application"
@@ -84,8 +85,8 @@ type FlatToken = {
 type FlatMap = Record<string, FlatToken>; // key is kebab name (no leading --)
 
 /** ---------- read input ---------- */
-const INPUT = path.resolve('src/tokens/inputs/tokens-raw-response.json'); // adjust if needed
-const OUT_DIR = path.resolve('src/theme');
+const INPUT = path.resolve(PACKAGE_ROOT, 'src/tokens/inputs/tokens-raw-response.json');
+const OUT_DIR = path.resolve(PACKAGE_ROOT, 'src/theme');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const raw: FigmaResponse = JSON.parse(fs.readFileSync(INPUT, 'utf8'));

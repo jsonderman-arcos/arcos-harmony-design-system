@@ -21,9 +21,9 @@ import {
   type SnackbarCloseReason,
 } from "@mui/material";
 
-import "./App.css";
-import '../../../src/theme/core.css';   // ← the file that defines --core-lighthouse-... vars
-import '../../../src/theme/theme.css';         // ← your theme that references them
+import './App.css';
+import 'arcos-harmony-design-system/theme/tokens.css';
+import 'arcos-harmony-design-system/theme/theme.css';
 
 function App() {
   const [count, setCount] = React.useState(0);

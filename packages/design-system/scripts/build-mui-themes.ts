@@ -3,9 +3,9 @@ import path from 'path';
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 import { createTokenUtils } from './lib/tokenUtils';
 
-const OUTPUT_DIR = path.resolve(__dirname, '../../theme');
-const OUTPUT_FILE = path.resolve(OUTPUT_DIR, 'mui-theme.json');
-const OUTPUT_THEME_TS = path.resolve(__dirname, '../../theme/mui-theme.ts');
+const SOURCE_THEME_DIR = path.resolve(__dirname, '../src/theme');
+const OUTPUT_FILE = path.resolve(SOURCE_THEME_DIR, 'mui-theme.json');
+const OUTPUT_THEME_TS = path.resolve(SOURCE_THEME_DIR, 'mui-theme.ts');
 const OVERRIDES_DIR = path.resolve(__dirname, './overrides');
 
 // near the top of build-mui-themes.ts (or right before you create `t`)
@@ -93,7 +93,7 @@ function loadOverrides(t: ReturnType<typeof createTokenUtils>): Record<string, u
 }
 
 function loadTokens(fileName: string): Record<string, string> {
-  const fullPath = path.resolve("./src/theme", fileName);
+  const fullPath = path.resolve(SOURCE_THEME_DIR, fileName);
   /* console.log('SourceFile')
   console.log(fullPath) */
   return JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
@@ -262,7 +262,7 @@ function main() {
   const themeOptions = buildMuiTheme({ ...coreTokens, ...themeTokens });
   const muiTheme = createTheme(themeOptions);
 
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  fs.mkdirSync(SOURCE_THEME_DIR, { recursive: true });
   // 1) Raw ThemeOptions JSON (optional, useful for debugging)
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(themeOptions, null, 2));
   // 2) A consumable TS module exporting a Theme for ThemeProvider
