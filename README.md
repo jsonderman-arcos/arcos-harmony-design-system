@@ -62,26 +62,34 @@ For more details, see comments in each script or contact the design system maint
 UX Design System — Install & Usage Guide
 
 **Overview**
-- This workspace contains `ux-design-system`, an npm package with design tokens (CSS variables + JSON) and MUI theme JSON.
-- You can install it into any React app to get consistent theming and tokens.
+- This workspace builds the published package `arcos-harmony-design-system`, which ships design tokens (CSS variables + JSON) and a fully wired MUI theme.
+- You can install it into any React app (including Lovable workspaces) to get consistent theming and tokens.
 
 **Install**
-- From Bitbucket (tag/branch/commit):
-  - Tag: `npm i bitbucket:arcos-inc/ux-design-system#v1.1.0`
-  - Branch: `npm i bitbucket:arcos-inc/ux-design-system#main`
-  - Commit: `npm i git+https://bitbucket.org/arcos-inc/ux-design-system.git#<commit-sha>`
-- From local folder during development:
-  - `npm i file:../ux-design-system` (adjust path as needed)
-- Ensure MUI + Emotion are installed in the app:
-  - `npm i @mui/material@^7 @emotion/react @emotion/styled`
-- `@mui/material` is treated as a peer dependency, so an existing app installation is reused and a duplicate copy will not be added.
-- Installing directly from Git runs the package `prepare` script during install, compiling the TypeScript sources and copying the CSS token files into `dist/`, so all theme JSON and CSS exports are ready without extra manual steps.
+- From the packaged tarball (recommended for Lovable or testing):
+  - `npm install ./arcos-harmony-design-system-1.2.0.tgz`
+  - Or host the tarball somewhere Lovable can reach (e.g. S3/GitHub release) and reference the URL in `package.json` dependencies.
+- From the local workspace during development: `npm install file:../ux-design-system`
+- Ensure MUI + Emotion are installed in the app: `npm install @mui/material@^7 @emotion/react @emotion/styled`
+- `@mui/material` remains a peer dependency, so an existing app installation is reused and a duplicate copy will not be added.
+
+**Lovable Setup**
+- Host `arcos-harmony-design-system-1.2.0.tgz` somewhere Lovable can download (public S3 bucket, GitHub release asset, or signed URL).
+- In the Lovable project’s `package.json`, add the dependency pointing at that URL, for example:
+  ```json
+  {
+    "dependencies": {
+      "arcos-harmony-design-system": "https://your-host.example/arcos-harmony-design-system-1.2.0.tgz"
+    }
+  }
+  ```
+- Trigger Lovable’s dependency install (or run `npm install`) and then import the tokens/theme as shown below.
 
 **Use In A React App**
 - Import CSS tokens and build the MUI theme from JSON:
-  - `import 'ux-design-system/theme/tokens.css'`
-  - `import 'ux-design-system/theme/theme.css'`
-  - `import { muiThemeJson } from 'ux-design-system'`
+  - `import 'arcos-harmony-design-system/theme/tokens.css'`
+  - `import 'arcos-harmony-design-system/theme/theme.css'`
+  - `import { muiThemeJson } from 'arcos-harmony-design-system'`
   - `import { ThemeProvider, CssBaseline } from '@mui/material'`
   - `import { createTheme, type ThemeOptions } from '@mui/material/styles'`
 
@@ -89,9 +97,9 @@ Example `App.tsx`:
 ```tsx
 import { ThemeProvider, CssBaseline, Button, Typography, Card, CardContent } from '@mui/material';
 import { createTheme, type ThemeOptions } from '@mui/material/styles';
-import { muiThemeJson } from 'ux-design-system';
-import 'ux-design-system/theme/tokens.css';
-import 'ux-design-system/theme/theme.css';
+import { muiThemeJson } from 'arcos-harmony-design-system';
+import 'arcos-harmony-design-system/theme/tokens.css';
+import 'arcos-harmony-design-system/theme/theme.css';
 
 const theme = createTheme(muiThemeJson as ThemeOptions);
 
@@ -112,19 +120,20 @@ export default function App() {
 ```
 
 **What The Package Exposes**
-- JSON exports: `muiThemeJson`, `themeFlat`, `coreFlat`, `themeMuiFlat`, `coreMuiFlat` from `ux-design-system`.
-- CSS tokens: import via subpaths `ux-design-system/theme/tokens.css`, `ux-design-system/theme/theme.css`, `ux-design-system/theme/core.css`.
+- JSON exports: `muiThemeJson`, `themeFlat`, `coreFlat`, `themeMuiFlat`, `coreMuiFlat` from `arcos-harmony-design-system`.
+- CSS tokens: import via subpaths `arcos-harmony-design-system/theme/tokens.css`, `arcos-harmony-design-system/theme/theme.css`, `arcos-harmony-design-system/theme/core.css`.
 
 **ESM vs CJS**
 - The package supports both ESM and CommonJS consumers.
-- ESM (recommended): `import { muiThemeJson } from 'ux-design-system'`
-- CJS: `const { muiThemeJson } = require('ux-design-system')`
+- ESM (recommended): `import { muiThemeJson } from 'arcos-harmony-design-system'`
+- CJS: `const { muiThemeJson } = require('arcos-harmony-design-system')`
 - Subpath CSS imports work identically in both module systems.
+- Node’s native ESM loader still requires the `--experimental-json-modules` flag for JSON imports; if you cannot enable it, fall back to the CommonJS entry (`require`).
 
 **CSS‑Only Usage (no MUI)**
 - Import the CSS files in your app entry:
-  - `import 'ux-design-system/theme/tokens.css'`
-  - `import 'ux-design-system/theme/theme.css'` (semantic theme variables)
+  - `import 'arcos-harmony-design-system/theme/tokens.css'`
+  - `import 'arcos-harmony-design-system/theme/theme.css'` (semantic theme variables)
 - Use CSS variables directly in your styles:
 ```css
 /* app.css */
@@ -187,7 +196,7 @@ export default function App() {
 **Local Development Options**
 - Live link instead of tarball:
   - In `ux-design-system`: `npm link`
-  - In your app: `npm link ux-design-system`
+  - In your app: `npm link arcos-harmony-design-system`
 - Rebuild the package after changes: `cd ux-design-system && npm run build && npm pack`
 
 **Publishing (optional)**
@@ -196,5 +205,5 @@ export default function App() {
   - `cd ux-design-system && npm publish`
 
 **Troubleshooting**
-- “Missing ./dist/theme/… specifier”: Import CSS via `ux-design-system/theme/...` (subpath exports), not `dist/...`.
-- “Could not find a declaration for module 'ux-design-system'”: Ensure you’re on the latest tarball; it includes `dist/index.d.ts`.
+- “Missing ./dist/theme/… specifier”: Import CSS via `arcos-harmony-design-system/theme/...` (subpath exports), not `dist/...`.
+- “Could not find a declaration for module 'arcos-harmony-design-system'”: Ensure you’re on the latest tarball; it includes `dist/index.d.ts`.
